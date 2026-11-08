@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Pollkadot — US elections, county by county, sized by people</title>
+<meta name="description" content="Pollkadot maps every US county's election results with each county sized by its population (or votes, electoral votes, GDP and more), from 2008 to today.">
+<meta property="og:title" content="Pollkadot"><meta property="og:description" content="US elections, county by county, sized by people.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='11' cy='12' r='8' fill='%232f6fd8'/%3E%3Ccircle cx='23' cy='10' r='5' fill='%23d63b3b'/%3E%3Ccircle cx='20' cy='23' r='7' fill='%238a54a8'/%3E%3C/svg%3E">
+<style>
+:root{--bg:#f6f5f2;--panel:#fff;--ink:#1d1d1f;--muted:#6b6b70;--line:#e3e1dc;--chip:#ecebe6;--hover:#e2e0da;--dem:#2f6fd8;--rep:#d63b3b;--oth:#bdbbb6}
+@media (prefers-color-scheme: dark){:root{--bg:#141416;--panel:#1f1f23;--ink:#ececee;--muted:#9a9aa1;--line:#2e2e34;--chip:#2a2a2f;--hover:#36363c;--oth:#55555b}}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font:14px/1.35 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit}
+#app{display:flex;flex-direction:column;height:100%;max-width:1200px;margin:0 auto}
+header{padding:14px 16px 4px;text-align:center}
+.title{font-size:28px;font-weight:700;letter-spacing:-.02em;line-height:1.25;white-space:nowrap}
+.dd{border:0;background:none;padding:0;margin:0;font:inherit;letter-spacing:inherit;cursor:pointer;text-decoration:underline;text-decoration-color:transparent;text-decoration-thickness:2px;text-underline-offset:5px;transition:text-decoration-color .12s}
+.dd:hover,.dd:focus-visible,.dd.open{text-decoration-color:var(--muted);outline:none}
+header{position:relative}
+#infobtn{position:absolute;right:14px;top:14px;display:flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:5px 11px 5px 8px;font-size:12.5px;cursor:pointer;color:var(--muted);transition:background .12s}
+#infobtn:hover{background:var(--hover);color:var(--ink)}
+#infobtn.warn{color:#b97800;border-color:#e6c27a;background:rgba(224,161,0,.1)}
+@media (prefers-color-scheme: dark){#infobtn.warn{color:#f0b429;border-color:#6b5320;background:rgba(240,180,41,.1)}}
+@media (max-width:640px){#infobtn .t{display:none}#infobtn{padding:5px 7px}}
+#pv{margin:8px auto 0;max-width:640px;position:relative}
+#pvnames{display:flex;justify-content:space-between;font-size:13px;font-variant-numeric:tabular-nums;gap:8px}
+#pvnames b{font-weight:650}
+#pvbar{height:10px;border-radius:5px;overflow:hidden;display:flex;background:var(--chip);margin:4px 0 3px}
+#pvbar div{transition:filter .1s}#pvbar div:hover{filter:brightness(1.12)}
+#pvcap{font-size:11.5px;color:var(--muted)}
+#stage{position:relative;flex:1;min-height:240px;touch-action:none;margin:6px 10px 10px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--bg)}
+canvas#map{position:absolute;inset:0;width:100%;height:100%;display:block}
+#busy{position:absolute;left:50%;top:8px;transform:translateX(-50%);font-size:12px;color:var(--muted);background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:3px 10px;display:none}
+.tipbox{position:absolute;pointer-events:none;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:12.5px;box-shadow:0 8px 28px rgba(0,0,0,.16);min-width:200px;max-width:280px;display:none;z-index:25;text-align:left}
+.tipbox b{font-size:14px}.sub{color:var(--muted);font-size:12px}
+#pvtip{position:fixed}
+.bar{height:6px;border-radius:3px;margin:7px 0 5px;overflow:hidden;display:flex;background:var(--chip)}
+.tipbox table{border-collapse:collapse;width:100%}.tipbox td{padding:1px 0}.tipbox td:last-child{text-align:right;font-variant-numeric:tabular-nums;padding-left:10px}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px}
+.ratio{margin-top:6px;padding-top:6px;border-top:1px solid var(--line);font-size:12px}
+.mapbtn{border:1px solid var(--line);background:var(--panel);border-radius:9px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .12s}
+.mapbtn:hover:not(:disabled){background:var(--hover)}.mapbtn:disabled{opacity:.35;cursor:default}
+.zoombtns{position:absolute;right:10px;top:10px;display:flex;flex-direction:column;gap:6px;z-index:2}
+.zoombtns .mapbtn{width:32px;height:32px;padding:0}
+.mapbtn svg{display:block}
+.zoombtns .gap{height:4px}
+#exportBtn{position:absolute;left:10px;top:10px;z-index:2;gap:7px;padding:6px 11px 6px 9px;font-size:13px;height:32px}
+#mapctl{position:absolute;left:10px;bottom:10px;z-index:2;display:flex;gap:6px}
+#mapctl .mapbtn{gap:7px;padding:6px 11px 6px 9px;font-size:13px;height:32px}
+#bordBtn .sw{width:26px;height:15px;border-radius:8px;background:var(--line);position:relative;flex:none;transition:background .15s}
+#bordBtn .sw::after{content:"";position:absolute;left:2px;top:2px;width:11px;height:11px;border-radius:50%;background:var(--panel);box-shadow:0 1px 2px rgba(0,0,0,.35);transition:left .15s}
+#bordBtn.on .sw{background:var(--ink)}#bordBtn.on .sw::after{left:13px}
+#bordBtn:disabled{border-style:dashed;opacity:.5}#bordBtn:disabled .sw{opacity:.4}
+#dock{margin:0 auto 10px;width:calc(100% - 20px);max-width:620px;background:var(--panel);border:1px solid var(--line);border-radius:16px}
+#dock .sec{padding:10px 12px}
+#dock .sec+.sec{border-top:1px solid var(--line)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px 12px}
+.field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.lbl{font-size:10.5px;color:var(--muted);letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lbl b{text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin-right:5px}
+.pill{border:1px solid var(--line);background:var(--chip);border-radius:10px;padding:7px 10px;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:8px;white-space:nowrap;min-width:0;width:100%;text-align:left;transition:background .12s}
+.pill .txt{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis}
+.pill .txt.none{color:var(--muted);font-weight:500}
+.pill .chev{color:var(--muted);font-size:11px;font-weight:400}
+.pill:hover:not(:disabled),.pill.open{background:var(--hover)}
+.ic{width:16px;height:16px;flex:none;display:block}
+.ringglyph{display:inline-block;width:13px;height:13px;border-radius:50%;border:1.6px solid var(--ink);flex:none}
+.seg{display:flex;background:var(--chip);border-radius:10px;padding:3px;border:1px solid var(--line)}
+.seg button{flex:1;border:0;background:transparent;padding:6px 10px;border-radius:7px;font-size:13.5px;cursor:pointer;white-space:nowrap;transition:background .12s}
+.seg button:hover:not(.on){background:var(--hover)}
+.seg button.on{background:var(--panel);box-shadow:0 1px 3px rgba(0,0,0,.18);font-weight:600}
+.legwrap{display:flex;gap:8px;align-items:stretch}
+#legend{position:relative;flex:1;min-width:0;height:104px;touch-action:none;user-select:none}
+#elabs{position:absolute;left:0;right:0;top:0;height:16px;font-size:11px;font-weight:600;font-variant-numeric:tabular-nums}
+#elabs span{position:absolute;top:0;white-space:nowrap;display:none}
+#curvebox{position:absolute;left:0;right:0;top:18px;height:52px;cursor:crosshair}
+#hist{position:absolute;inset:0;width:100%;height:100%}
+#legends{position:absolute;left:0;right:0;top:72px;font-size:10.5px;color:var(--muted);pointer-events:none;line-height:12px;height:12px}
+#legends span{position:absolute;top:0;white-space:nowrap}
+#chip{position:absolute;top:94px;height:0;display:none}
+#chip .in{position:absolute;transform:translate(-50%,-50%);top:0;display:flex;align-items:center;gap:6px;background:var(--chip);border:1px solid var(--line);border-radius:999px;padding:2px 4px 2px 10px;font-size:12px;white-space:nowrap;font-variant-numeric:tabular-nums}
+#chip b{font-weight:650}
+#clearSel{border:0;background:none;border-radius:999px;width:20px;height:20px;cursor:pointer;color:var(--muted);font-size:13px;line-height:1;display:flex;align-items:center;justify-content:center}
+#clearSel:hover{background:var(--hover);color:var(--ink)}
+.lz{display:flex;flex-direction:column;gap:4px;justify-content:center}
+.lz .mapbtn{width:24px;height:24px;font-size:14px;border-radius:7px}
+#menu{position:fixed;z-index:20;background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,.22);padding:6px;min-width:200px;max-width:min(340px,92vw);max-height:62vh;overflow:auto;display:none}
+#menu button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:0;background:none;padding:8px 10px;border-radius:9px;cursor:pointer;font-size:14px}
+#menu button:hover:not(:disabled){background:var(--hover)}
+#menu button .lab{flex:1;min-width:0}
+#menu button .ck{width:14px;flex:none;color:var(--muted);text-align:center;visibility:hidden}
+#menu button.on{font-weight:650}#menu button.on .ck{visibility:visible}
+#menu button:disabled{opacity:.4;cursor:default}
+#menu .d{display:block;font-size:11.5px;color:var(--muted);font-weight:400;margin-top:1px}
+#menu .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
+#menu .grid button{justify-content:center}#menu .grid button.on{background:var(--chip)}
+#sheet{position:fixed;inset:0;background:rgba(0,0,0,.35);display:none;z-index:30;align-items:flex-end;justify-content:center}
+#sheet.show{display:flex}
+#sheetbox{background:var(--panel);width:100%;max-width:640px;max-height:84%;overflow:auto;border-radius:18px 18px 0 0;padding:16px 18px 26px;font-size:13.5px;line-height:1.45}
+#sheetbox h3{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin:16px 0 6px}
+#sheetbox h3:first-of-type{margin-top:4px}
+#sheetbox p{margin:6px 0}#sheetbox ul{margin:4px 0;padding-left:18px}#sheetbox li{margin:3px 0}
+#sheetbox .x{float:right;border:0;background:var(--chip);border-radius:999px;width:30px;height:30px;font-size:16px;cursor:pointer}
+#sheetbox .x:hover{background:var(--hover)}
+code{font-size:12px;background:var(--chip);padding:1px 4px;border-radius:4px}
+@media (min-width:760px){.title{font-size:32px}}
+</style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <button id="infobtn" title="Details and sources"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="8" cy="8" r="6.2"/><path d="M8 7.2v4"/><circle cx="8" cy="4.8" r=".4" fill="currentColor"/></svg><span class="t">Details</span></button>
+    <div class="title"><button class="dd" id="ddYear"></button> <button class="dd" id="ddRace"></button></div>
+    <div id="pv"><div id="pvnames"></div><div id="pvbar"></div><div id="pvcap"></div></div>
+  </header>
+  <div id="stage">
+    <canvas id="map"></canvas><div id="busy">Loading shapes…</div><div id="tip" class="tipbox"></div>
+    <div class="zoombtns">
+      <button class="mapbtn" id="zin" title="Zoom in" aria-label="Zoom in"><svg width="14" height="14" viewBox="0 0 14 14" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M7 2v10M2 7h10"/></svg></button>
+      <button class="mapbtn" id="zout" title="Zoom out" aria-label="Zoom out"><svg width="14" height="14" viewBox="0 0 14 14" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M2 7h10"/></svg></button>
+    </div>
+    <button class="mapbtn" id="exportBtn" title="Save the full map as a PNG" style="display:none"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2.5v7.5M4.8 7l3.2 3.2L11.2 7M3 12.5h10"/></svg><span>Export PNG</span></button>
+    <div id="mapctl"><button class="mapbtn" id="shapeBtn"></button><button class="mapbtn" id="bordBtn" title="Show state borders"></button></div>
+  </div>
+  <div id="dock">
+    <div class="sec">
+      <div class="grid2">
+        <div class="field"><span class="lbl" id="lblSize"></span><button class="pill" id="ddMetric"></button></div>
+        <div class="field"><span class="lbl" id="lblRing"></span><button class="pill" id="ddCmp"></button></div>
+        <div class="field"><span class="lbl"><b>Color</b></span><div class="seg" id="shadeSeg"><button data-s="share">Vote share</button><button data-s="winner">Winner</button></div></div>
+        <div class="field"><span class="lbl"><b>Show</b></span><div class="seg" id="granSeg"><button data-g="county">Counties</button><button data-g="state">States</button></div></div>
+      </div>
+    </div>
+    <div class="sec">
+      <div class="legwrap">
+        <div id="legend">
+          <div id="elabs"><span id="elLo"></span><span id="elHi"></span></div>
+          <div id="curvebox"><canvas id="hist"></canvas></div>
+          <div id="legends"><span id="lgA"></span><span id="lgB"></span><span id="lgC"></span></div>
+          <div id="chip"><div class="in"><span id="chiptxt"></span><button id="clearSel" title="Clear selection (Esc)" aria-label="Clear selection">✕</button></div></div>
+        </div>
+        <div class="lz"><button class="mapbtn" id="lzin" title="Zoom into the scale"><svg width="12" height="12" viewBox="0 0 14 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M7 2v10M2 7h10"/></svg></button><button class="mapbtn" id="lzout" title="Zoom out the scale"><svg width="12" height="12" viewBox="0 0 14 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 7h10"/></svg></button></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="menu"></div><div id="pvtip" class="tipbox"></div>
+<div id="sheet"><div id="sheetbox"></div></div>
+<input type="file" id="csvin" accept=".csv,text/csv,text/plain" style="display:none">
+<script>
+"use strict";
+// ================= OKLab =================
+function s2l(c){c/=255;return c<=0.04045?c/12.92:Math.pow((c+0.055)/1.055,2.4)}
+function l2s(c){c=c<=0.0031308?12.92*c:1.055*Math.pow(c,1/2.4)-0.055;return Math.max(0,Math.min(255,Math.round(c*255)))}
+function hexToLab(h){const n=parseInt(h.slice(1),16);const r=s2l(n>>16&255),g=s2l(n>>8&255),b=s2l(n&255);
+  const l=Math.cbrt(0.4122214708*r+0.5363325363*g+0.0514459929*b),m=Math.cbrt(0.2119034982*r+0.6806995451*g+0.1073969566*b),s=Math.cbrt(0.0883024619*r+0.2817188376*g+0.6299787005*b);
+  return [0.2104542553*l+0.7936177850*m-0.0040720468*s,1.9779984951*l-2.4285922050*m+0.4505937099*s,0.0259040371*l+0.7827717662*m-0.8086757660*s]}
+function labToRgb(L,a,b){const l=Math.pow(L+0.3963377774*a+0.2158037573*b,3),m=Math.pow(L-0.1055613458*a-0.0638541728*b,3),s=Math.pow(L-0.0894841775*a-1.2914855480*b,3);
+  return [l2s(4.0767416621*l-3.3077115913*m+0.2309699292*s),l2s(-1.2684380046*l+2.6097574011*m-0.3413193965*s),l2s(-0.0041960695*l-0.7034186147*m+1.7076147010*s)]}
+const dark=matchMedia('(prefers-color-scheme: dark)').matches;
+const DEM=hexToLab('#2f6fd8'),REP=hexToLab('#d63b3b'),NONE=hexToLab(dark?'#3a3a40':'#d9d7d2');
+const LUTN=1024,LUT=new Uint8ClampedArray(3*(LUTN+1));
+for(let i=0;i<=LUTN;i++){const t=i/LUTN;const c=labToRgb(DEM[0]+(REP[0]-DEM[0])*t,DEM[1]+(REP[1]-DEM[1])*t,DEM[2]+(REP[2]-DEM[2])*t);LUT[3*i]=c[0];LUT[3*i+1]=c[1];LUT[3*i+2]=c[2]}
+const NONERGB=labToRgb(NONE[0],NONE[1],NONE[2]);
+const lutCss=t=>{const i=3*Math.round(Math.min(1,Math.max(0,t))*LUTN);return`rgb(${LUT[i]},${LUT[i+1]},${LUT[i+2]})`};
+function colorOf(t,none){const L=[DEM[0]+(REP[0]-DEM[0])*t,DEM[1]+(REP[1]-DEM[1])*t,DEM[2]+(REP[2]-DEM[2])*t];
+  if(none>0)for(let k=0;k<3;k++)L[k]+=(NONE[k]-L[k])*none;const c=labToRgb(L[0],L[1],L[2]);return 'rgb('+c[0]+','+c[1]+','+c[2]+')'}
+// ================= data =================
+async function gunzip(buf){return new Response(new Blob([buf]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer()}
+async function getBin(path){const r=await fetch(path);if(!r.ok)throw new Error(path+' '+r.status);return gunzip(await r.arrayBuffer())}
+let D,NC,NP,E,ringPt,ringStart,countyRing,circParam;const shared={},cache={};
+let NS,SIDS,stOf,stMembers,stRep,stCent,stArcs;  // state structures
+const KM2=35.4527;
+function decodeShared(buf){const d=new Int16Array(buf);const fr=D.frame;const out=new Float32Array(2*NP);let x=0,y=0;for(let i=0;i<NP;i++){x+=d[2*i];y+=d[2*i+1];out[2*i]=fr.x0+x/fr.q;out[2*i+1]=fr.y0+y/fr.q}return out}
+function expandShared(s){const o=new Float32Array(2*E);for(let k=0;k<E;k++){const p=ringPt[k];o[2*k]=s[2*p];o[2*k+1]=s[2*p+1]}return o}
+function expandCircles(c){const o=new Float32Array(2*E);for(let i=0;i<NC;i++){const cx=c[i],cy=c[NC+i],r=c[2*NC+i];for(const ri of countyRing[i])for(let k=ringStart[ri];k<ringStart[ri+1];k++){const a=circParam[k];if(a!==a||r===0){o[2*k]=cx;o[2*k+1]=cy}else{o[2*k]=cx+r*Math.cos(a);o[2*k+1]=cy+r*Math.sin(a)}}}return o}
+const weightsFor=(m,k)=>D.weights[m+'|'+k];
+function stateSum(arr){const o=new Float64Array(NS);for(let i=0;i<NC;i++)o[stOf[i]]+=arr[i];return o}
+// ---- layouts ----
+function placeCircles(metric,key){const w=weightsFor(metric,key),k=D.scales[metric],c=new Float32Array(3*NC);for(let i=0;i<NC;i++){c[i]=D.cent[i][0];c[NC+i]=D.cent[i][1];c[2*NC+i]=Math.sqrt(Math.max(0,w[i])*k/Math.PI)}return c}
+function stateCircles(metric,key,packed){ // one circle per state, stored on the state's representative county
+  const W=stateSum(weightsFor(metric,key)),k=D.scales[metric];const p=stCent.map(q=>q.slice());const r=Array.from(W,w=>Math.sqrt(Math.max(0,w)*k/Math.PI));
+  if(packed){for(let it=0;it<900;it++){const pull=it<600?0.02*(1-it/600):0;const mv=p.map(()=>[0,0]);let any=false;
+      for(let a=0;a<NS;a++)for(let b=a+1;b<NS;b++){const dx=p[b][0]-p[a][0],dy=p[b][1]-p[a][1];const d=Math.hypot(dx,dy)||1e-6;const ov=r[a]+r[b]+0.6-d;if(ov>0){any=true;const ux=dx/d,uy=dy/d,ma=r[a]*r[a],mb=r[b]*r[b],wa=mb/(ma+mb),wb=ma/(ma+mb);
+        mv[a][0]-=ux*ov*wa*0.6;mv[a][1]-=uy*ov*wa*0.6;mv[b][0]+=ux*ov*wb*0.6;mv[b][1]+=uy*ov*wb*0.6}}
+      for(let s=0;s<NS;s++){p[s][0]+=mv[s][0]+pull*(stCent[s][0]-p[s][0]);p[s][1]+=mv[s][1]+pull*(stCent[s][1]-p[s][1])}if(!any&&it>=600)break}}
+  const c=new Float32Array(3*NC);for(let i=0;i<NC;i++){const s=stOf[i];c[i]=p[s][0];c[NC+i]=p[s][1];c[2*NC+i]=stRep[s]===i?r[s]:0}return c}
+async function layoutFor(method,metric,key,gran){const id=[method,metric,key,gran].join('|');if(cache[id])return cache[id];
+  return cache[id]=(async()=>{
+    if(method==='contig'){const v=D.variants['contig|'+metric+'|'+key];if(!shared[v.file])shared[v.file]=decodeShared(await getBin(v.file));const pos=expandShared(shared[v.file]);return{id,type:'shape',shared:shared[v.file],pos,cent:polyCentroids(pos)}}
+    if(gran==='state')return{id,type:'circ',c:stateCircles(metric,key,method==='circ'),overlap:method==='place'};
+    if(method==='place')return{id,type:'circ',c:placeCircles(metric,key),overlap:true};
+    const v=D.variants['circ|'+metric+'|'+key];return{id,type:'circ',c:new Float32Array(await getBin(v.file)),overlap:false}})()}
+function polyCentroids(pos){ // per county [cx,cy,area] of the current shape, and per state
+  const cc=new Float64Array(3*NC);for(let i=0;i<NC;i++){let A=0,X=0,Y=0;for(const r of countyRing[i]){const s=ringStart[r],e=ringStart[r+1];for(let k=s;k<e;k++){const k2=k+1<e?k+1:s;const x0=pos[2*k],y0=pos[2*k+1],x1=pos[2*k2],y1=pos[2*k2+1];const cr=x0*y1-x1*y0;A+=cr;X+=(x0+x1)*cr;Y+=(y0+y1)*cr}}
+    if(Math.abs(A)<1e-9){cc[3*i]=pos[2*ringStart[countyRing[i][0]]];cc[3*i+1]=pos[2*ringStart[countyRing[i][0]]+1];cc[3*i+2]=0}else{cc[3*i]=X/(3*A);cc[3*i+1]=Y/(3*A);cc[3*i+2]=Math.abs(A)/2}}
+  const sc=new Float64Array(3*NS);for(let i=0;i<NC;i++){const s=stOf[i],a=cc[3*i+2];sc[3*s]+=cc[3*i]*a;sc[3*s+1]+=cc[3*i+1]*a;sc[3*s+2]+=a}for(let s=0;s<NS;s++){sc[3*s]/=sc[3*s+2]||1;sc[3*s+1]/=sc[3*s+2]||1}
+  return{county:cc,state:sc}}
+function buildGeometry(){const pts=[],starts=[0],cr=[];let ri=0;
+  for(const rings of D.polys){const mine=[];for(const r of rings){r.forEach((a,j)=>{const k=a>=0?a:~a;const s=D.arcOff[k],e=D.arcOff[k+1];const seq=[];for(let i=s;i<e;i++)seq.push(i);if(a<0)seq.reverse();for(let i=(j?1:0);i<seq.length;i++)pts.push(seq[i])});starts.push(pts.length);mine.push(ri++)}cr.push(mine)}
+  ringPt=Int32Array.from(pts);ringStart=Int32Array.from(starts);countyRing=cr;E=pts.length;const g=shared.geo;circParam=new Float32Array(E).fill(NaN);
+  for(let i=0;i<NC;i++){let best=-1,ba=0;for(const r of countyRing[i]){let a=0;for(let k=ringStart[r];k<ringStart[r+1]-1;k++){const p=ringPt[k],q=ringPt[k+1];a+=g[2*p]*g[2*q+1]-g[2*q]*g[2*p+1]}if(Math.abs(a)>Math.abs(ba)){ba=a;best=r}}
+    const s=ringStart[best],e=ringStart[best+1];const cx=D.cent[i][0],cy=D.cent[i][1];let per=0;const cum=[0];for(let k=s+1;k<e;k++){const p=ringPt[k-1],q=ringPt[k];per+=Math.hypot(g[2*q]-g[2*p],g[2*q+1]-g[2*p+1]);cum.push(per)}
+    const p0=ringPt[s];const a0=Math.atan2(g[2*p0+1]-cy,g[2*p0]-cx);const dir=ba>0?1:-1;for(let k=s;k<e;k++)circParam[k]=a0+dir*2*Math.PI*cum[k-s]/(per||1)}
+  // states
+  SIDS=[...new Set(D.st)].sort();NS=SIDS.length;const sidx=new Map(SIDS.map((s,i)=>[s,i]));stOf=Int16Array.from(D.st.map(s=>sidx.get(s)));
+  stMembers=SIDS.map(()=>[]);for(let i=0;i<NC;i++)stMembers[stOf[i]].push(i);
+  const pop=D.weights['pop|2020'];stRep=stMembers.map(m=>m.reduce((b,i)=>pop[i]>pop[b]?i:b,m[0]));
+  stCent=stMembers.map(m=>{let a=0,x=0,y=0;for(const i of m){const w=D.area[i];a+=w;x+=D.cent[i][0]*w;y+=D.cent[i][1]*w}return[x/a,y/a]});
+  // state boundary arcs per state (for outlines/selection)
+  const use=Array.from({length:D.arcOff.length-1},()=>new Set());for(let i=0;i<NC;i++)for(const r of D.polys[i])for(const a of r)use[a>=0?a:~a].add(stOf[i]);
+  stArcs=SIDS.map(()=>[]);for(const a of D.stateArcs)for(const s of use[a])stArcs[s].push(a)}
+// ================= state =================
+const st={metric:'pop',method:'circ',shade:'share',cmp:'none',gran:'county',borders:false,contest:null};
+let disp=null,dispL=null,colT,colN,colV,winnerness=0,lineShared=null,lineAlpha=0,ringC=null,ringAlpha=0,ringKey=null,outl=null,animId=0,hl=null;
+const cv=document.getElementById('map');let ctx;let W=0,H=0,DPR=1,view={k:1,x:0,y:0},fit={k:1,x:0,y:0};
+const metricInfo=k=>D.metrics.find(m=>m.key===k);
+const wkeyFor=(c,m)=>c.w[m]??null;
+const metricAvailable=(c,m)=>{const wk=wkeyFor(c,m);return wk!=null&&!!D.weights[m+'|'+wk]};
+const UNIT=()=>st.gran==='state'?{one:'state',many:'states'}:{one:'county',many:'counties'};
+let aggCache=new Map();
+function stateAgg(c){if(aggCache.has(c)&&!c.placeholder)return aggCache.get(c);const d=new Float64Array(NS),r=new Float64Array(NS),o=new Float64Array(NS);
+  for(let i=0;i<NC;i++){if(c.dedupe[i])continue;const s=stOf[i];d[s]+=c.dem[i];r[s]+=c.rep[i];o[s]+=c.oth[i]}const a={d,r,o};aggCache.set(c,a);return a}
+// per-unit values: units are counties or states; unitOf(i) maps county -> unit index
+const unitOf=i=>st.gran==='state'?stOf[i]:i;
+const NU=()=>st.gran==='state'?NS:NC;
+function unitVotes(c){if(st.gran==='state'){const a=stateAgg(c);return a}return{d:c.dem,r:c.rep,o:c.oth}}
+function unitWeights(m,key){const w=weightsFor(m,key);return st.gran==='state'?stateSum(w):w}
+function unitSkip(c,u){return st.gran==='county'&&c.dedupe[u]}
+function contestArrays(c){const t=new Float32Array(NC),n=new Float32Array(NC),v=new Float32Array(NC);const U=unitVotes(c);
+  for(let i=0;i<NC;i++){const u=unitOf(i);const d=U.d[u],r=U.r[u];if(d+r>0){t[i]=r/(d+r);v[i]=d+r}else{t[i]=0.5;n[i]=1}}return{t,n,v}}
+const ease=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+function lerpArr(a,b,e,out){for(let i=0;i<out.length;i++)out[i]=a[i]+(b[i]-a[i])*e;return out}
+// ================= comparison rings / outlines =================
+let geoE=null;
+function compareShares(){const c=st.contest;if(st.cmp==='none')return null;const wk=wkeyFor(c,st.metric),bk=wkeyFor(c,st.cmp);
+  const w=unitWeights(st.metric,wk),b=unitWeights(st.cmp,bk);if(!w||!b)return null;let sw=0,sb=0;for(let u=0;u<w.length;u++){sw+=w[u];sb+=b[u]}return{w,b,sw,sb}}
+function computeCompare(L){const S=compareShares();if(!S)return null;const{w,b,sw,sb}=S;
+  if(L.type==='circ'){const r=new Float32Array(NC);for(let i=0;i<NC;i++){const u=unitOf(i),ri=L.c[2*NC+i];r[i]=ri>0&&w[u]>0?ri*Math.sqrt((b[u]/sb)/(w[u]/sw)):0}return{kind:'ring',r}}
+  const share=new Float32Array(w.length);for(let u=0;u<w.length;u++)share[u]=b[u]/sb;const o={kind:'outline',share,gran:st.gran};
+  if(st.gran==='county')o.E=outlineExpanded(L,share);return o}
+function outlineExpanded(L,share){ // each county's real (geographic) shape, centred on its spot in the cartogram, area = share x total map area
+  const cent=L.cent;if(!geoE)geoE=expandShared(shared.geo);let Atot=0;for(let i=0;i<NC;i++)Atot+=cent.county[3*i+2];const out=new Float32Array(2*E);
+  for(let i=0;i<NC;i++){let f=Math.sqrt(share[i]*Atot/D.area[i]);if(!isFinite(f))f=0;const cx=cent.county[3*i],cy=cent.county[3*i+1],gx=D.cent[i][0],gy=D.cent[i][1];
+    for(const r of countyRing[i])for(let k=ringStart[r];k<ringStart[r+1];k++){out[2*k]=cx+(geoE[2*k]-gx)*f;out[2*k+1]=cy+(geoE[2*k+1]-gy)*f}}return out}
+function ringExpanded(c,r){const t=new Float32Array(3*NC);t.set(c.subarray(0,2*NC));t.set(r,2*NC);return expandCircles(t)}
+// ================= main loop =================
+let animating=false,ringE=null; // ringE: expanded outline positions while morphing between circles and contiguous
+async function go(){
+  const c=st.contest;if(!metricAvailable(c,st.metric))st.metric='pop';if(st.cmp!=='none'&&(!metricAvailable(c,st.cmp)||st.cmp===st.metric))st.cmp='none';
+  renderUI();const my=++animId;const busy=document.getElementById('busy');const tmo=setTimeout(()=>busy.style.display='block',150);let L;
+  try{L=await layoutFor(st.method,st.metric,wkeyFor(c,st.metric),st.gran)}catch(e){busy.textContent='Could not load shapes';return}
+  clearTimeout(tmo);busy.style.display='none';if(my!==animId)return;
+  const A=contestArrays(c),wTo=st.shade==='winner'?1:0,toLine=L.type==='shape'?1:0,cmp=computeCompare(L);
+  computeCurve();
+  const finish=()=>{disp=L.type==='circ'?{type:'circ',c:L.c.slice(),overlap:L.overlap?1:0}:{type:'shape',pos:L.pos.slice()};dispL=L;lineShared=L.shared||null;
+    ringC=cmp&&cmp.kind==='ring'?cmp.r:null;outl=cmp&&cmp.kind==='outline'?cmp:null;ringAlpha=cmp?1:0;ringE=null;animating=false;colorVer++};
+  if(!disp){finish();colT=A.t;colN=A.n;colV=A.v;winnerness=wTo;lineAlpha=toLine;draw();updateTip();return}
+  const sameLayout=dispL&&dispL.id===L.id;
+  const fT=colT.slice(),fN=colN.slice(),fV=colV.slice(),fW=winnerness,fLine=lineAlpha,fRingA=ringAlpha,fRing=ringC,fOutl=outl;
+  let mode,fromC,toC,fromP,toP,fromOv,toOv;
+  if(disp.type==='circ'&&L.type==='circ'){mode='circ';fromC=disp.c.slice();toC=L.c;fromOv=disp.overlap;toOv=L.overlap?1:0}
+  else{mode='shape';fromP=disp.type==='circ'?expandCircles(disp.c):disp.pos.slice();toP=L.type==='circ'?expandCircles(L.c):L.pos;disp={type:'shape',pos:fromP.slice()}}
+  // how the comparison lines travel: radii lerp (circle->circle), vertex morph (county circles <-> county outlines), else cross-fade
+  const newRing=cmp&&cmp.kind==='ring'?cmp.r:null;
+  let rmode='fade',fromRE=null,toRE=null;
+  if(fRing&&newRing&&mode==='circ')rmode='radii';
+  else if(fOutl&&cmp&&cmp.kind==='outline'&&sameLayout&&fOutl.gran===cmp.gran)rmode='stay';
+  else{const fe=fOutl&&fOutl.E?fOutl.E:(fRing&&dispL.type==='circ'&&st.gran==='county'?ringExpanded(dispL.c,fRing):null);
+    const te=cmp&&cmp.kind==='outline'&&cmp.E?cmp.E:(newRing&&L.type==='circ'&&st.gran==='county'?ringExpanded(L.c,newRing):null);
+    if(fe&&te&&fRingA>0.5){rmode='morph';fromRE=fe;toRE=te}}
+  const lineFrom=lineShared,lineTo=L.shared||null;let lp=null,rr=null;const t0=performance.now(),dur=sameLayout?450:950;animating=true;
+  if(rmode==='morph'){ringC=null;outl=null;ringE=fromRE.slice()}
+  const step=now=>{if(my!==animId)return;const tt=Math.min(1,(now-t0)/dur),e=ease(tt);
+    lerpArr(fT,A.t,e,colT);lerpArr(fN,A.n,e,colN);lerpArr(fV,A.v,e,colV);winnerness=fW+(wTo-fW)*e;
+    if(mode==='circ'){lerpArr(fromC,toC,e,disp.c);disp.overlap=fromOv+(toOv-fromOv)*e}else lerpArr(fromP,toP,e,disp.pos);
+    lineAlpha=fLine+(toLine-fLine)*e;if(lineFrom&&lineTo&&lineFrom!==lineTo){if(!lp)lp=new Float32Array(lineTo.length);lerpArr(lineFrom,lineTo,e,lp);lineShared=lp}else lineShared=lineTo||lineFrom;
+    if(rmode==='radii'){if(!rr)rr=new Float32Array(NC);ringC=lerpArr(fRing,newRing,e,rr);ringAlpha=1}
+    else if(rmode==='stay'){outl=cmp;ringAlpha=1}
+    else if(rmode==='morph'){lerpArr(fromRE,toRE,e,ringE);ringAlpha=1}
+    else{ringAlpha=cmp?Math.max(0,(tt-0.7)/0.3):fRingA*Math.max(0,1-tt*3);ringC=tt>0.7?newRing:(mode==='circ'?fRing:null);outl=tt>0.7?(cmp&&cmp.kind==='outline'?cmp:null):(fOutl&&sameLayout?fOutl:null)}
+    colorVer++;if(tt>=1)finish();draw();if(tt<1)requestAnimationFrame(step);else updateTip()};
+  requestAnimationFrame(step)}
+// ================= drawing =================
+const mctx=cv.getContext('2d'),bcv=document.createElement('canvas');ctx=bcv.getContext('2d');
+function resize(){const r=cv.getBoundingClientRect();DPR=Math.min(2,window.devicePixelRatio||1);W=r.width;H=r.height;cv.width=bcv.width=Math.round(W*DPR);cv.height=bcv.height=Math.round(H*DPR);
+  const b=D.bbox,pad=8;const k=Math.min((W-2*pad)/(b[2]-b[0]),(H-2*pad-40)/(b[3]-b[1]));fit={k,x:(W-(b[2]-b[0])*k)/2-b[0]*k,y:(H-40-(b[3]-b[1])*k)/2-b[1]*k};draw();drawLegend()}
+const T=()=>{const k=fit.k*view.k;return{k,ox:fit.x*view.k+view.x,oy:fit.y*view.k+view.y}};
+function dispT(i){const t=colT[i];return winnerness>0?t+((t>0.5?1:t<0.5?0:0.5)-t)*winnerness:t}
+const hf=i=>hl?hl[unitOf(i)]:1;
+let img=null,accR=null,accV=null,accN=null;
+function drawCirclesBlended(c){
+  // Pixel colour = OKLab(Σ R-weight / Σ vote-weight) over all circles covering the pixel; each circle's weight is its
+  // two-party votes per unit of circle area (its colour value is its share, or 0/1 in Winner mode).
+  const {k,ox,oy}=T();const RS=(interacting||animating)?Math.min(1,DPR):DPR;const w=Math.round(W*RS),h=Math.round(H*RS),s=k*RS;const DPR_=RS;
+  if(!img||img.width!==w||img.height!==h){img=ctx.createImageData(w,h);accR=new Float32Array(w*h);accV=new Float32Array(w*h);accN=new Float32Array(w*h)}else{accR.fill(0);accV.fill(0);accN.fill(0)}
+  const data=img.data;data.fill(0);
+  for(let i=0;i<NC;i++){const r=c[2*NC+i]*s;if(r<0.05)continue;const cx=(c[i]*k+ox)*DPR_,cy=(c[NC+i]*k+oy)*DPR_;const y0=Math.max(0,Math.floor(cy-r-1)),y1=Math.min(h-1,Math.ceil(cy+r+1));if(y0>y1||cx+r<0||cx-r>w)continue;
+    const hh=hf(i),dens=colV[i]/(Math.PI*r*r),rd=dens*dispT(i),nn=colN[i];
+    for(let y=y0;y<=y1;y++){const dy=y+0.5-cy;const half=Math.sqrt(Math.max(0,(r+1)*(r+1)-dy*dy));const x0=Math.max(0,Math.floor(cx-half)),x1=Math.min(w-1,Math.ceil(cx+half));let o=y*w+x0;
+      for(let x=x0;x<=x1;x++,o++){const dx=x+0.5-cx;const a=Math.min(1,Math.max(0,r-Math.sqrt(dx*dx+dy*dy)+0.5));if(a<=0)continue;if(nn<1){const q=a*hh*(1-nn);accV[o]+=q*dens;accR[o]+=q*rd}accN[o]=Math.min(1,accN[o]+a*hh)}}}
+  for(let o=0;o<w*h;o++){const cov=accN[o];if(cov<=0)continue;const p=4*o;if(accV[o]>0){const li=3*Math.round(accR[o]/accV[o]*LUTN);data[p]=LUT[li];data[p+1]=LUT[li+1];data[p+2]=LUT[li+2]}else{data[p]=NONERGB[0];data[p+1]=NONERGB[1];data[p+2]=NONERGB[2]}data[p+3]=Math.round(255*cov)}
+  // composite over whatever is already drawn (e.g. state borders) via a scratch canvas
+  if(!drawCirclesBlended.sc){drawCirclesBlended.sc=document.createElement('canvas')}const sc=drawCirclesBlended.sc;if(sc.width!==w||sc.height!==h){sc.width=w;sc.height=h}
+  sc.getContext('2d').putImageData(img,0,0);ctx.setTransform(1,0,0,1,0,0);ctx.imageSmoothingEnabled=true;ctx.drawImage(sc,0,0,w,h,0,0,bcv.width,bcv.height)}
+function drawCirclesFlat(c){const {k}=T();for(let i=0;i<NC;i++){const r=c[2*NC+i];if(r*k<0.05)continue;ctx.globalAlpha=hf(i);ctx.beginPath();ctx.arc(c[i],c[NC+i],r,0,2*Math.PI);ctx.fillStyle=colorOf(dispT(i),colN[i]);ctx.fill()}ctx.globalAlpha=1}
+function tracePath(pos,i){for(const r of countyRing[i]){const s=ringStart[r],e=ringStart[r+1];ctx.moveTo(pos[2*s],pos[2*s+1]);for(let k=s+1;k<e;k++)ctx.lineTo(pos[2*k],pos[2*k+1]);ctx.closePath()}}
+function arcsPath(pos,list,P=null){const t=P||ctx;for(const a of list){const s=D.arcOff[a],e=D.arcOff[a+1];t.moveTo(pos[2*s],pos[2*s+1]);for(let i=s+1;i<e;i++)t.lineTo(pos[2*i],pos[2*i+1])}}
+function strokeArcs(pos,list){ctx.beginPath();arcsPath(pos,list);ctx.stroke()}
+function whiteLine(k,w){ctx.strokeStyle='rgba(255,255,255,.95)';ctx.lineWidth=w/k;ctx.lineJoin='round'}
+function noShadow(){ctx.shadowColor='transparent';ctx.shadowBlur=0}
+function expandedPath(E2,skip){const P=new Path2D();for(let i=0;i<NC;i++){if(skip&&skip(i))continue;for(const r of countyRing[i]){const s=ringStart[r],e=ringStart[r+1];P.moveTo(E2[2*s],E2[2*s+1]);for(let k=s+1;k<e;k++)P.lineTo(E2[2*k],E2[2*k+1]);P.closePath()}}return P}
+const OTOL=0.3; // map units (~0.4 px at full view): outlines are guides, so tiny wiggles are dropped
+function decimatedPath(E2,skip){const P=new Path2D();for(let i=0;i<NC;i++){if(skip&&skip(i))continue;for(const r of countyRing[i]){const s=ringStart[r],e=ringStart[r+1];let lx=E2[2*s],ly=E2[2*s+1];P.moveTo(lx,ly);let n=0;
+  for(let k=s+1;k<e;k++){const x=E2[2*k],y=E2[2*k+1];if(Math.abs(x-lx)+Math.abs(y-ly)<OTOL)continue;P.lineTo(x,y);lx=x;ly=y;n++}P.closePath()}}return P}
+function outlinePath(o){ // cached per outline object (static shapes)
+  if(o.path&&o.pathHl===hl)return o.path;let P;
+  if(o.gran==='state'){P=new Path2D();const cent=dispL.cent,g=shared.geo;let Atot=0;for(let i=0;i<NC;i++)Atot+=cent.county[3*i+2];
+    for(let s=0;s<NS;s++){if(hl&&hl[s]<0.5)continue;let ga=0;for(const i of stMembers[s])ga+=D.area[i];const f=Math.sqrt(o.share[s]*Atot/ga);if(!(f>0))continue;const cx=cent.state[3*s],cy=cent.state[3*s+1],gx=stCent[s][0],gy=stCent[s][1];
+      for(const a of stArcs[s]){const p=D.arcOff[a],e=D.arcOff[a+1];let lx=cx+(g[2*p]-gx)*f,ly=cy+(g[2*p+1]-gy)*f;P.moveTo(lx,ly);
+        for(let q=p+1;q<e;q++){const x=cx+(g[2*q]-gx)*f,y=cy+(g[2*q+1]-gy)*f;if(q<e-1&&Math.abs(x-lx)+Math.abs(y-ly)<OTOL)continue;P.lineTo(x,y);lx=x;ly=y}}}}
+  else P=decimatedPath(o.E,i=>hl&&hl[i]<0.5);
+  o.path=P;o.pathHl=hl;return P}
+// ---- static path caches (map coordinates; reused across pan/zoom frames) ----
+let colorVer=0;const SC={};
+function groupPaths(kind){ // one Path2D per (colour, alpha) for the current shapes: ~hundreds of fills instead of 3,142
+  const key=kind+'|'+colorVer;if(SC.groups&&SC.groups.key===key&&SC.groups.disp===disp)return SC.groups.list;
+  const m=new Map();
+  for(let i=0;i<NC;i++){let P0;if(kind==='circ'){const r=disp.c[2*NC+i];if(!(r>0))continue;P0=null}const col=colorOf(dispT(i),colN[i]),a=hf(i),gk=col+'|'+a;let g=m.get(gk);if(!g){g={col,a,P:new Path2D()};m.set(gk,g)}
+    if(kind==='circ'){const c=disp.c,r=c[2*NC+i];g.P.moveTo(c[i]+r,c[NC+i]);g.P.arc(c[i],c[NC+i],r,0,2*Math.PI)}else g.P.addPath(disp.paths[i])}
+  const list=[...m.values()];SC.groups={key,disp,list};return list}
+function cachedArcs(name,pos,list){const c=SC[name];if(c&&c.pos===pos)return c.P;const P=new Path2D();arcsPath(pos,list,P);SC[name]={pos,P};return P}
+function ringPath(){if(SC.ring&&SC.ring.r===ringC&&SC.ring.disp===disp&&SC.ring.v===colorVer)return SC.ring.P;const P=new Path2D(),c=disp.c,thr=0;
+  for(let i=0;i<NC;i++){const r=ringC[i];if(!(r>0)||hf(i)<0.5)continue;P.moveTo(c[i]+r,c[NC+i]);P.arc(c[i],c[NC+i],r,0,2*Math.PI)}SC.ring={r:ringC,disp,v:colorVer,P};return P}
+let interacting=false,interactTimer=null;
+function markInteracting(){interacting=true;clearTimeout(interactTimer);interactTimer=setTimeout(()=>{interacting=false;if(disp&&(disp.type==='shape'||disp.overlap>0.001))requestDraw()},160)}
+// ---- contiguous: whole-map bitmap used while panning/zooming (always complete and exactly aligned) ----
+const EXT={canvas:null,key:null,S:1,x0:0,y0:0};let extTimer=null;
+function extKey(){return [disp,colorVer,st.gran,dark].map(v=>typeof v==='object'&&v?(v.__id||(v.__id=Math.random())):v).join('|')}
+function buildExtent(){if(!disp||disp.type!=='shape'||animating)return;const key=extKey();if(EXT.key===key)return;
+  const b=D.bbox,maxDim=Math.min(4096,innerWidth<700?2600:4096),bw=b[2]-b[0],bh=b[3]-b[1];const S=Math.min(maxDim/bw,maxDim/bh);
+  if(!EXT.canvas)EXT.canvas=document.createElement('canvas');const c=EXT.canvas;c.width=Math.ceil(bw*S);c.height=Math.ceil(bh*S);
+  const saved=ctx;ctx=c.getContext('2d');ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,c.width,c.height);ctx.setTransform(S,0,0,S,-b[0]*S,-b[1]*S);paintScene(fit.k*Math.max(1,view.k),'fills');ctx=saved;
+  Object.assign(EXT,{key,S,x0:b[0],y0:b[1]})}
+function scheduleExtent(){clearTimeout(extTimer);extTimer=setTimeout(buildExtent,60)}
+function renderBase(){const {k,ox,oy}=T();ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,bcv.width,bcv.height);
+  if(disp.type==='shape'&&!animating&&interacting&&EXT.key===extKey()){ctx.imageSmoothingEnabled=true;ctx.setTransform(k*DPR/EXT.S,0,0,k*DPR/EXT.S,(EXT.x0*k+ox)*DPR,(EXT.y0*k+oy)*DPR);ctx.drawImage(EXT.canvas,0,0);ctx.setTransform(DPR*k,0,0,DPR*k,DPR*ox,DPR*oy);paintScene(k,'lines');return}
+  ctx.setTransform(DPR*k,0,0,DPR*k,DPR*ox,DPR*oy);paintScene(k,'all');if(disp.type==='shape'&&!animating&&!interacting)scheduleExtent()}
+function paintScene(k,part){const F=part!=='lines',LN=part!=='fills';
+  // optional geographic state borders under circles
+  const bA=st.borders?(1-lineAlpha):0;if(LN&&bA>0.01){ctx.globalAlpha=bA;ctx.strokeStyle=dark?'rgba(255,255,255,.28)':'rgba(0,0,0,.22)';ctx.lineWidth=0.9/k;ctx.lineJoin='round';ctx.stroke(cachedArcs('geoB',shared.geo,D.stateArcs));ctx.globalAlpha=1}
+  if(!F){}else if(disp.type==='circ'&&disp.overlap>0.001){const t=T();drawCirclesBlended(disp.c);ctx.setTransform(DPR*t.k,0,0,DPR*t.k,DPR*t.ox,DPR*t.oy)}
+  else if(disp.type==='circ'){if(animating)drawCirclesFlat(disp.c);else for(const g of groupPaths('circ')){ctx.globalAlpha=g.a;ctx.fillStyle=g.col;ctx.fill(g.P)}ctx.globalAlpha=1}
+  else{if(!animating&&!disp.paths){disp.paths=[];for(let i=0;i<NC;i++){const P=new Path2D();for(const r of countyRing[i]){const s=ringStart[r],e=ringStart[r+1];P.moveTo(disp.pos[2*s],disp.pos[2*s+1]);for(let q=s+1;q<e;q++)P.lineTo(disp.pos[2*q],disp.pos[2*q+1]);P.closePath()}disp.paths.push(P)}}
+    ctx.lineWidth=0.35/k;ctx.lineJoin='round';
+    if(disp.paths&&!animating){for(const g of groupPaths('shape')){ctx.globalAlpha=g.a;ctx.fillStyle=ctx.strokeStyle=g.col;ctx.fill(g.P);ctx.stroke(g.P)}}
+    else for(let i=0;i<NC;i++){ctx.globalAlpha=hf(i);const s=colorOf(dispT(i),colN[i]);ctx.fillStyle=s;ctx.strokeStyle=s;ctx.beginPath();tracePath(disp.pos,i);ctx.fill();ctx.stroke()}
+    ctx.globalAlpha=1}
+  if(LN&&lineShared&&lineAlpha>0.01){ctx.globalAlpha=lineAlpha;ctx.lineJoin='round';const still=!animating;
+    if(view.k>2.5&&st.gran==='county'){ctx.strokeStyle=dark?'rgba(0,0,0,.35)':'rgba(255,255,255,.45)';ctx.lineWidth=0.5/k;if(still)ctx.stroke(cachedArcs('allL',lineShared,D.allArcs));else strokeArcs(lineShared,D.allArcs)}
+    ctx.strokeStyle=dark?'rgba(20,20,22,.9)':'rgba(255,255,255,.85)';ctx.lineWidth=0.8*Math.min(2,Math.sqrt(view.k))/k;if(still)ctx.stroke(cachedArcs('stL',lineShared,D.stateArcs));else strokeArcs(lineShared,D.stateArcs);ctx.globalAlpha=1}
+  // comparison lines (white)
+  if(LN&&ringAlpha>0.01){ctx.globalAlpha=ringAlpha;
+    if(ringE){whiteLine(k,0.9);ctx.stroke(expandedPath(ringE,i=>hl&&hf(i)<0.5))}
+    else if(outl&&disp.type==='shape'&&dispL&&dispL.type==='shape'){whiteLine(k,outl.gran==='state'?1.3:0.8);ctx.stroke(animating?(outl.gran==='county'?expandedPath(outl.E):outlinePath(outl)):outlinePath(outl))}
+    else if(ringC&&disp.type==='circ'){whiteLine(k,0.9);if(animating){ctx.beginPath();const c=disp.c;for(let i=0;i<NC;i++){const r=ringC[i];if(r*k<0.6||hf(i)<0.5)continue;ctx.moveTo(c[i]+r,c[NC+i]);ctx.arc(c[i],c[NC+i],r,0,2*Math.PI)}ctx.stroke()}else ctx.stroke(ringPath())}
+    noShadow();ctx.globalAlpha=1}}
+let drawPending=false;
+function requestDraw(){if(drawPending)return;drawPending=true;requestAnimationFrame(()=>{drawPending=false;draw()})}
+function draw(){document.getElementById('zout').disabled=view.k<=1;if(!disp)return;renderBase();drawOverlay()}
+function drawOverlay(){mctx.setTransform(1,0,0,1,0,0);mctx.clearRect(0,0,cv.width,cv.height);mctx.drawImage(bcv,0,0);drawSel()}
+function drawSel(){if(sel<0||!disp)return;
+  const {k,ox,oy}=T();const saved=ctx;ctx=mctx;ctx.setTransform(DPR*k,0,0,DPR*k,DPR*ox,DPR*oy);ctx.beginPath();
+  if(disp.type==='circ'){const c=disp.c;const i=st.gran==='state'?stRep[sel]:sel;ctx.arc(c[i],c[NC+i],Math.max(c[2*NC+i],1.5/k),0,2*Math.PI)}
+  else if(st.gran==='state'&&lineShared)arcsPath(lineShared,stArcs[sel]);else tracePath(disp.pos,sel);
+  ctx.strokeStyle='#fff';ctx.lineWidth=2.2/k;ctx.shadowColor='rgba(0,0,0,.55)';ctx.shadowBlur=3*DPR;ctx.stroke();ctx.shadowBlur=0;ctx.shadowColor='transparent';ctx=saved}
+// ================= curve, range selection, snapping, zoom =================
+const NX=300;let dens=null,xr=[0,1],selBand=null,preview=null,unitShares=[];
+const marg=(v,dp)=>{const m=(2*v-1)*100;const r=Math.abs(m)<0.05?0:m;if(r===0)return'even';const s=dp?Math.abs(r).toFixed(1).replace(/\.0$/,''):Math.round(Math.abs(r)).toString();return s==='0'?'even':(r<0?'D+':'R+')+s};
+function computeCurve(){const c=st.contest;const w=unitWeights(st.metric,wkeyFor(c,st.metric));const U=unitVotes(c);const n=NU();const sg=Math.max(0.0008,0.012*(xr[1]-xr[0])),inv=1/(2*sg*sg);
+  dens=new Float64Array(NX);unitShares=[];
+  for(let u=0;u<n;u++){if(unitSkip(c,u))continue;const d=U.d[u],r=U.r[u];if(d+r<=0)continue;const t=r/(d+r);unitShares.push(t);if(!(w[u]>0))continue;
+    const j0=Math.max(0,Math.floor(((t-4*sg)-xr[0])/(xr[1]-xr[0])*NX)),j1=Math.min(NX-1,Math.ceil(((t+4*sg)-xr[0])/(xr[1]-xr[0])*NX));
+    for(let j=j0;j<=j1;j++){const x=xr[0]+(j+0.5)/NX*(xr[1]-xr[0])-t;dens[j]+=w[u]*Math.exp(-x*x*inv)}}
+  unitShares.sort((a,b)=>a-b);applyBand();drawLegend()}
+const tx=(t,Wc)=>(t-xr[0])/(xr[1]-xr[0])*Wc;
+function curvePath(g,Wc,Hc){const mx=Math.max(...dens)||1;g.beginPath();g.moveTo(0,Hc);for(let j=0;j<NX;j++)g.lineTo((j+0.5)/NX*Wc,Hc-dens[j]/mx*(Hc-2));g.lineTo(Wc,Hc);g.closePath()}
+function drawLegend(){if(!dens)return;
+  const hc=document.getElementById('hist');const r=hc.getBoundingClientRect();if(!r.width)return;hc.width=Math.round(r.width*DPR);hc.height=Math.round(r.height*DPR);const h=hc.getContext('2d');h.clearRect(0,0,hc.width,hc.height);
+  const grad=h.createLinearGradient(0,0,hc.width,0);for(let k=0;k<=16;k++)grad.addColorStop(k/16,lutCss(xr[0]+k/16*(xr[1]-xr[0])));
+  const band=selBand||preview;h.globalAlpha=band?0.22:0.85;h.fillStyle=grad;curvePath(h,hc.width,hc.height);h.fill();h.globalAlpha=1;
+  if(0.5>xr[0]&&0.5<xr[1]){const x=tx(0.5,hc.width);h.strokeStyle=dark?'rgba(255,255,255,.35)':'rgba(0,0,0,.22)';h.lineWidth=DPR;h.setLineDash([3*DPR,3*DPR]);h.beginPath();h.moveTo(x,0);h.lineTo(x,hc.height);h.stroke();h.setLineDash([])}
+  const elLo=document.getElementById('elLo'),elHi=document.getElementById('elHi'),chip=document.getElementById('chip');
+  if(band){const x0=Math.max(0,tx(band[0],hc.width)),x1=Math.min(hc.width,tx(band[1],hc.width));h.save();h.beginPath();h.rect(x0,0,Math.max(1,x1-x0),hc.height);h.clip();h.fillStyle=grad;curvePath(h,hc.width,hc.height);h.fill();h.restore();
+    h.fillStyle='rgba(255,255,255,.14)';h.fillRect(x0,0,x1-x0,hc.height);h.strokeStyle='#fff';h.shadowColor='rgba(0,0,0,.45)';h.shadowBlur=2*DPR;h.lineWidth=(selBand?2:1.5)*DPR;h.beginPath();h.moveTo(x0,0);h.lineTo(x0,hc.height);h.moveTo(x1,0);h.lineTo(x1,hc.height);h.stroke();h.shadowBlur=0;h.shadowColor='transparent';
+    // edge labels: left label grows leftward from its line, right label rightward, so they never overlap
+    const Wcss=r.width,a=x0/DPR,b=x1/DPR,dp=band.snapDp??1;elLo.textContent=marg(band[0],dp);elHi.textContent=marg(band[1],dp);elLo.style.display='block';elHi.style.display='block';
+    const wl=elLo.offsetWidth,wh=elHi.offsetWidth;let la=Math.max(0,a-wl-3),ha=Math.min(Wcss-wh,b+3);if(ha<la+wl+6){ha=Math.min(Wcss-wh,la+wl+6);la=Math.max(0,Math.min(la,ha-wl-6))}elLo.style.left=la+'px';elHi.style.left=ha+'px';elLo.style.visibility=band[0]<xr[0]-1e-9?'hidden':'visible';elHi.style.visibility=band[1]>xr[1]+1e-9?'hidden':'visible';
+    if(selBand){chip.style.display='block';const ci=chip.firstElementChild;const cw=ci.offsetWidth;const cx=Math.min(Wcss-cw/2,Math.max(cw/2,(a+b)/2));chip.style.left=cx+'px'}else chip.style.display='none'}
+  else{elLo.style.display=elHi.style.display='none';chip.style.display='none'}
+  if(band&&0.5>xr[0]&&0.5<xr[1]){const x=tx(0.5,hc.width);h.strokeStyle=dark?'rgba(255,255,255,.45)':'rgba(0,0,0,.3)';h.lineWidth=DPR;h.setLineDash([3*DPR,3*DPR]);h.beginPath();h.moveTo(x,0);h.lineTo(x,hc.height);h.stroke();h.setLineDash([])}
+  // axis labels for the visible range
+  const lgA=document.getElementById('lgA'),lgB=document.getElementById('lgB'),lgC=document.getElementById('lgC');const zoomed=xr[1]-xr[0]<0.999;
+  lgA.textContent=marg(xr[0],zoomed?1:0).replace('even','even');lgC.textContent=marg(xr[1],zoomed?1:0);lgB.textContent=marg((xr[0]+xr[1])/2,zoomed?1:0);
+  lgA.style.left='0px';lgC.style.left=(r.width-lgC.offsetWidth)+'px';lgB.style.left=(r.width/2-lgB.offsetWidth/2)+'px';
+  document.getElementById('lzout').disabled=!zoomed;document.getElementById('lzin').disabled=xr[1]-xr[0]<=0.011}
+const legEl=document.getElementById('curvebox');
+function applyBand(){const band=selBand||preview;if(!band){hl=null;return}
+  const c=st.contest,m=metricInfo(st.metric),U=unitVotes(c),w=unitWeights(st.metric,wkeyFor(c,st.metric)),n=NU();hl=new Float32Array(n);let cnt=0,tw=0,all=0;
+  for(let u=0;u<n;u++){const d=U.d[u],rr=U.r[u];let inb=false;if(d+rr>0){const s=rr/(d+rr);inb=s>=band[0]-1e-9&&s<=band[1]+1e-9}hl[u]=inb?1:0.12;if(!unitSkip(c,u)){all+=w[u];if(inb){cnt++;tw+=w[u]}}}
+  const un=UNIT();document.getElementById('chiptxt').innerHTML=`<b>${cnt.toLocaleString()}</b> ${cnt===1?un.one:un.many} · <b>${(100*tw/(all||1)).toFixed(1)}%</b> of ${m.unit}`}
+function refreshBand(){applyBand();colorVer++;drawLegend();requestDraw()}
+const tAt=x=>{const r=legEl.getBoundingClientRect();return xr[0]+Math.min(1,Math.max(0,(x-r.left)/r.width))*(xr[1]-xr[0])};
+function snap(t){ // priority: an exact county/state share within 7px, then a whole margin point within 5px, else nearest tenth of a point
+  const r=legEl.getBoundingClientRect();const perPx=(xr[1]-xr[0])/r.width;let best=null,bd=7*perPx;
+  let lo=0,hi=unitShares.length;while(lo<hi){const mid=(lo+hi)>>1;if(unitShares[mid]<t)lo=mid+1;else hi=mid}
+  for(const j of [lo-1,lo]){if(j>=0&&j<unitShares.length){const d=Math.abs(unitShares[j]-t);if(d<bd){bd=d;best=unitShares[j]}}}
+  if(best!=null)return{t:best,dp:1};const whole=Math.round((2*t-1)*100);const tw=(whole/100+1)/2;if(Math.abs(tw-t)<5*perPx)return{t:tw,dp:0};
+  const tenth=Math.round((2*t-1)*1000)/10;return{t:(tenth/100+1)/2,dp:1}}
+function setBand(a,b){const sa=snap(a),sb=snap(b);selBand=[Math.max(0,sa.t),Math.min(1,sb.t)];selBand.snapDp=sa.dp||sb.dp}
+let drag=null;
+function hoverMode(t){if(!selBand)return null;const r=legEl.getBoundingClientRect();const e=8*(xr[1]-xr[0])/r.width;if(Math.abs(t-selBand[0])<e)return'lo';if(Math.abs(t-selBand[1])<e)return'hi';if(t>selBand[0]&&t<selBand[1])return'move';return null}
+legEl.addEventListener('contextmenu',e=>e.preventDefault());legEl.addEventListener('auxclick',e=>e.preventDefault());
+legEl.addEventListener('pointerdown',e=>{if(e.button===1||e.button===2){e.preventDefault();auxDrag=true;legEl.setPointerCapture(e.pointerId);drag={mode:'pan',x0:e.clientX,xr0:xr.slice()};legEl.style.cursor='grabbing';return}});
+legEl.addEventListener('pointerdown',e=>{if(e.button!==0)return;legEl.setPointerCapture(e.pointerId);const t=tAt(e.clientX);const m=hoverMode(t);preview=null;
+  drag=m?{mode:m,t0:t,b0:selBand.slice()}:{mode:'new',t0:t,moved:false};if(!m)setBand(t,t);refreshBand()});
+legEl.addEventListener('pointermove',e=>{const t=tAt(e.clientX);
+  if(drag&&drag.mode==='pan'&&legEl.hasPointerCapture(e.pointerId)){preview=null;const r=legEl.getBoundingClientRect();const w=drag.xr0[1]-drag.xr0[0];let a=drag.xr0[0]-(e.clientX-drag.x0)/r.width*w;a=Math.min(1-w,Math.max(0,a));xr=[a,a+w];computeCurve();return}
+  if(drag&&legEl.hasPointerCapture(e.pointerId)){if(drag.mode==='new'){if(Math.abs(t-drag.t0)>0.004*(xr[1]-xr[0]))drag.moved=true;setBand(Math.min(t,drag.t0),Math.max(t,drag.t0))}
+    else if(drag.mode==='move'){const w=drag.b0[1]-drag.b0[0];const lo=Math.min(1-w,Math.max(0,drag.b0[0]+t-drag.t0));const s=snap(lo);selBand=[s.t,Math.min(1,s.t+w)];selBand.snapDp=1}
+    else if(drag.mode==='lo')setBand(Math.min(t,selBand[1]),selBand[1]);else setBand(selBand[0],Math.max(t,selBand[0]));refreshBand();return}
+  if(e.pointerType==='mouse'){const m=hoverMode(t);legEl.style.cursor=m==='move'?'grab':m?'ew-resize':'crosshair';if(!selBand){const hw=0.05*(xr[1]-xr[0]);preview=[Math.max(0,t-hw),Math.min(1,t+hw)];preview.snapDp=0;refreshBand()}}});
+legEl.addEventListener('pointerup',()=>{if(drag&&drag.mode==='pan'){drag=null;legEl.style.cursor='crosshair';return}if(drag&&drag.mode==='new'&&!drag.moved){const hw=0.05*(xr[1]-xr[0]);setBand(Math.max(0,drag.t0-hw),Math.min(1,drag.t0+hw))}drag=null;refreshBand()});
+legEl.addEventListener('pointerleave',e=>{if(e.pointerType==='mouse'&&!drag&&preview){preview=null;refreshBand()}});
+legEl.addEventListener('pointercancel',()=>{drag=null});
+function zoomScale(f,center){preview=null;const w=Math.min(1,Math.max(0.01,(xr[1]-xr[0])*f));let c=center??(selBand?(selBand[0]+selBand[1])/2:(xr[0]+xr[1])/2);let a=c-w*((c-xr[0])/(xr[1]-xr[0]||1));if(center==null)a=c-w/2;a=Math.min(1-w,Math.max(0,a));xr=[a,a+w];computeCurve()}
+document.getElementById('legend').addEventListener('wheel',e=>{e.preventDefault();zoomScale(Math.exp(e.deltaY*0.002),tAt(e.clientX))},{passive:false});
+document.getElementById('lzin').onclick=()=>zoomScale(0.5);document.getElementById('lzout').onclick=()=>zoomScale(2);
+document.getElementById('clearSel').onclick=e=>{e.stopPropagation();selBand=null;preview=null;refreshBand()};
+// ================= PNG export (full map, current settings; ignores zoom, hover, selection and highlights) =================
+let downloadsNS=null;
+const browserDownloads={save:async({filename,data})=>{const u=URL.createObjectURL(data);const a=document.createElement('a');a.href=u;a.download=filename;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000);return{status:'saved'}}};
+(async()=>{try{if(window.claude&&typeof claude.use==='function')downloadsNS=await claude.use('downloads')}catch(e){}if(!downloadsNS)downloadsNS=browserDownloads;document.getElementById('exportBtn').style.display='flex'})();
+function contentBBox(){let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;const add=(x,y)=>{if(x<x0)x0=x;if(y<y0)y0=y;if(x>x1)x1=x;if(y>y1)y1=y};
+  if(disp.type==='circ'){const c=disp.c;for(let i=0;i<NC;i++){let r=c[2*NC+i];if(ringC&&ringC[i]>r)r=ringC[i];if(!(r>0))continue;add(c[i]-r,c[NC+i]-r);add(c[i]+r,c[NC+i]+r)}}
+  else{const p=disp.pos;for(let k=0;k<p.length;k+=2)add(p[k],p[k+1])}
+  if(st.borders&&disp.type==='circ'){const g=shared.geo;for(const a of D.stateArcs)for(let i=D.arcOff[a];i<D.arcOff[a+1];i++)add(g[2*i],g[2*i+1])}
+  return[x0,y0,x1,y1]}
+function renderExport(outW=1800,scale=2){
+  const saved={W,H,DPR,fit,view,hl,sel,interacting,bw:bcv.width,bh:bcv.height};
+  const[x0,y0,x1,y1]=contentBBox();const bw=x1-x0,bh=y1-y0,pad=0.03*Math.max(bw,bh);
+  W=outW;H=Math.round(outW*(bh+2*pad)/(bw+2*pad));DPR=scale;const k=W/(bw+2*pad);fit={k,x:-(x0-pad)*k,y:-(y0-pad)*k};view={k:1,x:0,y:0};hl=null;sel=-1;interacting=false;colorVer++;
+  bcv.width=Math.round(W*DPR);bcv.height=Math.round(H*DPR);renderBase();
+  const out=document.createElement('canvas');out.width=bcv.width;out.height=bcv.height;const o=out.getContext('2d');o.fillStyle=getComputedStyle(document.body).backgroundColor||'#fff';o.fillRect(0,0,out.width,out.height);o.drawImage(bcv,0,0);
+  ({W,H,DPR,fit,view,hl,sel,interacting}=saved);bcv.width=saved.bw;bcv.height=saved.bh;colorVer++;clearTimeout(extTimer);resize();return out}
+function exportName(){const c=st.contest;const parts=[c.label.replace(/\s+/g,'-'),{PRES:'president',SEN:'senate',HOUSE:'house',GOV:'governor'}[c.office],'by-'+st.metric,{circ:'packed-circles',place:'circles-in-place',contig:'contiguous'}[st.method]];
+  if(st.gran==='state')parts.push('states');if(st.cmp!=='none')parts.push('rings-'+st.cmp);if(st.shade==='winner')parts.push('winner');return parts.join('_').toLowerCase()+'.png'}
+document.getElementById('exportBtn').onclick=async()=>{const btn=document.getElementById('exportBtn'),lab=btn.querySelector('span');if(!downloadsNS||btn.disabled)return;
+  btn.disabled=true;lab.textContent='Preparing…';
+  try{await new Promise(r=>requestAnimationFrame(()=>r()));const cnv=renderExport();const blob=await new Promise(r=>cnv.toBlob(r,'image/png'));
+    lab.textContent='Waiting…';await downloadsNS.save({filename:exportName(),data:blob});lab.textContent='Saved'}
+  catch(e){lab.textContent=e&&e.code==='declined'?'Cancelled':e&&e.code==='rate_limited'?'Try again':'Export failed'}
+  setTimeout(()=>{lab.textContent='Export PNG';btn.disabled=false},1600)};
+// ================= drag bookkeeping (cursor + context-menu suppression) =================
+let auxDrag=false,suppressCtxUntil=0;
+document.addEventListener('contextmenu',e=>{if(auxDrag||performance.now()<suppressCtxUntil)e.preventDefault()},true);
+function endAuxDrag(){if(auxDrag){auxDrag=false;suppressCtxUntil=performance.now()+400}}
+window.addEventListener('pointerup',endAuxDrag,true);window.addEventListener('pointercancel',endAuxDrag,true);
+// ================= icons =================
+const ICP={land:'<path d="M1.5 13.5l4-7 3 4.5 2-3 4 5.5z"/>',
+ pop:'<circle cx="6" cy="5" r="2.2"/><path d="M2 13.5c0-2.6 1.8-4.2 4-4.2s4 1.6 4 4.2"/><circle cx="11.5" cy="5.5" r="1.8"/><path d="M11 9.3c1.8.2 3 1.6 3 4.2"/>',
+ votes:'<rect x="2.5" y="8" width="11" height="6" rx="1"/><path d="M5 8V2.5h6V8M6.5 5.2h3"/>',
+ ev:'<path d="M8 1.8l1.9 3.9 4.3.6-3.1 3 .7 4.3L8 11.6l-3.8 2 .7-4.3-3.1-3 4.3-.6z"/>',
+ senate:'<path d="M2 6h12L8 2.5zM3.8 6v6M6.6 6v6M9.4 6v6M12.2 6v6M2 13.5h12"/>',
+ edu:'<path d="M1.5 6.2L8 3.2l6.5 3L8 9.2z"/><path d="M4.5 7.7v3c0 1 1.6 2 3.5 2s3.5-1 3.5-2v-3M14.5 6.2v4"/>',
+ gdp:'<path d="M2 13.5h12M3.5 11l3-3.5 2.5 2 4-5"/><path d="M10.5 4.5H13V7"/>',
+ none:'<circle cx="8" cy="8" r="5.5"/><path d="M4.2 11.8l7.6-7.6"/>',
+ circ:'<circle cx="5.5" cy="6" r="3.2"/><circle cx="11.6" cy="5.4" r="2.1"/><circle cx="10.4" cy="11.6" r="2.6"/><circle cx="4.4" cy="12.4" r="1.6"/>',
+ place:'<circle cx="6" cy="8" r="4.2"/><circle cx="10.6" cy="8" r="3.6"/>',
+ contig:'<path d="M2 3.5l4-1.5 4 1.5 4-1.5v10.5l-4 1.5-4-1.5-4 1.5zM6 2v10.5M10 3.5V14"/>',
+ borders:'<path d="M2.5 3h11v10h-11z" stroke-dasharray="2 1.6"/><path d="M8 3v10M2.5 8H8"/>'};
+const icon=k=>`<svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${ICP[k]||''}</svg>`;
+const item=(v,label,{on=false,ic=null,dis=false,desc=''}={})=>`<button data-v="${v}" class="${on?'on':''}" ${dis?'disabled':''}>${ic?icon(ic):''}<span class="lab">${label}${desc?`<span class="d">${desc}</span>`:''}</span><span class="ck">✓</span></button>`;
+// ================= UI =================
+const fmt=n=>Math.round(n).toLocaleString('en-US'),pct=x=>(100*x).toFixed(1)+'%';
+const OFF={PRES:'President',SEN:'Senate',HOUSE:'House',GOV:'Governor'};
+const menu=document.getElementById('menu');let menuAnchor=null;
+function openMenu(anchor,html,onclick){if(menuAnchor===anchor&&menu.style.display==='block'){closeMenu();return}closeMenu();menuAnchor=anchor;anchor.classList.add('open');menu.innerHTML=html;menu.style.display='block';const r=anchor.getBoundingClientRect();const mw=menu.offsetWidth,mh=menu.offsetHeight;
+  let x=Math.min(Math.max(8,r.left+r.width/2-mw/2),innerWidth-mw-8),y=r.bottom+6;if(y+mh>innerHeight-8)y=Math.max(8,r.top-mh-6);menu.style.left=x+'px';menu.style.top=y+'px';
+  menu.onclick=e=>{const b=e.target.closest('button');if(!b||b.disabled)return;closeMenu();onclick(b.dataset.v)}}
+function closeMenu(){menu.style.display='none';if(menuAnchor)menuAnchor.classList.remove('open');menuAnchor=null}
+document.addEventListener('pointerdown',e=>{if(menu.style.display==='block'&&!menu.contains(e.target)&&!(menuAnchor&&menuAnchor.contains(e.target)))closeMenu()},true);
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(menu.style.display==='block')closeMenu();else if(sheet.classList.contains('show'))sheet.classList.remove('show');else if(selBand){selBand=null;refreshBand()}}});
+function candNames(c){if(c.office==='PRES'){const cd=c.cand['*']||{};return[cd.d||'Democratic',cd.r||'Republican']}return['Democrats','Republicans']}
+const SHORT={land:'land area',pop:y=>`residents, ${y==='2026'?'July 2025':'July '+y}`,votes:'ballots cast',ev:'share of state’s electors',senate:'share of state’s 2 senators',edu:'adults with a bachelor’s',gdp:y=>`GDP, ${y} dollars`};
+const short=(m,k)=>typeof SHORT[m]==='function'?SHORT[m](k):SHORT[m];
+function renderUI(){const c=st.contest;
+  document.getElementById('ddYear').textContent=c.label;document.getElementById('ddRace').textContent=OFF[c.office];
+  const wk=wkeyFor(c,st.metric);document.getElementById('lblSize').innerHTML=`<b>Size</b>${short(st.metric,wk)}`;
+  document.getElementById('ddMetric').innerHTML=`${icon(st.metric)}<span class="txt">${metricInfo(st.metric).label}</span><span class="chev">▾</span>`;
+  const cmpBtn=document.getElementById('ddCmp');const shapeWord=st.method==='contig'?'outline':'ring';
+  document.getElementById('lblRing').innerHTML=st.cmp==='none'?`<b>Rings</b>`:`<b>Rings</b>${shapeWord} = ${short(st.cmp,wkeyFor(c,st.cmp))}`;
+  cmpBtn.innerHTML=st.cmp==='none'?`${icon('none')}<span class="txt none">None</span><span class="chev">▾</span>`:`${icon(st.cmp)}<span class="txt">${metricInfo(st.cmp).label}</span><span class="chev">▾</span>`;
+  const meth=D.methods.find(x=>x.key===st.method);const nxt=D.methods[(D.methods.indexOf(meth)+1)%D.methods.length];const sb=document.getElementById('shapeBtn');sb.innerHTML=`${icon(st.method)}<span>${meth.label}</span>`;sb.title='Switch to '+nxt.label;
+  const bb=document.getElementById('bordBtn');const contig=st.method==='contig';bb.innerHTML=`<span>State borders</span><span class="sw"></span>`;bb.disabled=contig;bb.classList.toggle('on',st.borders&&!contig);bb.title=contig?'State borders always show in the contiguous shape':(st.borders?'State borders on — click to hide':'State borders off — click to show');bb.setAttribute('aria-pressed',st.borders&&!contig?'true':'false');
+  document.querySelectorAll('#shadeSeg button').forEach(b=>b.classList.toggle('on',b.dataset.s===st.shade));document.querySelectorAll('#granSeg button').forEach(b=>b.classList.toggle('on',b.dataset.g===st.gran));
+  let d=0,r=0,o=0;for(let i=0;i<NC;i++){if(c.dedupe[i])continue;d+=c.dem[i];r+=c.rep[i];o+=c.oth[i]}const tot=d+r+o||1;const[dn,rn]=candNames(c);
+  if(c.placeholder){document.getElementById('pvnames').innerHTML=`<span></span><span class="sub">No 2026 results loaded</span><span></span>`;document.getElementById('pvbar').innerHTML='';document.getElementById('pvcap').textContent='Open Details to load a results file.'}
+  else{document.getElementById('pvnames').innerHTML=`<span><span class="dot" style="background:var(--dem)"></span>${dn} <b>${pct(d/tot)}</b></span><span class="sub">${o/tot>=0.005?'Other '+pct(o/tot):''}</span><span>${rn} <b>${pct(r/tot)}</b><span class="dot" style="background:var(--rep);margin:0 0 0 5px"></span></span>`;
+    document.getElementById('pvbar').innerHTML=`<div data-p="d" style="width:${100*d/tot}%;background:var(--dem)"></div><div data-p="o" style="width:${100*o/tot}%;background:var(--oth)"></div><div data-p="r" style="width:${100*r/tot}%;background:var(--rep)"></div>`;
+    document.getElementById('pvcap').textContent=`${c.office==='PRES'?'National popular vote':'All '+OFF[c.office]+' races combined'} · ${fmt(d+r+o)} ballots`}
+  document.getElementById('infobtn').classList.toggle('warn',!!((c.gaps&&c.gaps.length)||c.placeholder))}
+document.getElementById('ddYear').onclick=e=>{const c=st.contest;const list=D.contests.filter(x=>x.office===c.office);
+  openMenu(e.currentTarget,`<div class="grid">${list.map(x=>`<button data-v="${x.key}" class="${x===c?'on':''}">${x.label}</button>`).join('')}</div>`,k=>pick(D.contests.find(x=>x.key===k)))};
+document.getElementById('ddRace').onclick=e=>{const c=st.contest;openMenu(e.currentTarget,Object.entries(OFF).map(([k,l])=>item(k,l,{on:k===c.office})).join(''),o=>{if(o===c.office)return;
+  const list=D.contests.filter(x=>x.office===o);let best=list[0];for(const x of list)if(Math.abs(x.year-c.year)<Math.abs(best.year-c.year)||(x.year===best.year&&!x.special&&best.special))best=x;pick(best)})};
+document.getElementById('ddMetric').onclick=e=>{const c=st.contest;openMenu(e.currentTarget,D.metrics.map(m=>{const ok=metricAvailable(c,m.key);return item(m.key,m.label,{on:m.key===st.metric,ic:m.key,dis:!ok,desc:ok?'':m.only})}).join(''),k=>{if(k===st.cmp)st.cmp='none';st.metric=k;go()})};
+document.getElementById('ddCmp').onclick=e=>{const c=st.contest;openMenu(e.currentTarget,item('none','None',{on:st.cmp==='none',ic:'none'})+D.metrics.filter(m=>m.key!==st.metric).map(m=>{const ok=metricAvailable(c,m.key);return item(m.key,m.label,{on:m.key===st.cmp,ic:m.key,dis:!ok,desc:ok?'':m.only})}).join(''),k=>{st.cmp=k;go()})};
+document.getElementById('bordBtn').onclick=()=>{st.borders=!st.borders;renderUI();requestDraw()};
+document.getElementById('shapeBtn').onclick=()=>{const i=D.methods.findIndex(m=>m.key===st.method);st.method=D.methods[(i+1)%D.methods.length].key;go()};
+document.querySelectorAll('#shadeSeg button').forEach(b=>b.onclick=()=>{if(st.shade===b.dataset.s)return;st.shade=b.dataset.s;go()});
+document.querySelectorAll('#granSeg button').forEach(b=>b.onclick=()=>{if(st.gran===b.dataset.g)return;st.gran=b.dataset.g;sel=-1;selBand=null;preview=null;hl=null;xr=[0,1];updateTip();go()});
+function pick(c){st.contest=c;sel=-1;updateTip();go();try{history.replaceState(null,'','#'+c.key)}catch(e){}}
+// popular-vote bar hover
+const pvtip=document.getElementById('pvtip');
+function pvInfo(p,ev){const c=st.contest;if(c.placeholder)return;const[dn,rn]=candNames(c);const pop=weightsFor('pop',wkeyFor(c,'pop'));const U=unitVotes(c),n=NU(),pu=st.gran==='state'?stateSum(pop):pop;
+  let d=0,r=0,o=0,wonD=0,wonR=0,popD=0,popR=0;for(let i=0;i<NC;i++){if(c.dedupe[i])continue;d+=c.dem[i];r+=c.rep[i];o+=c.oth[i]}
+  for(let u=0;u<n;u++){if(unitSkip(c,u))continue;if(U.d[u]>U.r[u]){wonD++;popD+=pu[u]}else if(U.r[u]>U.d[u]){wonR++;popR+=pu[u]}}
+  const tot=d+r+o,un=UNIT();let h;
+  if(p==='o')h=`<b>Other candidates</b><div class="sub">Third-party, independent and write-in</div><table><tr><td>Votes</td><td>${fmt(o)}</td></tr><tr><td>Share of all votes</td><td>${pct(o/tot)}</td></tr></table>`;
+  else{const isD=p==='d';const v=isD?d:r,won=isD?wonD:wonR,pp=isD?popD:popR;const lead=isD?d-r:r-d;
+    h=`<b>${isD?dn:rn}</b><div class="sub">${isD?'Democratic':'Republican'}${c.office==='PRES'?'':' candidates, all races'}</div><table><tr><td>Votes</td><td>${fmt(v)}</td></tr><tr><td>Share of all votes</td><td>${pct(v/tot)}</td></tr><tr><td>Two-party share</td><td>${pct(v/(d+r))}</td></tr><tr><td>${lead>=0?'Lead':'Trails'} by</td><td>${fmt(Math.abs(lead))}</td></tr><tr><td>${un.many[0].toUpperCase()+un.many.slice(1)} carried</td><td>${fmt(won)}</td></tr><tr><td>People in those ${un.many}</td><td>${pct(pp/(popD+popR||1))}</td></tr></table>`}
+  pvtip.innerHTML=h;pvtip.style.display='block';const tw=pvtip.offsetWidth;pvtip.style.left=Math.min(innerWidth-tw-8,Math.max(8,ev.clientX-tw/2))+'px';pvtip.style.top=(document.getElementById('pvbar').getBoundingClientRect().bottom+22)+'px'}
+const pvbar=document.getElementById('pvbar');
+pvbar.addEventListener('pointermove',e=>{const s=e.target.closest('[data-p]');if(s)pvInfo(s.dataset.p,e);else pvtip.style.display='none'});
+pvbar.addEventListener('pointerleave',()=>pvtip.style.display='none');pvbar.addEventListener('pointerdown',e=>{const s=e.target.closest('[data-p]');if(s)pvInfo(s.dataset.p,e)});
+document.addEventListener('pointerdown',e=>{if(!pvbar.contains(e.target))pvtip.style.display='none'},true);
+// ================= details sheet =================
+const sheet=document.getElementById('sheet'),box=document.getElementById('sheetbox');sheet.onclick=e=>{if(e.target===sheet)sheet.classList.remove('show')};
+document.getElementById('infobtn').onclick=()=>{const c=st.contest,m=metricInfo(st.metric),meth=D.methods.find(x=>x.key===st.method);
+  let h=`<button class="x" onclick="sheet.classList.remove('show')">×</button><h3>What you're seeing</h3><p><b>Size: ${m.label}.</b> ${m.desc}</p><p><b>Shape: ${meth.label}.</b> ${meth.desc}</p>`;
+  if(st.gran==='state')h+=`<p><b>States.</b> Results, sizes and colors are summed to each state. ${st.method==='contig'?'Counties keep their cartogram shapes but take their state’s color.':'Each state is one circle with area proportional to its total.'}</p>`;
+  if(st.method==='contig'&&st.metric!=='land'){const v=D.variants['contig|'+st.metric+'|'+wkeyFor(c,st.metric)];if(v)h+=`<p>Accuracy here: average area error ${pct(v.err.wm)} (weighted by ${m.unit}); ${pct(v.err.w10)} of ${m.unit} are in counties within 10% of their exact size.</p>`}
+  if(st.cmp!=='none')h+=`<p><b>${st.method==='contig'?'Outlines':'Rings'}: ${metricInfo(st.cmp).label}.</b> ${st.method==='contig'?'Each '+UNIT().one+'’s real geographic shape, centered on its spot in the map and scaled':'A ring around each circle'} to the size it would have if sized by ${metricInfo(st.cmp).label.toLowerCase()} (its share of the national total, same overall scale). Bigger than the fill means a larger share of ${metricInfo(st.cmp).unit} than of ${m.unit}.</p>`;
+  h+=`<p><b>Color.</b> Vote share is R ÷ (D + R), blended between blue and red in OKLab. Winner is fully blue or red. Where circles overlap, colors blend by each one's votes per unit of area. Gray means no race, or no data in the source.</p>`;
+  h+=`<p><b>Curve under the controls.</b> How much of the current size measure sits at each vote share. Hover to preview; click or drag to select a range (edges snap to exact ${UNIT().one} values, whole points and tenths); drag the middle to move it, the edges to resize. Scroll over it, or use + and −, to zoom the scale.</p><h3>This race</h3>`;
+  if(c.placeholder||c.year===2026)h+=`<p>${c.placeholder?'No 2026 results are loaded.':'Showing '+c.srcName+'.'} A published page can't fetch live feeds, so load a CSV with a header row containing <code>fips</code>, <code>dem</code>, <code>rep</code>, and optionally <code>oth</code> and <code>office</code> (SEN, HOUSE or GOV). It stays in this browser.</p><p><button class="pill" style="width:auto" onclick="document.getElementById('csvin').click()">Load results CSV…</button></p>`;
+  else{if(c.note)h+=`<p>${c.note}</p>`;if(c.gaps&&c.gaps.length)h+=`<p><b>Gaps in the source data:</b></p><ul>${c.gaps.map(g=>`<li>${g}</li>`).join('')}</ul>`;if(c.statewide&&c.statewide['02'])h+=`<p>Alaska reports by state-house district, so every borough shows the statewide result.</p>`;h+=`<p class="sub">Results: ${c.src}.</p>`}
+  h+=`<h3>Sources</h3><ul>${D.sources.map(s=>`<li>${s}</li>`).join('')}</ul>`;box.innerHTML=h;sheet.classList.add('show')};
+document.getElementById('csvin').onchange=e=>{const f=e.target.files[0];if(f)f.text().then(t=>loadCSV(t,f.name));e.target.value=''};
+function loadCSV(text,name){const lines=text.replace(/\r/g,'').split('\n').filter(x=>x.trim());const hdr=lines[0].toLowerCase().split(',').map(x=>x.trim().replace(/"/g,''));const col=n=>hdr.indexOf(n);
+  const fi=col('fips'),di=col('dem'),ri=col('rep'),oi=col('oth'),ofi=col('office');if(fi<0||di<0||ri<0){box.innerHTML=`<button class="x" onclick="sheet.classList.remove('show')">×</button><p>The file needs fips, dem and rep columns.</p>`;sheet.classList.add('show');return}
+  const idx=new Map(D.ids.map((f,i)=>[f,i]));const touched=new Set();const ak=D.ids.map((f,i)=>f.startsWith('02')?i:-1).filter(i=>i>=0);
+  for(const ln of lines.slice(1)){const c=ln.split(',').map(x=>x.trim().replace(/"/g,''));const off=ofi>=0?(c[ofi]||'').toUpperCase():st.contest.office;const ct=D.contests.find(x=>x.year===2026&&x.office===off);if(!ct)continue;
+    if(!touched.has(ct)){touched.add(ct);ct.dem.fill(0);ct.rep.fill(0);ct.oth.fill(0);ct.dedupe.fill(0)}const f=c[fi].padStart(5,'0');const i=f.startsWith('02')?ak[0]:idx.get(f);if(i===undefined)continue;ct.dem[i]+=+c[di]||0;ct.rep[i]+=+c[ri]||0;ct.oth[i]+=oi>=0?(+c[oi]||0):0}
+  for(const ct of touched){const a0=ak[0];ak.forEach((i,j)=>{if(j){ct.dem[i]=ct.dem[a0];ct.rep[i]=ct.rep[a0];ct.oth[i]=ct.oth[a0];ct.dedupe[i]=1}});ct.placeholder=false;ct.srcName=name;aggCache.delete(ct)}
+  sheet.classList.remove('show');if(touched.size)pick([...touched][0])}
+// ================= tooltip / interaction =================
+let sel=-1;const tip=document.getElementById('tip');let tipPos=[0,0];
+function toMap(px,py){const k=fit.k*view.k;return[(px-(fit.x*view.k+view.x))/k,(py-(fit.y*view.k+view.y))/k]}
+function hit(px,py){if(!disp)return -1;const[x,y]=toMap(px,py);
+  if(disp.type==='circ'){const c=disp.c;let best=-1,br=1e9;const tol=4/(fit.k*view.k);for(let i=0;i<NC;i++){const r=c[2*NC+i];if(r<=0||(hl&&hf(i)<0.5))continue;const d=Math.hypot(x-c[i],y-c[NC+i]);if(d<=Math.max(r,tol)&&r<br){br=r;best=i}}return best<0?-1:unitOf(best)}
+  const p=disp.pos;for(let i=NC-1;i>=0;i--){let inside=false;for(const r of countyRing[i]){const s=ringStart[r],e=ringStart[r+1];for(let a=s,b=e-1;a<e;b=a++){const xa=p[2*a],ya=p[2*a+1],xb=p[2*b],yb=p[2*b+1];if(((ya>y)!==(yb>y))&&(x<(xb-xa)*(y-ya)/(yb-ya)+xa))inside=!inside}}if(inside)return unitOf(i)}return -1}
+function valueOf(m,key,u){const w=unitWeights(m,key);if(!w)return null;let v=w[u];if(m==='land'){if(st.gran==='state'){const raw=weightsFor('land','all');v=0;for(const i of stMembers[u])v+=raw[i]*(D.ids[i].startsWith('02')?1/(0.35*0.35):1);v*=KM2}else v=v*KM2*(D.ids[u].startsWith('02')?1/(0.35*0.35):1)}return v}
+function valueText(m,key,u){const mi=metricInfo(m);const v=valueOf(m,key,u);return v==null?'':(mi.fmt||'{}').replace('{}',(+v).toLocaleString('en-US',{maximumFractionDigits:mi.dp||0}))}
+function shareOf(m,key,u){const w=unitWeights(m,key);if(!w)return null;let s=0;for(const v of w)s+=v;return w[u]/s}
+function updateTip(){if(sel<0){tip.style.display='none';drawOverlay();return}
+  if(animViewing){tip.style.display='none';drawOverlay();return}
+  if(!animViewing&&lastTapZoom){const b=unitBBox(sel);const k=fit.k*view.k;tipPos=[((b[0]+b[2])/2)*k+fit.x*view.k+view.x,b[3]*k+fit.y*view.k+view.y];lastTapZoom=false}
+  const c=st.contest,u=sel,U=unitVotes(c);const d=U.d[u],r=U.r[u],o=U.o[u],t=d+r+o;const sfips=st.gran==='state'?SIDS[u]:D.st[u];const cand=(c.cand&&(c.cand[sfips]||c.cand['*']))||{};
+  const name=st.gran==='state'?(D.states[SIDS[u]]||{}).name:D.names[u];const subn=st.gran==='state'?(c.office==='HOUSE'?'All districts combined':''):((D.states[D.st[u]]||{}).name||'')+(c.statewide&&c.statewide[D.st[u]]?' · statewide result':'');
+  let h=`<b>${name}</b>${subn?`<div class="sub">${subn}</div>`:''}`;
+  if(t>0)h+=`<div class="bar"><div style="width:${100*d/t}%;background:var(--dem)"></div><div style="width:${100*o/t}%;background:var(--oth)"></div><div style="width:${100*r/t}%;background:var(--rep)"></div></div><table>
+   <tr><td><span class="dot" style="background:var(--dem)"></span>${cand.d||'Democratic'}</td><td>${fmt(d)} · ${pct(d/t)}</td></tr><tr><td><span class="dot" style="background:var(--rep)"></span>${cand.r||'Republican'}</td><td>${fmt(r)} · ${pct(r/t)}</td></tr>
+   <tr><td><span class="dot" style="background:var(--oth)"></span>${cand.o?cand.o+' + others':'Others'}</td><td>${fmt(o)} · ${pct(o/t)}</td></tr></table>`;
+  else h+=`<div class="sub" style="margin-top:4px">${c.placeholder?'No 2026 results loaded.':'No '+OFF[c.office]+' race'+(st.gran==='county'?' data for this county':' here')+' in '+c.year+'.'}</div>`;
+  const m=st.metric,wk=wkeyFor(c,m),bm=st.cmp!=='none'?st.cmp:(m==='pop'?null:'pop');
+  h+=`<div class="ratio">${metricInfo(m).label}: ${valueText(m,wk,u)}`;
+  if(bm){const bk=wkeyFor(c,bm);h+=`<br>${metricInfo(bm).label}: ${valueText(bm,bk,u)}`;const a=shareOf(m,wk,u),b=shareOf(bm,bk,u);if(a!=null&&b>0){const q=a/b;h+=`<br><b>${q>=10||q<0.1?q.toPrecision(2):q.toFixed(2)}×</b> its share of ${metricInfo(bm).label.toLowerCase()}`}}
+  h+='</div>';tip.innerHTML=h;tip.style.display='block';const tw=tip.offsetWidth,th=tip.offsetHeight;let[x,y]=tipPos;x=Math.min(Math.max(6,x+12),W-tw-6);y=y+14+th>H?y-th-14:y+14;tip.style.left=x+'px';tip.style.top=Math.max(4,y)+'px';drawOverlay()}
+const pts=new Map();let gest=null,moved=false;
+cv.addEventListener('contextmenu',e=>e.preventDefault());cv.addEventListener('auxclick',e=>e.preventDefault());
+cv.addEventListener('pointerdown',e=>{if(e.button===1||e.button===2){e.preventDefault();auxDrag=true}tapButton=e.button;cv.style.cursor='grabbing';viewAnim++;animViewing=false;cv.setPointerCapture(e.pointerId);pts.set(e.pointerId,[e.offsetX,e.offsetY]);moved=false;gest=null});
+cv.addEventListener('pointermove',e=>{if(!pts.has(e.pointerId)){if(e.pointerType==='mouse'){const i=hit(e.offsetX,e.offsetY);tipPos=[e.offsetX,e.offsetY];cv.style.cursor=i>=0?'pointer':'default';if(i!==sel){sel=i;updateTip()}else if(sel>=0)updateTip()}return}
+  const prev=pts.get(e.pointerId);pts.set(e.pointerId,[e.offsetX,e.offsetY]);
+  if(pts.size===1){const dx=e.offsetX-prev[0],dy=e.offsetY-prev[1];if(Math.abs(dx)+Math.abs(dy)>0.5)moved=true;view.x+=dx;view.y+=dy;tip.style.display='none';markInteracting();requestDraw()}
+  else if(pts.size===2){const[a,b]=[...pts.values()];const dist=Math.hypot(a[0]-b[0],a[1]-b[1]);const mx=(a[0]+b[0])/2,my=(a[1]+b[1])/2;if(gest){zoomAt(mx,my,dist/gest.d);view.x+=mx-gest.mx;view.y+=my-gest.my}gest={d:dist,mx,my};moved=true;markInteracting();requestDraw()}});
+function unitBBox(u){let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;
+  if(disp.type==='circ'){const c=disp.c;const i=st.gran==='state'?stRep[u]:u;const r=Math.max(c[2*NC+i],2/fit.k);return[c[i]-r,c[NC+i]-r,c[i]+r,c[NC+i]+r]}
+  const list=st.gran==='state'?stMembers[u]:[u];for(const i of list)for(const r of countyRing[i])for(let k=ringStart[r];k<ringStart[r+1];k++){const x=disp.pos[2*k],y=disp.pos[2*k+1];if(x<x0)x0=x;if(y<y0)y0=y;if(x>x1)x1=x;if(y>y1)y1=y}return[x0,y0,x1,y1]}
+let animViewing=false,lastTapZoom=false;
+function zoomToUnit(u){lastTapZoom=true;const[x0,y0,x1,y1]=unitBBox(u);const cx=(x0+x1)/2,cy=(y0+y1)/2;const span=Math.max(x1-x0,y1-y0,1e-6);
+  let k=Math.min(40,Math.max(1,0.42*Math.min(W,H)/(span*fit.k)));const x=W/2-(cx*fit.k+fit.x)*k,y=H/2-(cy*fit.k+fit.y)*k;animateView(k===1?{k:1,x:0,y:0}:{k,x,y})}
+let tapButton=0;
+function end(e){cv.style.cursor='default';if(pts.size===1&&!moved&&tapButton===0){sel=hit(e.offsetX,e.offsetY);tipPos=[e.offsetX,e.offsetY];if(sel>=0)zoomToUnit(sel);updateTip()}pts.delete(e.pointerId);if(pts.size<2)gest=null}
+cv.addEventListener('pointerup',end);cv.addEventListener('pointercancel',e=>{pts.delete(e.pointerId);gest=null;cv.style.cursor='default'});
+cv.addEventListener('pointerleave',e=>{if(e.pointerType==='mouse'&&!pts.size){sel=-1;updateTip()}});
+function zoomAt(px,py,f){const nk=Math.max(1,Math.min(60,view.k*f));f=nk/view.k;view.x=px-(px-view.x)*f;view.y=py-(py-view.y)*f;view.k=nk;if(nk===1){view.x=0;view.y=0}}
+cv.addEventListener('wheel',e=>{e.preventDefault();viewAnim++;animViewing=false;zoomAt(e.offsetX,e.offsetY,Math.exp(-(e.deltaMode===1?e.deltaY*16:e.deltaY)*(e.ctrlKey?0.01:0.0015)));tip.style.display='none';markInteracting();requestDraw()},{passive:false});
+let viewAnim=0;function animateView(to){const id=++viewAnim;const from={...view},t0=performance.now();animViewing=true;const s=now=>{if(id!==viewAnim){animViewing=false;return}const e=ease(Math.min(1,(now-t0)/350));view={k:from.k+(to.k-from.k)*e,x:from.x+(to.x-from.x)*e,y:from.y+(to.y-from.y)*e};if(e>=1)view={...to};tip.style.display='none';markInteracting();draw();if(e<1)requestAnimationFrame(s);else{animViewing=false;if(sel>=0)updateTip()}};requestAnimationFrame(s)}
+document.getElementById('zin').onclick=()=>{animateView(zoomed(1.6))};document.getElementById('zout').onclick=()=>{animateView(zoomed(1/1.6))};
+function zoomed(f){const v0={...view};zoomAt(W/2,H/2,f);const v1={...view};view=v0;return v1}
+window.addEventListener('resize',()=>D&&resize());try{new ResizeObserver(()=>{if(D)resize()}).observe(document.getElementById('stage'))}catch(e){}
+function add2026(){for(const[o]of[['SEN'],['HOUSE'],['GOV']]){const z=new Array(NC).fill(0);
+  D.contests.push({key:'2026-'+o.toLowerCase(),office:o,year:2026,special:0,label:'2026',placeholder:true,dem:z.slice(),rep:z.slice(),oth:z.slice(),dedupe:z.slice(),statewide:{},cand:{},w:{pop:'2026',land:'all',senate:o==='SEN'?'2026':undefined,edu:'2019-23',gdp:'2024'}})}
+  const ord={PRES:0,SEN:1,HOUSE:2,GOV:3};D.contests.sort((a,b)=>ord[a.office]-ord[b.office]||a.year-b.year||a.special-b.special)}
+(async()=>{try{
+  D=JSON.parse(new TextDecoder().decode(await getBin('data/core.bin')));NC=D.names.length;NP=D.nPts;
+  shared[D.variants.geo.file]=shared.geo=decodeShared(await getBin(D.variants.geo.file));buildGeometry();D.allArcs=[...Array(D.arcOff.length-1).keys()];
+  const only={votes:'Presidential races only',ev:'Presidential races only',senate:'Senate races only'};D.metrics.forEach(m=>m.only=only[m.key]||'Not available for this race');
+  add2026();st.method=D.defaultMethod;const h=location.hash.slice(1);const c=D.contests.find(x=>x.key===h)||D.contests.find(x=>x.key===D.defaultKey);resize();pick(c);
+}catch(err){document.getElementById('pvcap').textContent='Could not load map data: '+err;console.error(err)}})();
+</script>
+</body>
+</html>
