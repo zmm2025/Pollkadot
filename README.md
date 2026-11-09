@@ -16,7 +16,7 @@ A normal election map makes the country look mostly red because big, empty count
 
 ## The controls
 
-The four controls at the bottom of the map:
+The settings are a row of dropdowns along the top of the map. When they don't all fit, the row scrolls sideways: use the scroll wheel, drag it, or swipe.
 
 | Control | What it does |
 | --- | --- |
@@ -24,8 +24,9 @@ The four controls at the bottom of the map:
 | **Rings** | Outlines that show what each county *would* look like under a second measure. For example, size by votes cast with rings for population shows where turnout is high or low. Pick **None** to hide them. |
 | **Color** | **Share** shades each county by how much it leaned one way, from deep blue through purple to deep red. **Winner** colors each county by who won it. |
 | **Show** | **Counties** or **States**. |
+| **Borders** | **State borders** draws state outlines on top of circle maps. The contiguous shape always shows them. |
 
-**Shape** sets how the map is drawn:
+The first dropdown sets the map's **shape**:
 
 - **Packed circles** (the default): each county becomes a circle sized by your measure, nudged apart so they don't overlap.
 - **Circles in place:** circles stay right where the county is, so they overlap in crowded areas. Where they overlap, the colors blend based on how many votes each one has.
@@ -35,14 +36,13 @@ Other things you can do:
 
 - **Hover** over a county or state for its numbers. On a phone, tap.
 - **Click** a county to zoom in on it.
-- **Zoom** with the scroll wheel or the **+ / −** buttons. **Drag** to move around.
-- **State borders** draws state outlines on top of circle maps.
-- **Save** downloads a PNG of the whole map with your current settings. Zoom, hover and selections are left out.
+- **Zoom** with the scroll wheel or the **+ / −** buttons (bottom left), or pinch on a phone. **Drag** to move around.
+- **Save** (the download button, top right) downloads a PNG of the whole map with your current settings. Zoom, hover and selections are left out.
 - **Details** (top right) lists data sources and any gaps for the race you're looking at. It turns amber when something is missing.
 
-### The curve under the map
+### The curve in the corner
 
-The curve at the bottom shows how counties are spread out from strongly Democratic to strongly Republican, weighted by your size measure.
+The curve in the bottom-right corner shows how counties are spread out from strongly Democratic to strongly Republican, weighted by your size measure.
 
 - **Hover** the curve to see where you are.
 - **Click and drag** to select a range, like "everywhere between D+10 and R+10". The rest of the map fades out. Selections snap to whole points, tenths, or exact county values.
