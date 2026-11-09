@@ -1,0 +1,18 @@
+{
+  "name": "pollkadot",
+  "private": true,
+  "description": "US election results, county by county, sized by people.",
+  "scripts": {
+    "serve": "python3 -m http.server 8000 --directory site",
+    "format": "prettier --write site scripts",
+    "format:check": "prettier --check site scripts",
+    "check:imports": "node scripts/check-import-cycles.mjs",
+    "test": "node pipeline/tests/sweep.js",
+    "test:pan": "node pipeline/tests/pantest.js",
+    "test:export": "node pipeline/tests/exptest.js"
+  },
+  "devDependencies": {
+    "playwright": "^1.65.0",
+    "prettier": "^3.9.10"
+  }
+}
