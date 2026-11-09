@@ -13,26 +13,60 @@
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font:14px/1.35 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
 button{font:inherit;color:inherit}
-#app{display:flex;flex-direction:column;height:100%;max-width:1200px;margin:0 auto}
-header{padding:14px 16px 4px;text-align:center}
-.title{font-size:28px;font-weight:700;letter-spacing:-.02em;line-height:1.25;white-space:nowrap}
-.dd{border:0;background:none;padding:0;margin:0;font:inherit;letter-spacing:inherit;cursor:pointer;text-decoration:underline;text-decoration-color:transparent;text-decoration-thickness:2px;text-underline-offset:5px;transition:text-decoration-color .12s}
+#app{display:flex;flex-direction:column;height:100%}
+/* header: one line on desktop, title above the vote bar on phones */
+header{position:relative;z-index:6;display:flex;align-items:center;gap:20px;padding:8px 14px;min-height:54px;background:var(--panel);border-bottom:1px solid var(--line)}
+.title{font-size:21px;font-weight:700;letter-spacing:-.015em;line-height:1.25;white-space:nowrap;flex:none}
+.dd{border:0;background:none;padding:0;margin:0;font:inherit;letter-spacing:inherit;cursor:pointer;text-decoration:underline;text-decoration-color:transparent;text-decoration-thickness:2px;text-underline-offset:4px;transition:text-decoration-color .12s}
 .dd:hover,.dd:focus-visible,.dd.open{text-decoration-color:var(--muted);outline:none}
-header{position:relative}
-#infobtn{position:absolute;right:14px;top:14px;display:flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:5px 11px 5px 8px;font-size:12.5px;cursor:pointer;color:var(--muted);transition:background .12s}
-#infobtn:hover{background:var(--hover);color:var(--ink)}
+.hbtns{margin-left:auto;display:flex;gap:6px;flex:none}
+.hbtn{display:flex;align-items:center;gap:6px;height:30px;border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:0 11px 0 8px;font-size:12.5px;cursor:pointer;color:var(--muted);transition:background .12s,color .12s;white-space:nowrap}
+.hbtn:hover:not(:disabled){background:var(--hover);color:var(--ink)}
+.hbtn svg{display:block;flex:none}
+.hbtn .t:empty{display:none}
+#exportBtn:has(.t:empty){padding:0 7px}
 #infobtn.warn{color:#b97800;border-color:#e6c27a;background:rgba(224,161,0,.1)}
 @media (prefers-color-scheme: dark){#infobtn.warn{color:#f0b429;border-color:#6b5320;background:rgba(240,180,41,.1)}}
-@media (max-width:640px){#infobtn .t{display:none}#infobtn{padding:5px 7px}}
-#pv{margin:8px auto 0;max-width:640px;position:relative}
-#pvnames{display:flex;justify-content:space-between;font-size:13px;font-variant-numeric:tabular-nums;gap:8px}
+#pv{flex:0 1 440px;min-width:0;position:relative;container-type:inline-size}
+#pvnames{display:flex;justify-content:space-between;font-size:12.5px;font-variant-numeric:tabular-nums;gap:8px;white-space:nowrap}
 #pvnames b{font-weight:650}
-#pvbar{height:10px;border-radius:5px;overflow:hidden;display:flex;background:var(--chip);margin:4px 0 3px}
+#pvnames .ab{display:none}
+@container (max-width:270px){#pvnames .fn{display:none}#pvnames .ab{display:inline}}
+@container (max-width:340px){#pvnames .oth{display:none}}
+#pvbar{height:8px;border-radius:4px;overflow:hidden;display:flex;background:var(--chip);margin-top:4px}
 #pvbar div{transition:filter .1s}#pvbar div:hover{filter:brightness(1.12)}
-#pvcap{font-size:11.5px;color:var(--muted)}
-#stage{position:relative;flex:1;min-height:240px;touch-action:none;margin:6px 10px 10px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--bg)}
+#pvcap{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+@media (max-width:900px){#pvcap{display:none}}
+@media (max-width:640px){
+  header{display:grid;grid-template-columns:1fr auto;gap:7px 10px;padding:10px 14px 0;min-height:0;background:var(--bg);border-bottom:0}
+  .title{font-size:19px}
+  #pv{grid-column:1/-1;grid-row:2}
+  .hbtns{grid-column:2;grid-row:1}
+  #infobtn .t{display:none}#infobtn{padding:0 7px}
+}
+#stage{position:relative;flex:1;min-height:200px;touch-action:none;overflow:hidden;background:var(--bg)}
 canvas#map{position:absolute;inset:0;width:100%;height:100%;display:block}
-#busy{position:absolute;left:50%;top:8px;transform:translateX(-50%);font-size:12px;color:var(--muted);background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:3px 10px;display:none}
+#busy{position:absolute;left:50%;top:58px;transform:translateX(-50%);font-size:12px;color:var(--muted);background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:3px 10px;display:none;z-index:5}
+/* chip row: one dropdown per setting, scrolls sideways when it doesn't fit */
+#chips{position:absolute;left:0;right:0;top:0;z-index:4;display:flex;gap:6px;padding:10px 14px 6px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;touch-action:pan-x;overscroll-behavior-x:contain}
+#chips::-webkit-scrollbar{display:none}
+#chips.scr{cursor:grab}#chips.drag{cursor:grabbing}
+#chips.fr{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 36px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 36px),transparent)}
+#chips.fl{-webkit-mask-image:linear-gradient(90deg,transparent,#000 36px);mask-image:linear-gradient(90deg,transparent,#000 36px)}
+#chips.fl.fr{-webkit-mask-image:linear-gradient(90deg,transparent,#000 36px,#000 calc(100% - 36px),transparent);mask-image:linear-gradient(90deg,transparent,#000 36px,#000 calc(100% - 36px),transparent)}
+body.mopen #chips{z-index:21}
+.chip{flex:none;display:inline-flex;align-items:center;gap:7px;height:32px;padding:0 11px 0 10px;border-radius:999px;border:1px solid var(--line);background:var(--panel);font-size:13.5px;font-weight:550;white-space:nowrap;overflow:hidden;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.08);transition:background .12s,border-color .12s}
+.chip .ic{color:var(--muted)}
+.chip .chev{color:var(--muted);font-size:10px;display:inline-block;transition:transform .16s}
+.chip:hover:not([aria-disabled=true]){background:var(--hover)}
+.chip.open{background:var(--hover);border-color:var(--muted)}.chip.open .chev{transform:rotate(180deg)}
+.chip[aria-disabled=true]{opacity:.5;cursor:default}
+.chip:focus-visible,.hbtn:focus-visible,.mapbtn:focus-visible{outline:2px solid var(--dem);outline-offset:2px}
+/* bottom overlay: zoom bottom-left + legend bottom-right; on phones zoom sits above a full-width legend */
+#bottom{position:absolute;left:10px;right:10px;bottom:10px;z-index:3;display:flex;justify-content:space-between;align-items:flex-end;gap:10px;pointer-events:none}
+#bottom>*{pointer-events:auto}
+#legcard{width:340px;max-width:100%;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:6px 8px 4px 10px;box-shadow:0 4px 16px rgba(0,0,0,.12)}
+@media (max-width:640px){#bottom{flex-direction:column;align-items:stretch}#bottom .zoombtns{display:none}#legcard{width:auto}}
 .tipbox{position:absolute;pointer-events:none;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:12.5px;box-shadow:0 8px 28px rgba(0,0,0,.16);min-width:200px;max-width:280px;display:none;z-index:25;text-align:left}
 .tipbox b{font-size:14px}.sub{color:var(--muted);font-size:12px}
 #pvtip{position:fixed}
@@ -42,35 +76,12 @@ canvas#map{position:absolute;inset:0;width:100%;height:100%;display:block}
 .ratio{margin-top:6px;padding-top:6px;border-top:1px solid var(--line);font-size:12px}
 .mapbtn{border:1px solid var(--line);background:var(--panel);border-radius:9px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .12s}
 .mapbtn:hover:not(:disabled){background:var(--hover)}.mapbtn:disabled{opacity:.35;cursor:default}
-.zoombtns{position:absolute;right:10px;top:10px;display:flex;flex-direction:column;gap:6px;z-index:2}
-.zoombtns .mapbtn{width:32px;height:32px;padding:0}
+.zoombtns{display:flex;flex-direction:column;gap:6px}
+.zoombtns .mapbtn{width:34px;height:34px;padding:0;box-shadow:0 2px 8px rgba(0,0,0,.1)}
 .mapbtn svg{display:block}
-.zoombtns .gap{height:4px}
-#exportBtn{position:absolute;left:10px;top:10px;z-index:2;gap:7px;padding:6px 11px 6px 9px;font-size:13px;height:32px}
-#mapctl{position:absolute;left:10px;bottom:10px;z-index:2;display:flex;gap:6px}
-#mapctl .mapbtn{gap:7px;padding:6px 11px 6px 9px;font-size:13px;height:32px}
-#bordBtn .sw{width:26px;height:15px;border-radius:8px;background:var(--line);position:relative;flex:none;transition:background .15s}
-#bordBtn .sw::after{content:"";position:absolute;left:2px;top:2px;width:11px;height:11px;border-radius:50%;background:var(--panel);box-shadow:0 1px 2px rgba(0,0,0,.35);transition:left .15s}
-#bordBtn.on .sw{background:var(--ink)}#bordBtn.on .sw::after{left:13px}
-#bordBtn:disabled{border-style:dashed;opacity:.5}#bordBtn:disabled .sw{opacity:.4}
-#dock{margin:0 auto 10px;width:calc(100% - 20px);max-width:620px;background:var(--panel);border:1px solid var(--line);border-radius:16px}
-#dock .sec{padding:10px 12px}
-#dock .sec+.sec{border-top:1px solid var(--line)}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px 12px}
-.field{display:flex;flex-direction:column;gap:4px;min-width:0}
-.lbl{font-size:10.5px;color:var(--muted);letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.lbl b{text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin-right:5px}
-.pill{border:1px solid var(--line);background:var(--chip);border-radius:10px;padding:7px 10px;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:8px;white-space:nowrap;min-width:0;width:100%;text-align:left;transition:background .12s}
-.pill .txt{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis}
-.pill .txt.none{color:var(--muted);font-weight:500}
-.pill .chev{color:var(--muted);font-size:11px;font-weight:400}
-.pill:hover:not(:disabled),.pill.open{background:var(--hover)}
+.pill{border:1px solid var(--line);background:var(--chip);border-radius:10px;padding:7px 10px;font-size:14px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+.pill:hover{background:var(--hover)}
 .ic{width:16px;height:16px;flex:none;display:block}
-.ringglyph{display:inline-block;width:13px;height:13px;border-radius:50%;border:1.6px solid var(--ink);flex:none}
-.seg{display:flex;background:var(--chip);border-radius:10px;padding:3px;border:1px solid var(--line)}
-.seg button{flex:1;border:0;background:transparent;padding:6px 10px;border-radius:7px;font-size:13.5px;cursor:pointer;white-space:nowrap;transition:background .12s}
-.seg button:hover:not(.on){background:var(--hover)}
-.seg button.on{background:var(--panel);box-shadow:0 1px 3px rgba(0,0,0,.18);font-weight:600}
 .legwrap{display:flex;gap:8px;align-items:stretch}
 #legend{position:relative;flex:1;min-width:0;height:104px;touch-action:none;user-select:none}
 #elabs{position:absolute;left:0;right:0;top:0;height:16px;font-size:11px;font-weight:600;font-variant-numeric:tabular-nums}
@@ -86,16 +97,28 @@ canvas#map{position:absolute;inset:0;width:100%;height:100%;display:block}
 #clearSel:hover{background:var(--hover);color:var(--ink)}
 .lz{display:flex;flex-direction:column;gap:4px;justify-content:center}
 .lz .mapbtn{width:24px;height:24px;font-size:14px;border-radius:7px}
-#menu{position:fixed;z-index:20;background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,.22);padding:6px;min-width:200px;max-width:min(340px,92vw);max-height:62vh;overflow:auto;display:none}
-#menu button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:0;background:none;padding:8px 10px;border-radius:9px;cursor:pointer;font-size:14px}
+/* dropdown menu: grows out of the control that opened it (transform-origin + caret sit at the control's centre) */
+#menu{position:fixed;z-index:22;display:none;opacity:0;transform:translateY(-4px) scale(.92);transition:opacity 90ms ease-in,transform 90ms ease-in}
+#menu.up{transform:translateY(4px) scale(.92)}
+#menu.show{opacity:1;transform:none;transition:opacity 170ms cubic-bezier(.2,.8,.2,1),transform 170ms cubic-bezier(.2,.8,.2,1)}
+#menu::before{content:"";position:absolute;left:calc(var(--ax,50%) - 6px);top:-5px;width:11px;height:11px;background:var(--panel);border-left:1px solid var(--line);border-top:1px solid var(--line);transform:rotate(45deg);z-index:1}
+#menu.up::before{top:auto;bottom:-5px;transform:rotate(225deg)}
+#menuin{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,.22);padding:6px;min-width:230px;max-width:min(360px,calc(100vw - 20px));overflow:auto;overscroll-behavior:contain}
+#menu.wide #menuin{max-width:none}
+#menu .mh{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:600;padding:6px 10px 4px}
+#menu button{display:flex;align-items:center;gap:11px;width:100%;text-align:left;border:0;background:none;padding:8px 10px;border-radius:9px;cursor:pointer;font-size:14px}
 #menu button:hover:not(:disabled){background:var(--hover)}
-#menu button .lab{flex:1;min-width:0}
-#menu button .ck{width:14px;flex:none;color:var(--muted);text-align:center;visibility:hidden}
-#menu button.on{font-weight:650}#menu button.on .ck{visibility:visible}
+#menu button .ic{color:var(--muted)}
+#menu button .lab{flex:1;min-width:0;font-weight:600}
+#menu button .ck{width:14px;flex:none;text-align:center;visibility:hidden}
+#menu button.on{background:var(--chip)}#menu button.on .ck{visibility:visible}#menu button.on .ic{color:var(--ink)}
 #menu button:disabled{opacity:.4;cursor:default}
-#menu .d{display:block;font-size:11.5px;color:var(--muted);font-weight:400;margin-top:1px}
+#menu .d{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:11.5px;color:var(--muted);font-weight:400;margin-top:1px}
 #menu .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
-#menu .grid button{justify-content:center}#menu .grid button.on{background:var(--chip)}
+#menu .grid button{justify-content:center}
+#scrim{position:fixed;inset:0;z-index:20;background:rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:opacity 150ms}
+#scrim.show{opacity:1;pointer-events:auto}
+@media (prefers-reduced-motion:reduce){#menu,#menu.up,#menu.show{transform:none;transition:opacity 80ms linear}#scrim{transition:opacity 80ms linear}.chip .chev{transition:none}}
 #sheet{position:fixed;inset:0;background:rgba(0,0,0,.35);display:none;z-index:30;align-items:flex-end;justify-content:center}
 #sheet.show{display:flex}
 #sheetbox{background:var(--panel);width:100%;max-width:640px;max-height:84%;overflow:auto;border-radius:18px 18px 0 0;padding:16px 18px 26px;font-size:13.5px;line-height:1.45}
@@ -105,48 +128,49 @@ canvas#map{position:absolute;inset:0;width:100%;height:100%;display:block}
 #sheetbox .x{float:right;border:0;background:var(--chip);border-radius:999px;width:30px;height:30px;font-size:16px;cursor:pointer}
 #sheetbox .x:hover{background:var(--hover)}
 code{font-size:12px;background:var(--chip);padding:1px 4px;border-radius:4px}
-@media (min-width:760px){.title{font-size:32px}}
 </style>
 </head>
 <body>
 <div id="app">
   <header>
-    <button id="infobtn" title="Details and sources"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="8" cy="8" r="6.2"/><path d="M8 7.2v4"/><circle cx="8" cy="4.8" r=".4" fill="currentColor"/></svg><span class="t">Details</span></button>
     <div class="title"><button class="dd" id="ddYear"></button> <button class="dd" id="ddRace"></button></div>
-    <div id="pv"><div id="pvnames"></div><div id="pvbar"></div><div id="pvcap"></div></div>
+    <div id="pv"><div id="pvnames"></div><div id="pvbar"></div></div>
+    <div id="pvcap"></div>
+    <div class="hbtns">
+      <button class="hbtn" id="exportBtn" title="Save the full map as a PNG" aria-label="Export PNG" style="display:none"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2.5v7.5M4.8 7l3.2 3.2L11.2 7M3 12.5h10"/></svg><span class="t"></span></button>
+      <button class="hbtn" id="infobtn" title="Details and sources"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="8" cy="8" r="6.2"/><path d="M8 7.2v4"/><circle cx="8" cy="4.8" r=".4" fill="currentColor"/></svg><span class="t">Details</span></button>
+    </div>
   </header>
   <div id="stage">
     <canvas id="map"></canvas><div id="busy">Loading shapes…</div><div id="tip" class="tipbox"></div>
-    <div class="zoombtns">
-      <button class="mapbtn" id="zin" title="Zoom in" aria-label="Zoom in"><svg width="14" height="14" viewBox="0 0 14 14" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M7 2v10M2 7h10"/></svg></button>
-      <button class="mapbtn" id="zout" title="Zoom out" aria-label="Zoom out"><svg width="14" height="14" viewBox="0 0 14 14" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M2 7h10"/></svg></button>
+    <div id="chips" role="toolbar" aria-label="Map settings">
+      <button class="chip" id="cMethod" aria-haspopup="menu"></button>
+      <button class="chip" id="ddMetric" aria-haspopup="menu"></button>
+      <button class="chip" id="ddCmp" aria-haspopup="menu"></button>
+      <button class="chip" id="cColor" aria-haspopup="menu"></button>
+      <button class="chip" id="cShow" aria-haspopup="menu"></button>
+      <button class="chip" id="cBorders" aria-haspopup="menu"></button>
     </div>
-    <button class="mapbtn" id="exportBtn" title="Save the full map as a PNG" style="display:none"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2.5v7.5M4.8 7l3.2 3.2L11.2 7M3 12.5h10"/></svg><span>Export PNG</span></button>
-    <div id="mapctl"><button class="mapbtn" id="shapeBtn"></button><button class="mapbtn" id="bordBtn" title="Show state borders"></button></div>
-  </div>
-  <div id="dock">
-    <div class="sec">
-      <div class="grid2">
-        <div class="field"><span class="lbl" id="lblSize"></span><button class="pill" id="ddMetric"></button></div>
-        <div class="field"><span class="lbl" id="lblRing"></span><button class="pill" id="ddCmp"></button></div>
-        <div class="field"><span class="lbl"><b>Color</b></span><div class="seg" id="shadeSeg"><button data-s="share">Vote share</button><button data-s="winner">Winner</button></div></div>
-        <div class="field"><span class="lbl"><b>Show</b></span><div class="seg" id="granSeg"><button data-g="county">Counties</button><button data-g="state">States</button></div></div>
+    <div id="bottom">
+      <div class="zoombtns">
+        <button class="mapbtn" id="zin" title="Zoom in" aria-label="Zoom in"><svg width="14" height="14" viewBox="0 0 14 14" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M7 2v10M2 7h10"/></svg></button>
+        <button class="mapbtn" id="zout" title="Zoom out" aria-label="Zoom out"><svg width="14" height="14" viewBox="0 0 14 14" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M2 7h10"/></svg></button>
       </div>
-    </div>
-    <div class="sec">
-      <div class="legwrap">
-        <div id="legend">
-          <div id="elabs"><span id="elLo"></span><span id="elHi"></span></div>
-          <div id="curvebox"><canvas id="hist"></canvas></div>
-          <div id="legends"><span id="lgA"></span><span id="lgB"></span><span id="lgC"></span></div>
-          <div id="chip"><div class="in"><span id="chiptxt"></span><button id="clearSel" title="Clear selection (Esc)" aria-label="Clear selection">✕</button></div></div>
+      <div id="legcard">
+        <div class="legwrap">
+          <div id="legend">
+            <div id="elabs"><span id="elLo"></span><span id="elHi"></span></div>
+            <div id="curvebox"><canvas id="hist"></canvas></div>
+            <div id="legends"><span id="lgA"></span><span id="lgB"></span><span id="lgC"></span></div>
+            <div id="chip"><div class="in"><span id="chiptxt"></span><button id="clearSel" title="Clear selection (Esc)" aria-label="Clear selection">✕</button></div></div>
+          </div>
+          <div class="lz"><button class="mapbtn" id="lzin" title="Zoom into the scale"><svg width="12" height="12" viewBox="0 0 14 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M7 2v10M2 7h10"/></svg></button><button class="mapbtn" id="lzout" title="Zoom out the scale"><svg width="12" height="12" viewBox="0 0 14 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 7h10"/></svg></button></div>
         </div>
-        <div class="lz"><button class="mapbtn" id="lzin" title="Zoom into the scale"><svg width="12" height="12" viewBox="0 0 14 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M7 2v10M2 7h10"/></svg></button><button class="mapbtn" id="lzout" title="Zoom out the scale"><svg width="12" height="12" viewBox="0 0 14 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 7h10"/></svg></button></div>
       </div>
     </div>
   </div>
 </div>
-<div id="menu"></div><div id="pvtip" class="tipbox"></div>
+<div id="scrim"></div><div id="menu"><div id="menuin"></div></div><div id="pvtip" class="tipbox"></div>
 <div id="sheet"><div id="sheetbox"></div></div>
 <script>
 "use strict";
@@ -285,7 +309,14 @@ async function go(){
 // ================= drawing =================
 const mctx=cv.getContext('2d'),bcv=document.createElement('canvas');ctx=bcv.getContext('2d');
 function resize(){const r=cv.getBoundingClientRect();DPR=Math.min(2,window.devicePixelRatio||1);W=r.width;H=r.height;cv.width=bcv.width=Math.round(W*DPR);cv.height=bcv.height=Math.round(H*DPR);
-  const b=D.bbox,pad=8;const k=Math.min((W-2*pad)/(b[2]-b[0]),(H-2*pad-40)/(b[3]-b[1]));fit={k,x:(W-(b[2]-b[0])*k)/2-b[0]*k,y:(H-40-(b[3]-b[1])*k)/2-b[1]*k};draw();drawLegend()}
+  // Fit the map into the stage without touching the overlays: the chip row on top, the legend (bottom right) and zoom buttons (bottom left,
+  // hidden on phones, where the legend is full width). Try the ways the map's box can clear both bottom overlays and keep the largest fit.
+  const b=D.bbox,bw=b[2]-b[0],bh=b[3]-b[1],pad=8,g=6,top=Math.max(pad,chipsEl.getBoundingClientRect().bottom-r.top+2);
+  const lg=document.getElementById('legcard').getBoundingClientRect(),zb=document.querySelector('.zoombtns').getBoundingClientRect();
+  const L={w:r.right-lg.left+g,h:r.bottom-lg.top+g},Z=zb.width?{w:zb.right-r.left+g,h:r.bottom-zb.top+g}:{w:pad,h:pad}; // zoom buttons are hidden on phones
+  let best=null;for(const[x0,x1,y1]of[[pad,W-pad,H-Math.max(L.h,Z.h)],[Z.w,W-L.w,H-pad],[pad,W-L.w,H-Z.h],[Z.w,W-pad,H-L.h]]){const w=x1-x0,h=y1-top;if(w<=0||h<=0)continue;const k=Math.min(w/bw,h/bh);if(!best||k>best.k)best={k,x:x0+(w-bw*k)/2-b[0]*k,y:top+(h-bh*k)/2-b[1]*k}}
+  if(!best){const k=Math.max(1e-6,Math.min((W-2*pad)/bw,(H-2*pad)/bh));best={k,x:(W-bw*k)/2-b[0]*k,y:(H-bh*k)/2-b[1]*k}}fit=best;
+  chipFades();draw();drawLegend()}
 const T=()=>{const k=fit.k*view.k;return{k,ox:fit.x*view.k+view.x,oy:fit.y*view.k+view.y}};
 function dispT(i){const t=colT[i];return winnerness>0?t+((t>0.5?1:t<0.5?0:0.5)-t)*winnerness:t}
 const hf=i=>hl?hl[unitOf(i)]:1;
@@ -458,12 +489,12 @@ function renderExport(outW=1800,scale=2){
   ({W,H,DPR,fit,view,hl,sel,interacting}=saved);bcv.width=saved.bw;bcv.height=saved.bh;colorVer++;clearTimeout(extTimer);resize();return out}
 function exportName(){const c=st.contest;const parts=[c.label.replace(/\s+/g,'-'),{PRES:'president',SEN:'senate',HOUSE:'house',GOV:'governor'}[c.office],'by-'+st.metric,{circ:'packed-circles',place:'circles-in-place',contig:'contiguous'}[st.method]];
   if(st.gran==='state')parts.push('states');if(st.cmp!=='none')parts.push('rings-'+st.cmp);if(st.shade==='winner')parts.push('winner');return parts.join('_').toLowerCase()+'.png'}
-document.getElementById('exportBtn').onclick=async()=>{const btn=document.getElementById('exportBtn'),lab=btn.querySelector('span');if(!downloadsNS||btn.disabled)return;
+document.getElementById('exportBtn').onclick=async()=>{const btn=document.getElementById('exportBtn'),lab=btn.querySelector('.t');if(!downloadsNS||btn.disabled)return;
   btn.disabled=true;lab.textContent='Preparing…';
   try{await new Promise(r=>requestAnimationFrame(()=>r()));const cnv=renderExport();const blob=await new Promise(r=>cnv.toBlob(r,'image/png'));
     lab.textContent='Waiting…';await downloadsNS.save({filename:exportName(),data:blob});lab.textContent='Saved'}
   catch(e){lab.textContent=e&&e.code==='declined'?'Cancelled':e&&e.code==='rate_limited'?'Try again':'Export failed'}
-  setTimeout(()=>{lab.textContent='Export PNG';btn.disabled=false},1600)};
+  setTimeout(()=>{lab.textContent='';btn.disabled=false},1600)};
 // ================= drag bookkeeping (cursor + context-menu suppression) =================
 let auxDrag=false,suppressCtxUntil=0;
 document.addEventListener('contextmenu',e=>{if(auxDrag||performance.now()<suppressCtxUntil)e.preventDefault()},true);
@@ -481,47 +512,96 @@ const ICP={land:'<path d="M1.5 13.5l4-7 3 4.5 2-3 4 5.5z"/>',
  circ:'<circle cx="5.5" cy="6" r="3.2"/><circle cx="11.6" cy="5.4" r="2.1"/><circle cx="10.4" cy="11.6" r="2.6"/><circle cx="4.4" cy="12.4" r="1.6"/>',
  place:'<circle cx="6" cy="8" r="4.2"/><circle cx="10.6" cy="8" r="3.6"/>',
  contig:'<path d="M2 3.5l4-1.5 4 1.5 4-1.5v10.5l-4 1.5-4-1.5-4 1.5zM6 2v10.5M10 3.5V14"/>',
- borders:'<path d="M2.5 3h11v10h-11z" stroke-dasharray="2 1.6"/><path d="M8 3v10M2.5 8H8"/>'};
+ borders:'<path d="M2.5 3h11v10h-11z"/><path d="M8 3v10M2.5 8H8"/>',
+ noborders:'<path d="M2.5 3h11v10h-11z" stroke-dasharray="2 1.8" opacity=".6"/>',
+ ring:'<circle cx="8" cy="8" r="5.8"/><circle cx="8" cy="8" r="2.4"/>',
+ share:'<circle cx="8" cy="8" r="5.8"/><path d="M8 2.2a5.8 5.8 0 0 1 0 11.6z" fill="currentColor" stroke="none"/>',
+ winner:'<path d="M5 2.5h6v3.3a3 3 0 0 1-6 0z"/><path d="M5 3.6H3.2c0 1.7.8 2.7 2 2.9M11 3.6h1.8c0 1.7-.8 2.7-2 2.9M8 8.8v2.7M5.5 13.5h5"/>',
+ county:'<rect x="2.5" y="2.5" width="11" height="11" rx="1.5"/><path d="M2.5 6.2h11M2.5 9.8h11M6.2 2.5v11M9.8 2.5v11"/>',
+ state:'<rect x="2.5" y="2.5" width="11" height="11" rx="1.5"/><path d="M8 2.5v11M2.5 8h11"/>'};
 const icon=k=>`<svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${ICP[k]||''}</svg>`;
 const item=(v,label,{on=false,ic=null,dis=false,desc=''}={})=>`<button data-v="${v}" class="${on?'on':''}" ${dis?'disabled':''}>${ic?icon(ic):''}<span class="lab">${label}${desc?`<span class="d">${desc}</span>`:''}</span><span class="ck">✓</span></button>`;
 // ================= UI =================
 const fmt=n=>Math.round(n).toLocaleString('en-US'),pct=x=>(100*x).toFixed(1)+'%';
 const OFF={PRES:'President',SEN:'Senate',HOUSE:'House',GOV:'Governor'};
-const menu=document.getElementById('menu');let menuAnchor=null;
-function openMenu(anchor,html,onclick){if(menuAnchor===anchor&&menu.style.display==='block'){closeMenu();return}closeMenu();menuAnchor=anchor;anchor.classList.add('open');menu.innerHTML=html;menu.style.display='block';const r=anchor.getBoundingClientRect();const mw=menu.offsetWidth,mh=menu.offsetHeight;
-  let x=Math.min(Math.max(8,r.left+r.width/2-mw/2),innerWidth-mw-8),y=r.bottom+6;if(y+mh>innerHeight-8)y=Math.max(8,r.top-mh-6);menu.style.left=x+'px';menu.style.top=y+'px';
+// ---- dropdown menu: grows out of its anchor; chips are scrolled to the centre of the row first ----
+const menu=document.getElementById('menu'),menuin=document.getElementById('menuin'),scrim=document.getElementById('scrim'),chipsEl=document.getElementById('chips');
+let menuAnchor=null,menuSeq=0,menuTimer=0,menuClosedAt=-1e9;
+const reducedMotion=()=>matchMedia('(prefers-reduced-motion: reduce)').matches,phoneLayout=()=>matchMedia('(max-width:640px)').matches;
+const menuOpen=()=>menu.classList.contains('show');
+function openMenu(anchor,html,onclick,head=''){
+  if(menuAnchor===anchor){closeMenu();return}
+  closeMenu();const seq=++menuSeq;menuAnchor=anchor;anchor.classList.add('open');
+  const inRow=chipsEl.contains(anchor);
+  (inRow?centerChip(anchor):Promise.resolve()).then(()=>{if(seq!==menuSeq)return;
+    const wait=reducedMotion()?0:Math.max(0,menuClosedAt+95-performance.now());setTimeout(()=>{if(seq===menuSeq)showMenu(anchor,html,onclick,head,inRow)},wait)})}
+function showMenu(anchor,html,onclick,head,inRow){
+  clearTimeout(menuTimer);menuin.innerHTML=(head?`<div class="mh">${head}</div>`:'')+html;menuin.scrollTop=0;menuin.style.maxHeight='';
+  const phone=phoneLayout(),wide=phone&&inRow;menu.classList.remove('show','up');menu.classList.toggle('wide',wide);menu.style.width=wide?(innerWidth-20)+'px':'';menu.style.display='block';
+  const r=anchor.getBoundingClientRect(),mw=menu.offsetWidth;let mh=menuin.offsetHeight;const cx=r.left+r.width/2,gap=9;
+  let limit=innerHeight-10;if(phone){const lc=document.getElementById('legcard').getBoundingClientRect();if(lc.top>r.bottom+120)limit=Math.min(limit,lc.top-8)}
+  const below=limit-(r.bottom+gap),above=r.top-gap-10,up=mh>below&&below<200&&above>below;const room=up?above:below;if(mh>room){menuin.style.maxHeight=room+'px';mh=room}
+  const x=Math.min(Math.max(10,cx-mw/2),innerWidth-mw-10),y=up?r.top-gap-mh:r.bottom+gap,ax=Math.max(18,Math.min(mw-18,cx-x));
+  menu.style.left=x+'px';menu.style.top=y+'px';menu.style.setProperty('--ax',ax+'px');menu.style.transformOrigin=`${ax}px ${up?'100%':'0'}`;menu.classList.toggle('up',up);
+  if(phone){scrim.classList.add('show');document.body.classList.add('mopen')}
+  void menu.offsetWidth;menu.classList.add('show');
   menu.onclick=e=>{const b=e.target.closest('button');if(!b||b.disabled)return;closeMenu();onclick(b.dataset.v)}}
-function closeMenu(){menu.style.display='none';if(menuAnchor)menuAnchor.classList.remove('open');menuAnchor=null}
-document.addEventListener('pointerdown',e=>{if(menu.style.display==='block'&&!menu.contains(e.target)&&!(menuAnchor&&menuAnchor.contains(e.target)))closeMenu()},true);
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(menu.style.display==='block')closeMenu();else if(sheet.classList.contains('show'))sheet.classList.remove('show');else if(selBand){selBand=null;refreshBand()}}});
+function closeMenu(){menuSeq++;if(menuAnchor)menuAnchor.classList.remove('open');menuAnchor=null;scrim.classList.remove('show');document.body.classList.remove('mopen');
+  if(!menuOpen())return;menu.classList.remove('show');menuClosedAt=performance.now();clearTimeout(menuTimer);menuTimer=setTimeout(()=>{if(!menuOpen())menu.style.display='none'},reducedMotion()?80:100)}
+document.addEventListener('pointerdown',e=>{if(menuAnchor&&!menu.contains(e.target)&&!menuAnchor.contains(e.target))closeMenu()},true);
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(menuAnchor)closeMenu();else if(sheet.classList.contains('show'))sheet.classList.remove('show');else if(selBand){selBand=null;refreshBand()}}});
+window.addEventListener('resize',()=>{if(menuAnchor)closeMenu()});
+// ---- chip row: wheel scrolls it sideways, mouse drag scrolls it, edges fade when there's more ----
+let chipAutoUntil=0; // scroll events arrive a frame late, so programmatic scrolls are recognised by time, not a flag
+function chipFades(){const m=chipsEl.scrollWidth-chipsEl.clientWidth;chipsEl.classList.toggle('scr',m>1);chipsEl.classList.toggle('fl',chipsEl.scrollLeft>1);chipsEl.classList.toggle('fr',chipsEl.scrollLeft<m-1)}
+function scrollChips(to,dur){return new Promise(res=>{const s=chipsEl.scrollLeft;if(reducedMotion()||Math.abs(to-s)<1){chipAutoUntil=performance.now()+150;chipsEl.scrollLeft=to;return res()}const t0=performance.now();chipAutoUntil=t0+dur+150;
+  const f=n=>{const p=Math.min(1,(n-t0)/dur);chipsEl.scrollLeft=s+(to-s)*(1-Math.pow(1-p,3));if(p<1)requestAnimationFrame(f);else{chipAutoUntil=performance.now()+150;res()}};requestAnimationFrame(f)})}
+function centerChip(c){const m=chipsEl.scrollWidth-chipsEl.clientWidth;if(m<=1)return Promise.resolve();return scrollChips(Math.max(0,Math.min(m,c.offsetLeft+c.offsetWidth/2-chipsEl.clientWidth/2)),260)}
+chipsEl.addEventListener('scroll',()=>{chipFades();if(performance.now()>chipAutoUntil&&menuAnchor&&chipsEl.contains(menuAnchor))closeMenu()});
+chipsEl.addEventListener('wheel',e=>{const m=chipsEl.scrollWidth-chipsEl.clientWidth;if(m<=1)return;e.preventDefault();const d=Math.abs(e.deltaY)>Math.abs(e.deltaX)?e.deltaY:e.deltaX;chipsEl.scrollLeft+=e.deltaMode===1?d*16:d},{passive:false});
+let chipDrag=null,chipDragged=false;
+chipsEl.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse'&&e.button===0)chipDrag={x:e.clientX,s:chipsEl.scrollLeft,id:e.pointerId,moved:false}});
+chipsEl.addEventListener('pointermove',e=>{if(!chipDrag)return;const dx=e.clientX-chipDrag.x;
+  if(!chipDrag.moved&&Math.abs(dx)>4&&chipsEl.scrollWidth>chipsEl.clientWidth+1){chipDrag.moved=true;chipsEl.classList.add('drag');chipsEl.setPointerCapture(chipDrag.id)}
+  if(chipDrag.moved)chipsEl.scrollLeft=chipDrag.s-dx});
+const chipDragEnd=()=>{if(chipDrag&&chipDrag.moved){chipDragged=true;setTimeout(()=>chipDragged=false,0)}chipDrag=null;chipsEl.classList.remove('drag')};
+chipsEl.addEventListener('pointerup',chipDragEnd);chipsEl.addEventListener('pointercancel',chipDragEnd);
+chipsEl.addEventListener('click',e=>{if(chipDragged){e.stopPropagation();e.preventDefault();chipDragged=false}},true);
+// chip label changes tween the chip's width so neighbours slide instead of jumping
+function setChip(id,ic,label,title){const b=document.getElementById(id);const h=`${icon(ic)}<span class="txt">${label}</span><span class="chev">▾</span>`;b.title=title||'';if(b.dataset.h===h)return;
+  const first=!b.dataset.h,w0=b.offsetWidth;b.innerHTML=h;b.dataset.h=h;if(first||reducedMotion())return;const w1=b.offsetWidth;if(Math.abs(w1-w0)<1)return;
+  b.style.transition='none';b.style.width=w0+'px';void b.offsetWidth;b.style.transition='width 180ms cubic-bezier(.2,.8,.2,1),background .12s,border-color .12s';b.style.width=w1+'px';
+  clearTimeout(b._tw);b._tw=setTimeout(()=>{b.style.width='';b.style.transition='';chipFades()},200)}
+const ABBR={Democrats:'Dem.',Republicans:'Rep.',Democratic:'Dem.',Republican:'Rep.'};
 function candNames(c){if(c.office==='PRES'){const cd=c.cand['*']||{};return[cd.d||'Democratic',cd.r||'Republican']}return['Democrats','Republicans']}
 const SHORT={land:'land area',pop:y=>`residents, ${y==='2026'?'July 2025':'July '+y}`,votes:'ballots cast',ev:'share of state’s electors',senate:'share of state’s 2 senators',edu:'adults with a bachelor’s',gdp:y=>`GDP, ${y} dollars`};
 const short=(m,k)=>typeof SHORT[m]==='function'?SHORT[m](k):SHORT[m];
 function renderUI(){const c=st.contest;
   document.getElementById('ddYear').textContent=c.label;document.getElementById('ddRace').textContent=OFF[c.office];
-  const wk=wkeyFor(c,st.metric);document.getElementById('lblSize').innerHTML=`<b>Size</b>${short(st.metric,wk)}`;
-  document.getElementById('ddMetric').innerHTML=`${icon(st.metric)}<span class="txt">${metricInfo(st.metric).label}</span><span class="chev">▾</span>`;
-  const cmpBtn=document.getElementById('ddCmp');const shapeWord=st.method==='contig'?'outline':'ring';
-  document.getElementById('lblRing').innerHTML=st.cmp==='none'?`<b>Rings</b>`:`<b>Rings</b>${shapeWord} = ${short(st.cmp,wkeyFor(c,st.cmp))}`;
-  cmpBtn.innerHTML=st.cmp==='none'?`${icon('none')}<span class="txt none">None</span><span class="chev">▾</span>`:`${icon(st.cmp)}<span class="txt">${metricInfo(st.cmp).label}</span><span class="chev">▾</span>`;
-  const meth=D.methods.find(x=>x.key===st.method);const nxt=D.methods[(D.methods.indexOf(meth)+1)%D.methods.length];const sb=document.getElementById('shapeBtn');sb.innerHTML=`${icon(st.method)}<span>${meth.label}</span>`;sb.title='Switch to '+nxt.label;
-  const bb=document.getElementById('bordBtn');const contig=st.method==='contig';bb.innerHTML=`<span>State borders</span><span class="sw"></span>`;bb.disabled=contig;bb.classList.toggle('on',st.borders&&!contig);bb.title=contig?'State borders always show in the contiguous shape':(st.borders?'State borders on — click to hide':'State borders off — click to show');bb.setAttribute('aria-pressed',st.borders&&!contig?'true':'false');
-  document.querySelectorAll('#shadeSeg button').forEach(b=>b.classList.toggle('on',b.dataset.s===st.shade));document.querySelectorAll('#granSeg button').forEach(b=>b.classList.toggle('on',b.dataset.g===st.gran));
+  const contig=st.method==='contig',meth=D.methods.find(x=>x.key===st.method),cap=s=>s?s[0].toUpperCase()+s.slice(1):'';
+  setChip('cMethod',st.method,meth.label,meth.short);
+  setChip('ddMetric',st.metric,metricInfo(st.metric).label,'Size: '+short(st.metric,wkeyFor(c,st.metric)));
+  setChip('ddCmp',st.cmp==='none'?'none':'ring',st.cmp==='none'?(contig?'No outlines':'No rings'):metricInfo(st.cmp).label,st.cmp==='none'?'':`${contig?'Outlines':'Rings'}: ${short(st.cmp,wkeyFor(c,st.cmp))}`);
+  setChip('cColor',st.shade==='winner'?'winner':'share',st.shade==='winner'?'Winner':'Vote share');
+  setChip('cShow',st.gran==='state'?'state':'county',st.gran==='state'?'States':'Counties');
+  document.getElementById('cBorders').setAttribute('aria-disabled',String(contig));setChip('cBorders',contig||st.borders?'borders':'noborders',contig||st.borders?'State borders':'No borders',contig?'State borders always show in the contiguous shape':'');
   let d=0,r=0,o=0;for(let i=0;i<NC;i++){if(c.dedupe[i])continue;d+=c.dem[i];r+=c.rep[i];o+=c.oth[i]}const tot=d+r+o||1;const[dn,rn]=candNames(c);
-  document.getElementById('pvnames').innerHTML=`<span><span class="dot" style="background:var(--dem)"></span>${dn} <b>${pct(d/tot)}</b></span><span class="sub">${o/tot>=0.005?'Other '+pct(o/tot):''}</span><span>${rn} <b>${pct(r/tot)}</b><span class="dot" style="background:var(--rep);margin:0 0 0 5px"></span></span>`;
+  const nm=n=>{const a=ABBR[n];return a?`<span class="fn">${n}</span><span class="ab">${a}</span>`:n};
+  document.getElementById('pvnames').innerHTML=`<span><span class="dot" style="background:var(--dem)"></span>${nm(dn)} <b>${pct(d/tot)}</b></span><span class="sub oth">${o/tot>=0.005?'Other '+pct(o/tot):''}</span><span>${nm(rn)} <b>${pct(r/tot)}</b><span class="dot" style="background:var(--rep);margin:0 0 0 5px"></span></span>`;
     document.getElementById('pvbar').innerHTML=`<div data-p="d" style="width:${100*d/tot}%;background:var(--dem)"></div><div data-p="o" style="width:${100*o/tot}%;background:var(--oth)"></div><div data-p="r" style="width:${100*r/tot}%;background:var(--rep)"></div>`;
-    document.getElementById('pvcap').textContent=`${c.office==='PRES'?'National popular vote':'All '+OFF[c.office]+' races combined'} · ${fmt(d+r+o)} ballots`;
-  document.getElementById('infobtn').classList.toggle('warn',!!(c.gaps&&c.gaps.length))}
+    const pc=document.getElementById('pvcap');pc.textContent=`${fmt(d+r+o)} ballots`;pc.title=`${c.office==='PRES'?'National popular vote':'All '+OFF[c.office]+' races combined'} · ${fmt(d+r+o)} ballots`
+  document.getElementById('infobtn').classList.toggle('warn',!!(c.gaps&&c.gaps.length));chipFades()}
 document.getElementById('ddYear').onclick=e=>{const c=st.contest;const list=D.contests.filter(x=>x.office===c.office);
   openMenu(e.currentTarget,`<div class="grid">${list.map(x=>`<button data-v="${x.key}" class="${x===c?'on':''}">${x.label}</button>`).join('')}</div>`,k=>pick(D.contests.find(x=>x.key===k)))};
 document.getElementById('ddRace').onclick=e=>{const c=st.contest;openMenu(e.currentTarget,Object.entries(OFF).map(([k,l])=>item(k,l,{on:k===c.office})).join(''),o=>{if(o===c.office)return;
   const list=D.contests.filter(x=>x.office===o);let best=list[0];for(const x of list)if(Math.abs(x.year-c.year)<Math.abs(best.year-c.year)||(x.year===best.year&&!x.special&&best.special))best=x;pick(best)})};
-document.getElementById('ddMetric').onclick=e=>{const c=st.contest;openMenu(e.currentTarget,D.metrics.map(m=>{const ok=metricAvailable(c,m.key);return item(m.key,m.label,{on:m.key===st.metric,ic:m.key,dis:!ok,desc:ok?'':m.only})}).join(''),k=>{if(k===st.cmp)st.cmp='none';st.metric=k;go()})};
-document.getElementById('ddCmp').onclick=e=>{const c=st.contest;openMenu(e.currentTarget,item('none','None',{on:st.cmp==='none',ic:'none'})+D.metrics.filter(m=>m.key!==st.metric).map(m=>{const ok=metricAvailable(c,m.key);return item(m.key,m.label,{on:m.key===st.cmp,ic:m.key,dis:!ok,desc:ok?'':m.only})}).join(''),k=>{st.cmp=k;go()})};
-document.getElementById('bordBtn').onclick=()=>{st.borders=!st.borders;renderUI();requestDraw()};
-document.getElementById('shapeBtn').onclick=()=>{const i=D.methods.findIndex(m=>m.key===st.method);st.method=D.methods[(i+1)%D.methods.length].key;go()};
-document.querySelectorAll('#shadeSeg button').forEach(b=>b.onclick=()=>{if(st.shade===b.dataset.s)return;st.shade=b.dataset.s;go()});
-document.querySelectorAll('#granSeg button').forEach(b=>b.onclick=()=>{if(st.gran===b.dataset.g)return;st.gran=b.dataset.g;sel=-1;selBand=null;preview=null;hl=null;xr=[0,1];updateTip();go()});
+const metricItem=(c,m,on)=>{const ok=metricAvailable(c,m.key);return item(m.key,m.label,{on,ic:m.key,dis:!ok,desc:ok?m.short:m.only})};
+document.getElementById('cMethod').onclick=e=>openMenu(e.currentTarget,D.methods.map(m=>item(m.key,m.label,{on:m.key===st.method,ic:m.key,desc:m.short})).join(''),k=>{if(k===st.method)return;st.method=k;go()},'Map style');
+document.getElementById('ddMetric').onclick=e=>{const c=st.contest;openMenu(e.currentTarget,D.metrics.map(m=>metricItem(c,m,m.key===st.metric)).join(''),k=>{if(k===st.metric)return;if(k===st.cmp)st.cmp='none';st.metric=k;go()},'Size by')};
+document.getElementById('ddCmp').onclick=e=>{const c=st.contest,contig=st.method==='contig';openMenu(e.currentTarget,item('none','None',{on:st.cmp==='none',ic:'none',desc:contig?'No comparison outlines':'No comparison rings'})+D.metrics.filter(m=>m.key!==st.metric).map(m=>metricItem(c,m,m.key===st.cmp)).join(''),k=>{if(k===st.cmp)return;st.cmp=k;go()},contig?'Compare with outlines':'Compare with rings')};
+document.getElementById('cColor').onclick=e=>openMenu(e.currentTarget,item('share','Vote share',{on:st.shade==='share',ic:'share',desc:'Blue-to-red blend by two-party share'})+item('winner','Winner',{on:st.shade==='winner',ic:'winner',desc:'Solid blue or red by who won'}),k=>{if(k===st.shade)return;st.shade=k;go()},'Color by');
+document.getElementById('cShow').onclick=e=>openMenu(e.currentTarget,item('county','Counties',{on:st.gran==='county',ic:'county',desc:'One shape per county'})+item('state','States',{on:st.gran==='state',ic:'state',desc:'Counties summed to each state'}),k=>{if(k===st.gran)return;st.gran=k;sel=-1;selBand=null;preview=null;hl=null;xr=[0,1];updateTip();go()},'Show');
+document.getElementById('cBorders').onclick=e=>{if(st.method==='contig')return;openMenu(e.currentTarget,item('off','No borders',{on:!st.borders,ic:'noborders',desc:'Hide state outlines'})+item('on','State borders',{on:st.borders,ic:'borders',desc:'Outline each state'}),k=>{const v=k==='on';if(v===st.borders)return;st.borders=v;renderUI();requestDraw()},'State borders')};
 function pick(c){st.contest=c;sel=-1;updateTip();go();try{history.replaceState(null,'','#'+c.key)}catch(e){}}
 // popular-vote bar hover
 const pvtip=document.getElementById('pvtip');
@@ -545,7 +625,7 @@ document.getElementById('infobtn').onclick=()=>{const c=st.contest,m=metricInfo(
   if(st.method==='contig'&&st.metric!=='land'){const v=D.variants['contig|'+st.metric+'|'+wkeyFor(c,st.metric)];if(v)h+=`<p>Accuracy here: average area error ${pct(v.err.wm)} (weighted by ${m.unit}); ${pct(v.err.w10)} of ${m.unit} are in counties within 10% of their exact size.</p>`}
   if(st.cmp!=='none')h+=`<p><b>${st.method==='contig'?'Outlines':'Rings'}: ${metricInfo(st.cmp).label}.</b> ${st.method==='contig'?'Each '+UNIT().one+'’s real geographic shape, centered on its spot in the map and scaled':'A ring around each circle'} to the size it would have if sized by ${metricInfo(st.cmp).label.toLowerCase()} (its share of the national total, same overall scale). Bigger than the fill means a larger share of ${metricInfo(st.cmp).unit} than of ${m.unit}.</p>`;
   h+=`<p><b>Color.</b> Vote share is R ÷ (D + R), blended between blue and red in OKLab. Winner is fully blue or red. Where circles overlap, colors blend by each one's votes per unit of area. Gray means no race, or no data in the source.</p>`;
-  h+=`<p><b>Curve under the controls.</b> How much of the current size measure sits at each vote share. Hover to preview; click or drag to select a range (edges snap to exact ${UNIT().one} values, whole points and tenths); drag the middle to move it, the edges to resize. Scroll over it, or use + and −, to zoom the scale.</p><h3>This race</h3>`;
+  h+=`<p><b>Curve in the corner.</b> How much of the current size measure sits at each vote share. Hover to preview; click or drag to select a range (edges snap to exact ${UNIT().one} values, whole points and tenths); drag the middle to move it, the edges to resize. Scroll over it, or use + and −, to zoom the scale.</p><h3>This race</h3>`;
   if(c.note)h+=`<p>${c.note}</p>`;if(c.gaps&&c.gaps.length)h+=`<p><b>Gaps in the source data:</b></p><ul>${c.gaps.map(g=>`<li>${g}</li>`).join('')}</ul>`;if(c.statewide&&c.statewide['02'])h+=`<p>Alaska reports by state-house district, so every borough shows the statewide result.</p>`;h+=`<p class="sub">Results: ${c.src}.</p>`;
   h+=`<h3>Sources</h3><ul>${D.sources.map(s=>`<li>${s}</li>`).join('')}</ul>`;box.innerHTML=h;sheet.classList.add('show')};
 // ================= tooltip / interaction =================
@@ -593,7 +673,7 @@ cv.addEventListener('wheel',e=>{e.preventDefault();viewAnim++;animViewing=false;
 let viewAnim=0;function animateView(to){const id=++viewAnim;const from={...view},t0=performance.now();animViewing=true;const s=now=>{if(id!==viewAnim){animViewing=false;return}const e=ease(Math.min(1,(now-t0)/350));view={k:from.k+(to.k-from.k)*e,x:from.x+(to.x-from.x)*e,y:from.y+(to.y-from.y)*e};if(e>=1)view={...to};tip.style.display='none';markInteracting();draw();if(e<1)requestAnimationFrame(s);else{animViewing=false;if(sel>=0)updateTip()}};requestAnimationFrame(s)}
 document.getElementById('zin').onclick=()=>{animateView(zoomed(1.6))};document.getElementById('zout').onclick=()=>{animateView(zoomed(1/1.6))};
 function zoomed(f){const v0={...view};zoomAt(W/2,H/2,f);const v1={...view};view=v0;return v1}
-window.addEventListener('resize',()=>D&&resize());try{new ResizeObserver(()=>{if(D)resize()}).observe(document.getElementById('stage'))}catch(e){}
+window.addEventListener('resize',()=>D&&resize());try{const ro=new ResizeObserver(()=>{if(D)resize()});for(const id of ['stage','chips','legcard'])ro.observe(document.getElementById(id))}catch(e){}
 (async()=>{try{
   D=JSON.parse(new TextDecoder().decode(await getBin('data/core.bin')));NC=D.names.length;NP=D.nPts;
   shared[D.variants.geo.file]=shared.geo=decodeShared(await getBin(D.variants.geo.file));buildGeometry();D.allArcs=[...Array(D.arcOff.length-1).keys()];

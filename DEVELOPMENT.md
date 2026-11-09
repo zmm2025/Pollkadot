@@ -140,4 +140,4 @@ One-time setup:
 - `data_sources/*` scripts haven't been re-run since moving to this layout (see above).
 - The contiguous cartogram plus state outlines at full-map zoom is the slowest frame (about 45–55 ms in headless Chromium). Possible fixes: decimate outlines further while interacting, or use OffscreenCanvas/WebGL.
 - `index.html` is about 600 very long lines (~78 KB of minified-style code). Splitting it into modules (with or without a bundler) would make collaboration easier but isn't required.
-- Mobile: touch pan/zoom works through pointer events, but the dock layout on narrow screens has had less testing than desktop.
+- Mobile: touch pan/zoom works through pointer events. Phones (≤640px) use the same layout with a two-line header, full-width legend and full-width chip menus over a dimmed map.
