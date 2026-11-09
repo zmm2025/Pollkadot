@@ -41,11 +41,17 @@ STARTUP_TIMEOUT_SECONDS = 120  # exit if no tab ever connects (browser never ope
 APP_ID = "pollkadot-preview"
 PREFIX = "/__preview__/"
 
+# onerror closes the stream instead of letting EventSource retry. Otherwise a tab left open
+# after the server stopped (Ctrl+C) would silently reattach to the next preview and keep it
+# alive, e.g. a hidden T3 Code browser tab in another thread.
 SNIPPET = (
     b"<script>/* injected by scripts/preview.py, not part of the site */"
     b"(()=>{try{const s=new EventSource('" + PREFIX.encode() + b"events');"
-    b"s.onerror=()=>{if(s.readyState===2)s.close()}}catch(e){}})();</script>"
+    b"s.onerror=()=>s.close()}catch(e){}})();</script>"
 )
+
+EXIT_OK = 0             # the tab closed, Ctrl+C, or handed off to a running preview
+EXIT_NO_TAB = 2         # no tab ever connected; non-zero so the terminal stays open to show why
 
 
 def same_dir(a: str, b: str) -> bool:
@@ -73,15 +79,18 @@ class Tracker:
         self.last_seen = time.monotonic()
         self.stopping = threading.Event()
 
-    def connect(self) -> None:
+    def connect(self, label: str) -> None:
         with self.lock:
             self.clients += 1
             self.ever_connected = True
+            print(f"preview: tab opened ({label}); {self.clients} open", flush=True)
 
-    def disconnect(self) -> None:
+    def disconnect(self, label: str) -> None:
         with self.lock:
             self.clients -= 1
             self.last_seen = time.monotonic()
+            if not self.stopping.is_set():
+                print(f"preview: tab closed ({label}); {self.clients} open", flush=True)
 
     def should_stop(self, started: float) -> str | None:
         with self.lock:
@@ -132,7 +141,9 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         self.end_headers()
         self.close_connection = True
         sock = self.connection
-        self.tracker.connect()
+        ua = self.headers.get("User-Agent", "")
+        label = "T3 Code browser" if "Electron/" in ua else "browser"
+        self.tracker.connect(label)
         try:
             self.wfile.write(b"retry: 1000\n\n")
             self.wfile.flush()
@@ -147,7 +158,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         except OSError:
             pass
         finally:
-            self.tracker.disconnect()
+            self.tracker.disconnect(label)
 
     def send_head(self):
         """Serve HTML with the heartbeat snippet injected; everything else as usual."""
@@ -208,7 +219,7 @@ def bind(port_arg: int | None) -> Server | int:
     sys.exit(f"preview: could not bind a port (tried {ports[0]}..{ports[-1]})")
 
 
-def main() -> None:
+def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     ap.add_argument("--port", type=int, help=f"port to use (default: first free from {PREFERRED_PORT})")
     ap.add_argument("--no-browser", action="store_true", help="don't open the browser")
@@ -223,7 +234,7 @@ def main() -> None:
         print(f"preview: already serving {SITE_DIR} at {url}; opening another tab.")
         if not args.no_browser:
             webbrowser.open(url)
-        return
+        return EXIT_OK
 
     server = result
     tracker = Handler.tracker = Tracker()
@@ -238,17 +249,21 @@ def main() -> None:
         webbrowser.open(url)
 
     started = time.monotonic()
+    code = EXIT_OK
     try:
         while (reason := tracker.should_stop(started)) is None:
             time.sleep(0.25)
         print(f"preview: {reason}; shutting down.")
+        if not tracker.ever_connected:
+            code = EXIT_NO_TAB
     except KeyboardInterrupt:
         print("preview: interrupted; shutting down.")
     finally:
         tracker.stopping.set()
         server.shutdown()
         server.server_close()
+    return code
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

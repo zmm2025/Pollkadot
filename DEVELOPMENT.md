@@ -10,9 +10,15 @@ The site must be served over HTTP, because `file://` can't fetch the data files.
 python scripts/preview.py      # or python3; standard library only
 ```
 
-This serves `site/` from the checkout or worktree it runs in on `http://127.0.0.1:8765/` (or the next free port) and opens it in your default browser. **Closing the tab is the whole cleanup:** the server exits about 3 seconds after the last tab closes, so there's nothing to stop. Running it again while a preview of the same `site/` is already up just opens another tab on that server. In T3 Code, the **Preview site** project action runs this command.
+This serves `site/` from the checkout or worktree it runs in on `http://127.0.0.1:8765/` (or the next free port) and opens it in your default browser. **Closing the tab is the whole cleanup:** the server exits about 3 seconds after the last tab closes, so there's nothing to stop. Running it again while a preview of the same `site/` is already up just opens another tab on that server. In T3 Code, the **Preview site** project action runs `python scripts/preview.py; if ($LASTEXITCODE -eq 0) { exit }`, so its terminal also closes once the server is done. The script exits non-zero only when something went wrong, such as no tab connecting within 2 minutes, and then the terminal stays open to show why.
 
-How it notices the tab closing: the dev server injects a one-line `EventSource` snippet into the HTML it serves (never into `site/index.html` on disk, so the deployed site is unchanged). A tab keeps that stream open while it's alive, and reloads reconnect within the 3-second grace period. A tab that a browser's memory saver discards counts as closed. Ctrl+C stops it immediately. Flags: `--port N`, `--no-browser`.
+How it notices the tab closing: the dev server injects a one-line `EventSource` snippet into the HTML it serves (never into `site/index.html` on disk, so the deployed site is unchanged). A tab keeps that stream open while it's alive, and reloads reconnect within the 3-second grace period. The terminal logs each tab as it opens and closes. Ctrl+C stops it immediately. Flags: `--port N`, `--no-browser`.
+
+Every open tab counts, in any browser, so the server runs until the **last** one closes:
+
+- If you also open the URL in T3 Code's built-in browser, closing the native tab alone won't stop the server. T3 keeps a preview tab loaded even while its panel is hidden or you're in another thread, so close that preview tab too. The log labels those tabs `T3 Code browser`.
+- A tab that a browser's memory saver discards counts as closed.
+- A tab left open after its server stopped (say after Ctrl+C) doesn't reconnect to the next preview. Reload it after pressing the button again.
 
 The plain alternative still works if you want a server you control yourself: `cd site && python3 -m http.server 8000`.
 
