@@ -294,7 +294,8 @@ let img=null,accR=null,accV=null,accN=null;
 function drawCirclesBlended(c){
   // Pixel colour = OKLab(Σ R-weight / Σ vote-weight) over all circles covering the pixel; each circle's weight is its
   // two-party votes per unit of circle area (its colour value is its share, or 0/1 in Winner mode).
-  const {k,ox,oy}=T();const RS=(interacting||animating)?Math.min(1,DPR):DPR;const w=Math.round(W*RS),h=Math.round(H*RS),s=k*RS;const DPR_=RS;
+  // full resolution during shape transitions (a low-res pass reads as blur that snaps sharp at the end); reduced only while panning/zooming
+  const {k,ox,oy}=T();const RS=interacting&&!animating?Math.min(1,DPR):DPR;const w=Math.round(W*RS),h=Math.round(H*RS),s=k*RS;const DPR_=RS;
   if(!img||img.width!==w||img.height!==h){img=ctx.createImageData(w,h);accR=new Float32Array(w*h);accV=new Float32Array(w*h);accN=new Float32Array(w*h)}else{accR.fill(0);accV.fill(0);accN.fill(0)}
   const data=img.data;data.fill(0);
   for(let i=0;i<NC;i++){const r=c[2*NC+i]*s;if(r<0.05)continue;const cx=(c[i]*k+ox)*DPR_,cy=(c[NC+i]*k+oy)*DPR_;const y0=Math.max(0,Math.floor(cy-r-1)),y1=Math.min(h-1,Math.ceil(cy+r+1));if(y0>y1||cx+r<0||cx-r>w)continue;
@@ -354,9 +355,10 @@ function paintScene(k,part){const F=part!=='lines',LN=part!=='fills';
   if(!F){}else if(disp.type==='circ'&&disp.overlap>0.001){const t=T();drawCirclesBlended(disp.c);ctx.setTransform(DPR*t.k,0,0,DPR*t.k,DPR*t.ox,DPR*t.oy)}
   else if(disp.type==='circ'){if(animating)drawCirclesFlat(disp.c);else for(const g of groupPaths('circ')){ctx.globalAlpha=g.a;ctx.fillStyle=g.col;ctx.fill(g.P)}ctx.globalAlpha=1}
   else{if(!animating&&!disp.paths){disp.paths=[];for(let i=0;i<NC;i++){const P=new Path2D();for(const r of countyRing[i]){const s=ringStart[r],e=ringStart[r+1];P.moveTo(disp.pos[2*s],disp.pos[2*s+1]);for(let q=s+1;q<e;q++)P.lineTo(disp.pos[2*q],disp.pos[2*q+1]);P.closePath()}disp.paths.push(P)}}
-    ctx.lineWidth=0.35/k;ctx.lineJoin='round';
+    // the hairline stroke hides seams between touching contiguous shapes; fade it out as shapes become circles so the last frame matches the true arcs
+    const sw=animating?lineAlpha:1;ctx.lineWidth=0.35*sw/k;ctx.lineJoin='round';
     if(disp.paths&&!animating){for(const g of groupPaths('shape')){ctx.globalAlpha=g.a;ctx.fillStyle=ctx.strokeStyle=g.col;ctx.fill(g.P);ctx.stroke(g.P)}}
-    else for(let i=0;i<NC;i++){ctx.globalAlpha=hf(i);const s=colorOf(dispT(i),colN[i]);ctx.fillStyle=s;ctx.strokeStyle=s;ctx.beginPath();tracePath(disp.pos,i);ctx.fill();ctx.stroke()}
+    else for(let i=0;i<NC;i++){ctx.globalAlpha=hf(i);const s=colorOf(dispT(i),colN[i]);ctx.fillStyle=s;ctx.strokeStyle=s;ctx.beginPath();tracePath(disp.pos,i);ctx.fill();if(sw>0.01)ctx.stroke()}
     ctx.globalAlpha=1}
   if(LN&&lineShared&&lineAlpha>0.01){ctx.globalAlpha=lineAlpha;ctx.lineJoin='round';const still=!animating;
     if(view.k>2.5&&st.gran==='county'){ctx.strokeStyle=dark?'rgba(0,0,0,.35)':'rgba(255,255,255,.45)';ctx.lineWidth=0.5/k;if(still)ctx.stroke(cachedArcs('allL',lineShared,D.allArcs));else strokeArcs(lineShared,D.allArcs)}
