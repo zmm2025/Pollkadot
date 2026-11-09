@@ -183,8 +183,9 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
 class Server(http.server.ThreadingHTTPServer):
     daemon_threads = True
-    # SO_REUSEADDR on Windows lets two servers share a port; claim it exclusively instead.
-    allow_reuse_address = False
+    # On POSIX, SO_REUSEADDR only lets a restart reclaim a port in TIME_WAIT. On Windows it
+    # would let two servers share a port, so claim it exclusively there instead.
+    allow_reuse_address = os.name != "nt"
 
     def server_bind(self) -> None:
         if hasattr(socket, "SO_EXCLUSIVEADDRUSE"):
