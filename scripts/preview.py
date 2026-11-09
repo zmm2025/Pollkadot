@@ -231,8 +231,10 @@ def main() -> int:
     result = bind(args.port)
     if isinstance(result, int):
         url = f"http://{HOST}:{result}/"
-        print(f"preview: already serving {SITE_DIR} at {url}; opening another tab.")
-        if not args.no_browser:
+        if args.no_browser:
+            print(f"preview: already serving {SITE_DIR} at {url}")
+        else:
+            print(f"preview: already serving {SITE_DIR} at {url}; opening another tab.")
             webbrowser.open(url)
         return EXIT_OK
 
