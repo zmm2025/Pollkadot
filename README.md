@@ -11,7 +11,7 @@ A normal election map makes the country look mostly red because big, empty count
 ## What you can explore
 
 - **Races:** President, Senate, House and Governor, plus special elections. Tap the **year** or the **race** in the title at the top to switch.
-- **Years:** presidential elections from 2008 to 2024, and Senate, House and Governor races from 2016 to 2024. A 2026 slot is ready for midterm results (see [Adding 2026 results](#adding-2026-results)).
+- **Years:** presidential elections from 2008 to 2024, and Senate, House and Governor races from 2016 to 2024.
 - **Counties or states:** look at every county, or merge them into states.
 
 ## The controls
@@ -70,10 +70,6 @@ All numbers come from public sources and are processed the same way every time.
 - **House** results are added up by county across districts, so a county can include more than one race.
 - Uncontested races and missing reports leave some counties blank. **Details** lists them.
 - A map with sizes this distorted can't be perfect. The contiguous shapes come within a few percent of the target sizes, and small counties may look a bit off.
-
-## Adding 2026 results
-
-Until 2026 results are built in, you can load your own. Open **Details** on a 2026 race and choose **Load results CSV…**. The file needs a header row with `fips`, `dem` and `rep` columns, and can also have `oth` and `office` (`SEN`, `HOUSE` or `GOV`). The file stays in your browser and isn't uploaded anywhere.
 
 ---
 

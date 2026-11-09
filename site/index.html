@@ -148,7 +148,6 @@ code{font-size:12px;background:var(--chip);padding:1px 4px;border-radius:4px}
 </div>
 <div id="menu"></div><div id="pvtip" class="tipbox"></div>
 <div id="sheet"><div id="sheetbox"></div></div>
-<input type="file" id="csvin" accept=".csv,text/csv,text/plain" style="display:none">
 <script>
 "use strict";
 // ================= OKLab =================
@@ -221,7 +220,7 @@ const wkeyFor=(c,m)=>c.w[m]??null;
 const metricAvailable=(c,m)=>{const wk=wkeyFor(c,m);return wk!=null&&!!D.weights[m+'|'+wk]};
 const UNIT=()=>st.gran==='state'?{one:'state',many:'states'}:{one:'county',many:'counties'};
 let aggCache=new Map();
-function stateAgg(c){if(aggCache.has(c)&&!c.placeholder)return aggCache.get(c);const d=new Float64Array(NS),r=new Float64Array(NS),o=new Float64Array(NS);
+function stateAgg(c){if(aggCache.has(c))return aggCache.get(c);const d=new Float64Array(NS),r=new Float64Array(NS),o=new Float64Array(NS);
   for(let i=0;i<NC;i++){if(c.dedupe[i])continue;const s=stOf[i];d[s]+=c.dem[i];r[s]+=c.rep[i];o[s]+=c.oth[i]}const a={d,r,o};aggCache.set(c,a);return a}
 // per-unit values: units are counties or states; unitOf(i) maps county -> unit index
 const unitOf=i=>st.gran==='state'?stOf[i]:i;
@@ -509,11 +508,10 @@ function renderUI(){const c=st.contest;
   const bb=document.getElementById('bordBtn');const contig=st.method==='contig';bb.innerHTML=`<span>State borders</span><span class="sw"></span>`;bb.disabled=contig;bb.classList.toggle('on',st.borders&&!contig);bb.title=contig?'State borders always show in the contiguous shape':(st.borders?'State borders on — click to hide':'State borders off — click to show');bb.setAttribute('aria-pressed',st.borders&&!contig?'true':'false');
   document.querySelectorAll('#shadeSeg button').forEach(b=>b.classList.toggle('on',b.dataset.s===st.shade));document.querySelectorAll('#granSeg button').forEach(b=>b.classList.toggle('on',b.dataset.g===st.gran));
   let d=0,r=0,o=0;for(let i=0;i<NC;i++){if(c.dedupe[i])continue;d+=c.dem[i];r+=c.rep[i];o+=c.oth[i]}const tot=d+r+o||1;const[dn,rn]=candNames(c);
-  if(c.placeholder){document.getElementById('pvnames').innerHTML=`<span></span><span class="sub">No 2026 results loaded</span><span></span>`;document.getElementById('pvbar').innerHTML='';document.getElementById('pvcap').textContent='Open Details to load a results file.'}
-  else{document.getElementById('pvnames').innerHTML=`<span><span class="dot" style="background:var(--dem)"></span>${dn} <b>${pct(d/tot)}</b></span><span class="sub">${o/tot>=0.005?'Other '+pct(o/tot):''}</span><span>${rn} <b>${pct(r/tot)}</b><span class="dot" style="background:var(--rep);margin:0 0 0 5px"></span></span>`;
+  document.getElementById('pvnames').innerHTML=`<span><span class="dot" style="background:var(--dem)"></span>${dn} <b>${pct(d/tot)}</b></span><span class="sub">${o/tot>=0.005?'Other '+pct(o/tot):''}</span><span>${rn} <b>${pct(r/tot)}</b><span class="dot" style="background:var(--rep);margin:0 0 0 5px"></span></span>`;
     document.getElementById('pvbar').innerHTML=`<div data-p="d" style="width:${100*d/tot}%;background:var(--dem)"></div><div data-p="o" style="width:${100*o/tot}%;background:var(--oth)"></div><div data-p="r" style="width:${100*r/tot}%;background:var(--rep)"></div>`;
-    document.getElementById('pvcap').textContent=`${c.office==='PRES'?'National popular vote':'All '+OFF[c.office]+' races combined'} · ${fmt(d+r+o)} ballots`}
-  document.getElementById('infobtn').classList.toggle('warn',!!((c.gaps&&c.gaps.length)||c.placeholder))}
+    document.getElementById('pvcap').textContent=`${c.office==='PRES'?'National popular vote':'All '+OFF[c.office]+' races combined'} · ${fmt(d+r+o)} ballots`;
+  document.getElementById('infobtn').classList.toggle('warn',!!(c.gaps&&c.gaps.length))}
 document.getElementById('ddYear').onclick=e=>{const c=st.contest;const list=D.contests.filter(x=>x.office===c.office);
   openMenu(e.currentTarget,`<div class="grid">${list.map(x=>`<button data-v="${x.key}" class="${x===c?'on':''}">${x.label}</button>`).join('')}</div>`,k=>pick(D.contests.find(x=>x.key===k)))};
 document.getElementById('ddRace').onclick=e=>{const c=st.contest;openMenu(e.currentTarget,Object.entries(OFF).map(([k,l])=>item(k,l,{on:k===c.office})).join(''),o=>{if(o===c.office)return;
@@ -527,7 +525,7 @@ document.querySelectorAll('#granSeg button').forEach(b=>b.onclick=()=>{if(st.gra
 function pick(c){st.contest=c;sel=-1;updateTip();go();try{history.replaceState(null,'','#'+c.key)}catch(e){}}
 // popular-vote bar hover
 const pvtip=document.getElementById('pvtip');
-function pvInfo(p,ev){const c=st.contest;if(c.placeholder)return;const[dn,rn]=candNames(c);const pop=weightsFor('pop',wkeyFor(c,'pop'));const U=unitVotes(c),n=NU(),pu=st.gran==='state'?stateSum(pop):pop;
+function pvInfo(p,ev){const c=st.contest;const[dn,rn]=candNames(c);const pop=weightsFor('pop',wkeyFor(c,'pop'));const U=unitVotes(c),n=NU(),pu=st.gran==='state'?stateSum(pop):pop;
   let d=0,r=0,o=0,wonD=0,wonR=0,popD=0,popR=0;for(let i=0;i<NC;i++){if(c.dedupe[i])continue;d+=c.dem[i];r+=c.rep[i];o+=c.oth[i]}
   for(let u=0;u<n;u++){if(unitSkip(c,u))continue;if(U.d[u]>U.r[u]){wonD++;popD+=pu[u]}else if(U.r[u]>U.d[u]){wonR++;popR+=pu[u]}}
   const tot=d+r+o,un=UNIT();let h;
@@ -548,17 +546,8 @@ document.getElementById('infobtn').onclick=()=>{const c=st.contest,m=metricInfo(
   if(st.cmp!=='none')h+=`<p><b>${st.method==='contig'?'Outlines':'Rings'}: ${metricInfo(st.cmp).label}.</b> ${st.method==='contig'?'Each '+UNIT().one+'’s real geographic shape, centered on its spot in the map and scaled':'A ring around each circle'} to the size it would have if sized by ${metricInfo(st.cmp).label.toLowerCase()} (its share of the national total, same overall scale). Bigger than the fill means a larger share of ${metricInfo(st.cmp).unit} than of ${m.unit}.</p>`;
   h+=`<p><b>Color.</b> Vote share is R ÷ (D + R), blended between blue and red in OKLab. Winner is fully blue or red. Where circles overlap, colors blend by each one's votes per unit of area. Gray means no race, or no data in the source.</p>`;
   h+=`<p><b>Curve under the controls.</b> How much of the current size measure sits at each vote share. Hover to preview; click or drag to select a range (edges snap to exact ${UNIT().one} values, whole points and tenths); drag the middle to move it, the edges to resize. Scroll over it, or use + and −, to zoom the scale.</p><h3>This race</h3>`;
-  if(c.placeholder||c.year===2026)h+=`<p>${c.placeholder?'No 2026 results are loaded.':'Showing '+c.srcName+'.'} A published page can't fetch live feeds, so load a CSV with a header row containing <code>fips</code>, <code>dem</code>, <code>rep</code>, and optionally <code>oth</code> and <code>office</code> (SEN, HOUSE or GOV). It stays in this browser.</p><p><button class="pill" style="width:auto" onclick="document.getElementById('csvin').click()">Load results CSV…</button></p>`;
-  else{if(c.note)h+=`<p>${c.note}</p>`;if(c.gaps&&c.gaps.length)h+=`<p><b>Gaps in the source data:</b></p><ul>${c.gaps.map(g=>`<li>${g}</li>`).join('')}</ul>`;if(c.statewide&&c.statewide['02'])h+=`<p>Alaska reports by state-house district, so every borough shows the statewide result.</p>`;h+=`<p class="sub">Results: ${c.src}.</p>`}
+  if(c.note)h+=`<p>${c.note}</p>`;if(c.gaps&&c.gaps.length)h+=`<p><b>Gaps in the source data:</b></p><ul>${c.gaps.map(g=>`<li>${g}</li>`).join('')}</ul>`;if(c.statewide&&c.statewide['02'])h+=`<p>Alaska reports by state-house district, so every borough shows the statewide result.</p>`;h+=`<p class="sub">Results: ${c.src}.</p>`;
   h+=`<h3>Sources</h3><ul>${D.sources.map(s=>`<li>${s}</li>`).join('')}</ul>`;box.innerHTML=h;sheet.classList.add('show')};
-document.getElementById('csvin').onchange=e=>{const f=e.target.files[0];if(f)f.text().then(t=>loadCSV(t,f.name));e.target.value=''};
-function loadCSV(text,name){const lines=text.replace(/\r/g,'').split('\n').filter(x=>x.trim());const hdr=lines[0].toLowerCase().split(',').map(x=>x.trim().replace(/"/g,''));const col=n=>hdr.indexOf(n);
-  const fi=col('fips'),di=col('dem'),ri=col('rep'),oi=col('oth'),ofi=col('office');if(fi<0||di<0||ri<0){box.innerHTML=`<button class="x" onclick="sheet.classList.remove('show')">×</button><p>The file needs fips, dem and rep columns.</p>`;sheet.classList.add('show');return}
-  const idx=new Map(D.ids.map((f,i)=>[f,i]));const touched=new Set();const ak=D.ids.map((f,i)=>f.startsWith('02')?i:-1).filter(i=>i>=0);
-  for(const ln of lines.slice(1)){const c=ln.split(',').map(x=>x.trim().replace(/"/g,''));const off=ofi>=0?(c[ofi]||'').toUpperCase():st.contest.office;const ct=D.contests.find(x=>x.year===2026&&x.office===off);if(!ct)continue;
-    if(!touched.has(ct)){touched.add(ct);ct.dem.fill(0);ct.rep.fill(0);ct.oth.fill(0);ct.dedupe.fill(0)}const f=c[fi].padStart(5,'0');const i=f.startsWith('02')?ak[0]:idx.get(f);if(i===undefined)continue;ct.dem[i]+=+c[di]||0;ct.rep[i]+=+c[ri]||0;ct.oth[i]+=oi>=0?(+c[oi]||0):0}
-  for(const ct of touched){const a0=ak[0];ak.forEach((i,j)=>{if(j){ct.dem[i]=ct.dem[a0];ct.rep[i]=ct.rep[a0];ct.oth[i]=ct.oth[a0];ct.dedupe[i]=1}});ct.placeholder=false;ct.srcName=name;aggCache.delete(ct)}
-  sheet.classList.remove('show');if(touched.size)pick([...touched][0])}
 // ================= tooltip / interaction =================
 let sel=-1;const tip=document.getElementById('tip');let tipPos=[0,0];
 function toMap(px,py){const k=fit.k*view.k;return[(px-(fit.x*view.k+view.x))/k,(py-(fit.y*view.k+view.y))/k]}
@@ -577,7 +566,7 @@ function updateTip(){if(sel<0){tip.style.display='none';drawOverlay();return}
   if(t>0)h+=`<div class="bar"><div style="width:${100*d/t}%;background:var(--dem)"></div><div style="width:${100*o/t}%;background:var(--oth)"></div><div style="width:${100*r/t}%;background:var(--rep)"></div></div><table>
    <tr><td><span class="dot" style="background:var(--dem)"></span>${cand.d||'Democratic'}</td><td>${fmt(d)} · ${pct(d/t)}</td></tr><tr><td><span class="dot" style="background:var(--rep)"></span>${cand.r||'Republican'}</td><td>${fmt(r)} · ${pct(r/t)}</td></tr>
    <tr><td><span class="dot" style="background:var(--oth)"></span>${cand.o?cand.o+' + others':'Others'}</td><td>${fmt(o)} · ${pct(o/t)}</td></tr></table>`;
-  else h+=`<div class="sub" style="margin-top:4px">${c.placeholder?'No 2026 results loaded.':'No '+OFF[c.office]+' race'+(st.gran==='county'?' data for this county':' here')+' in '+c.year+'.'}</div>`;
+  else h+=`<div class="sub" style="margin-top:4px">No ${OFF[c.office]} race${st.gran==='county'?' data for this county':' here'} in ${c.year}.</div>`;
   const m=st.metric,wk=wkeyFor(c,m),bm=st.cmp!=='none'?st.cmp:(m==='pop'?null:'pop');
   h+=`<div class="ratio">${metricInfo(m).label}: ${valueText(m,wk,u)}`;
   if(bm){const bk=wkeyFor(c,bm);h+=`<br>${metricInfo(bm).label}: ${valueText(bm,bk,u)}`;const a=shareOf(m,wk,u),b=shareOf(bm,bk,u);if(a!=null&&b>0){const q=a/b;h+=`<br><b>${q>=10||q<0.1?q.toPrecision(2):q.toFixed(2)}×</b> its share of ${metricInfo(bm).label.toLowerCase()}`}}
@@ -605,14 +594,11 @@ let viewAnim=0;function animateView(to){const id=++viewAnim;const from={...view}
 document.getElementById('zin').onclick=()=>{animateView(zoomed(1.6))};document.getElementById('zout').onclick=()=>{animateView(zoomed(1/1.6))};
 function zoomed(f){const v0={...view};zoomAt(W/2,H/2,f);const v1={...view};view=v0;return v1}
 window.addEventListener('resize',()=>D&&resize());try{new ResizeObserver(()=>{if(D)resize()}).observe(document.getElementById('stage'))}catch(e){}
-function add2026(){for(const[o]of[['SEN'],['HOUSE'],['GOV']]){const z=new Array(NC).fill(0);
-  D.contests.push({key:'2026-'+o.toLowerCase(),office:o,year:2026,special:0,label:'2026',placeholder:true,dem:z.slice(),rep:z.slice(),oth:z.slice(),dedupe:z.slice(),statewide:{},cand:{},w:{pop:'2026',land:'all',senate:o==='SEN'?'2026':undefined,edu:'2019-23',gdp:'2024'}})}
-  const ord={PRES:0,SEN:1,HOUSE:2,GOV:3};D.contests.sort((a,b)=>ord[a.office]-ord[b.office]||a.year-b.year||a.special-b.special)}
 (async()=>{try{
   D=JSON.parse(new TextDecoder().decode(await getBin('data/core.bin')));NC=D.names.length;NP=D.nPts;
   shared[D.variants.geo.file]=shared.geo=decodeShared(await getBin(D.variants.geo.file));buildGeometry();D.allArcs=[...Array(D.arcOff.length-1).keys()];
   const only={votes:'Presidential races only',ev:'Presidential races only',senate:'Senate races only'};D.metrics.forEach(m=>m.only=only[m.key]||'Not available for this race');
-  add2026();st.method=D.defaultMethod;const h=location.hash.slice(1);const c=D.contests.find(x=>x.key===h)||D.contests.find(x=>x.key===D.defaultKey);resize();pick(c);
+  st.method=D.defaultMethod;const h=location.hash.slice(1);const c=D.contests.find(x=>x.key===h)||D.contests.find(x=>x.key===D.defaultKey);resize();pick(c);
 }catch(err){document.getElementById('pvcap').textContent='Could not load map data: '+err;console.error(err)}})();
 </script>
 </body>

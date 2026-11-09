@@ -20,7 +20,7 @@ const CHECK = () => {
   if (!fin(colT) || !fin(colV)) out.push('NaN in colours');
   if (dens && !fin(dens)) out.push('NaN in curve');
   const c = st.contest;
-  if (!c.placeholder && dens && dens.reduce((a, b) => a + b, 0) <= 0) out.push('empty curve');
+  if (dens && dens.reduce((a, b) => a + b, 0) <= 0) out.push('empty curve');
   if (st.cmp !== 'none' && !ringC && !outl && !ringE) out.push('rings selected but none drawn');
   // canvas not blank: count non-background pixels on a sample grid
   const g = cv.getContext('2d').getImageData(0, 0, cv.width, cv.height).data; let n = 0, tot = 0;
@@ -56,7 +56,7 @@ async function setState(p, s) {
   const flushErr = where => { while (errs.length) issue(where, 'JS error: ' + errs.shift()) };
   const t0 = Date.now();
   await p.goto('http://localhost:8000/'); await settle(p); flushErr('load');
-  const meta = await p.evaluate(() => ({ contests: D.contests.map(c => ({ key: c.key, office: c.office, year: c.year, ph: !!c.placeholder })), metrics: D.metrics.map(m => m.key), methods: D.methods.map(m => m.key) }));
+  const meta = await p.evaluate(() => ({ contests: D.contests.map(c => ({ key: c.key, office: c.office, year: c.year })), metrics: D.metrics.map(m => m.key), methods: D.methods.map(m => m.key) }));
   log('contests', meta.contests.length, 'metrics', meta.metrics.join(','), 'methods', meta.methods.join(','));
   let checked = 0; const shots = [];
 
@@ -112,8 +112,10 @@ async function setState(p, s) {
   await ui('map: drag pans, wheel zooms', async () => { await p.mouse.move(700, 400); await p.mouse.down(); await p.mouse.move(600, 380, { steps: 5 }); await p.mouse.up(); await p.mouse.wheel(0, -300); await p.waitForTimeout(300); await p.evaluate(() => { view = { k: 1, x: 0, y: 0 }; draw() }) });
   await ui('popular vote bar hover tooltip', async () => { const bb = await p.locator('#pvbar').boundingBox(); await p.mouse.move(bb.x + 20, bb.y + 4); await p.waitForTimeout(100); const h = await p.evaluate(() => document.getElementById('pvtip').textContent); if (!/Votes/.test(h) || /NaN|undefined/.test(h)) throw new Error(h.slice(0, 80)); await p.mouse.move(bb.x + bb.width - 10, bb.y + 4); await p.waitForTimeout(100) });
   await ui('details sheet opens and closes', async () => { await p.click('#infobtn'); await p.waitForTimeout(100); const t = await p.evaluate(() => sheetbox.textContent); if (/NaN|undefined/.test(t)) throw new Error('bad text'); await p.keyboard.press('Escape'); if (await p.evaluate(() => sheet.classList.contains('show'))) throw new Error('sheet still open') });
-  await ui('2026 slot + CSV load', async () => { await setState(p, { contest: '2026-sen' }); const csv = await p.evaluate(() => { const c = D.contests.find(x => x.key === '2024-sen'); let s = 'fips,office,dem,rep,oth\n'; D.ids.forEach((f, i) => { if (c.dem[i] + c.rep[i] > 0 && !c.dedupe[i]) s += `${f},SEN,${c.dem[i]},${c.rep[i]},${c.oth[i]}\n` }); return s });
-    fs.writeFileSync('/tmp/t26.csv', csv); await p.click('#infobtn'); await p.setInputFiles('#csvin', '/tmp/t26.csv'); await settle(p); const r = await p.evaluate(CHECK); r.problems.forEach(x => issue('2026 after CSV', x)); if (await p.evaluate(() => st.contest.placeholder)) throw new Error('still placeholder') });
+  await ui('only built-in results: every contest has votes, no file loading', async () => { const r = await p.evaluate(() => ({ empty: D.contests.filter(c => { let t = 0; for (let i = 0; i < c.dem.length; i++) t += c.dem[i] + c.rep[i] + c.oth[i]; return !(t > 0) }).map(c => c.key), file: !!document.querySelector('input[type=file]') }));
+    if (r.empty.length) throw new Error('contests without results: ' + r.empty.join(', ')); if (r.file) throw new Error('file input present');
+    for (const o of ['Senate', 'House', 'Governor']) { await p.click('#ddRace'); await p.locator('#menu button', { hasText: o }).click(); await settle(p); await p.click('#ddYear'); const ys = await p.locator('#menu button').allTextContents(); await p.keyboard.press('Escape'); if (ys.some(y => /2026/.test(y))) throw new Error(o + ' year menu lists 2026') }
+    await p.click('#infobtn'); const t = await p.evaluate(() => sheetbox.textContent); await p.keyboard.press('Escape'); if (/load results|\bcsv\b/i.test(t)) throw new Error('details sheet offers loading') });
   // ---- Pass D: rapid switching while animating (race conditions) ----
   log('\nPASS D: rapid switching mid-animation');
   await ui('rapid changes', async () => { for (let i = 0; i < 25; i++) { await p.evaluate(i => { const ms = ['circ', 'place', 'contig'], gs = ['county', 'state'], cs = ['none', 'land', 'gdp']; st.method = ms[i % 3]; st.gran = gs[(i >> 1) % 2]; st.cmp = cs[i % 3]; st.contest = D.contests[(i * 7) % 20]; go() }, i); await p.waitForTimeout(90 + (i % 4) * 60) }

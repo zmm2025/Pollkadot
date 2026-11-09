@@ -122,7 +122,7 @@ One-time setup:
 
 ## Known issues / TODO
 
-- **2026 results**: the 2026 contests are placeholders and the user loads a CSV (Details → Load results CSV…). The Details text still says a page "can't fetch live feeds". That was true inside a Claude artifact, but GitHub Pages can fetch a CORS-enabled feed or a JSON committed to the repo by a scheduled Action. Wiring that up is the obvious next feature.
+- **2026 results**: there are no 2026 contests yet. The site only shows results built into `site/data`, so 2026 races appear once their results are added to the pipeline (`build_data.py` → `build_data2.py`). The 2026 population and Senate weights, cartograms and circle layouts are already built.
 - `data_sources/*` scripts haven't been re-run since moving to this layout (see above).
 - The contiguous cartogram plus state outlines at full-map zoom is the slowest frame (about 45–55 ms in headless Chromium). Possible fixes: decimate outlines further while interacting, or use OffscreenCanvas/WebGL.
 - `index.html` is about 600 very long lines (~78 KB of minified-style code). Splitting it into modules (with or without a bundler) would make collaboration easier but isn't required.
