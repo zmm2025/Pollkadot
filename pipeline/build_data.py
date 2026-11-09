@@ -6,7 +6,7 @@ sys.path.insert(0, 'pipeline/cartogram')
 from simplify import dp_mask
 
 W = 'build'; DATA = 'data'; os.makedirs(W, exist_ok=True)
-YEARS = [2008, 2010, 2012, 2014, 2016, 2018, 2020, 2022, 2024, 2026]
+YEARS = list(range(2000, 2027, 2))
 T = pickle.load(open('data/geometry/topo_s.pkl', 'rb'))
 ids = T['ids']; N = len(ids); idx = {f: i for i, f in enumerate(ids)}
 ST = {'AL':'01','AK':'02','AZ':'04','AR':'05','CA':'06','CO':'08','CT':'09','DE':'10','DC':'11','FL':'12','GA':'13','HI':'15','ID':'16','IL':'17','IN':'18','IA':'19','KS':'20','KY':'21','LA':'22','ME':'23','MD':'24','MA':'25','MI':'26','MN':'27','MS':'28','MO':'29','MT':'30','NE':'31','NV':'32','NH':'33','NJ':'34','NM':'35','NY':'36','NC':'37','ND':'38','OH':'39','OK':'40','OR':'41','PA':'42','RI':'44','SC':'45','SD':'46','TN':'47','TX':'48','UT':'49','VT':'50','VA':'51','WA':'53','WV':'54','WI':'55','WY':'56'}
@@ -59,6 +59,8 @@ for y in YEARS:
     popY[str(y)] = [pop[f] for f in ids]
 
 # ---------------- results ----------------
+# Every race comes from data/results/county_results.csv (built by pipeline/build_results.py).
+import re
 contests = []
 def blank(): return np.zeros((N, 3), np.int64)
 def finish(year, office, arr, statewide=(), special=0, note='', cand=None, partial=False, label=None, src=''):
@@ -83,53 +85,6 @@ def add(arr, f, d, r, o):
     if f in idx: arr[idx[f]] += (d, r, o); return True
     return False
 
-unplaced = collections.Counter()
-PRESC = {2008: dict(d='Obama', r='McCain'), 2012: dict(d='Obama', r='Romney'), 2016: dict(d='Clinton', r='Trump'),
-         2020: dict(d='Biden', r='Trump'), 2024: dict(d='Harris', r='Trump')}
-# President 2008-2016: MEDSL county presidential returns
-medsl = collections.defaultdict(blank); ak_pres = collections.defaultdict(lambda: [0, 0, 0])
-for r in csv.DictReader(open('data/raw/medsl/countypres_2000-2016.csv')):
-    y = int(r['year'])
-    if y not in (2008, 2012, 2016): continue
-    v = r['candidatevotes']; v = 0 if v in ('NA', '') else int(float(v))
-    col = 0 if r['party'] == 'democrat' else 1 if r['party'] == 'republican' else 2
-    t = [0, 0, 0]; t[col] = v
-    if r['state_po'] == 'AK': ak_pres[y][col] += v; continue
-    f = r['FIPS']
-    if f == 'NA': unplaced[(y, 'PRES')] += v; continue
-    f = f.zfill(5)
-    if f in ('2938000', '36000') and r['state_po'] == 'MO': f = '29095'   # Kansas City reported separately from Jackson County
-    if not add(medsl[y], f, *t): unplaced[(y, 'PRES', f)] += v
-for y in (2008, 2012, 2016):
-    finish(y, 'PRES', medsl[y], statewide={'02': tuple(ak_pres[y])}, src='MEDSL county presidential returns 2000-2016', cand={'*': PRESC[y]})
-
-# President 2020, 2024: tonmcg (Alaska districts summed statewide; CT 2024 from MEDSL old counties)
-TM = 'data/raw/tonmcg'
-medsl_ak = {}; medsl_ksme = []
-if os.path.exists(f'{DATA}/results/county_results.csv'):
-    for r in csv.DictReader(open(f'{DATA}/results/county_results.csv')):
-        if r['office'] == 'PRES' and r['fips'] == '02000': medsl_ak[(int(r['year']), '02000')] = [int(r['dem']), int(r['rep']), int(r['oth'])]
-        if r['office'] == 'PRES' and r['year'] == '2020' and r['state_po'] in ('KS', 'ME'): medsl_ksme.append(r)
-for y in (2020, 2024):
-    arr = blank(); ak = [0, 0, 0]
-    for r in csv.DictReader(open(f'{TM}/{y}_US_County_Level_Presidential_Results.csv')):
-        f = r['county_fips'].zfill(5); d, rp, t = int(float(r['votes_dem'])), int(float(r['votes_gop'])), int(float(r['total_votes']))
-        o = t - d - rp
-        if f[:2] == '02': ak[0] += d; ak[1] += rp; ak[2] += o; continue
-        if y == 2024 and f[:3] == '091': continue
-        if y == 2020 and f[:2] in ('20', '23'): continue   # tonmcg KS/ME 2020 differ from certified; MEDSL matches
-        if f[:2] == '11': f = '11001'   # DC reported by ward
-        if not add(arr, f, d, rp, o): unplaced[(y, 'PRES', f)] += t
-    if y == 2020:
-        for r in medsl_ksme: add(arr, r['fips'], int(r['dem']), int(r['rep']), int(r['oth']))
-    if (y, '02000') in medsl_ak: ak = medsl_ak[(y, '02000')]   # MEDSL statewide AK matches certified totals
-    finish(y, 'PRES', arr, statewide={'02': tuple(ak)}, src='tonmcg county presidential results', cand={'*': PRESC[y]})
-    if y == 2024: ct_pending = len(contests)-1
-
-# MEDSL 2018-2024 Senate / House / Governor (+ CT 2024 President)
-CR = f'{DATA}/results/county_results.csv'
-races = collections.defaultdict(dict)
-import re
 def nm(x):
     x = (x or '').strip()
     if not x: return ''
@@ -137,72 +92,57 @@ def nm(x):
     t = re.sub(r"\bMc([a-z])", lambda m: 'Mc' + m.group(1).upper(), t)
     t = re.sub(r"\b(Ii|Iii|Iv|Jr|Sr)\b(?!\.)", lambda m: {'Ii':'II','Iii':'III','Iv':'IV'}.get(m.group(1), m.group(1)+'.'), t)
     return t
-if os.path.exists(f'{DATA}/results/races.csv'):
-    for r in csv.DictReader(open(f'{DATA}/results/races.csv')):
-        st = ST.get(r['state_po']);
-        if not st: continue
-        races[(int(r['year']), r['office'], int(r['special']))][st] = dict(d=nm(r['dem_cand']), r=nm(r['rep_cand']), o=nm(r['top_other_cand']) if r['top_other_cand'].upper() not in ('WRITEIN', 'OTHER', '') else '')
-if os.path.exists(CR):
-    groups = collections.defaultdict(blank); ak = collections.defaultdict(lambda: [0, 0, 0]); ct24 = blank()
-    for r in csv.DictReader(open(CR)):
-        y = int(r['year']); off = r['office']; sp = int(r['special']); f = r['fips'].zfill(5)
-        d, rp, o = int(r['dem']), int(r['rep']), int(r['oth'])
-        if off == 'PRES':
-            if y == 2024 and f[:2] == '09': add(ct24, f, d, rp, o)
-            continue
-        if sp == 2 or (off == 'HOUSE' and sp): continue
-        k = (y, off, sp)
-        if f[:2] == '02': ak[k][0] += d; ak[k][1] += rp; ak[k][2] += o; continue
-        if not add(groups[k], f, d, rp, o): unplaced[(y, off, f)] += d+rp+o
-    c = contests[ct_pending]
-    for i in range(N):
-        if ids[i][:2] == '09': c['dem'][i], c['rep'][i], c['oth'][i] = map(int, ct24[i])
-    hd = collections.defaultdict(lambda: [0, 0])
-    if os.path.exists(f'{DATA}/results/house_districts.csv'):
-        for r in csv.DictReader(open(f'{DATA}/results/house_districts.csv')):
-            hd[int(r['year'])][0] += 1; hd[int(r['year'])][1] += 1 - int(r['contested'])
-    for k in sorted(groups.keys() | ak.keys()):
-        y, off, sp = k; arr = groups.get(k, blank())
-        sw = {'02': tuple(ak[k])} if sum(ak[k]) else {}
-        nst = len({ids[i][:2] for i in range(N) if arr[i].sum() > 0} | set(sw))
-        note = ''
-        if off == 'SEN': note = f'{nst} states held {"special " if sp else ""}Senate elections.'
-        if off == 'GOV': note = f'{nst} states elected governors.'
-        if off == 'HOUSE':
-            n, u = hd[y]; note = f'Each county shows the sum of all U.S. House votes cast in it.' + (f' {u} of {n} districts lacked a D-vs-R contest, which tilts their counties toward the party that ran.' if n else '')
-        finish(y, off, arr, statewide=sw, special=sp, note=note, cand=races.get(k, {}), src='MEDSL precinct returns')
-else:
-    print('WARNING: no MEDSL county results yet')
+
+unplaced = collections.Counter()
+PRESC = {2000: dict(d='Gore', r='Bush'), 2004: dict(d='Kerry', r='Bush'), 2008: dict(d='Obama', r='McCain'),
+         2012: dict(d='Obama', r='Romney'), 2016: dict(d='Clinton', r='Trump'), 2020: dict(d='Biden', r='Trump'),
+         2024: dict(d='Harris', r='Trump')}
+races = collections.defaultdict(dict)
+for r in csv.DictReader(open(f'{DATA}/results/races.csv')):
+    st = ST.get(r['state_po'])
+    if not st: continue
+    races[(int(r['year']), r['office'], int(r['special']))][st] = dict(
+        d=nm(r['dem_cand']), r=nm(r['rep_cand']),
+        o=nm(r['top_other_cand']) if r['top_other_cand'].upper() not in ('WRITEIN', 'OTHER', '') else '')
+hd = collections.defaultdict(lambda: [0, 0])
+for r in csv.DictReader(open(f'{DATA}/results/house_districts.csv')):
+    hd[int(r['year'])][0] += 1; hd[int(r['year'])][1] += 1 - int(r['contested'])
+groups = collections.defaultdict(blank); ak = collections.defaultdict(lambda: [0, 0, 0]); srcs = collections.defaultdict(collections.Counter)
+for r in csv.DictReader(open(f'{DATA}/results/county_results.csv')):
+    y = int(r['year']); off = r['office']; sp = int(r['special']); f = r['fips'].zfill(5)
+    if y not in YEARS or sp == 2 or (off == 'HOUSE' and sp): continue   # runoffs and House specials aren't mapped
+    d, rp, o = int(r['dem']), int(r['rep']), int(r['oth'])
+    k = (y, off, sp)
+    srcs[k][re.sub(r' \(.*\)$', '', r['source'].split(':')[0])] += int(r['total'])
+    if f[:2] == '02': ak[k][0] += d; ak[k][1] += rp; ak[k][2] += o; continue
+    if not add(groups[k], f, d, rp, o): unplaced[(y, off, f)] += d+rp+o
+for k in sorted(groups.keys() | ak.keys()):
+    y, off, sp = k; arr = groups.get(k, blank())
+    sw = {'02': tuple(ak[k])} if sum(ak[k]) else {}
+    nst = len({ids[i][:2] for i in range(N) if arr[i].sum() > 0} | set(sw))
+    note = ''
+    if off == 'SEN': note = f'{nst} states held {"special " if sp else ""}Senate elections.'
+    if off == 'GOV': note = f'{nst} states elected governors.'
+    if off == 'HOUSE':
+        n, u = hd[y]; note = f'Each county shows the sum of all U.S. House votes cast in it.' + (f' {u} of {n} districts lacked a D-vs-R contest, which tilts their counties toward the party that ran.' if n else '')
+    src = '; '.join(s for s, _ in srcs[k].most_common())
+    cand = {'*': PRESC[y]} if off == 'PRES' else races.get(k, {})
+    finish(y, off, arr, statewide=sw, special=sp, note=note, cand=cand, src=src)
 for k, v in sorted(unplaced.items(), key=lambda kv: -kv[1])[:15]: print('unplaced', k, v)
 
-# data-quality notes from the MEDSL aggregation (major / missing issues only)
+# data-quality notes (major / missing issues only), shown under Details for the affected race
 STN = {v: k for k, v in ST.items()}
-dq = []
-if os.path.exists(f'{DATA}/results/data_quality.csv'):
-    dq = [r for r in csv.DictReader(open(f'{DATA}/results/data_quality.csv')) if r['severity'] in ('major', 'missing')]
+dq = [r for r in csv.DictReader(open(f'{DATA}/results/data_quality.csv')) if r['severity'] in ('major', 'missing')]
 for c in contests:
-    if c['office'] == 'PRES' and c['year'] != 2024: continue   # PRES 2008-2020 do not come from MEDSL precinct files
     msgs = []
     for r in dq:
-        if int(r['year']) != c['year']: continue
+        if str(c['year']) not in r['year'].split(';'): continue
         offs = r['office'].replace(';', ' ').split()
         if 'ALL' not in offs and c['office'] not in offs: continue
+        if r['special'] not in ('', str(c['special'])) and str(c['special']) not in r['special'].split(';'): continue
         sts = r['state_po'].replace(';', ' ').split()
-        if c['office'] == 'PRES' and 'CT' not in sts: continue   # 2024 PRES uses MEDSL only for Connecticut
-        # only mention states that actually held this race
-        keep_sts = []
-        for x in sts:
-            stf = ST.get(x, '')
-            had = any(c['dem'][i] + c['rep'][i] + c['oth'][i] > 0 for i, f in enumerate(ids) if f[:2] == stf)
-            if had or (c['office'] == 'HOUSE' and not c['special']) or ('ALL' not in offs and not c['special']): keep_sts.append(x)
-        if not keep_sts: continue
-        if c['year'] == 2024 and 'LA' in keep_sts and c['office'] != 'PRES':
-            for i, f in enumerate(ids):
-                if f[:2] == '22': c['dem'][i] = c['rep'][i] = c['oth'][i] = 0
-            msgs.append('Louisiana is left blank: its early votes are missing from the precinct source, which would skew every parish.'); continue
-        names = [NAMES.get(ST.get(x, ''), x) for x in keep_sts]
-        txt = re.sub(r'^MEDSL README: ', '', r['issue']).replace('->', '→').rstrip('.')
-        msgs.append(f"{', '.join(names)}: {txt}.")
+        names = [NAMES.get(ST.get(x, ''), x) for x in sts]
+        msgs.append(f"{', '.join(names)}: {r['issue'].replace('->', '→').rstrip('.')}.")
     c['gaps'] = list(dict.fromkeys(msgs))
 
 order = {'PRES': 0, 'SEN': 1, 'HOUSE': 2, 'GOV': 3}

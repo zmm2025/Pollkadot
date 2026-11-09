@@ -1,0 +1,1359 @@
+year,office,special,state_po,dem,rep,total,ref,ref_dem,ref_rep,d_pct,r_pct,missing_counties,source
+2000,GOV,0,DE,191695,128603,323688,,,,,,,Amlani & Algara county returns
+2000,GOV,0,IN,1232525,908285,2179413,,,,,,,Amlani & Algara county returns
+2000,GOV,0,MO,1152752,1131307,2346830,,,,,,,Amlani & Algara county returns
+2000,GOV,0,MT,193131,209135,410192,,,,,,,Amlani & Algara county returns
+2000,GOV,0,NC,1530324,1360960,2942062,,,,,,,Amlani & Algara county returns
+2000,GOV,0,ND,130144,159255,289412,,,,,,,Amlani & Algara county returns
+2000,GOV,0,NH,275038,246952,564953,,,,,,,Amlani & Algara county returns
+2000,GOV,0,UT,321979,424837,761806,,,,,,,Amlani & Algara county returns
+2000,GOV,0,VT,148059,111359,293473,,,,,,,Amlani & Algara county returns
+2000,GOV,0,WA,1441973,980060,2469852,,,,,,,Amlani & Algara county returns
+2000,GOV,0,WV,324822,305926,648047,,,,,,,Amlani & Algara county returns
+2000,PRES,0,AK,79004,167398,285560,MEDSL statewide,79004,167398,0.0,0.0,,MEDSL statewide presidential returns
+2000,PRES,0,AL,695602,944409,1672551,MEDSL statewide,692611,941173,0.43,0.34,,MEDSL county presidential returns
+2000,PRES,0,AR,422768,472940,921781,MEDSL statewide,422768,472940,0.0,0.0,,MEDSL county presidential returns
+2000,PRES,0,AZ,685341,781652,1534113,MEDSL statewide,685341,781652,0.0,0.0,,MEDSL county presidential returns
+2000,PRES,0,CA,5861203,4567429,10965856,MEDSL statewide,5861203,4567429,0.0,0.0,,MEDSL county presidential returns
+2000,PRES,0,CO,738227,883745,1741365,MEDSL statewide,738227,883748,0.0,-0.0,08014,MEDSL county presidential returns
+2000,PRES,0,CT,816015,561094,1459525,MEDSL statewide,816015,561094,0.0,0.0,,MEDSL county presidential returns
+2000,PRES,0,DC,171923,18073,201894,MEDSL statewide,171923,18073,0.0,0.0,,MEDSL county presidential returns
+2000,PRES,0,DE,180068,137288,327529,MEDSL statewide,180068,137288,0.0,0.0,,MEDSL county presidential returns
+2000,PRES,0,FL,2911417,2911215,5960660,MEDSL statewide,2912253,2912790,-0.03,-0.05,,MEDSL county presidential returns
+2000,PRES,0,GA,1116230,1419720,2596804,MEDSL statewide,1116230,1419720,0.0,0.0,,MEDSL county presidential returns
+2000,PRES,0,HI,205242,137819,367871,MEDSL statewide,205286,137845,-0.02,-0.02,,MEDSL county presidential returns
+2000,PRES,0,IA,638517,634373,1315563,MEDSL statewide,638517,634373,0.0,0.0,,MEDSL county presidential returns
+2000,PRES,0,ID,138637,336937,501621,MEDSL statewide,138637,336937,0.0,0.0,,MEDSL county presidential returns
+2000,PRES,0,IL,2589026,2019421,4742123,MEDSL statewide,2589026,2019421,0.0,0.0,,MEDSL county presidential returns
+2000,PRES,0,IN,901980,1245836,2199305,MEDSL statewide,901980,1245836,0.0,0.0,,MEDSL county presidential returns
+2000,PRES,0,KS,399276,622332,1072216,MEDSL statewide,399276,622332,0.0,0.0,,MEDSL county presidential returns
+2000,PRES,0,KY,638898,872492,1544187,MEDSL statewide,638923,872520,-0.0,-0.0,,MEDSL county presidential returns
+2000,PRES,0,LA,792344,927871,1765656,MEDSL statewide,792344,927871,0.0,0.0,,MEDSL county presidential returns
+2000,PRES,0,MA,1616487,878502,2702984,MEDSL statewide,1616487,878502,0.0,0.0,,MEDSL county presidential returns
+2000,PRES,0,MD,1145782,813797,2025480,MEDSL statewide,1144008,813827,0.16,-0.0,,MEDSL county presidential returns
+2000,PRES,0,ME,319951,286616,651817,MEDSL statewide,319951,286616,0.0,0.0,,MEDSL county presidential returns
+2000,PRES,0,MI,2170418,1953139,4232711,MEDSL statewide,2170418,1953139,0.0,0.0,,MEDSL county presidential returns
+2000,PRES,0,MN,1168266,1109659,2438685,MEDSL statewide,1168266,1109659,0.0,0.0,,MEDSL county presidential returns
+2000,PRES,0,MO,1111138,1189924,2359892,MEDSL statewide,1111138,1189924,0.0,0.0,,MEDSL county presidential returns
+2000,PRES,0,MS,404964,573230,994926,MEDSL statewide,404614,572844,0.09,0.07,,MEDSL county presidential returns
+2000,PRES,0,MT,137126,240178,410986,MEDSL statewide,137126,240178,0.0,0.0,,MEDSL county presidential returns
+2000,PRES,0,NC,1257692,1631163,2911262,MEDSL statewide,1257692,1631163,0.0,0.0,,MEDSL county presidential returns
+2000,PRES,0,ND,95284,174852,288267,MEDSL statewide,95284,174852,0.0,0.0,,MEDSL county presidential returns
+2000,PRES,0,NE,231780,433862,697019,MEDSL statewide,231780,433862,0.0,0.0,,MEDSL county presidential returns
+2000,PRES,0,NH,266348,273559,569081,MEDSL statewide,266348,273559,0.0,0.0,,MEDSL county presidential returns
+2000,PRES,0,NJ,1788850,1284173,3187226,MEDSL statewide,1788850,1284173,0.0,0.0,,MEDSL county presidential returns
+2000,PRES,0,NM,286783,286417,598605,MEDSL statewide,286783,286417,0.0,0.0,,MEDSL county presidential returns
+2000,PRES,0,NV,279978,301575,608970,MEDSL statewide,279978,301575,0.0,0.0,,MEDSL county presidential returns
+2000,PRES,0,NY,4107697,2403374,6821999,MEDSL statewide,3942215,2258577,4.2,6.41,,MEDSL county presidential returns
+2000,PRES,0,OH,2186190,2351209,4705457,MEDSL statewide,2183628,2350363,0.12,0.04,,MEDSL county presidential returns
+2000,PRES,0,OK,474276,744337,1234229,MEDSL statewide,474276,744337,0.0,0.0,,MEDSL county presidential returns
+2000,PRES,0,OR,720342,713577,1533968,MEDSL statewide,720342,713577,0.0,0.0,,MEDSL county presidential returns
+2000,PRES,0,PA,2485967,2281127,4912185,MEDSL statewide,2485967,2281127,0.0,0.0,,MEDSL county presidential returns
+2000,PRES,0,RI,249508,130555,409112,MEDSL statewide,249508,130555,0.0,0.0,,MEDSL county presidential returns
+2000,PRES,0,SC,566039,786426,1383777,MEDSL statewide,566037,786892,0.0,-0.06,,MEDSL county presidential returns
+2000,PRES,0,SD,118804,190700,316269,MEDSL statewide,118804,190700,0.0,0.0,,MEDSL county presidential returns
+2000,PRES,0,TN,981720,1061949,2076181,MEDSL statewide,981720,1061949,0.0,0.0,,MEDSL county presidential returns
+2000,PRES,0,TX,2433746,3799639,6407637,MEDSL statewide,2433746,3799639,0.0,0.0,,MEDSL county presidential returns
+2000,PRES,0,UT,203053,515096,770754,MEDSL statewide,203053,515096,0.0,0.0,,MEDSL county presidential returns
+2000,PRES,0,VA,1216422,1436877,2737915,MEDSL statewide,1217290,1437490,-0.07,-0.04,,MEDSL county presidential returns
+2000,PRES,0,VT,149022,119775,294308,MEDSL statewide,149022,119775,0.0,0.0,,MEDSL county presidential returns
+2000,PRES,0,WA,1247652,1108864,2488441,MEDSL statewide,1247652,1108864,0.0,0.0,,MEDSL county presidential returns
+2000,PRES,0,WI,1242987,1237279,2598607,MEDSL statewide,1242987,1237279,0.0,0.0,,MEDSL county presidential returns
+2000,PRES,0,WV,295497,336475,648124,MEDSL statewide,295497,336475,0.0,0.0,,MEDSL county presidential returns
+2000,PRES,0,WY,60481,147947,218351,MEDSL statewide,60481,147947,0.0,0.0,,MEDSL county presidential returns
+2000,SEN,0,AZ,0,1108196,1397076,MEDSL statewide,0,1108196,,0.0,,Amlani & Algara county returns
+2000,SEN,0,CA,5932522,3886853,10623614,MEDSL statewide,5932522,3886853,0.0,0.0,,Amlani & Algara county returns
+2000,SEN,0,CT,828902,448077,1311261,MEDSL statewide,828902,448077,0.0,0.0,,Amlani & Algara county returns
+2000,SEN,0,DE,181566,142891,327017,MEDSL statewide,181566,142891,0.0,0.0,,Amlani & Algara county returns
+2000,SEN,0,FL,2988840,2704093,5854763,MEDSL statewide,2989487,2705348,-0.02,-0.05,,Amlani & Algara county returns
+2000,SEN,0,HI,251171,84681,345552,MEDSL statewide,251215,84701,-0.02,-0.02,,Amlani & Algara county returns
+2000,SEN,0,IN,683273,1427944,2145209,MEDSL statewide,683273,1427944,0.0,0.0,,Amlani & Algara county returns
+2000,SEN,0,MA,1889494,334341,2599420,MEDSL statewide,1889494,334341,0.0,0.0,,Amlani & Algara county returns
+2000,SEN,0,MD,1230013,715178,1946898,MEDSL statewide,1230013,715178,0.0,0.0,,Amlani & Algara county returns
+2000,SEN,0,ME,197183,437689,634872,MEDSL statewide,197183,437689,0.0,0.0,,Amlani & Algara county returns
+2000,SEN,0,MI,2061952,1994693,4167685,MEDSL statewide,2061952,1994693,0.0,0.0,,Amlani & Algara county returns
+2000,SEN,0,MN,1181553,1047474,2419520,MEDSL statewide,1181553,1047474,0.0,0.0,,Amlani & Algara county returns
+2000,SEN,0,MO,1191812,1142852,2361586,MEDSL statewide,1191812,1142852,0.0,0.0,,Amlani & Algara county returns
+2000,SEN,0,MS,314090,654941,994144,MEDSL statewide,314090,654941,0.0,0.0,,Amlani & Algara county returns
+2000,SEN,0,MT,194430,208082,411601,MEDSL statewide,194430,208082,0.0,0.0,,Amlani & Algara county returns
+2000,SEN,0,ND,176470,111069,287539,MEDSL statewide,176470,111069,0.0,0.0,,Amlani & Algara county returns
+2000,SEN,0,NE,353097,337967,692344,MEDSL statewide,353093,337977,0.0,-0.0,,Amlani & Algara county returns
+2000,SEN,0,NJ,1511237,1420267,3015662,MEDSL statewide,1511237,1420267,0.0,0.0,,Amlani & Algara county returns
+2000,SEN,0,NM,363744,225517,589526,MEDSL statewide,363744,225517,0.0,0.0,,Amlani & Algara county returns
+2000,SEN,0,NV,238260,330687,600250,MEDSL statewide,238260,330687,0.0,0.0,,Amlani & Algara county returns
+2000,SEN,0,NY,3747310,2915730,6779839,MEDSL statewide,3562415,2724589,5.19,7.02,,Amlani & Algara county returns
+2000,SEN,0,OH,1595066,2665512,4448801,MEDSL statewide,1595066,2665512,0.0,0.0,,Amlani & Algara county returns
+2000,SEN,0,PA,2154908,2481962,4735116,MEDSL statewide,2154908,2481962,0.0,0.0,,Amlani & Algara county returns
+2000,SEN,0,RI,161023,222588,391353,MEDSL statewide,161023,222588,0.0,0.0,,Amlani & Algara county returns
+2000,SEN,0,TN,621152,1255444,1928613,MEDSL statewide,621152,1255444,0.0,0.0,,Amlani & Algara county returns
+2000,SEN,0,TX,2030315,4082091,6276652,MEDSL statewide,2025024,4078954,0.26,0.08,,Amlani & Algara county returns
+2000,SEN,0,UT,242569,504803,769704,MEDSL statewide,242569,504803,0.0,0.0,,Amlani & Algara county returns
+2000,SEN,0,VA,1296093,1420460,2718301,MEDSL statewide,1296093,1420460,0.0,0.0,,Amlani & Algara county returns
+2000,SEN,0,VT,73352,189133,288500,MEDSL statewide,73352,189133,0.0,0.0,,Amlani & Algara county returns
+2000,SEN,0,WA,1199437,1197208,2461379,MEDSL statewide,1199437,1197208,0.0,0.0,,Amlani & Algara county returns
+2000,SEN,0,WI,1563238,940744,2540083,MEDSL statewide,1563238,940744,0.0,0.0,,Amlani & Algara county returns
+2000,SEN,0,WV,469215,121635,603477,MEDSL statewide,469215,121635,0.0,0.0,,Amlani & Algara county returns
+2000,SEN,0,WY,47087,157622,213659,MEDSL statewide,47087,157622,0.0,0.0,,Amlani & Algara county returns
+2000,SEN,1,GA,1412804,920658,2428012,MEDSL statewide,1413224,0,-0.03,,,Amlani & Algara county returns
+2002,GOV,0,AK,94216,129279,231484,,,,,,,"official state results: Alaska Division of Elections, General Election November 5, 2002, Official Results (statewide summary, pdf)"
+2002,GOV,0,AL,669105,672225,1367053,,,,,,,Amlani & Algara county returns
+2002,GOV,0,AR,378250,427082,805696,,,,,,,Amlani & Algara county returns
+2002,GOV,0,AZ,566284,554465,1226111,,,,,,,Amlani & Algara county returns
+2002,GOV,0,CA,3533490,3169801,7476311,,,,,,,Amlani & Algara county returns
+2002,GOV,0,CO,475373,884583,1412602,,,,,,,Amlani & Algara county returns
+2002,GOV,0,CT,448984,573958,1022942,,,,,,,Amlani & Algara county returns
+2002,GOV,0,FL,2201427,2856845,5100581,,,,,,,Amlani & Algara county returns
+2002,GOV,0,GA,937062,1041677,2027145,,,,,,,Amlani & Algara county returns
+2002,GOV,0,HI,179647,197009,382110,,,,,,,Amlani & Algara county returns
+2002,GOV,0,IA,540449,456612,1025802,,,,,,,Amlani & Algara county returns
+2002,GOV,0,ID,171711,231566,411477,,,,,,,Amlani & Algara county returns
+2002,GOV,0,IL,1847040,1594960,3538891,,,,,,,Amlani & Algara county returns
+2002,GOV,0,KS,441858,376830,835692,,,,,,,Amlani & Algara county returns
+2002,GOV,0,MA,985981,1091988,2194179,,,,,,,Amlani & Algara county returns
+2002,GOV,0,MD,813422,879592,1706179,,,,,,,Amlani & Algara county returns
+2002,GOV,0,ME,238179,209496,505190,,,,,,,Amlani & Algara county returns
+2002,GOV,0,MI,1633796,1506104,3177565,,,,,,,Amlani & Algara county returns
+2002,GOV,0,MN,821268,999473,2252473,,,,,,,Amlani & Algara county returns
+2002,GOV,0,NE,132348,330349,480991,,,,,,,Amlani & Algara county returns
+2002,GOV,0,NH,169277,259663,442976,,,,,,,Amlani & Algara county returns
+2002,GOV,0,NM,268693,189074,484233,,,,,,,Amlani & Algara county returns
+2002,GOV,0,NV,110935,344001,504079,,,,,,,Amlani & Algara county returns
+2002,GOV,0,NY,1534064,2262255,4579078,,,,,,,Amlani & Algara county returns
+2002,GOV,0,OH,1236924,1865007,3228992,,,,,,,Amlani & Algara county returns
+2002,GOV,0,OK,448143,441277,1035620,,,,,,,Amlani & Algara county returns
+2002,GOV,0,OR,618004,581785,1260497,,,,,,,Amlani & Algara county returns
+2002,GOV,0,PA,1913235,1589408,3581989,,,,,,,Amlani & Algara county returns
+2002,GOV,0,RI,150229,181827,332056,,,,,,,Amlani & Algara county returns
+2002,GOV,0,SC,521140,585422,1107725,,,,,,,Amlani & Algara county returns
+2002,GOV,0,SD,140263,189920,334559,,,,,,,Amlani & Algara county returns
+2002,GOV,0,TN,837284,786803,1653167,,,,,,,Amlani & Algara county returns
+2002,GOV,0,TX,1819798,2632591,4553987,,,,,,,Amlani & Algara county returns
+2002,GOV,0,VT,97565,103436,230161,,,,,,,Amlani & Algara county returns
+2002,GOV,0,WI,800515,734779,1775349,,,,,,,Amlani & Algara county returns
+2002,GOV,0,WY,92662,88873,185459,,,,,,,Amlani & Algara county returns
+2002,SEN,0,AK,24133,179438,229548,MEDSL statewide,24133,179438,0.0,0.0,,MEDSL statewide Senate returns
+2002,SEN,0,AL,538878,792561,1353023,MEDSL statewide,538878,792561,0.0,0.0,,Amlani & Algara county returns
+2002,SEN,0,AR,433306,370653,803959,MEDSL statewide,433386,370735,-0.02,-0.02,,Amlani & Algara county returns
+2002,SEN,0,CO,648130,717893,1416082,MEDSL statewide,648130,717893,0.0,0.0,,Amlani & Algara county returns
+2002,SEN,0,DE,135253,94793,232314,MEDSL statewide,135253,94793,0.0,0.0,,Amlani & Algara county returns
+2002,SEN,0,GA,931857,1071153,2029991,MEDSL statewide,932422,1071352,-0.06,-0.02,,Amlani & Algara county returns
+2002,SEN,0,IA,554278,447892,1023075,MEDSL statewide,554278,447892,0.0,0.0,,Amlani & Algara county returns
+2002,SEN,0,ID,132975,266215,408544,MEDSL statewide,132975,266215,0.0,0.0,,Amlani & Algara county returns
+2002,SEN,0,IL,2103766,1325703,3486851,MEDSL statewide,2103766,1325703,0.0,0.0,,Amlani & Algara county returns
+2002,SEN,0,KS,0,641075,776850,MEDSL statewide,0,641075,,0.0,,Amlani & Algara county returns
+2002,SEN,0,KY,399634,731679,1131475,MEDSL statewide,399634,731679,0.0,0.0,,Amlani & Algara county returns
+2002,SEN,0,LA,638654,596642,1235296,MEDSL statewide,1235554,1229344,-48.31,-51.47,,Amlani & Algara county returns
+2002,SEN,0,MA,1605976,0,2006758,MEDSL statewide,1605976,0,0.0,,,Amlani & Algara county returns
+2002,SEN,0,ME,209858,295041,504899,MEDSL statewide,209858,295041,0.0,0.0,,Amlani & Algara county returns
+2002,SEN,0,MI,1896614,1185545,3129287,MEDSL statewide,1896614,1185545,0.0,0.0,,Amlani & Algara county returns
+2002,SEN,0,MN,1067246,1116697,2254639,MEDSL statewide,1078627,1116697,-1.06,0.0,,Amlani & Algara county returns
+2002,SEN,0,MS,0,533269,630495,MEDSL statewide,0,533269,,0.0,,Amlani & Algara county returns
+2002,SEN,0,MT,204853,103611,326537,MEDSL statewide,204853,103611,0.0,0.0,,Amlani & Algara county returns
+2002,SEN,0,NC,1047983,1248664,2331181,MEDSL statewide,1047983,1248664,0.0,0.0,,Amlani & Algara county returns
+2002,SEN,0,NE,70290,397438,480217,MEDSL statewide,70290,397438,0.0,0.0,,Amlani & Algara county returns
+2002,SEN,0,NH,207478,227229,447135,MEDSL statewide,207478,227229,0.0,0.0,,Amlani & Algara county returns
+2002,SEN,0,NJ,1138193,928439,2112604,MEDSL statewide,1138193,928439,0.0,0.0,,Amlani & Algara county returns
+2002,SEN,0,NM,169039,314301,483340,MEDSL statewide,168863,314193,0.1,0.03,,Amlani & Algara county returns
+2002,SEN,0,OK,369789,583579,1018424,MEDSL statewide,369789,583579,0.0,0.0,,Amlani & Algara county returns
+2002,SEN,0,OR,501898,712287,1267221,MEDSL statewide,501898,712287,0.0,0.0,,Amlani & Algara county returns
+2002,SEN,0,RI,253922,69881,323803,MEDSL statewide,253774,69808,0.06,0.1,,Amlani & Algara county returns
+2002,SEN,0,SC,487359,600010,1102948,MEDSL statewide,487359,600010,0.0,0.0,,Amlani & Algara county returns
+2002,SEN,0,SD,167481,166957,337508,MEDSL statewide,167481,166949,0.0,0.0,,Amlani & Algara county returns
+2002,SEN,0,TN,728295,891420,1642421,MEDSL statewide,728232,891498,0.01,-0.01,,Amlani & Algara county returns
+2002,SEN,0,TX,1955758,2496243,4514012,MEDSL statewide,1955758,2496243,0.0,0.0,,Amlani & Algara county returns
+2002,SEN,0,VA,0,1229894,1489422,MEDSL statewide,0,1229894,,0.0,,Amlani & Algara county returns
+2002,SEN,0,WV,275281,160902,436183,MEDSL statewide,275281,160902,0.0,0.0,,Amlani & Algara county returns
+2002,SEN,0,WY,49570,133710,183280,MEDSL statewide,49570,133710,0.0,0.0,,Amlani & Algara county returns
+2002,SEN,1,MO,913778,935032,1877630,MEDSL statewide,913778,935032,0.0,0.0,,Amlani & Algara county returns
+2004,GOV,0,DE,185687,167115,365008,,,,,,,Amlani & Algara county returns
+2004,GOV,0,IN,1113900,1302912,2448498,,,,,,,Amlani & Algara county returns
+2004,GOV,0,MO,1301442,1382419,2719599,,,,,,,Amlani & Algara county returns
+2004,GOV,0,MT,225016,205313,446146,,,,,,,Amlani & Algara county returns
+2004,GOV,0,NC,1939154,1495021,3486688,,,,,,,Amlani & Algara county returns
+2004,GOV,0,ND,84877,220803,309873,,,,,,,Amlani & Algara county returns
+2004,GOV,0,NH,340299,325981,667020,,,,,,,Amlani & Algara county returns
+2004,GOV,0,UT,380359,531190,919960,,,,,,,Amlani & Algara county returns
+2004,GOV,0,VT,117327,181540,309285,,,,,,,Amlani & Algara county returns
+2004,GOV,0,WA,1373361,1373232,2810058,,,,,,,Amlani & Algara county returns
+2004,GOV,0,WV,472758,253131,744433,,,,,,,Amlani & Algara county returns
+2004,PRES,0,AK,111025,190889,312598,MEDSL statewide,111025,190889,0.0,0.0,,MEDSL statewide presidential returns
+2004,PRES,0,AL,693933,1176394,1883415,MEDSL statewide,693933,1176394,0.0,0.0,,MEDSL county presidential returns
+2004,PRES,0,AR,468631,572770,1053694,MEDSL statewide,469953,572898,-0.28,-0.02,,MEDSL county presidential returns
+2004,PRES,0,AZ,893524,1104294,2012585,MEDSL statewide,893524,1104294,0.0,0.0,,MEDSL county presidential returns
+2004,PRES,0,CA,6737355,5501496,12383678,MEDSL statewide,6745485,5509826,-0.12,-0.15,,MEDSL county presidential returns
+2004,PRES,0,CO,1001732,1101255,2129630,MEDSL statewide,1001732,1101255,0.0,0.0,,MEDSL county presidential returns
+2004,PRES,0,CT,857488,693826,1578769,MEDSL statewide,857488,693826,0.0,0.0,,MEDSL county presidential returns
+2004,PRES,0,DC,202970,21256,227586,MEDSL statewide,202970,21256,0.0,0.0,,MEDSL county presidential returns
+2004,PRES,0,DE,200141,171651,375170,MEDSL statewide,200152,171660,-0.01,-0.01,,MEDSL county presidential returns
+2004,PRES,0,FL,3583544,3964522,7609810,MEDSL statewide,3583544,3964522,0.0,0.0,,MEDSL county presidential returns
+2004,PRES,0,GA,1366149,1914254,3298790,MEDSL statewide,1366149,1914254,0.0,0.0,,MEDSL county presidential returns
+2004,PRES,0,HI,231335,194116,428555,MEDSL statewide,231708,194191,-0.16,-0.04,,MEDSL county presidential returns
+2004,PRES,0,IA,741898,751957,1506908,MEDSL statewide,741898,751957,0.0,0.0,,MEDSL county presidential returns
+2004,PRES,0,ID,181098,409235,598376,MEDSL statewide,181098,409235,0.0,0.0,,MEDSL county presidential returns
+2004,PRES,0,IL,2891989,2346608,5275415,MEDSL statewide,2891550,2345946,0.02,0.03,,MEDSL county presidential returns
+2004,PRES,0,IN,969011,1479438,2468002,MEDSL statewide,969011,1479438,0.0,0.0,,MEDSL county presidential returns
+2004,PRES,0,KS,434993,736456,1187756,MEDSL statewide,434993,736456,0.0,0.0,,MEDSL county presidential returns
+2004,PRES,0,KY,712733,1069439,1795860,MEDSL statewide,712733,1069439,0.0,0.0,,MEDSL county presidential returns
+2004,PRES,0,LA,820299,1102169,1943106,MEDSL statewide,820299,1102169,0.0,0.0,,MEDSL county presidential returns
+2004,PRES,0,MA,1803800,1071109,2912388,MEDSL statewide,1803800,1071109,0.0,0.0,,MEDSL county presidential returns
+2004,PRES,0,MD,1334493,1024703,2386678,MEDSL statewide,1334500,1024703,-0.0,0.0,,MEDSL county presidential returns
+2004,PRES,0,ME,396842,330201,740752,MEDSL statewide,396842,330201,0.0,0.0,,Amlani & Algara county returns (MEDSL county file off)
+2004,PRES,0,MI,2479183,2313746,4839252,MEDSL statewide,2479183,2313746,0.0,0.0,,MEDSL county presidential returns
+2004,PRES,0,MN,1444751,1346451,2827850,MEDSL statewide,1445014,1346695,-0.02,-0.02,,MEDSL county presidential returns
+2004,PRES,0,MO,1259171,1455713,2731364,MEDSL statewide,1259171,1455713,0.0,0.0,,MEDSL county presidential returns
+2004,PRES,0,MS,458094,684981,1152365,MEDSL statewide,457766,672660,0.07,1.83,,Amlani & Algara county returns (MEDSL county file off)
+2004,PRES,0,MT,173710,266063,450434,MEDSL statewide,173710,266063,0.0,0.0,,MEDSL county presidential returns
+2004,PRES,0,NC,1525849,1961166,3501007,MEDSL statewide,1525849,1961166,0.0,0.0,,MEDSL county presidential returns
+2004,PRES,0,ND,111052,196651,312833,MEDSL statewide,111052,196651,0.0,0.0,,MEDSL county presidential returns
+2004,PRES,0,NE,254328,512814,778186,MEDSL statewide,254328,512814,0.0,0.0,,MEDSL county presidential returns
+2004,PRES,0,NH,340511,331237,677662,MEDSL statewide,340511,331237,0.0,0.0,,MEDSL county presidential returns
+2004,PRES,0,NJ,1911430,1668003,3609691,MEDSL statewide,1911430,1670003,0.0,-0.12,,MEDSL county presidential returns
+2004,PRES,0,NM,370942,376930,756304,MEDSL statewide,370942,376930,0.0,0.0,,MEDSL county presidential returns
+2004,PRES,0,NV,397190,418690,829587,MEDSL statewide,397190,418690,0.0,0.0,,MEDSL county presidential returns
+2004,PRES,0,NY,4180755,2806993,7391036,MEDSL statewide,4180755,2806993,0.0,0.0,,MEDSL county presidential returns
+2004,PRES,0,OH,2739952,2858727,5625631,MEDSL statewide,2741165,2859764,-0.04,-0.04,,MEDSL county presidential returns
+2004,PRES,0,OK,503966,959792,1463758,MEDSL statewide,503966,959792,0.0,0.0,,MEDSL county presidential returns
+2004,PRES,0,OR,943163,866831,1836782,MEDSL statewide,943163,866831,0.0,0.0,,MEDSL county presidential returns
+2004,PRES,0,PA,2938095,2793847,5765764,MEDSL statewide,2938095,2793847,0.0,0.0,,MEDSL county presidential returns
+2004,PRES,0,RI,259760,169046,436289,MEDSL statewide,259760,169046,0.0,0.0,,MEDSL county presidential returns
+2004,PRES,0,SC,661699,937974,1617730,MEDSL statewide,661669,937974,0.0,0.0,,MEDSL county presidential returns
+2004,PRES,0,SD,149244,232584,388215,MEDSL statewide,149244,232584,0.0,0.0,,MEDSL county presidential returns
+2004,PRES,0,TN,1032910,1381225,2430494,MEDSL statewide,1036477,1384375,-0.34,-0.23,,MEDSL county presidential returns
+2004,PRES,0,TX,2832704,4526917,7410749,MEDSL statewide,2832704,4526917,0.0,0.0,,MEDSL county presidential returns
+2004,PRES,0,UT,241199,663742,927844,MEDSL statewide,241199,663742,0.0,0.0,,MEDSL county presidential returns
+2004,PRES,0,VA,1454742,1716959,3198367,MEDSL statewide,1454742,1716959,0.0,0.0,,MEDSL county presidential returns
+2004,PRES,0,VT,184067,121180,312309,MEDSL statewide,184067,121180,0.0,0.0,,MEDSL county presidential returns
+2004,PRES,0,WA,1510201,1304894,2859084,MEDSL statewide,1510201,1304894,0.0,0.0,,MEDSL county presidential returns
+2004,PRES,0,WI,1489504,1478120,2997007,MEDSL statewide,1489504,1478120,0.0,0.0,,MEDSL county presidential returns
+2004,PRES,0,WV,326541,423550,755659,MEDSL statewide,326541,423778,0.0,-0.05,,MEDSL county presidential returns
+2004,PRES,0,WY,70776,167629,243428,MEDSL statewide,70776,167629,0.0,0.0,,MEDSL county presidential returns
+2004,SEN,0,AK,140424,149773,308315,MEDSL statewide,140424,149773,0.0,0.0,,MEDSL statewide Senate returns
+2004,SEN,0,AL,595018,1242200,1839066,MEDSL statewide,595018,1242200,0.0,0.0,,Amlani & Algara county returns
+2004,SEN,0,AR,580973,458036,1039349,MEDSL statewide,580973,458036,0.0,0.0,,Amlani & Algara county returns
+2004,SEN,0,AZ,404507,1505372,1961677,MEDSL statewide,404507,1505372,0.0,0.0,,Amlani & Algara county returns
+2004,SEN,0,CA,6955728,4555922,12053295,MEDSL statewide,6955728,4555922,0.0,0.0,,Amlani & Algara county returns
+2004,SEN,0,CO,1081188,980668,2107554,MEDSL statewide,1081188,980668,0.0,0.0,,Amlani & Algara county returns
+2004,SEN,0,CT,945347,457749,1424726,MEDSL statewide,945347,457749,0.0,0.0,,Amlani & Algara county returns
+2004,SEN,0,FL,3590201,3672864,7429894,MEDSL statewide,3590201,3672864,0.0,0.0,,Amlani & Algara county returns
+2004,SEN,0,GA,1287690,1864202,3220981,MEDSL statewide,1287690,1864202,0.0,0.0,,Amlani & Algara county returns
+2004,SEN,0,HI,313287,87121,414936,MEDSL statewide,313629,87172,-0.11,-0.06,,Amlani & Algara county returns
+2004,SEN,0,IA,412365,1038175,1479228,MEDSL statewide,412365,1038175,0.0,0.0,,Amlani & Algara county returns
+2004,SEN,0,ID,0,499796,503932,MEDSL statewide,0,499796,,0.0,,Amlani & Algara county returns
+2004,SEN,0,IL,3597456,1390690,5141520,MEDSL statewide,3597456,1390690,0.0,0.0,,Amlani & Algara county returns
+2004,SEN,0,IN,1496976,903913,2428233,MEDSL statewide,1496976,903913,0.0,0.0,,Amlani & Algara county returns
+2004,SEN,0,KS,310337,780863,1129022,MEDSL statewide,310337,780863,0.0,0.0,,Amlani & Algara county returns
+2004,SEN,0,KY,850855,873507,1724362,MEDSL statewide,850855,873507,0.0,0.0,,Amlani & Algara county returns
+2004,SEN,0,LA,542150,943014,1848056,MEDSL statewide,877482,943014,-38.22,0.0,,Amlani & Algara county returns
+2004,SEN,0,MD,1504691,783055,2323183,MEDSL statewide,1504691,783055,0.0,0.0,,Amlani & Algara county returns
+2004,SEN,0,MO,1158261,1518089,2706402,MEDSL statewide,1158261,1518089,0.0,0.0,,Amlani & Algara county returns
+2004,SEN,0,NC,1632527,1791450,3472082,MEDSL statewide,1632527,1791450,0.0,0.0,,Amlani & Algara county returns
+2004,SEN,0,ND,212143,98553,310696,MEDSL statewide,212143,98553,0.0,0.0,,Amlani & Algara county returns
+2004,SEN,0,NH,221549,434847,657086,MEDSL statewide,221549,434847,0.0,0.0,,Amlani & Algara county returns
+2004,SEN,0,NV,494805,284640,810068,MEDSL statewide,494805,284640,0.0,0.0,,Amlani & Algara county returns
+2004,SEN,0,NY,4769824,1625069,6702875,MEDSL statewide,4384907,1625069,8.78,0.0,,Amlani & Algara county returns
+2004,SEN,0,OH,1961249,3464651,5426196,MEDSL statewide,1961171,3464356,0.0,0.01,,Amlani & Algara county returns
+2004,SEN,0,OK,596750,763433,1446846,MEDSL statewide,596750,763433,0.0,0.0,,Amlani & Algara county returns
+2004,SEN,0,OR,1128728,565254,1780550,MEDSL statewide,1128728,565254,0.0,0.0,,Amlani & Algara county returns
+2004,SEN,0,PA,2334126,2925080,5558525,MEDSL statewide,2334126,2925080,0.0,0.0,,Amlani & Algara county returns
+2004,SEN,0,SC,704384,857167,1597221,MEDSL statewide,704384,857167,0.0,0.0,,Amlani & Algara county returns
+2004,SEN,0,SD,193340,197848,391188,MEDSL statewide,193340,197848,0.0,0.0,,Amlani & Algara county returns
+2004,SEN,0,UT,258955,626640,911726,MEDSL statewide,258955,626640,0.0,0.0,,Amlani & Algara county returns
+2004,SEN,0,VT,216972,75398,307208,MEDSL statewide,216972,75398,0.0,0.0,,Amlani & Algara county returns
+2004,SEN,0,WA,1549708,1204584,2818651,MEDSL statewide,1549708,1204584,0.0,0.0,,Amlani & Algara county returns
+2004,SEN,0,WI,1632697,1301183,2949743,MEDSL statewide,1632697,1301183,0.0,0.0,,Amlani & Algara county returns
+2006,GOV,0,AK,97238,114697,237322,,,,,,,"official state results: Alaska Division of Elections, 2006 General Election November 7, 2006, Official Results (statewide summary, pdf)"
+2006,GOV,0,AL,519827,718327,1250401,,,,,,,Amlani & Algara county returns
+2006,GOV,0,AR,430765,315040,774680,,,,,,,Amlani & Algara county returns
+2006,GOV,0,AZ,959830,543528,1533645,,,,,,,Amlani & Algara county returns
+2006,GOV,0,CA,3376732,4850157,8679416,,,,,,,Amlani & Algara county returns
+2006,GOV,0,CO,888096,625886,1558387,,,,,,,Amlani & Algara county returns
+2006,GOV,0,CT,398220,710048,1123412,,,,,,,Amlani & Algara county returns
+2006,GOV,0,FL,2178289,2519845,4829270,,,,,,,Amlani & Algara county returns
+2006,GOV,0,GA,811049,1229724,2122258,,,,,,,Amlani & Algara county returns
+2006,GOV,0,HI,121717,215313,344315,,,,,,,Amlani & Algara county returns
+2006,GOV,0,IA,569021,467425,1053255,,,,,,,Amlani & Algara county returns
+2006,GOV,0,ID,198845,237437,450832,,,,,,,Amlani & Algara county returns
+2006,GOV,0,IL,1736731,1369315,3487989,,,,,,,Amlani & Algara county returns
+2006,GOV,0,KS,491992,343581,849693,,,,,,,Amlani & Algara county returns
+2006,GOV,0,MA,1234984,784342,2219779,,,,,,,Amlani & Algara county returns
+2006,GOV,0,MD,942279,825464,1788316,,,,,,,Amlani & Algara county returns
+2006,GOV,0,ME,209927,166425,550865,,,,,,,Amlani & Algara county returns
+2006,GOV,0,MI,2142513,1608086,3801256,,,,,,,Amlani & Algara county returns
+2006,GOV,0,MN,1007460,1028568,2202937,,,,,,,Amlani & Algara county returns
+2006,GOV,0,NE,145115,435507,593357,,,,,,,Amlani & Algara county returns
+2006,GOV,0,NH,298760,104288,403679,,,,,,,Amlani & Algara county returns
+2006,GOV,0,NM,384806,174364,559170,,,,,,,Amlani & Algara county returns
+2006,GOV,0,NV,255684,279003,582158,,,,,,,Amlani & Algara county returns
+2006,GOV,0,NY,3086709,1274335,4437220,,,,,,,Amlani & Algara county returns
+2006,GOV,0,OH,2435384,1474285,4022754,,,,,,,Amlani & Algara county returns
+2006,GOV,0,OK,616135,310327,926462,,,,,,,Amlani & Algara county returns
+2006,GOV,0,OR,699786,589748,1379475,,,,,,,Amlani & Algara county returns
+2006,GOV,0,PA,2470517,1622135,4096077,,,,,,,Amlani & Algara county returns
+2006,GOV,0,RI,189562,197366,386928,,,,,,,Amlani & Algara county returns
+2006,GOV,0,SC,489076,601868,1091952,,,,,,,Amlani & Algara county returns
+2006,GOV,0,SD,121226,206990,335508,,,,,,,Amlani & Algara county returns
+2006,GOV,0,TN,1247491,540853,1818549,,,,,,,Amlani & Algara county returns
+2006,GOV,0,TX,1310337,1716792,4399116,,,,,,,Amlani & Algara county returns
+2006,GOV,0,VT,108090,148014,262524,,,,,,,Amlani & Algara county returns
+2006,GOV,0,WI,1139115,979427,2161700,,,,,,,Amlani & Algara county returns
+2006,GOV,0,WY,135516,58100,193892,,,,,,,Amlani & Algara county returns
+2006,SEN,0,AZ,664141,814398,1526782,MEDSL statewide,664141,814398,0.0,0.0,,Amlani & Algara county returns
+2006,SEN,0,CA,5076289,2990822,8541476,MEDSL statewide,5076289,2990822,0.0,0.0,,Amlani & Algara county returns
+2006,SEN,0,CT,450844,109198,1134697,MEDSL statewide,450844,109198,0.0,0.0,,Amlani & Algara county returns
+2006,SEN,0,DE,170567,69734,254099,MEDSL statewide,170567,69734,0.0,0.0,,Amlani & Algara county returns
+2006,SEN,0,FL,2890548,1826127,4793534,MEDSL statewide,2890548,1826127,0.0,0.0,,Amlani & Algara county returns
+2006,SEN,0,HI,210138,126063,342606,MEDSL statewide,210330,126097,-0.09,-0.03,,Amlani & Algara county returns
+2006,SEN,0,IN,0,1171553,1341111,MEDSL statewide,0,1171553,,0.0,,Amlani & Algara county returns
+2006,SEN,0,MA,1500738,661532,2165490,MEDSL statewide,1500738,661532,0.0,0.0,,Amlani & Algara county returns
+2006,SEN,0,MD,965477,787182,1781139,MEDSL statewide,965477,787182,0.0,0.0,,Amlani & Algara county returns
+2006,SEN,0,ME,111984,402598,543981,MEDSL statewide,113131,405596,-1.01,-0.74,,Amlani & Algara county returns
+2006,SEN,0,MI,2151278,1559597,3780142,MEDSL statewide,2151278,1559597,0.0,0.0,,Amlani & Algara county returns
+2006,SEN,0,MN,1278849,835653,2202772,MEDSL statewide,1278849,835653,0.0,0.0,,Amlani & Algara county returns
+2006,SEN,0,MO,1055255,1006941,2128459,MEDSL statewide,1055255,1006941,0.0,0.0,,Amlani & Algara county returns
+2006,SEN,0,MS,213000,388399,610921,MEDSL statewide,213000,388399,0.0,0.0,,Amlani & Algara county returns
+2006,SEN,0,MT,199845,196283,406505,MEDSL statewide,199845,196283,0.0,0.0,,Amlani & Algara county returns
+2006,SEN,0,ND,150146,64417,218152,MEDSL statewide,150146,64417,0.0,0.0,,Amlani & Algara county returns
+2006,SEN,0,NE,378388,213928,592316,MEDSL statewide,378388,213928,0.0,0.0,,Amlani & Algara county returns
+2006,SEN,0,NJ,1200843,997775,2250070,MEDSL statewide,1200843,997775,0.0,0.0,,Amlani & Algara county returns
+2006,SEN,0,NM,394365,163826,558550,MEDSL statewide,394365,163826,0.0,0.0,,Amlani & Algara county returns
+2006,SEN,0,NV,238796,322501,582572,MEDSL statewide,238796,322501,0.0,0.0,,Amlani & Algara county returns
+2006,SEN,0,NY,3008428,1392189,4490053,MEDSL statewide,2698931,1212902,11.47,14.78,,Amlani & Algara county returns
+2006,SEN,0,OH,2257369,1761037,4019236,MEDSL statewide,2257369,1761037,0.0,0.0,,Amlani & Algara county returns
+2006,SEN,0,PA,2392984,1684778,4081043,MEDSL statewide,2392984,1684778,0.0,0.0,,Amlani & Algara county returns
+2006,SEN,0,RI,206108,179001,385109,MEDSL statewide,206043,178950,0.03,0.03,,Amlani & Algara county returns
+2006,SEN,0,TN,879976,929911,1833695,MEDSL statewide,879976,929911,0.0,0.0,,Amlani & Algara county returns
+2006,SEN,0,TX,1555202,2661789,4314663,MEDSL statewide,1555202,2661789,0.0,0.0,,Amlani & Algara county returns
+2006,SEN,0,UT,177459,356238,571252,MEDSL statewide,177459,356238,0.0,0.0,,Amlani & Algara county returns
+2006,SEN,0,VA,1175606,1166277,2370445,MEDSL statewide,1175606,1166277,0.0,0.0,,Amlani & Algara county returns
+2006,SEN,0,VT,0,84924,262419,MEDSL statewide,0,84924,,0.0,,Amlani & Algara county returns
+2006,SEN,0,WA,1184659,832106,2083734,MEDSL statewide,1184659,832106,0.0,0.0,,Amlani & Algara county returns
+2006,SEN,0,WI,1439214,630299,2138297,MEDSL statewide,1439214,630299,0.0,0.0,,Amlani & Algara county returns
+2006,SEN,0,WV,296276,155043,459884,MEDSL statewide,159154,47408,86.16,227.04,,Amlani & Algara county returns
+2006,SEN,0,WY,57671,135174,193136,MEDSL statewide,57671,135174,0.0,0.0,,Amlani & Algara county returns
+2008,GOV,0,DE,266861,126662,395204,,,,,,,Amlani & Algara county returns
+2008,GOV,0,IN,1082463,1563885,2703752,,,,,,,Amlani & Algara county returns
+2008,GOV,0,MO,1680611,1136364,2877778,,,,,,,Amlani & Algara county returns
+2008,GOV,0,MT,318670,158268,486734,,,,,,,Amlani & Algara county returns
+2008,GOV,0,NC,2146189,2001168,4268941,,,,,,,Amlani & Algara county returns
+2008,GOV,0,ND,74279,235009,315692,,,,,,,Amlani & Algara county returns
+2008,GOV,0,NH,479042,188555,682910,,,,,,,Amlani & Algara county returns
+2008,GOV,0,UT,186503,734049,945525,,,,,,,Amlani & Algara county returns
+2008,GOV,0,VT,69534,170492,319085,,,,,,,Amlani & Algara county returns
+2008,GOV,0,WA,1598738,1404124,3002862,,,,,,,Amlani & Algara county returns
+2008,GOV,0,WV,492697,181612,706046,,,,,,,Amlani & Algara county returns
+2008,PRES,0,AK,123594,193841,326197,MEDSL statewide,123594,193841,0.0,0.0,,MEDSL statewide presidential returns
+2008,PRES,0,AL,813479,1266546,2099819,MEDSL statewide,813479,1266546,0.0,0.0,,MEDSL county presidential returns
+2008,PRES,0,AR,422310,638017,1086617,MEDSL statewide,422310,638017,0.0,0.0,,MEDSL county presidential returns
+2008,PRES,0,AZ,1034707,1230111,2293475,MEDSL statewide,1034707,1230111,0.0,0.0,,MEDSL county presidential returns
+2008,PRES,0,CA,8274473,5011781,13561900,MEDSL statewide,8274473,5011781,0.0,0.0,,MEDSL county presidential returns
+2008,PRES,0,CO,1288576,1073589,2401361,MEDSL statewide,1288576,1073589,0.0,0.0,,MEDSL county presidential returns
+2008,PRES,0,CT,1000291,628041,1647085,MEDSL statewide,997772,629428,0.25,-0.22,,MEDSL county presidential returns
+2008,PRES,0,DC,245800,17367,265853,MEDSL statewide,245800,17367,0.0,0.0,,MEDSL county presidential returns
+2008,PRES,0,DE,255459,152374,412412,MEDSL statewide,255459,152374,0.0,0.0,,MEDSL county presidential returns
+2008,PRES,0,FL,4282366,4046212,8391639,MEDSL statewide,4282074,4045624,0.01,0.01,,MEDSL county presidential returns
+2008,PRES,0,GA,1844137,2048744,3925278,MEDSL statewide,1844123,2048759,0.0,-0.0,,MEDSL county presidential returns
+2008,PRES,0,HI,325201,120429,452742,MEDSL statewide,325871,120566,-0.21,-0.11,,MEDSL county presidential returns
+2008,PRES,0,IA,828940,682379,1536820,MEDSL statewide,828940,682379,0.0,0.0,,MEDSL county presidential returns
+2008,PRES,0,ID,236440,403012,655032,MEDSL statewide,236440,403012,0.0,0.0,,MEDSL county presidential returns
+2008,PRES,0,IL,3419673,2031527,5523051,MEDSL statewide,3419348,2031179,0.01,0.02,,MEDSL county presidential returns
+2008,PRES,0,IN,1374039,1345648,2751054,MEDSL statewide,1374039,1345648,0.0,0.0,,MEDSL county presidential returns
+2008,PRES,0,KS,514765,699655,1235872,MEDSL statewide,514765,699655,0.0,0.0,,MEDSL county presidential returns
+2008,PRES,0,KY,751985,1048462,1826508,MEDSL statewide,751985,1048462,0.0,0.0,,MEDSL county presidential returns
+2008,PRES,0,LA,781574,1148015,1959085,MEDSL statewide,782989,1148275,-0.18,-0.02,,MEDSL county presidential returns
+2008,PRES,0,MA,1904103,1108885,3081336,MEDSL statewide,1904097,1108854,0.0,0.0,,MEDSL county presidential returns
+2008,PRES,0,MD,1629467,959862,2631596,MEDSL statewide,1629467,959862,0.0,0.0,,MEDSL county presidential returns
+2008,PRES,0,ME,421923,295273,731163,MEDSL statewide,421923,295273,0.0,0.0,,MEDSL county presidential returns
+2008,PRES,0,MI,2872579,2048639,5001766,MEDSL statewide,2872579,2048639,0.0,0.0,,MEDSL county presidential returns
+2008,PRES,0,MN,1573354,1275409,2910369,MEDSL statewide,1573354,1275409,0.0,0.0,,MEDSL county presidential returns
+2008,PRES,0,MO,1441911,1445814,2925205,MEDSL statewide,1441911,1445814,0.0,0.0,,MEDSL county presidential returns
+2008,PRES,0,MS,554662,724497,1285259,MEDSL statewide,554662,724597,0.0,-0.01,,MEDSL county presidential returns
+2008,PRES,0,MT,232156,243860,496072,MEDSL statewide,231667,242763,0.21,0.45,,MEDSL county presidential returns
+2008,PRES,0,NC,2142651,2128474,4310789,MEDSL statewide,2142651,2128474,0.0,0.0,,MEDSL county presidential returns
+2008,PRES,0,ND,141278,168601,316621,MEDSL statewide,141278,168601,0.0,0.0,,MEDSL county presidential returns
+2008,PRES,0,NE,333319,452979,801281,MEDSL statewide,333319,452979,0.0,0.0,,MEDSL county presidential returns
+2008,PRES,0,NH,384826,316534,710970,MEDSL statewide,384826,316534,0.0,0.0,,MEDSL county presidential returns
+2008,PRES,0,NJ,2215422,1613207,3838498,MEDSL statewide,2215422,1613207,0.0,0.0,,MEDSL county presidential returns
+2008,PRES,0,NM,472422,346832,830158,MEDSL statewide,472422,346832,0.0,0.0,,MEDSL county presidential returns
+2008,PRES,0,NV,533736,412827,967848,MEDSL statewide,533736,412827,0.0,0.0,,MEDSL county presidential returns
+2008,PRES,0,NY,4769700,2742298,7591233,MEDSL statewide,4645332,2418323,2.68,13.4,,MEDSL county presidential returns
+2008,PRES,0,OH,2933388,2674491,5698048,MEDSL statewide,2940044,2677820,-0.23,-0.12,,MEDSL county presidential returns
+2008,PRES,0,OK,502496,960165,1462661,MEDSL statewide,502496,960165,0.0,0.0,,MEDSL county presidential returns
+2008,PRES,0,OR,1037291,738475,1827864,MEDSL statewide,1037291,738475,0.0,0.0,,MEDSL county presidential returns
+2008,PRES,0,PA,3266523,2649934,5977981,MEDSL statewide,3276363,2655885,-0.3,-0.22,,MEDSL county presidential returns
+2008,PRES,0,RI,296571,165391,471766,MEDSL statewide,296571,165391,0.0,0.0,,MEDSL county presidential returns
+2008,PRES,0,SC,862449,1034896,1920969,MEDSL statewide,862449,1034896,0.0,0.0,,MEDSL county presidential returns
+2008,PRES,0,SD,170924,203054,377708,MEDSL statewide,170924,203054,0.0,0.0,,MEDSL county presidential returns
+2008,PRES,0,TN,1087437,1479178,2600124,MEDSL statewide,1087437,1479178,0.0,0.0,,MEDSL county presidential returns
+2008,PRES,0,TX,3528633,4479328,8077795,MEDSL statewide,3528633,4479328,0.0,0.0,,MEDSL county presidential returns
+2008,PRES,0,UT,327670,596030,952370,MEDSL statewide,327670,596030,0.0,0.0,,MEDSL county presidential returns
+2008,PRES,0,VA,1959532,1725005,3723260,MEDSL statewide,1959532,1725005,0.0,0.0,,MEDSL county presidential returns
+2008,PRES,0,VT,219262,98974,325046,MEDSL statewide,219262,98974,0.0,0.0,,MEDSL county presidential returns
+2008,PRES,0,WA,1750848,1229216,3036878,MEDSL statewide,1750848,1229216,0.0,0.0,,MEDSL county presidential returns
+2008,PRES,0,WI,1677211,1262393,2983417,MEDSL statewide,1677211,1262393,0.0,0.0,,MEDSL county presidential returns
+2008,PRES,0,WV,303857,397466,713451,MEDSL statewide,303857,397466,0.0,0.0,,MEDSL county presidential returns
+2008,PRES,0,WY,82868,164958,256035,MEDSL statewide,82868,164958,0.0,0.0,,MEDSL county presidential returns
+2008,SEN,0,AK,151767,147814,317723,MEDSL statewide,151767,147814,0.0,0.0,,MEDSL statewide Senate returns
+2008,SEN,0,AL,752391,1305383,2060191,MEDSL statewide,752391,1305383,0.0,0.0,,Amlani & Algara county returns
+2008,SEN,0,AR,804678,0,1011754,MEDSL statewide,804678,0,0.0,,,Amlani & Algara county returns
+2008,SEN,0,CO,1231049,990784,2331712,MEDSL statewide,1230994,990755,0.0,0.0,,Amlani & Algara county returns
+2008,SEN,0,DE,257539,140595,398134,MEDSL statewide,257539,140595,0.0,0.0,,Amlani & Algara county returns
+2008,SEN,0,GA,909923,1228033,2137956,MEDSL statewide,909923,1228033,0.0,0.0,,Amlani & Algara county returns
+2008,SEN,0,IA,941665,560006,1502918,MEDSL statewide,941665,560006,0.0,0.0,,Amlani & Algara county returns
+2008,SEN,0,ID,219903,371744,644777,MEDSL statewide,219903,371744,0.0,0.0,,Amlani & Algara county returns
+2008,SEN,0,IL,3615844,1520621,5329884,MEDSL statewide,3615844,1520621,0.0,0.0,,Amlani & Algara county returns
+2008,SEN,0,KS,441399,727121,1210690,MEDSL statewide,441399,727121,0.0,0.0,,Amlani & Algara county returns
+2008,SEN,0,KY,847005,953816,1800821,MEDSL statewide,847005,953816,0.0,0.0,,Amlani & Algara county returns
+2008,SEN,0,LA,988298,867177,1896574,MEDSL statewide,988298,867177,0.0,0.0,,Amlani & Algara county returns
+2008,SEN,0,MA,1971974,926044,2994247,MEDSL statewide,1971974,926044,0.0,0.0,,Amlani & Algara county returns
+2008,SEN,0,ME,279510,444300,724430,MEDSL statewide,279510,444300,0.0,0.0,,Amlani & Algara county returns
+2008,SEN,0,MI,3038386,1641070,4848620,MEDSL statewide,3038386,1641070,0.0,0.0,,Amlani & Algara county returns
+2008,SEN,0,MN,1211950,1211901,2886441,MEDSL statewide,1212629,1212317,-0.06,-0.03,,Amlani & Algara county returns
+2008,SEN,0,MS,480915,766111,1247026,MEDSL statewide,480915,766111,0.0,0.0,,Amlani & Algara county returns
+2008,SEN,0,MT,348289,129369,477658,MEDSL statewide,348289,129369,0.0,0.0,,Amlani & Algara county returns
+2008,SEN,0,NC,2249311,1887510,4271970,MEDSL statewide,2249311,1887510,0.0,0.0,,Amlani & Algara county returns
+2008,SEN,0,NE,317456,455854,792511,MEDSL statewide,317456,455854,0.0,0.0,,Amlani & Algara county returns
+2008,SEN,0,NH,358438,314403,694787,MEDSL statewide,358438,314403,0.0,0.0,,Amlani & Algara county returns
+2008,SEN,0,NJ,1951218,1461025,3482445,MEDSL statewide,1951218,1461025,0.0,0.0,,Amlani & Algara county returns
+2008,SEN,0,NM,505128,318522,823650,MEDSL statewide,505128,318522,0.0,0.0,,Amlani & Algara county returns
+2008,SEN,0,OK,527736,763375,1346819,MEDSL statewide,527736,763375,0.0,0.0,,Amlani & Algara county returns
+2008,SEN,0,OR,864392,805159,1767504,MEDSL statewide,864392,805159,0.0,0.0,,Amlani & Algara county returns
+2008,SEN,0,RI,320644,116174,438812,MEDSL statewide,320644,116174,0.0,0.0,,Amlani & Algara county returns
+2008,SEN,0,SC,790621,1076534,1871431,MEDSL statewide,790621,1076534,0.0,0.0,,Amlani & Algara county returns
+2008,SEN,0,SD,237889,142784,380673,MEDSL statewide,237889,142784,0.0,0.0,,Amlani & Algara county returns
+2008,SEN,0,TN,767236,1579477,2424585,MEDSL statewide,767236,1579477,0.0,0.0,,Amlani & Algara county returns
+2008,SEN,0,TX,3389365,4337469,7912075,MEDSL statewide,3389365,4337469,0.0,0.0,,Amlani & Algara county returns
+2008,SEN,0,VA,2369327,1228830,3643294,MEDSL statewide,2369327,1228830,0.0,0.0,,Amlani & Algara county returns
+2008,SEN,0,WV,447560,254629,702308,MEDSL statewide,447560,254629,0.0,0.0,,Amlani & Algara county returns
+2008,SEN,0,WY,60631,189046,249946,MEDSL statewide,60631,189046,0.0,0.0,,Amlani & Algara county returns
+2008,SEN,1,MS,560062,683409,1243471,MEDSL statewide,0,683409,,0.0,,Amlani & Algara county returns
+2008,SEN,1,WY,66202,183063,249558,MEDSL statewide,66202,183063,0.0,0.0,,Amlani & Algara county returns
+2010,GOV,0,AK,96519,151318,256192,,,,,,,"official state results: Alaska Division of Elections, 2010 General Election November 2, 2010, Official Results without US Senate Race (statewide summary, pdf)"
+2010,GOV,0,AL,625710,860472,1494273,,,,,,,Amlani & Algara county returns
+2010,GOV,0,AR,503336,262784,781333,,,,,,,Amlani & Algara county returns
+2010,GOV,0,AZ,733935,938934,1728081,,,,,,,Amlani & Algara county returns
+2010,GOV,0,CA,5428149,4127391,10095185,,,,,,,Amlani & Algara county returns
+2010,GOV,0,CO,915436,199792,1793148,,,,,,,Amlani & Algara county returns
+2010,GOV,0,CT,567278,560874,1145781,,,,,,,Amlani & Algara county returns
+2010,GOV,0,FL,2557785,2619335,5359735,,,,,,,Amlani & Algara county returns
+2010,GOV,0,GA,1107011,1365832,2576161,,,,,,,Amlani & Algara county returns
+2010,GOV,0,HI,222724,157311,382563,,,,,,,Amlani & Algara county returns
+2010,GOV,0,IA,484798,592494,1122013,,,,,,,Amlani & Algara county returns
+2010,GOV,0,ID,148680,267483,452535,,,,,,,Amlani & Algara county returns
+2010,GOV,0,IL,1745219,1713385,3729989,,,,,,,Amlani & Algara county returns
+2010,GOV,0,KS,270166,530760,838790,,,,,,,Amlani & Algara county returns
+2010,GOV,0,MA,1112283,964866,2297039,,,,,,,Amlani & Algara county returns
+2010,GOV,0,MD,1044961,776319,1857880,,,,,,,Amlani & Algara county returns
+2010,GOV,0,ME,109087,217862,572167,,,,,,,Amlani & Algara county returns
+2010,GOV,0,MI,1287320,1874834,3226088,,,,,,,Amlani & Algara county returns
+2010,GOV,0,MN,919232,910462,2107021,,,,,,,Amlani & Algara county returns
+2010,GOV,0,NE,127343,360645,487988,,,,,,,Amlani & Algara county returns
+2010,GOV,0,NH,240346,205616,456588,,,,,,,Amlani & Algara county returns
+2010,GOV,0,NM,280614,321219,602827,,,,,,,Amlani & Algara county returns
+2010,GOV,0,NV,298171,382350,716529,,,,,,,Amlani & Algara county returns
+2010,GOV,0,NY,2911721,1548184,4658825,,,,,,,Amlani & Algara county returns
+2010,GOV,0,OH,1812059,1889186,3852469,,,,,,,Amlani & Algara county returns
+2010,GOV,0,OK,409261,625506,1034767,,,,,,,Amlani & Algara county returns
+2010,GOV,0,OR,716525,694287,1453548,,,,,,,Amlani & Algara county returns
+2010,GOV,0,PA,1814788,2172763,3987551,,,,,,,Amlani & Algara county returns
+2010,GOV,0,RI,78872,114879,342201,,,,,,,Amlani & Algara county returns
+2010,GOV,0,SC,630534,690525,1344198,,,,,,,Amlani & Algara county returns
+2010,GOV,0,SD,122037,195046,317083,,,,,,,Amlani & Algara county returns
+2010,GOV,0,TN,529851,1041545,1601549,,,,,,,Amlani & Algara county returns
+2010,GOV,0,TX,2106395,2737481,4979870,,,,,,,Amlani & Algara county returns
+2010,GOV,0,VT,119543,115212,241605,,,,,,,Amlani & Algara county returns
+2010,GOV,0,WI,1004303,1128941,2160832,,,,,,,Amlani & Algara county returns
+2010,GOV,0,WY,43240,123780,188463,,,,,,,Amlani & Algara county returns
+2010,GOV,1,UT,205246,412151,643307,,,,,,,"official state results: Utah Lieutenant Governor, Office of Elections: 2010 General Election canvass by county (xls, sheet Governor); Utah Office of Elections, Historical Election Results"
+2010,SEN,0,AK,60045,90839,255503,MEDSL statewide,60045,90839,0.0,0.0,,MEDSL statewide Senate returns
+2010,SEN,0,AL,515619,968181,1485499,MEDSL statewide,515619,968181,0.0,0.0,,Amlani & Algara county returns
+2010,SEN,0,AR,288156,451618,779957,MEDSL statewide,288156,451618,0.0,0.0,,Amlani & Algara county returns
+2010,SEN,0,AZ,592011,1005615,1708484,MEDSL statewide,592011,1005615,0.0,0.0,,Amlani & Algara county returns
+2010,SEN,0,CA,5218137,4217386,9999860,MEDSL statewide,5218441,4217366,-0.01,0.0,,Amlani & Algara county returns
+2010,SEN,0,CO,854685,824789,1777668,MEDSL statewide,851590,822731,0.36,0.25,,Amlani & Algara county returns
+2010,SEN,0,CT,636040,498341,1152391,MEDSL statewide,605204,498341,5.1,0.0,,Amlani & Algara county returns
+2010,SEN,0,FL,1092936,2645743,5411106,MEDSL statewide,1092936,2645743,0.0,0.0,,Amlani & Algara county returns
+2010,SEN,0,GA,996516,1489904,2555258,MEDSL statewide,996516,1489904,0.0,0.0,,Amlani & Algara county returns
+2010,SEN,0,HI,277167,79924,370506,MEDSL statewide,277228,79939,-0.02,-0.02,,Amlani & Algara county returns
+2010,SEN,0,IA,371686,718215,1116063,MEDSL statewide,371686,718215,0.0,0.0,,Amlani & Algara county returns
+2010,SEN,0,ID,112057,319953,449530,MEDSL statewide,112057,319953,0.0,0.0,,Amlani & Algara county returns
+2010,SEN,0,IL,1719478,1778698,3704473,,,,,,,Amlani & Algara county returns
+2010,SEN,0,IN,697775,952116,1744481,MEDSL statewide,697775,952116,0.0,0.0,,Amlani & Algara county returns
+2010,SEN,0,KS,220971,587175,837692,MEDSL statewide,220971,587175,0.0,0.0,,Amlani & Algara county returns
+2010,SEN,0,KY,599843,755411,1356468,MEDSL statewide,600052,755706,-0.03,-0.04,,Amlani & Algara county returns
+2010,SEN,0,LA,476572,715415,1264994,MEDSL statewide,476572,715415,0.0,0.0,,Amlani & Algara county returns
+2010,SEN,0,MD,1140531,655666,1833858,MEDSL statewide,1140615,655666,-0.01,0.0,,Amlani & Algara county returns
+2010,SEN,0,MO,789736,1054160,1943899,MEDSL statewide,789736,1054160,0.0,0.0,,Amlani & Algara county returns
+2010,SEN,0,NC,1145074,1458046,2660079,MEDSL statewide,1145074,1458046,0.0,0.0,,Amlani & Algara county returns
+2010,SEN,0,ND,52955,181689,238812,MEDSL statewide,52955,181689,0.0,0.0,,Amlani & Algara county returns
+2010,SEN,0,NH,167545,273218,455149,MEDSL statewide,167545,273218,0.0,0.0,,Amlani & Algara county returns
+2010,SEN,0,NV,362785,321361,721404,MEDSL statewide,362785,321361,0.0,0.0,,Amlani & Algara county returns
+2010,SEN,0,NY,3047880,1480423,4596796,MEDSL statewide,3047880,1239605,0.0,19.43,,Amlani & Algara county returns
+2010,SEN,0,OH,1503297,2168742,3815098,MEDSL statewide,1503297,2168742,0.0,0.0,,Amlani & Algara county returns
+2010,SEN,0,OK,265814,718482,1017151,MEDSL statewide,265814,718482,0.0,0.0,,Amlani & Algara county returns
+2010,SEN,0,OR,825507,566199,1442588,MEDSL statewide,825507,566199,0.0,0.0,,Amlani & Algara county returns
+2010,SEN,0,PA,1948716,2028945,3977661,MEDSL statewide,1948716,2028945,0.0,0.0,,Amlani & Algara county returns
+2010,SEN,0,SC,364598,810771,1318794,MEDSL statewide,364598,810771,0.0,0.0,,Amlani & Algara county returns
+2010,SEN,0,SD,0,227947,227947,MEDSL statewide,0,227947,,0.0,,Amlani & Algara county returns
+2010,SEN,0,UT,207685,390179,633829,MEDSL statewide,191732,360403,8.32,8.26,,Amlani & Algara county returns
+2010,SEN,0,VT,151281,72699,235178,MEDSL statewide,151281,72699,0.0,0.0,,Amlani & Algara county returns
+2010,SEN,0,WA,1314930,1196164,2511094,MEDSL statewide,1314930,1196164,0.0,0.0,,Amlani & Algara county returns
+2010,SEN,0,WI,1020958,1125999,2171331,MEDSL statewide,1020958,1126133,0.0,-0.01,,Amlani & Algara county returns
+2010,SEN,1,DE,174012,123053,307402,MEDSL statewide,174012,123053,0.0,0.0,,Amlani & Algara county returns
+2010,SEN,1,NY,2836357,1581831,4506466,MEDSL statewide,2837684,1338308,-0.05,18.2,,Amlani & Algara county returns
+2010,SEN,1,WV,283358,230013,529948,MEDSL statewide,283358,230013,0.0,0.0,,Amlani & Algara county returns
+2012,GOV,0,DE,275993,113793,398033,,,,,,,Amlani & Algara county returns
+2012,GOV,0,IN,1200016,1275424,2577329,,,,,,,Amlani & Algara county returns
+2012,GOV,0,MO,1494056,1160265,2727883,,,,,,,Amlani & Algara county returns
+2012,GOV,0,MT,236450,228879,483489,,,,,,,Amlani & Algara county returns
+2012,GOV,0,NC,1931580,2440707,4468295,,,,,,,Amlani & Algara county returns
+2012,GOV,0,ND,109047,200526,317812,,,,,,,Amlani & Algara county returns
+2012,GOV,0,NH,378934,295026,693877,,,,,,,Amlani & Algara county returns
+2012,GOV,0,UT,277622,688592,1006524,,,,,,,Amlani & Algara county returns
+2012,GOV,0,VT,170598,110940,295261,,,,,,,Amlani & Algara county returns
+2012,GOV,0,WA,1582802,1488245,3071047,,,,,,,Amlani & Algara county returns
+2012,GOV,0,WV,335468,303291,664455,,,,,,,Amlani & Algara county returns
+2012,PRES,0,AK,122640,164676,300495,MEDSL statewide,122640,164676,0.0,0.0,,MEDSL statewide presidential returns
+2012,PRES,0,AL,795696,1255925,2070353,MEDSL statewide,795696,1255925,0.0,0.0,,MEDSL county presidential returns
+2012,PRES,0,AR,394409,647744,1069468,MEDSL statewide,394409,647744,0.0,0.0,,MEDSL county presidential returns
+2012,PRES,0,AZ,1025232,1233654,2299254,MEDSL statewide,1025232,1233654,0.0,0.0,,MEDSL county presidential returns
+2012,PRES,0,CA,7854285,4839958,13038547,MEDSL statewide,7854285,4839958,0.0,0.0,,MEDSL county presidential returns
+2012,PRES,0,CO,1322998,1185050,2569217,MEDSL statewide,1323101,1185243,-0.01,-0.02,,MEDSL county presidential returns
+2012,PRES,0,CT,905083,634892,1558803,MEDSL statewide,905083,634892,0.0,0.0,,MEDSL county presidential returns
+2012,PRES,0,DC,267070,21381,293764,MEDSL statewide,267070,21381,0.0,0.0,,MEDSL county presidential returns
+2012,PRES,0,DE,242584,165484,413937,MEDSL statewide,242584,165484,0.0,0.0,,MEDSL county presidential returns
+2012,PRES,0,FL,4237756,4163447,8474179,MEDSL statewide,4237756,4163447,0.0,0.0,,MEDSL county presidential returns
+2012,PRES,0,GA,1773827,2078688,3900050,MEDSL statewide,1773827,2078688,0.0,0.0,,MEDSL county presidential returns
+2012,PRES,0,HI,306266,120937,434221,MEDSL statewide,306658,121015,-0.13,-0.06,,MEDSL county presidential returns
+2012,PRES,0,IA,822544,730617,1582180,MEDSL statewide,822544,730617,0.0,0.0,,MEDSL county presidential returns
+2012,PRES,0,ID,212787,420911,652274,MEDSL statewide,212787,420911,0.0,0.0,,MEDSL county presidential returns
+2012,PRES,0,IL,3019512,2135102,5241891,MEDSL statewide,3019512,2135216,0.0,-0.01,,MEDSL county presidential returns
+2012,PRES,0,IN,1152887,1420543,2624534,MEDSL statewide,1152887,1420543,0.0,0.0,,MEDSL county presidential returns
+2012,PRES,0,KS,439908,689809,1156254,MEDSL statewide,440726,692634,-0.19,-0.41,,MEDSL county presidential returns
+2012,PRES,0,KY,679370,1087190,1797212,MEDSL statewide,679370,1087190,0.0,0.0,,MEDSL county presidential returns
+2012,PRES,0,LA,809141,1152262,1994065,MEDSL statewide,809141,1152262,0.0,0.0,,MEDSL county presidential returns
+2012,PRES,0,MA,1921290,1188314,3167767,MEDSL statewide,1921290,1188314,0.0,0.0,,MEDSL county presidential returns
+2012,PRES,0,MD,1677844,971869,2707327,MEDSL statewide,1677844,971869,0.0,0.0,,MEDSL county presidential returns
+2012,PRES,0,ME,401306,292276,713180,MEDSL statewide,401306,292276,0.0,0.0,,MEDSL county presidential returns
+2012,PRES,0,MI,2564569,2115256,4730961,MEDSL statewide,2564569,2115256,0.0,0.0,,MEDSL county presidential returns
+2012,PRES,0,MN,1546167,1320225,2936561,MEDSL statewide,1546167,1320225,0.0,0.0,,MEDSL county presidential returns
+2012,PRES,0,MO,1223796,1482440,2757312,MEDSL statewide,1223796,1482440,0.0,0.0,,MEDSL county presidential returns
+2012,PRES,0,MS,562949,710746,1285584,MEDSL statewide,562949,710746,0.0,0.0,,MEDSL county presidential returns
+2012,PRES,0,MT,201839,267928,483932,MEDSL statewide,201839,267928,0.0,0.0,,MEDSL county presidential returns
+2012,PRES,0,NC,2178391,2270395,4505372,MEDSL statewide,2178391,2270395,0.0,0.0,,MEDSL county presidential returns
+2012,PRES,0,ND,124966,188320,322932,MEDSL statewide,124966,188320,0.0,0.0,,MEDSL county presidential returns
+2012,PRES,0,NE,302081,475064,794379,MEDSL statewide,302081,475064,0.0,0.0,,MEDSL county presidential returns
+2012,PRES,0,NH,369561,329918,710931,MEDSL statewide,369561,329918,0.0,0.0,,MEDSL county presidential returns
+2012,PRES,0,NJ,2125101,1477568,3640292,MEDSL statewide,2122786,1478088,0.11,-0.04,,MEDSL county presidential returns
+2012,PRES,0,NM,415335,335788,783758,MEDSL statewide,415335,335788,0.0,0.0,,MEDSL county presidential returns
+2012,PRES,0,NV,531373,463567,1014918,MEDSL statewide,531373,463567,0.0,0.0,,MEDSL county presidential returns
+2012,PRES,0,NY,4324228,2223397,7061925,MEDSL statewide,4324228,2223397,0.0,0.0,,MEDSL county presidential returns
+2012,PRES,0,OH,2827621,2661407,5580822,MEDSL statewide,2827621,2661407,0.0,0.0,,MEDSL county presidential returns
+2012,PRES,0,OK,443547,891325,1334872,MEDSL statewide,443547,891325,0.0,0.0,,MEDSL county presidential returns
+2012,PRES,0,OR,970488,754175,1789270,MEDSL statewide,970488,754175,0.0,0.0,,MEDSL county presidential returns
+2012,PRES,0,PA,2990274,2680434,5742040,MEDSL statewide,2990274,2680434,0.0,0.0,,MEDSL county presidential returns
+2012,PRES,0,RI,279677,157204,446052,MEDSL statewide,279677,157204,0.0,0.0,,MEDSL county presidential returns
+2012,PRES,0,SC,865941,1071645,1964118,MEDSL statewide,865941,1071645,0.0,0.0,,MEDSL county presidential returns
+2012,PRES,0,SD,145039,210610,363815,MEDSL statewide,145039,210610,0.0,0.0,,MEDSL county presidential returns
+2012,PRES,0,TN,960709,1462330,2458577,MEDSL statewide,960709,1462330,0.0,0.0,,MEDSL county presidential returns
+2012,PRES,0,TX,3308124,4569843,7993851,MEDSL statewide,3308124,4569843,0.0,0.0,,MEDSL county presidential returns
+2012,PRES,0,UT,251813,740600,1017440,MEDSL statewide,251813,740600,0.0,0.0,,MEDSL county presidential returns
+2012,PRES,0,VA,1971820,1822522,3854489,MEDSL statewide,1971820,1822522,0.0,0.0,,MEDSL county presidential returns
+2012,PRES,0,VT,199239,92698,299290,MEDSL statewide,199239,92698,0.0,0.0,,MEDSL county presidential returns
+2012,PRES,0,WA,1755396,1290670,3125516,MEDSL statewide,1755396,1290670,0.0,0.0,,MEDSL county presidential returns
+2012,PRES,0,WI,1620985,1410966,3071434,MEDSL statewide,1620985,1410966,0.0,0.0,,MEDSL county presidential returns
+2012,PRES,0,WV,238269,417655,670440,MEDSL statewide,238269,417655,0.0,0.0,,MEDSL county presidential returns
+2012,PRES,0,WY,69286,170962,249061,MEDSL statewide,69286,170962,0.0,0.0,,MEDSL county presidential returns
+2012,SEN,0,AZ,1036542,1104457,2243422,MEDSL statewide,1036542,1104457,0.0,0.0,,Amlani & Algara county returns
+2012,SEN,0,CA,7864624,4713887,12578511,MEDSL statewide,7864624,4713887,0.0,0.0,,Amlani & Algara county returns
+2012,SEN,0,CT,828761,651089,1504895,MEDSL statewide,792983,604569,4.51,7.69,,Amlani & Algara county returns
+2012,SEN,0,DE,265415,115700,399607,MEDSL statewide,265415,115700,0.0,0.0,,Amlani & Algara county returns
+2012,SEN,0,FL,4523451,3458267,8189946,MEDSL statewide,4523451,3458267,0.0,0.0,,Amlani & Algara county returns
+2012,SEN,0,HI,269159,160897,430056,MEDSL statewide,269489,160994,-0.12,-0.06,,Amlani & Algara county returns
+2012,SEN,0,IN,1281181,1133621,2560102,MEDSL statewide,1281181,1133621,0.0,0.0,,Amlani & Algara county returns
+2012,SEN,0,MA,1696346,1458048,3156553,MEDSL statewide,1696346,1458048,0.0,0.0,,Amlani & Algara county returns
+2012,SEN,0,MD,1474028,693291,2633234,MEDSL statewide,1474028,693291,0.0,0.0,,Amlani & Algara county returns
+2012,SEN,0,ME,92198,214812,697688,MEDSL statewide,92900,215399,-0.76,-0.27,,"official state results: Maine Secretary of State, Bureau of Corporations, Elections and Commissions: November 6, 2012 General Election, United States Senate by municipality (xls); Maine Secretary of State: November 6, 2012 G"
+2012,SEN,0,MI,2735826,1767386,4652918,MEDSL statewide,2735826,1767386,0.0,0.0,,Amlani & Algara county returns
+2012,SEN,0,MN,1854595,867974,2843207,MEDSL statewide,1854595,867974,0.0,0.0,,Amlani & Algara county returns
+2012,SEN,0,MO,1494125,1066159,2725793,MEDSL statewide,1494125,1066159,0.0,0.0,,Amlani & Algara county returns
+2012,SEN,0,MS,503467,709626,1241568,MEDSL statewide,503467,709626,0.0,0.0,,Amlani & Algara county returns
+2012,SEN,0,MT,236123,218051,486066,MEDSL statewide,236123,218051,0.0,0.0,,Amlani & Algara county returns
+2012,SEN,0,ND,161163,158282,320851,MEDSL statewide,161337,158401,-0.11,-0.08,,Amlani & Algara county returns
+2012,SEN,0,NE,332979,455593,788572,MEDSL statewide,332979,455593,0.0,0.0,,Amlani & Algara county returns
+2012,SEN,0,NJ,1985783,1329405,3374668,MEDSL statewide,1987680,1329534,-0.1,-0.01,,Amlani & Algara county returns
+2012,SEN,0,NM,395717,351259,775792,MEDSL statewide,395717,351260,0.0,-0.0,,Amlani & Algara county returns
+2012,SEN,0,NV,446080,457656,997805,MEDSL statewide,446080,457656,0.0,0.0,,Amlani & Algara county returns
+2012,SEN,0,NY,4822330,1758702,6679678,MEDSL statewide,4420043,1514647,9.1,16.11,,Amlani & Algara county returns
+2012,SEN,0,OH,2762757,2435740,5449114,MEDSL statewide,2762690,2435712,0.0,0.0,,Amlani & Algara county returns
+2012,SEN,0,PA,3021364,2509132,5627422,MEDSL statewide,3021364,2509132,0.0,0.0,,Amlani & Algara county returns
+2012,SEN,0,RI,270791,146176,417899,MEDSL statewide,271034,146222,-0.09,-0.03,,Amlani & Algara county returns
+2012,SEN,0,TN,705882,1506443,2321477,MEDSL statewide,705882,1506443,0.0,0.0,,Amlani & Algara county returns
+2012,SEN,0,TX,3194927,4440137,7864822,MEDSL statewide,3194927,4440137,0.0,0.0,,Amlani & Algara county returns
+2012,SEN,0,UT,301873,657608,1006901,MEDSL statewide,301873,657608,0.0,0.0,,Amlani & Algara county returns
+2012,SEN,0,VA,2010067,1785542,3802196,MEDSL statewide,2010067,1785542,0.0,0.0,,Amlani & Algara county returns
+2012,SEN,0,VT,0,73198,294267,MEDSL statewide,0,72898,,0.41,,Amlani & Algara county returns
+2012,SEN,0,WA,1855493,1213924,3069417,MEDSL statewide,1855493,1213924,0.0,0.0,,Amlani & Algara county returns
+2012,SEN,0,WI,1547104,1380126,3009411,MEDSL statewide,1547104,1380126,0.0,0.0,,Amlani & Algara county returns
+2012,SEN,0,WV,399908,240787,660212,MEDSL statewide,399898,240787,0.0,0.0,,Amlani & Algara county returns
+2012,SEN,0,WY,53019,185250,244862,MEDSL statewide,53019,185250,0.0,0.0,,Amlani & Algara county returns
+2014,GOV,0,AK,0,128435,279958,,,,,,,"official state results: Alaska Division of Elections, 2014 General Election November 4, 2014, Official Results (statewide summary, pdf)"
+2014,GOV,0,AL,427787,750231,1180413,,,,,,,Amlani & Algara county returns
+2014,GOV,0,AR,352115,470429,848592,,,,,,,Amlani & Algara county returns
+2014,GOV,0,AZ,626921,805062,1506416,,,,,,,Amlani & Algara county returns
+2014,GOV,0,CA,4388368,2929213,7317581,,,,,,,Amlani & Algara county returns
+2014,GOV,0,CO,1006433,938195,2041607,,,,,,,Amlani & Algara county returns
+2014,GOV,0,CT,554314,526295,1092065,,,,,,,Amlani & Algara county returns
+2014,GOV,0,FL,2801198,2865343,5951561,,,,,,,Amlani & Algara county returns
+2014,GOV,0,GA,1144794,1345237,2550648,,,,,,,Amlani & Algara county returns
+2014,GOV,0,HI,181106,135775,366210,,,,,,,Amlani & Algara county returns
+2014,GOV,0,IA,420787,666032,1129057,,,,,,,Amlani & Algara county returns
+2014,GOV,0,ID,169556,235405,439830,,,,,,,Amlani & Algara county returns
+2014,GOV,0,IL,1681343,1823627,3627690,,,,,,,Amlani & Algara county returns
+2014,GOV,0,KS,401100,433196,869502,,,,,,,Amlani & Algara county returns
+2014,GOV,0,MA,1004408,1044573,2158326,,,,,,,Amlani & Algara county returns
+2014,GOV,0,MD,818890,884400,1733177,,,,,,,Amlani & Algara county returns
+2014,GOV,0,ME,264596,294258,610371,,,,,,,Amlani & Algara county returns
+2014,GOV,0,MI,1479057,1607399,3156531,,,,,,,Amlani & Algara county returns
+2014,GOV,0,MN,989113,879257,1975406,,,,,,,Amlani & Algara county returns
+2014,GOV,0,NE,211905,308751,540202,,,,,,,Amlani & Algara county returns
+2014,GOV,0,NH,254666,230610,486183,,,,,,,Amlani & Algara county returns
+2014,GOV,0,NM,219362,293443,512805,,,,,,,Amlani & Algara county returns
+2014,GOV,0,NV,130722,386340,547349,,,,,,,Amlani & Algara county returns
+2014,GOV,0,NY,2069480,1537077,3819086,,,,,,,Amlani & Algara county returns
+2014,GOV,0,OH,1009359,1944848,3055913,,,,,,,Amlani & Algara county returns
+2014,GOV,0,OK,338239,460298,824831,,,,,,,Amlani & Algara county returns
+2014,GOV,0,OR,733230,648542,1469717,,,,,,,Amlani & Algara county returns
+2014,GOV,0,PA,1920355,1575511,3495866,,,,,,,Amlani & Algara county returns
+2014,GOV,0,RI,131899,117428,324055,,,,,,,Amlani & Algara county returns
+2014,GOV,0,SC,516166,696645,1246301,,,,,,,Amlani & Algara county returns
+2014,GOV,0,SD,70549,195477,277403,,,,,,,Amlani & Algara county returns
+2014,GOV,0,TN,309237,951796,1353728,,,,,,,Amlani & Algara county returns
+2014,GOV,0,TX,1835596,2796547,4718268,,,,,,,Amlani & Algara county returns
+2014,GOV,0,VT,89509,87075,193087,,,,,,,Amlani & Algara county returns
+2014,GOV,0,WI,1122913,1259706,2410314,,,,,,,Amlani & Algara county returns
+2014,GOV,0,WY,45752,99700,167877,,,,,,,Amlani & Algara county returns
+2014,SEN,0,AK,129431,135445,282400,MEDSL statewide,129431,135445,0.0,0.0,,MEDSL statewide Senate returns
+2014,SEN,0,AL,0,795606,818090,MEDSL statewide,0,795606,,0.0,,Amlani & Algara county returns
+2014,SEN,0,AR,334174,478819,847505,MEDSL statewide,334174,478819,0.0,0.0,,Amlani & Algara county returns
+2014,SEN,0,CO,944203,983891,2041058,MEDSL statewide,944203,983891,0.0,0.0,,Amlani & Algara county returns
+2014,SEN,0,DE,130655,98823,234038,MEDSL statewide,130655,98823,0.0,0.0,,Amlani & Algara county returns
+2014,SEN,0,GA,1160811,1358088,2567805,MEDSL statewide,1160811,1358088,0.0,0.0,,Amlani & Algara county returns
+2014,SEN,0,IA,494370,588575,1129700,MEDSL statewide,494370,588575,0.0,0.0,,Amlani & Algara county returns
+2014,SEN,0,ID,151574,285596,437170,MEDSL statewide,151574,285596,0.0,0.0,,Amlani & Algara county returns
+2014,SEN,0,IL,1929637,1538522,3603519,MEDSL statewide,1929637,1538522,0.0,0.0,,Amlani & Algara county returns
+2014,SEN,0,KS,0,460350,866191,MEDSL statewide,0,460350,,0.0,,Amlani & Algara county returns
+2014,SEN,0,KY,584698,806787,1435868,MEDSL statewide,584698,806787,0.0,0.0,,Amlani & Algara county returns
+2014,SEN,0,LA,561210,712379,1273589,MEDSL statewide,1581041,1929108,-64.5,-63.07,,Amlani & Algara county returns
+2014,SEN,0,MA,1289944,791950,2084972,MEDSL statewide,1289944,791950,0.0,0.0,,Amlani & Algara county returns
+2014,SEN,0,ME,189820,413070,603157,MEDSL statewide,190254,413505,-0.23,-0.11,,Amlani & Algara county returns
+2014,SEN,0,MI,1704936,1290199,3121775,MEDSL statewide,1704936,1290199,0.0,0.0,,Amlani & Algara county returns
+2014,SEN,0,MN,1053205,850227,1981528,MEDSL statewide,1053205,850227,0.0,0.0,,Amlani & Algara county returns
+2014,SEN,0,MS,239439,378481,631858,MEDSL statewide,239439,378481,0.0,0.0,,Amlani & Algara county returns
+2014,SEN,0,MT,148184,213709,369826,MEDSL statewide,148184,213709,0.0,0.0,,Amlani & Algara county returns
+2014,SEN,0,NC,1377651,1423259,2915281,MEDSL statewide,1377651,1423259,0.0,0.0,,Amlani & Algara county returns
+2014,SEN,0,NE,170127,347636,540337,MEDSL statewide,170127,347636,0.0,0.0,,Amlani & Algara county returns
+2014,SEN,0,NH,251184,235347,488159,MEDSL statewide,251184,235347,0.0,0.0,,Amlani & Algara county returns
+2014,SEN,0,NJ,1043866,791297,1869535,MEDSL statewide,1043866,791297,0.0,0.0,,Amlani & Algara county returns
+2014,SEN,0,NM,286409,229097,515506,MEDSL statewide,286409,229097,0.0,0.0,,Amlani & Algara county returns
+2014,SEN,0,OK,234307,558166,820733,MEDSL statewide,234307,558166,0.0,0.0,,Amlani & Algara county returns
+2014,SEN,0,OR,814537,538847,1461618,MEDSL statewide,814537,538847,0.0,0.0,,Amlani & Algara county returns
+2014,SEN,0,RI,223654,92683,316876,MEDSL statewide,223675,92684,-0.01,-0.0,,Amlani & Algara county returns
+2014,SEN,0,SC,480933,672941,1240075,MEDSL statewide,456726,672941,5.3,0.0,,Amlani & Algara county returns
+2014,SEN,0,SD,82456,140741,279412,MEDSL statewide,82456,140741,0.0,0.0,,Amlani & Algara county returns
+2014,SEN,0,TN,437848,850087,1366628,MEDSL statewide,437848,850087,0.0,0.0,,Amlani & Algara county returns
+2014,SEN,0,TX,1597387,2861531,4648358,MEDSL statewide,1597387,2861531,0.0,0.0,,Amlani & Algara county returns
+2014,SEN,0,VA,1073667,1055940,2184473,MEDSL statewide,1073667,1055940,0.0,0.0,,Amlani & Algara county returns
+2014,SEN,0,WV,156360,281820,453659,MEDSL statewide,156360,281820,0.0,0.0,,Amlani & Algara county returns
+2014,SEN,0,WY,29377,121554,168390,MEDSL statewide,29377,121554,0.0,0.0,,Amlani & Algara county returns
+2014,SEN,1,HI,246777,97995,353713,MEDSL statewide,246827,98006,-0.02,-0.01,,Amlani & Algara county returns
+2014,SEN,1,OK,237923,557002,820890,MEDSL statewide,237923,557002,0.0,0.0,,Amlani & Algara county returns
+2014,SEN,1,SC,459583,757215,1238982,MEDSL statewide,459583,757215,0.0,0.0,,Amlani & Algara county returns
+2016,GOV,0,DE,248404,166852,425784,Amlani & Algara,248404,166852,0.0,0.0,,MEDSL precinct returns
+2016,GOV,0,IN,1235574,1397354,2719510,Amlani & Algara,1235503,1397396,0.01,-0.0,,MEDSL precinct returns
+2016,GOV,0,MO,1277360,1433397,2803045,Amlani & Algara,1179024,1408113,8.34,1.8,,MEDSL precinct returns
+2016,GOV,0,MT,255933,236115,509360,Amlani & Algara,255933,236115,0.0,0.0,,MEDSL precinct returns
+2016,GOV,0,NC,2309157,2298880,4711014,Amlani & Algara,2309157,2298880,0.0,0.0,,MEDSL precinct returns
+2016,GOV,0,ND,65855,259863,339601,Amlani & Algara,65855,259863,0.0,0.0,,MEDSL precinct returns
+2016,GOV,0,NH,337589,354040,724863,Amlani & Algara,337589,354040,0.0,0.0,,MEDSL precinct returns
+2016,GOV,0,OR,984922,844372,1944707,Amlani & Algara,985027,845609,-0.01,-0.15,,MEDSL precinct returns
+2016,GOV,0,UT,323573,751906,1128855,Amlani & Algara,323349,750850,0.07,0.14,,MEDSL precinct returns
+2016,GOV,0,VT,139253,166817,315295,Amlani & Algara,139253,166817,0.0,0.0,,MEDSL precinct returns
+2016,GOV,0,WA,1759614,1474547,3234161,Amlani & Algara,1760520,1476346,-0.05,-0.12,,MEDSL precinct returns
+2016,GOV,0,WV,350392,301976,713828,Amlani & Algara,350408,301987,-0.0,-0.0,,MEDSL precinct returns
+2016,HOUSE,0,AK,111019,155088,308198,,,,,,,MEDSL precinct returns
+2016,HOUSE,0,AL,621281,1220616,1882299,,,,,,,MEDSL precinct returns
+2016,HOUSE,0,AR,111347,760415,1068577,,,,,,,MEDSL precinct returns
+2016,HOUSE,0,AZ,1034684,1264365,2428193,,,,,,,MEDSL precinct returns
+2016,HOUSE,0,CA,8622894,4679930,13410377,,,,,,,MEDSL precinct returns
+2016,HOUSE,0,CO,1263791,1288620,2701561,,,,,,,MEDSL precinct returns
+2016,HOUSE,0,CT,990139,568134,1575182,,,,,,,MEDSL precinct returns
+2016,HOUSE,0,DE,233554,172301,420640,,,,,,,MEDSL precinct returns
+2016,HOUSE,0,FL,3985040,4733623,8839571,,,,,,,MEDSL precinct returns
+2016,HOUSE,0,GA,1498437,2272460,3772862,,,,,,,MEDSL precinct returns
+2016,HOUSE,0,HI,316265,85626,412873,,,,,,,MEDSL precinct returns
+2016,HOUSE,0,IA,673969,813153,1515555,,,,,,,MEDSL precinct returns
+2016,HOUSE,0,ID,208870,447544,681472,,,,,,,MEDSL precinct returns
+2016,HOUSE,0,IL,2810536,2397436,5258388,,,,,,,MEDSL precinct returns
+2016,HOUSE,0,IN,1053625,1442916,2659021,,,,,,,MEDSL precinct returns
+2016,HOUSE,0,KS,317639,695116,1174219,,,,,,,MEDSL precinct returns
+2016,HOUSE,0,KY,516900,1248211,1765435,,,,,,,MEDSL precinct returns
+2016,HOUSE,0,LA,564064,1198764,1804256,,,,,,,MEDSL precinct returns
+2016,HOUSE,0,MA,2344518,451121,2940688,,,,,,,MEDSL precinct returns
+2016,HOUSE,0,MD,1636281,962306,2707726,,,,,,,MEDSL precinct returns
+2016,HOUSE,0,ME,386454,357203,744212,,,,,,,MEDSL precinct returns
+2016,HOUSE,0,MI,2193766,2242868,4670124,,,,,,,MEDSL precinct returns
+2016,HOUSE,0,MN,1434590,1334686,2860432,,,,,,,MEDSL precinct returns
+2016,HOUSE,0,MO,1041306,1600524,2750079,,,,,,,MEDSL precinct returns
+2016,HOUSE,0,MS,449896,677385,1183513,,,,,,,MEDSL precinct returns
+2016,HOUSE,0,MT,205919,285358,507831,,,,,,,MEDSL precinct returns
+2016,HOUSE,0,NC,2142661,2447326,4598458,,,,,,,MEDSL precinct returns
+2016,HOUSE,0,ND,80377,233980,338459,,,,,,,MEDSL precinct returns
+2016,HOUSE,0,NE,221069,557744,788453,,,,,,,MEDSL precinct returns
+2016,HOUSE,0,NH,336451,316001,715848,,,,,,,MEDSL precinct returns
+2016,HOUSE,0,NJ,1818971,1536761,3460019,,,,,,,MEDSL precinct returns
+2016,HOUSE,0,NM,436932,343194,780126,,,,,,,MEDSL precinct returns
+2016,HOUSE,0,NV,507998,497847,1078103,,,,,,,MEDSL precinct returns
+2016,HOUSE,0,NY,4459056,2531072,7109365,,,,,,,MEDSL precinct returns
+2016,HOUSE,0,OH,2154523,2996017,5218355,,,,,,,MEDSL precinct returns
+2016,HOUSE,0,OK,305222,781691,1133244,,,,,,40143 40145 40147,MEDSL precinct returns
+2016,HOUSE,0,OR,1026851,809048,1911865,,,,,,,MEDSL precinct returns
+2016,HOUSE,0,PA,2625156,3096575,5743976,,,,,,,MEDSL precinct returns
+2016,HOUSE,0,RI,263648,141324,431525,,,,,,,MEDSL precinct returns
+2016,HOUSE,0,SC,778125,1193710,2016785,,,,,,,MEDSL precinct returns
+2016,HOUSE,0,SD,132792,237141,369933,,,,,,,MEDSL precinct returns
+2016,HOUSE,0,TN,814181,1493740,2391061,,,,,,,MEDSL precinct returns
+2016,HOUSE,0,TX,3160384,4641087,8291778,,,,,,48185 48225 48313 48339 48407 48455 48471,MEDSL precinct returns
+2016,HOUSE,0,UT,348219,711786,1116337,,,,,,,MEDSL precinct returns
+2016,HOUSE,0,VA,1859426,1843010,3782248,,,,,,,MEDSL precinct returns
+2016,HOUSE,0,VT,264414,0,295334,,,,,,,MEDSL precinct returns
+2016,HOUSE,0,WA,1734485,1402014,3136499,,,,,,,MEDSL precinct returns
+2016,HOUSE,0,WI,1379998,1270448,2773662,,,,,,,MEDSL precinct returns
+2016,HOUSE,0,WV,224435,445003,686321,,,,,,,MEDSL precinct returns
+2016,HOUSE,0,WY,75466,156176,251776,,,,,,,MEDSL precinct returns
+2016,HOUSE,1,KY,80813,209807,290620,,,,,,,MEDSL precinct returns
+2016,PRES,0,AK,116454,163387,318608,MEDSL statewide,116454,163387,0.0,0.0,,MEDSL statewide presidential returns
+2016,PRES,0,AL,729547,1318250,2123367,MEDSL statewide,729547,1318255,0.0,-0.0,,MEDSL county presidential returns
+2016,PRES,0,AR,380494,684872,1129896,MEDSL statewide,380494,684872,0.0,0.0,,MEDSL county presidential returns
+2016,PRES,0,AZ,1161167,1252401,2604277,MEDSL statewide,1161209,1252401,-0.0,0.0,,MEDSL county presidential returns
+2016,PRES,0,CA,8753788,4483810,14181595,MEDSL statewide,8753788,4483810,0.0,0.0,,MEDSL county presidential returns
+2016,PRES,0,CO,1338870,1202484,2780220,MEDSL statewide,1338870,1202484,0.0,0.0,,MEDSL county presidential returns
+2016,PRES,0,CT,897572,673215,1647536,MEDSL statewide,897572,673215,0.0,0.0,,MEDSL county presidential returns
+2016,PRES,0,DC,282830,12723,311268,MEDSL statewide,282830,12723,0.0,0.0,,MEDSL county presidential returns
+2016,PRES,0,DE,235603,185127,442997,MEDSL statewide,235603,185127,0.0,0.0,,MEDSL county presidential returns
+2016,PRES,0,FL,4504975,4617886,9420039,MEDSL statewide,4504975,4617886,0.0,0.0,,MEDSL county presidential returns
+2016,PRES,0,GA,1877963,2089104,4114711,MEDSL statewide,1877963,2089104,0.0,0.0,,MEDSL county presidential returns
+2016,PRES,0,HI,266891,128847,428937,MEDSL statewide,266891,128847,0.0,0.0,,MEDSL county presidential returns
+2016,PRES,0,IA,653669,800983,1566031,MEDSL statewide,653669,800983,0.0,0.0,,MEDSL county presidential returns
+2016,PRES,0,ID,189765,409055,690433,MEDSL statewide,189765,409055,0.0,0.0,,MEDSL county presidential returns
+2016,PRES,0,IL,3090729,2146015,5558707,MEDSL statewide,3090729,2146015,0.0,0.0,,MEDSL county presidential returns
+2016,PRES,0,IN,1033126,1557286,2734958,MEDSL statewide,1033126,1557286,0.0,0.0,,MEDSL county presidential returns
+2016,PRES,0,KS,427005,671018,1184403,MEDSL statewide,427005,671018,0.0,0.0,,MEDSL county presidential returns
+2016,PRES,0,KY,628854,1202971,1924149,MEDSL statewide,628854,1202971,0.0,0.0,,MEDSL county presidential returns
+2016,PRES,0,LA,780154,1178638,2029032,MEDSL statewide,780154,1178638,0.0,0.0,,MEDSL county presidential returns
+2016,PRES,0,MA,1995196,1090893,3274555,MEDSL statewide,1995196,1090893,0.0,0.0,,MEDSL county presidential returns
+2016,PRES,0,MD,1677928,943169,2781446,MEDSL statewide,1678006,943428,-0.0,-0.03,,MEDSL county presidential returns
+2016,PRES,0,ME,357735,335593,747927,MEDSL statewide,357735,335593,0.0,0.0,,MEDSL county presidential returns
+2016,PRES,0,MI,2268839,2279543,4799284,MEDSL statewide,2268839,2279543,0.0,0.0,,MEDSL county presidential returns
+2016,PRES,0,MN,1367716,1322951,2944813,MEDSL statewide,1367705,1322949,0.0,0.0,,MEDSL county presidential returns
+2016,PRES,0,MO,1071068,1594511,2807381,MEDSL statewide,1071068,1594511,0.0,0.0,,MEDSL county presidential returns
+2016,PRES,0,MS,485131,700714,1209357,MEDSL statewide,485131,700714,0.0,0.0,,MEDSL county presidential returns
+2016,PRES,0,MT,177709,279240,497147,MEDSL statewide,177709,279240,0.0,0.0,,MEDSL county presidential returns
+2016,PRES,0,NC,2189316,2362631,4741564,MEDSL statewide,2189316,2362631,0.0,0.0,,MEDSL county presidential returns
+2016,PRES,0,ND,93758,216794,344360,MEDSL statewide,93758,216794,0.0,0.0,,MEDSL county presidential returns
+2016,PRES,0,NE,284494,495961,844227,MEDSL statewide,284494,495961,0.0,0.0,,MEDSL county presidential returns
+2016,PRES,0,NH,348526,345790,744296,MEDSL statewide,348526,345790,0.0,0.0,,MEDSL county presidential returns
+2016,PRES,0,NJ,2148278,1601933,3874046,MEDSL statewide,2148278,1601933,0.0,0.0,,MEDSL county presidential returns
+2016,PRES,0,NM,385234,319667,798319,MEDSL statewide,385234,319667,0.0,0.0,,MEDSL county presidential returns
+2016,PRES,0,NV,539260,512058,1125385,MEDSL statewide,539260,512058,0.0,0.0,,MEDSL county presidential returns
+2016,PRES,0,NY,4547562,2814589,7707363,MEDSL statewide,4379789,2527142,3.83,11.37,,MEDSL county presidential returns
+2016,PRES,0,OH,2394164,2841005,5496487,MEDSL statewide,2394164,2841005,0.0,0.0,,MEDSL county presidential returns
+2016,PRES,0,OK,420375,949136,1452992,MEDSL statewide,420375,949136,0.0,0.0,,MEDSL county presidential returns
+2016,PRES,0,OR,1002106,782403,2001336,MEDSL statewide,1002106,782403,0.0,0.0,,MEDSL county presidential returns
+2016,PRES,0,PA,2926441,2970733,6115402,MEDSL statewide,2926441,2970733,0.0,0.0,,MEDSL county presidential returns
+2016,PRES,0,RI,252525,180543,464144,MEDSL statewide,252525,180543,0.0,0.0,,MEDSL county presidential returns
+2016,PRES,0,SC,855373,1155389,2103027,MEDSL statewide,855373,1155389,0.0,0.0,,MEDSL county presidential returns
+2016,PRES,0,SD,117458,227721,370093,MEDSL statewide,117458,227721,0.0,0.0,,MEDSL county presidential returns
+2016,PRES,0,TN,870695,1522925,2508027,MEDSL statewide,870695,1522925,0.0,0.0,,MEDSL county presidential returns
+2016,PRES,0,TX,3877868,4685047,8969226,MEDSL statewide,3877868,4685047,0.0,0.0,,MEDSL county presidential returns
+2016,PRES,0,UT,310676,515231,1131430,MEDSL statewide,310674,515211,0.0,0.0,,MEDSL county presidential returns
+2016,PRES,0,VA,1981473,1769443,3984631,MEDSL statewide,1981473,1769443,0.0,0.0,,MEDSL county presidential returns
+2016,PRES,0,VT,178573,95369,315077,MEDSL statewide,178573,95369,0.0,0.0,,MEDSL county presidential returns
+2016,PRES,0,WA,1742718,1221747,3209214,MEDSL statewide,1742718,1221747,0.0,0.0,,MEDSL county presidential returns
+2016,PRES,0,WI,1381823,1404440,2975753,MEDSL statewide,1382536,1405284,-0.05,-0.06,,MEDSL county presidential returns
+2016,PRES,0,WV,188794,489371,713051,MEDSL statewide,188794,489371,0.0,0.0,,MEDSL county presidential returns
+2016,PRES,0,WY,55973,174419,255849,MEDSL statewide,55973,174419,0.0,0.0,,MEDSL county presidential returns
+2016,SEN,0,AK,36200,138149,311441,MEDSL statewide,36200,138149,0.0,0.0,,MEDSL precinct returns
+2016,SEN,0,AL,747051,1334131,2084436,MEDSL statewide,748709,1335104,-0.22,-0.07,,MEDSL precinct returns
+2016,SEN,0,AR,400590,661984,1107491,MEDSL statewide,400602,661984,-0.0,0.0,,MEDSL precinct returns
+2016,SEN,0,AZ,1031241,1359258,2547042,MEDSL statewide,1031245,1359761,-0.0,-0.04,,MEDSL precinct returns
+2016,SEN,0,CA,12241261,0,12241261,MEDSL statewide,12244170,0,-0.02,,,MEDSL precinct returns
+2016,SEN,0,CO,1370710,1215318,2743029,MEDSL statewide,1370710,1215318,0.0,0.0,,MEDSL precinct returns
+2016,SEN,0,CT,1008526,552621,1596051,MEDSL statewide,920766,552621,9.53,0.0,,MEDSL precinct returns
+2016,SEN,0,FL,4122074,4835185,9315264,MEDSL statewide,4122088,4835191,-0.0,-0.0,,MEDSL precinct returns
+2016,SEN,0,GA,1599726,2135806,3898605,MEDSL statewide,1599726,2135806,0.0,0.0,,MEDSL precinct returns
+2016,SEN,0,HI,306604,92653,416562,MEDSL statewide,306604,92653,0.0,0.0,,MEDSL precinct returns
+2016,SEN,0,IA,549460,926007,1541036,MEDSL statewide,549460,926007,0.0,0.0,,MEDSL precinct returns
+2016,SEN,0,ID,188249,449017,678891,MEDSL statewide,188249,449017,0.0,0.0,,MEDSL precinct returns
+2016,SEN,0,IL,3012940,2184692,5497852,MEDSL statewide,3012940,2184692,0.0,0.0,,MEDSL precinct returns
+2016,SEN,0,IN,1160844,1423865,2734231,MEDSL statewide,1158947,1423991,0.16,-0.01,,MEDSL precinct returns
+2016,SEN,0,KS,379744,732378,1178501,MEDSL statewide,379740,732376,0.0,0.0,,MEDSL precinct returns
+2016,SEN,0,KY,813164,1090077,1903613,MEDSL statewide,813246,1090177,-0.01,-0.01,,MEDSL precinct returns
+2016,SEN,0,LA,695288,1185889,1933635,MEDSL statewide,705271,1239489,-1.42,-4.32,,MEDSL precinct returns
+2016,SEN,0,MD,1660032,972099,2725678,MEDSL statewide,1659907,972557,0.01,-0.05,,MEDSL precinct returns
+2016,SEN,0,MO,1300200,1378458,2802636,MEDSL statewide,1300200,1378458,0.0,0.0,,MEDSL precinct returns
+2016,SEN,0,NC,2128165,2395376,4691133,MEDSL statewide,2128165,2395376,0.0,0.0,,MEDSL precinct returns
+2016,SEN,0,ND,58116,268788,342501,MEDSL statewide,58116,268788,0.0,0.0,,MEDSL precinct returns
+2016,SEN,0,NH,354649,353632,739140,MEDSL statewide,354649,353632,0.0,0.0,,MEDSL precinct returns
+2016,SEN,0,NV,521869,494833,1065653,MEDSL statewide,521994,495079,-0.02,-0.05,,MEDSL precinct returns
+2016,SEN,0,NY,5202932,1996280,7362719,MEDSL statewide,4784220,1723927,8.75,15.8,,MEDSL precinct returns
+2016,SEN,0,OH,1996908,3118567,5374164,MEDSL statewide,1996908,3118567,0.0,0.0,,MEDSL precinct returns
+2016,SEN,0,OK,355911,980892,1448047,MEDSL statewide,355911,980892,0.0,0.0,,MEDSL precinct returns
+2016,SEN,0,OR,1105119,651106,1952477,MEDSL statewide,1105119,651106,0.0,0.0,,MEDSL precinct returns
+2016,SEN,0,PA,2865009,2951706,6051857,MEDSL statewide,2865012,2951702,-0.0,0.0,,MEDSL precinct returns
+2016,SEN,0,SC,704540,1241609,1972581,MEDSL statewide,704540,1241609,0.0,0.0,,MEDSL precinct returns
+2016,SEN,0,SD,104125,265494,369619,MEDSL statewide,104140,265516,-0.01,-0.01,,MEDSL precinct returns
+2016,SEN,0,UT,302336,760493,1119261,MEDSL statewide,301858,760220,0.16,0.04,,MEDSL precinct returns
+2016,SEN,0,VT,192243,103637,313809,MEDSL statewide,192243,103637,0.0,0.0,,MEDSL precinct returns
+2016,SEN,0,WA,1913186,1328264,3241450,MEDSL statewide,1913979,1329338,-0.04,-0.08,,MEDSL precinct returns
+2016,SEN,0,WI,1380335,1479479,2948741,MEDSL statewide,1380335,1479471,0.0,0.0,,MEDSL precinct returns
+2018,GOV,0,AK,125739,145631,283134,,,,,,,MEDSL precinct returns
+2018,GOV,0,AL,694011,1021276,1717817,Amlani & Algara,694495,1022457,-0.07,-0.12,,MEDSL precinct returns
+2018,GOV,0,AR,283218,582406,891509,Amlani & Algara,283218,582406,0.0,0.0,,MEDSL precinct returns
+2018,GOV,0,AZ,994341,1330863,2379369,Amlani & Algara,994341,1330863,0.0,0.0,,MEDSL precinct returns
+2018,GOV,0,CA,7721410,4742825,12464235,Amlani & Algara,7721410,4742825,0.0,0.0,,MEDSL precinct returns
+2018,GOV,0,CO,1348888,1080801,2525062,Amlani & Algara,1348888,1080801,0.0,0.0,,MEDSL precinct returns
+2018,GOV,0,CT,694509,650132,1406774,Amlani & Algara,694510,650138,-0.0,-0.0,,MEDSL precinct returns
+2018,GOV,0,FL,4044092,4076521,8228238,Amlani & Algara,4043723,4076186,0.01,0.01,,MEDSL precinct returns
+2018,GOV,0,GA,1923685,1978408,3939328,Amlani & Algara,1923685,1978408,0.0,0.0,,MEDSL precinct returns
+2018,GOV,0,HI,244934,131719,390843,Amlani & Algara,244934,131719,0.0,0.0,,MEDSL precinct returns
+2018,GOV,0,IA,630986,667275,1327638,Amlani & Algara,630986,667275,0.0,0.0,,MEDSL precinct returns
+2018,GOV,0,ID,231081,361661,605131,Amlani & Algara,231081,361661,0.0,0.0,,MEDSL precinct returns
+2018,GOV,0,IL,2479746,1765751,4560012,Amlani & Algara,2479746,1765751,0.0,0.0,,MEDSL precinct returns
+2018,GOV,0,KS,506509,453030,1055026,Amlani & Algara,506509,453030,0.0,0.0,,MEDSL precinct returns
+2018,GOV,0,MA,885770,1781341,2674615,Amlani & Algara,885770,1781341,0.0,0.0,,MEDSL precinct returns
+2018,GOV,0,MD,1002639,1275644,2304512,Amlani & Algara,1002639,1275644,0.0,0.0,,MEDSL precinct returns
+2018,GOV,0,ME,320962,272311,630667,Amlani & Algara,318984,272034,0.62,0.1,,MEDSL precinct returns
+2018,GOV,0,MI,2266193,1859534,4250585,Amlani & Algara,2266193,1859534,0.0,0.0,,MEDSL precinct returns
+2018,GOV,0,MN,1393096,1097705,2587287,Amlani & Algara,1393096,1097705,0.0,0.0,,MEDSL precinct returns
+2018,GOV,0,NE,286169,411812,697981,Amlani & Algara,286169,411812,0.0,0.0,,MEDSL precinct returns
+2018,GOV,0,NH,262359,302764,573602,Amlani & Algara,262359,302764,0.0,0.0,,MEDSL precinct returns
+2018,GOV,0,NM,398368,298091,696459,Amlani & Algara,398368,298091,0.0,0.0,,MEDSL precinct returns
+2018,GOV,0,NV,480007,440320,952934,Amlani & Algara,480007,440320,0.0,0.0,,MEDSL precinct returns
+2018,GOV,0,NY,3635340,2207602,6104477,Amlani & Algara,3635340,2207602,0.0,0.0,,Amlani & Algara county returns (MEDSL incomplete)
+2018,GOV,0,OH,2070046,2235825,4435462,Amlani & Algara,2067847,2231917,0.11,0.18,,MEDSL precinct returns
+2018,GOV,0,OK,500973,644579,1186385,Amlani & Algara,500973,644579,0.0,0.0,,MEDSL precinct returns
+2018,GOV,0,OR,987890,814988,1866997,Amlani & Algara,934498,814988,5.71,0.0,,MEDSL precinct returns
+2018,GOV,0,PA,2895848,2040169,5013046,Amlani & Algara,2895652,2039882,0.01,0.01,,MEDSL precinct returns
+2018,GOV,0,RI,198122,139932,376401,Amlani & Algara,198122,139932,0.0,0.0,,MEDSL precinct returns
+2018,GOV,0,SC,784182,921342,1707569,Amlani & Algara,784182,921342,0.0,0.0,,MEDSL precinct returns
+2018,GOV,0,SD,161171,172706,338715,Amlani & Algara,160740,172399,0.27,0.18,,MEDSL precinct returns
+2018,GOV,0,TN,864863,1336106,2243294,Amlani & Algara,864863,1336106,0.0,0.0,,MEDSL precinct returns
+2018,GOV,0,TX,3545673,4655344,8341613,Amlani & Algara,3546615,4656196,-0.03,-0.02,,MEDSL precinct returns
+2018,GOV,0,VT,110335,151272,274084,Amlani & Algara,110335,151261,0.0,0.01,,MEDSL precinct returns
+2018,GOV,0,WI,1324308,1295084,2672338,Amlani & Algara,1324307,1295080,0.0,0.0,,MEDSL precinct returns
+2018,GOV,0,WY,55965,136412,203238,Amlani & Algara,55965,136412,0.0,0.0,,MEDSL precinct returns
+2018,HOUSE,0,AK,131199,149779,282166,,,,,,,MEDSL precinct returns
+2018,HOUSE,0,AL,678157,974921,1658202,,,,,,,MEDSL precinct returns
+2018,HOUSE,0,AR,312978,556339,889298,,,,,,,MEDSL precinct returns
+2018,HOUSE,0,AZ,1179193,1139251,2345577,,,,,,,MEDSL precinct returns
+2018,HOUSE,0,CA,8010445,3973396,12184522,,,,,,,MEDSL precinct returns
+2018,HOUSE,0,CO,1343345,1079772,2513906,,,,,,,MEDSL precinct returns
+2018,HOUSE,0,CT,849341,520521,1379807,,,,,,,MEDSL precinct returns
+2018,HOUSE,0,DE,227353,125384,353814,,,,,,,MEDSL precinct returns
+2018,HOUSE,0,FL,3307222,3675426,7030332,,,,,,,MEDSL precinct returns
+2018,HOUSE,0,GA,1814469,1987191,3801660,,,,,,,MEDSL precinct returns
+2018,HOUSE,0,HI,287921,87348,382332,,,,,,,MEDSL precinct returns
+2018,HOUSE,0,IA,664676,612338,1316648,,,,,,,MEDSL precinct returns
+2018,HOUSE,0,ID,207303,367993,595724,,,,,,,MEDSL precinct returns
+2018,HOUSE,0,IL,2757540,1754449,4545103,,,,,,,MEDSL precinct returns
+2018,HOUSE,0,IN,990026,1241410,2240431,,,,,,18175,MEDSL precinct returns
+2018,HOUSE,0,KS,464239,562401,1049899,,,,,,,MEDSL precinct returns
+2018,HOUSE,0,KY,613040,935564,1570074,,,,,,,MEDSL precinct returns
+2018,HOUSE,0,LA,553184,835715,1460593,,,,,,,MEDSL precinct returns
+2018,HOUSE,0,MA,1943597,497953,2485081,,,,,,,MEDSL precinct returns
+2018,HOUSE,0,MD,1493047,737906,2286284,,,,,,,MEDSL precinct returns
+2018,HOUSE,0,ME,332389,245170,630575,,,,,,,"official state results: Maine Secretary of State, Election Results 2018: Representative to Congress - District 2, cast vote records (FINAL) spreadsheets #1-#8 (xlsx); Maine Secretary of State: Representative to Congress - Di"
+2018,HOUSE,0,MI,2175636,1853459,4154703,,,,,,,MEDSL precinct returns
+2018,HOUSE,0,MN,1420769,1125533,2576996,,,,,,,MEDSL precinct returns
+2018,HOUSE,0,MO,1027977,1330992,2418438,,,,,,,MEDSL precinct returns
+2018,HOUSE,0,MS,398770,471162,938903,,,,,,,MEDSL precinct returns
+2018,HOUSE,0,MT,233284,256661,504421,,,,,,,MEDSL precinct returns
+2018,HOUSE,0,NC,1770886,1845892,3663001,,,,,,,MEDSL precinct returns
+2018,HOUSE,0,ND,114377,193568,321532,,,,,,,MEDSL precinct returns
+2018,HOUSE,0,NE,264493,432077,696570,,,,,,,MEDSL precinct returns
+2018,HOUSE,0,NH,311242,248986,570744,,,,,,,MEDSL precinct returns
+2018,HOUSE,0,NJ,1829047,1183980,3053723,,,,,,,MEDSL precinct returns
+2018,HOUSE,0,NM,404026,264701,693311,,,,,,,MEDSL precinct returns
+2018,HOUSE,0,NV,491272,439727,960774,,,,,,,MEDSL precinct returns
+2018,HOUSE,0,NY,3990483,1859074,5948673,,,,,,,"official state results: New York State Board of Elections: 2018 General Election Results, Representative in Congress by county within district (xlsx), certified December 14, 2018 (retrieved via the Internet Archive copy of 2"
+2018,HOUSE,0,OH,2084854,2295373,4412408,,,,,,,MEDSL precinct returns
+2018,HOUSE,0,OK,428452,730531,1178836,,,,,,,MEDSL precinct returns
+2018,HOUSE,0,OR,1061412,702531,1847646,,,,,,,MEDSL precinct returns
+2018,HOUSE,0,PA,2714583,2206223,4931756,,,,,,,MEDSL precinct returns
+2018,HOUSE,0,RI,242575,129838,373280,,,,,,,MEDSL precinct returns
+2018,HOUSE,0,SC,758340,927494,1709292,,,,,,,MEDSL precinct returns
+2018,HOUSE,0,SD,120816,202446,335471,,,,,,,MEDSL precinct returns
+2018,HOUSE,0,TN,846450,1279655,2159825,,,,,,,MEDSL precinct returns
+2018,HOUSE,0,TX,3852115,4135170,8201583,,,,,,,MEDSL precinct returns
+2018,HOUSE,0,UT,374039,617237,1053677,,,,,,,MEDSL precinct returns
+2018,HOUSE,0,VA,1867061,1408701,3313227,,,,,,,MEDSL precinct returns
+2018,HOUSE,0,VT,188549,70707,272450,,,,,,,MEDSL precinct returns
+2018,HOUSE,0,WA,1887154,1046969,3028794,,,,,,,MEDSL precinct returns
+2018,HOUSE,0,WI,1367497,1172993,2562097,,,,,,,MEDSL precinct returns
+2018,HOUSE,0,WV,234568,337146,577991,,,,,,,MEDSL precinct returns
+2018,HOUSE,0,WY,59903,127963,201245,,,,,,,MEDSL precinct returns
+2018,HOUSE,1,MI,169330,0,194993,,,,,,,MEDSL precinct returns
+2018,HOUSE,1,NY,0,8299,8335,,,,,,,MEDSL precinct returns
+2018,SEN,0,AZ,1191100,1135200,2387543,MEDSL statewide,1191100,1135200,0.0,0.0,,MEDSL precinct returns
+2018,SEN,0,CA,11113364,0,11113364,MEDSL statewide,11113364,0,0.0,,,MEDSL precinct returns
+2018,SEN,0,CT,825579,545717,1386826,MEDSL statewide,787685,545717,4.81,0.0,,MEDSL precinct returns
+2018,SEN,0,DE,217385,137127,362606,MEDSL statewide,217385,137127,0.0,0.0,,MEDSL precinct returns
+2018,SEN,0,FL,4088007,4099038,8211517,MEDSL statewide,4089472,4099505,-0.04,-0.01,,MEDSL precinct returns
+2018,SEN,0,HI,276316,112035,388351,MEDSL statewide,276316,112035,0.0,0.0,,MEDSL precinct returns
+2018,SEN,0,IN,1010836,1158031,2269933,MEDSL statewide,1023553,1158000,-1.24,0.0,,MEDSL precinct returns
+2018,SEN,0,MA,1633371,979210,2707090,MEDSL statewide,1633371,979210,0.0,0.0,,MEDSL precinct returns
+2018,SEN,0,MD,1491614,697017,2299889,MEDSL statewide,1491614,697017,0.0,0.0,,MEDSL precinct returns
+2018,SEN,0,ME,66268,223502,634409,MEDSL statewide,66268,223502,0.0,0.0,,MEDSL precinct returns
+2018,SEN,0,MI,2214478,1938818,4237271,MEDSL statewide,2214478,1938818,0.0,0.0,,MEDSL precinct returns
+2018,SEN,0,MN,1566174,940437,2596879,MEDSL statewide,1566174,940437,0.0,0.0,,MEDSL precinct returns
+2018,SEN,0,MO,1112944,1254942,2442315,MEDSL statewide,1112935,1254927,0.0,0.0,,MEDSL precinct returns
+2018,SEN,0,MS,369567,553667,936215,MEDSL statewide,369567,547619,0.0,1.1,,MEDSL precinct returns
+2018,SEN,0,MT,253876,235963,504384,MEDSL statewide,253876,235963,0.0,0.0,,MEDSL precinct returns
+2018,SEN,0,ND,144376,179720,326138,MEDSL statewide,144376,179720,0.0,0.0,,MEDSL precinct returns
+2018,SEN,0,NE,269917,403151,698417,MEDSL statewide,269917,403151,0.0,0.0,,MEDSL precinct returns
+2018,SEN,0,NJ,1684391,1340763,3127554,MEDSL statewide,1711654,1357355,-1.59,-1.22,,MEDSL precinct returns
+2018,SEN,0,NM,376998,212813,697012,MEDSL statewide,376998,212813,0.0,0.0,,MEDSL precinct returns
+2018,SEN,0,NV,490071,441202,956829,MEDSL statewide,490071,441202,0.0,0.0,,MEDSL precinct returns
+2018,SEN,0,NY,4056931,1998220,6059023,MEDSL statewide,3755489,1730439,8.03,15.47,,Amlani & Algara county returns (MEDSL incomplete)
+2018,SEN,0,OH,2358508,2057559,4416067,MEDSL statewide,2355923,2053963,0.11,0.18,,MEDSL precinct returns
+2018,SEN,0,PA,2792615,2135149,5009890,MEDSL statewide,2777680,2134848,0.54,0.01,,MEDSL precinct returns
+2018,SEN,0,RI,231477,144421,376738,MEDSL statewide,231477,144421,0.0,0.0,,MEDSL precinct returns
+2018,SEN,0,TN,985450,1227483,2243740,MEDSL statewide,985450,1227483,0.0,0.0,,MEDSL precinct returns
+2018,SEN,0,TX,4044073,4259630,8369175,MEDSL statewide,4045632,4260553,-0.04,-0.02,,MEDSL precinct returns
+2018,SEN,0,UT,328532,665087,1064319,MEDSL statewide,328541,665215,-0.0,-0.02,,MEDSL precinct returns
+2018,SEN,0,VA,1910370,1374313,3351757,MEDSL statewide,1910370,1374313,0.0,0.0,,MEDSL precinct returns
+2018,SEN,0,VT,2,74817,272624,MEDSL statewide,0,74663,,0.21,,MEDSL precinct returns
+2018,SEN,0,WA,1802779,1282006,3086786,MEDSL statewide,1803364,1282804,-0.03,-0.06,,MEDSL precinct returns
+2018,SEN,0,WI,1472914,1184885,2657841,MEDSL statewide,1472914,1184885,0.0,0.0,,MEDSL precinct returns
+2018,SEN,0,WV,290510,271113,586034,MEDSL statewide,288808,269872,0.59,0.46,,MEDSL precinct returns
+2018,SEN,0,WY,61227,136210,203420,MEDSL statewide,61227,136210,0.0,0.0,,MEDSL precinct returns
+2018,SEN,1,MN,1370540,1095777,2587356,MEDSL statewide,1370540,1095777,0.0,0.0,,MEDSL precinct returns
+2018,SEN,1,MS,400594,544873,945467,MEDSL statewide,420819,486769,-4.81,11.94,,MEDSL precinct returns
+2020,GOV,0,DE,292903,190312,492635,Amlani & Algara,292903,190312,0.0,0.0,,MEDSL precinct returns
+2020,GOV,0,IN,968092,1706724,3020383,Amlani & Algara,968092,1706724,0.0,0.0,,Amlani & Algara county returns (MEDSL incomplete)
+2020,GOV,0,MO,1225771,1720202,3012287,Amlani & Algara,1225771,1720202,0.0,0.0,,MEDSL precinct returns
+2020,GOV,0,MT,250860,328548,603587,Amlani & Algara,250860,328548,0.0,0.0,,MEDSL precinct returns
+2020,GOV,0,NC,2834790,2586604,5502777,Amlani & Algara,2834790,2586604,0.0,0.0,,MEDSL precinct returns
+2020,GOV,0,ND,90789,235479,357659,Amlani & Algara,90789,235479,0.0,0.0,,MEDSL precinct returns
+2020,GOV,0,NH,264639,516609,793260,Amlani & Algara,264639,516609,0.0,0.0,,MEDSL precinct returns
+2020,GOV,0,UT,442754,918753,1453341,Amlani & Algara,442754,918754,0.0,-0.0,,MEDSL precinct returns
+2020,GOV,0,VT,99217,248431,362670,Amlani & Algara,99214,248412,0.0,0.01,,MEDSL precinct returns
+2020,GOV,0,WA,2294243,1749066,4056454,Amlani & Algara,2294243,1749066,0.0,0.0,,MEDSL precinct returns
+2020,GOV,0,WV,237024,497944,768804,Amlani & Algara,237024,497944,0.0,0.0,,MEDSL precinct returns
+2020,HOUSE,0,AK,159856,192126,351982,,,,,,,MEDSL precinct returns
+2020,HOUSE,0,AL,608809,1416012,2051659,,,,,,,MEDSL precinct returns
+2020,HOUSE,0,AR,330485,828266,1179396,,,,,,,MEDSL precinct returns
+2020,HOUSE,0,AZ,1629318,1638516,3267834,,,,,,,MEDSL precinct returns
+2020,HOUSE,0,CA,11084627,5640768,16725395,,,,,,,MEDSL precinct returns
+2020,HOUSE,0,CO,1679085,1378248,3164983,,,,,,,MEDSL precinct returns
+2020,HOUSE,0,CT,1060831,682662,1772759,,,,,,,MEDSL precinct returns
+2020,HOUSE,0,DE,281382,196392,488270,,,,,,,MEDSL precinct returns
+2020,HOUSE,0,FL,4942290,5469147,10485601,,,,,,12051,MEDSL precinct returns
+2020,HOUSE,0,GA,2393089,2490396,4883485,,,,,,,MEDSL precinct returns
+2020,HOUSE,0,HI,354762,155215,526535,,,,,,,MEDSL precinct returns
+2020,HOUSE,0,IA,762168,859345,1639287,,,,,,,MEDSL precinct returns
+2020,HOUSE,0,ID,255531,561405,849909,,,,,,,MEDSL precinct returns
+2020,HOUSE,0,IL,3355487,2416929,5878732,,,,,,,MEDSL precinct returns
+2020,HOUSE,0,IN,1194901,1738745,2996444,,,,,,,"official state results: Indiana Election Division, 2020 General Election certified results archive (US Representative, office category 1005, JSON data file); Indiana Election Division, 2020 General Election Results (archive "
+2020,HOUSE,0,KS,557258,775898,1359533,,,,,,,MEDSL precinct returns
+2020,HOUSE,0,KY,735210,1363618,2115335,,,,,,,MEDSL precinct returns
+2020,HOUSE,0,LA,727402,1244254,2021601,,,,,,,MEDSL precinct returns
+2020,HOUSE,0,MA,2483870,699708,3326658,,,,,,,MEDSL precinct returns
+2020,HOUSE,0,MD,1912788,1028166,2954170,,,,,,,MEDSL precinct returns
+2020,HOUSE,0,ME,468978,340236,809262,,,,,,,MEDSL precinct returns
+2020,HOUSE,0,MI,2686145,2617245,5420086,,,,,,,MEDSL precinct returns
+2020,HOUSE,0,MN,1554373,1474820,3193809,,,,,,,MEDSL precinct returns
+2020,HOUSE,0,MO,1172135,1723982,2973421,,,,,,,MEDSL precinct returns
+2020,HOUSE,0,MS,421014,806001,1227015,,,,,,,MEDSL precinct returns
+2020,HOUSE,0,MT,262340,339169,601509,,,,,,,MEDSL precinct returns
+2020,HOUSE,0,NC,2660535,2631336,5325245,,,,,,,MEDSL precinct returns
+2020,HOUSE,0,ND,97970,245229,355598,,,,,,,MEDSL precinct returns
+2020,HOUSE,0,NE,326018,585234,941298,,,,,,,MEDSL precinct returns
+2020,HOUSE,0,NH,413895,354045,787102,,,,,,,MEDSL precinct returns
+2020,HOUSE,0,NJ,2539187,1843088,4433023,,,,,,,MEDSL precinct returns
+2020,HOUSE,0,NM,495703,407761,903464,,,,,,,MEDSL precinct returns
+2020,HOUSE,0,NV,665256,633453,1354759,,,,,,,MEDSL precinct returns
+2020,HOUSE,0,NY,5100691,2988461,8227152,,,,,,,MEDSL precinct returns
+2020,HOUSE,0,OH,2451500,3252887,5761540,,,,,,,MEDSL precinct returns
+2020,HOUSE,0,OK,475731,1044175,1551383,,,,,,,MEDSL precinct returns
+2020,HOUSE,0,OR,1285339,966786,2308189,,,,,,,MEDSL precinct returns
+2020,HOUSE,0,PA,3343174,3433081,6776255,,,,,,,MEDSL precinct returns
+2020,HOUSE,0,RI,312636,109894,488417,,,,,,,MEDSL precinct returns
+2020,HOUSE,0,SC,1076799,1412684,2505442,,,,,,,MEDSL precinct returns
+2020,HOUSE,0,SD,0,321984,397732,,,,,,,MEDSL precinct returns
+2020,HOUSE,0,TN,1105537,1685255,2841744,,,,,,,MEDSL precinct returns
+2020,HOUSE,0,TX,4895290,5925334,11090946,,,,,,,MEDSL precinct returns
+2020,HOUSE,0,UT,505946,873346,1432716,,,,,,,MEDSL precinct returns
+2020,HOUSE,0,VA,2253974,2047635,4336664,,,,,,,MEDSL precinct returns
+2020,HOUSE,0,VT,238834,95852,354826,,,,,,,MEDSL precinct returns
+2020,HOUSE,0,WA,2340356,1545436,3944233,,,,,,,MEDSL precinct returns
+2020,HOUSE,0,WI,1566671,1661399,3238051,,,,,,,MEDSL precinct returns
+2020,HOUSE,0,WV,246903,514268,761171,,,,,,,MEDSL precinct returns
+2020,HOUSE,0,WY,66576,185732,270892,,,,,,,MEDSL precinct returns
+2020,PRES,0,AK,153778,189951,359530,MEDSL statewide,153778,189951,0.0,0.0,,MEDSL statewide presidential returns
+2020,PRES,0,AL,849624,1441170,2323282,MEDSL statewide,849624,1441170,0.0,0.0,,MEDSL county presidential returns
+2020,PRES,0,AR,423932,760647,1219069,MEDSL statewide,423932,760647,0.0,0.0,,MEDSL county presidential returns
+2020,PRES,0,AZ,1672143,1661686,3385294,MEDSL statewide,1672143,1661686,0.0,0.0,,MEDSL county presidential returns
+2020,PRES,0,CA,11110250,6006429,17500881,MEDSL statewide,11110250,6006429,0.0,0.0,,MEDSL county presidential returns
+2020,PRES,0,CO,1804352,1364607,3256980,MEDSL statewide,1804352,1364607,0.0,0.0,,MEDSL county presidential returns
+2020,PRES,0,CT,1080831,714717,1823857,MEDSL statewide,1080831,714717,0.0,0.0,,MEDSL county presidential returns
+2020,PRES,0,DC,317323,18586,344356,MEDSL statewide,317323,18586,0.0,0.0,,MEDSL county presidential returns
+2020,PRES,0,DE,296268,200603,504010,MEDSL statewide,296268,200603,0.0,0.0,,MEDSL county presidential returns
+2020,PRES,0,FL,5297045,5668731,11067456,MEDSL statewide,5297045,5668731,0.0,0.0,,MEDSL county presidential returns
+2020,PRES,0,GA,2474507,2461837,4998482,MEDSL statewide,2473633,2461854,0.04,-0.0,,MEDSL county presidential returns
+2020,PRES,0,HI,366127,196855,574457,MEDSL statewide,366130,196864,-0.0,-0.0,,MEDSL county presidential returns
+2020,PRES,0,IA,759061,902009,1690871,MEDSL statewide,759061,897672,0.0,0.48,,MEDSL county presidential returns
+2020,PRES,0,ID,287021,554119,867361,MEDSL statewide,287021,554119,0.0,0.0,,MEDSL county presidential returns
+2020,PRES,0,IL,3471915,2446891,6033744,MEDSL statewide,3471915,2446891,0.0,0.0,,MEDSL county presidential returns
+2020,PRES,0,IN,1242416,1729519,3033121,MEDSL statewide,1242416,1729519,0.0,0.0,,MEDSL county presidential returns
+2020,PRES,0,KS,570323,771406,1372303,MEDSL statewide,570323,771406,0.0,0.0,,MEDSL county presidential returns
+2020,PRES,0,KY,772285,1326418,2134996,MEDSL statewide,772474,1326646,-0.02,-0.02,,MEDSL county presidential returns
+2020,PRES,0,LA,856034,1255776,2148062,MEDSL statewide,856034,1255776,0.0,0.0,,MEDSL county presidential returns
+2020,PRES,0,MA,2382202,1167202,3658005,MEDSL statewide,2382202,1167202,0.0,0.0,,MEDSL county presidential returns
+2020,PRES,0,MD,1985023,976414,3037031,MEDSL statewide,1985023,976414,0.0,0.0,,MEDSL county presidential returns
+2020,PRES,0,ME,430473,359899,822534,MEDSL statewide,435072,360737,-1.06,-0.23,,MEDSL county presidential returns
+2020,PRES,0,MI,2804040,2649852,5539302,MEDSL statewide,2804040,2649852,0.0,0.0,,MEDSL county presidential returns
+2020,PRES,0,MN,1717077,1484065,3277171,MEDSL statewide,1717077,1484065,0.0,0.0,,MEDSL county presidential returns
+2020,PRES,0,MO,1253014,1718736,3025962,MEDSL statewide,1253014,1718736,0.0,0.0,,MEDSL county presidential returns
+2020,PRES,0,MS,539398,756764,1313759,MEDSL statewide,539398,756764,0.0,0.0,,MEDSL county presidential returns
+2020,PRES,0,MT,244786,343602,603640,MEDSL statewide,244786,343602,0.0,0.0,,MEDSL county presidential returns
+2020,PRES,0,NC,2684292,2758773,5524802,MEDSL statewide,2684292,2758773,0.0,0.0,,MEDSL county presidential returns
+2020,PRES,0,ND,114902,235595,361819,MEDSL statewide,114902,235595,0.0,0.0,,MEDSL county presidential returns
+2020,PRES,0,NE,374583,556846,951712,MEDSL statewide,374583,556846,0.0,0.0,,MEDSL county presidential returns
+2020,PRES,0,NH,424937,365660,803833,MEDSL statewide,424921,365654,0.0,0.0,,MEDSL county presidential returns
+2020,PRES,0,NJ,2608335,1883274,4549353,MEDSL statewide,2608335,1883274,0.0,0.0,,MEDSL county presidential returns
+2020,PRES,0,NM,501614,401894,923965,MEDSL statewide,501614,401894,0.0,0.0,,MEDSL county presidential returns
+2020,PRES,0,NV,703314,669608,1404911,MEDSL statewide,703486,669890,-0.02,-0.04,,MEDSL county presidential returns
+2020,PRES,0,NY,5230985,3244798,8661735,MEDSL statewide,5230985,3244798,0.0,0.0,,MEDSL county presidential returns
+2020,PRES,0,OH,2679165,3154834,5922202,MEDSL statewide,2679165,3154834,0.0,0.0,,MEDSL county presidential returns
+2020,PRES,0,OK,503890,1020280,1560699,MEDSL statewide,503890,1020280,0.0,0.0,,MEDSL county presidential returns
+2020,PRES,0,OR,1340383,958448,2374321,MEDSL statewide,1340383,958448,0.0,0.0,,MEDSL county presidential returns
+2020,PRES,0,PA,3458229,3377674,6915283,MEDSL statewide,3458229,3377674,0.0,0.0,,MEDSL county presidential returns
+2020,PRES,0,RI,307486,199922,517757,MEDSL statewide,307486,199922,0.0,0.0,,MEDSL county presidential returns
+2020,PRES,0,SC,1091541,1385103,2513329,MEDSL statewide,1091541,1385103,0.0,0.0,,MEDSL county presidential returns
+2020,PRES,0,SD,150471,261043,422609,MEDSL statewide,150471,261043,0.0,0.0,,MEDSL county presidential returns
+2020,PRES,0,TN,1143711,1852475,3053851,MEDSL statewide,1143711,1852475,0.0,0.0,,MEDSL county presidential returns
+2020,PRES,0,TX,5259126,5890347,11315056,MEDSL statewide,5259126,5890347,0.0,0.0,,MEDSL county presidential returns
+2020,PRES,0,UT,560282,865139,1495354,MEDSL statewide,560282,865140,0.0,-0.0,,MEDSL county presidential returns
+2020,PRES,0,VA,2413568,1962430,4462600,MEDSL statewide,2413568,1962430,0.0,0.0,,MEDSL county presidential returns
+2020,PRES,0,VT,242826,112708,370826,MEDSL statewide,242820,112704,0.0,0.0,,MEDSL county presidential returns
+2020,PRES,0,WA,2369612,1584651,4087631,MEDSL statewide,2369612,1584651,0.0,0.0,,MEDSL county presidential returns
+2020,PRES,0,WI,1630673,1610065,3297352,MEDSL statewide,1630866,1610184,-0.01,-0.01,,MEDSL county presidential returns
+2020,PRES,0,WV,235984,545382,794652,MEDSL statewide,235984,545382,0.0,0.0,,MEDSL county presidential returns
+2020,PRES,0,WY,73491,193559,278503,MEDSL statewide,73491,193559,0.0,0.0,,MEDSL county presidential returns
+2020,SEN,0,AK,146068,191112,353986,MEDSL statewide,146068,191112,0.0,0.0,,MEDSL precinct returns
+2020,SEN,0,AL,920478,1392076,2316445,MEDSL statewide,920478,1392076,0.0,0.0,,MEDSL precinct returns
+2020,SEN,0,AR,0,793871,1193261,MEDSL statewide,0,793871,,0.0,,MEDSL precinct returns
+2020,SEN,0,CO,1731114,1429492,3235790,MEDSL statewide,1731114,1429492,0.0,0.0,,MEDSL precinct returns
+2020,SEN,0,DE,291804,186054,490935,MEDSL statewide,291804,186054,0.0,0.0,,MEDSL precinct returns
+2020,SEN,0,GA,2374519,2462617,4952175,MEDSL statewide,2374519,2462617,0.0,0.0,,MEDSL precinct returns
+2020,SEN,0,IA,754859,864997,1671828,MEDSL statewide,754859,864997,0.0,0.0,,MEDSL precinct returns
+2020,SEN,0,ID,285864,538446,859827,MEDSL statewide,285864,538446,0.0,0.0,,MEDSL precinct returns
+2020,SEN,0,IL,3278930,2319870,5970891,MEDSL statewide,3278930,2319870,0.0,0.0,,MEDSL precinct returns
+2020,SEN,0,KS,571530,727962,1368211,MEDSL statewide,571530,727962,0.0,0.0,,MEDSL precinct returns
+2020,SEN,0,KY,816042,1233055,2134446,MEDSL statewide,816257,1233315,-0.03,-0.02,,MEDSL precinct returns
+2020,SEN,0,LA,730989,1267291,2071543,MEDSL statewide,730989,1267291,0.0,0.0,,MEDSL precinct returns
+2020,SEN,0,MA,2357809,1198899,3564136,MEDSL statewide,2357809,1177765,0.0,1.79,,MEDSL precinct returns
+2020,SEN,0,ME,347223,417645,819183,MEDSL statewide,347223,417645,0.0,0.0,,MEDSL precinct returns
+2020,SEN,0,MI,2732041,2641612,5476496,MEDSL statewide,2734568,2642233,-0.09,-0.02,,MEDSL precinct returns
+2020,SEN,0,MN,1566522,1398145,3214256,MEDSL statewide,1566522,1398145,0.0,0.0,,MEDSL precinct returns
+2020,SEN,0,MS,578691,709511,1311354,MEDSL statewide,578691,709511,0.0,0.0,,MEDSL precinct returns
+2020,SEN,0,MT,272463,333174,605637,MEDSL statewide,272463,333174,0.0,0.0,,MEDSL precinct returns
+2020,SEN,0,NC,2569965,2665598,5474952,MEDSL statewide,2569965,2665598,0.0,0.0,,MEDSL precinct returns
+2020,SEN,0,NE,227191,583507,865813,MEDSL statewide,227191,583507,0.0,0.0,,MEDSL precinct returns
+2020,SEN,0,NH,450778,326229,795914,MEDSL statewide,450778,326229,0.0,0.0,,MEDSL precinct returns
+2020,SEN,0,NJ,2541239,1817091,4440540,MEDSL statewide,2541178,1817052,0.0,0.0,,MEDSL precinct returns
+2020,SEN,0,NM,474425,418458,915835,MEDSL statewide,474483,418483,-0.01,-0.01,,MEDSL precinct returns
+2020,SEN,0,OK,509763,979140,1556361,MEDSL statewide,509763,979140,0.0,0.0,,MEDSL precinct returns
+2020,SEN,0,OR,1321047,912814,2321249,MEDSL statewide,1321047,912814,0.0,0.0,,MEDSL precinct returns
+2020,SEN,0,RI,328574,164855,494262,MEDSL statewide,328574,164855,0.0,0.0,,MEDSL precinct returns
+2020,SEN,0,SC,1110828,1369137,2515104,MEDSL statewide,1110828,1369137,0.0,0.0,,MEDSL precinct returns
+2020,SEN,0,SD,143987,276232,420219,MEDSL statewide,143987,276232,0.0,0.0,,MEDSL precinct returns
+2020,SEN,0,TN,1040691,1840926,2959761,MEDSL statewide,1040691,1840926,0.0,0.0,,MEDSL precinct returns
+2020,SEN,0,TX,4887315,5961643,11140334,MEDSL statewide,4888764,5962983,-0.03,-0.02,,MEDSL precinct returns
+2020,SEN,0,VA,2466500,1934199,4406114,MEDSL statewide,2466500,1934199,0.0,0.0,,MEDSL precinct returns
+2020,SEN,0,WV,210309,547454,778918,MEDSL statewide,210309,547454,0.0,0.0,,MEDSL precinct returns
+2020,SEN,0,WY,72766,198100,271937,MEDSL statewide,0,0,,,,MEDSL precinct returns
+2020,SEN,1,AZ,1716467,1637661,3354128,MEDSL statewide,1716634,1637908,-0.01,-0.02,,MEDSL precinct returns
+2020,SEN,1,GA,2378312,2426120,4914361,MEDSL statewide,2378312,2426120,0.0,0.0,,MEDSL precinct returns
+2022,GOV,0,AK,63851,144449,263752,,,,,,,MEDSL precinct returns
+2022,GOV,0,AL,412961,946932,1415283,,,,,,,MEDSL precinct returns
+2022,GOV,0,AR,319242,571105,907037,,,,,,,MEDSL precinct returns
+2022,GOV,0,AZ,1287891,1270796,2566522,,,,,,,MEDSL precinct returns
+2022,GOV,0,CA,6469743,4462336,10932079,,,,,,,MEDSL precinct returns
+2022,GOV,0,CO,1468481,983040,2508830,,,,,,,MEDSL precinct returns
+2022,GOV,0,CT,709117,546209,1267810,,,,,,,MEDSL precinct returns
+2022,GOV,0,FL,3106313,4614209,7771398,,,,,,,MEDSL precinct returns
+2022,GOV,0,GA,1813673,2111572,3953433,,,,,,,MEDSL precinct returns
+2022,GOV,0,HI,261025,152237,413262,,,,,,,MEDSL precinct returns
+2022,GOV,0,IA,482950,709198,1221864,,,,,,,MEDSL precinct returns
+2022,GOV,0,ID,120160,358598,592624,,,,,,,MEDSL precinct returns
+2022,GOV,0,IL,2253748,1739095,4106208,,,,,,,MEDSL precinct returns
+2022,GOV,0,KS,499845,477586,1008989,,,,,,,MEDSL precinct returns
+2022,GOV,0,MA,1584403,859343,2485796,,,,,,,MEDSL precinct returns
+2022,GOV,0,MD,1293944,644000,2005223,,,,,,,MEDSL precinct returns
+2022,GOV,0,ME,375332,287087,674981,,,,,,,MEDSL precinct returns
+2022,GOV,0,MI,2432125,1960829,4464690,,,,,,,MEDSL precinct returns
+2022,GOV,0,MN,1312349,1119941,2510661,,,,,,,MEDSL precinct returns
+2022,GOV,0,NE,242006,398334,666795,,,,,,,MEDSL precinct returns
+2022,GOV,0,NH,256766,352813,619135,,,,,,,MEDSL precinct returns
+2022,GOV,0,NM,370125,324665,709514,,,,,,,MEDSL precinct returns
+2022,GOV,0,NV,481872,497147,1003842,,,,,,,MEDSL precinct returns
+2022,GOV,0,NY,3140351,2762267,5953846,,,,,,,MEDSL precinct returns
+2022,GOV,0,OH,1545489,2580424,4134877,,,,,,,MEDSL precinct returns
+2022,GOV,0,OK,481904,639484,1153284,,,,,,,MEDSL precinct returns
+2022,GOV,0,OR,917034,850347,1952844,,,,,,,MEDSL precinct returns
+2022,GOV,0,PA,3031032,2238337,5365929,,,,,,,MEDSL precinct returns
+2022,GOV,0,RI,207166,139001,357670,,,,,,,MEDSL precinct returns
+2022,GOV,0,SC,695280,991882,1709269,,,,,,,MEDSL precinct returns
+2022,GOV,0,SD,123148,217035,350166,,,,,,,MEDSL precinct returns
+2022,GOV,0,TN,572818,1129390,1739882,,,,,,,"official state results: Tennessee Secretary of State, November 8, 2022 State General, all offices by precinct (xlsx); Tennessee Secretary of State, November 8, 2022 State General, Governor totals by office (pdf); Tennessee S"
+2022,GOV,0,TX,3554772,4437097,8106768,,,,,,,MEDSL precinct returns
+2022,GOV,0,VT,18,202476,284787,,,,,,,MEDSL precinct returns
+2022,GOV,0,WI,1358774,1268535,2656386,,,,,,,MEDSL precinct returns
+2022,GOV,0,WY,0,143696,194000,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,AK,128553,129379,263610,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,AL,318540,942393,1343710,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,AR,271771,598000,895102,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,AZ,1004465,1324920,2394177,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,CA,6743353,3859116,10655434,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,CO,1365427,1050960,2472141,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,CT,721526,526358,1261336,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,DE,178416,138201,321649,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,FL,2905702,4271195,7335716,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,GA,1863870,2044102,3907986,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,HI,271953,124091,401174,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,IA,526460,677857,1211700,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,ID,180997,395351,583628,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,IL,2271361,1768782,4050682,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,IN,716348,1108351,1856549,,,,,,,"official state results: Indiana Election Division, 2022 General Election certified results archive (US Representative, office category 1005, JSON data file); Indiana Election Division, 2022 General Election Results (archive "
+2022,HOUSE,0,KS,425319,569561,1002062,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,KY,490842,953224,1462592,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,LA,318932,773701,1133124,,,,,,15 counties,MEDSL precinct returns
+2022,HOUSE,0,MA,1636400,706790,2357997,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,MD,1291446,690463,1995728,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,ME,371208,270260,663133,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,MI,2184702,2083400,4378543,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,MN,1250518,1200855,2495832,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,MO,794660,1222844,2058977,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,MS,251202,454330,709241,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,MT,158745,245081,463632,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,NC,1794966,1956738,3760381,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,ND,0,148399,238586,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,NE,235572,414599,663187,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,NH,339027,277808,617546,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,NJ,3110163,2649039,5834159,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,NM,387630,316329,703959,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,NV,480657,515301,1009145,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,NY,3183100,2514055,5734562,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,OH,1790614,2318993,4109711,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,OK,356988,760639,1146311,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,OR,1012425,849471,1904108,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,PA,2434590,2702030,5149398,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,RI,201750,150024,357823,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,SC,518682,1059899,1607858,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,SD,0,253821,327841,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,TN,581902,1099462,1710425,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,TX,3005037,4553703,7752546,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,UT,342062,670843,1063168,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,VA,1572296,1461984,3047574,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,VT,176499,78421,282021,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,WA,1750752,1260101,3023462,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,WI,1016250,1403080,2531324,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,WV,149706,312004,471967,,,,,,,MEDSL precinct returns
+2022,HOUSE,0,WY,0,132206,193902,,,,,,,MEDSL precinct returns
+2022,HOUSE,1,IN,5073,20359,26945,,,,,,,MEDSL precinct returns
+2022,SEN,0,AK,0,0,263526,MEDSL statewide,0,0,,,,MEDSL county Senate returns 2022
+2022,SEN,0,AL,436746,942154,1414238,MEDSL statewide,436746,942154,0.0,0.0,,MEDSL county Senate returns 2022
+2022,SEN,0,AR,280187,592437,901306,MEDSL statewide,280187,592437,0.0,0.0,,MEDSL county Senate returns 2022
+2022,SEN,0,AZ,1322062,1196375,2572294,MEDSL statewide,1322027,1196328,0.0,0.0,,MEDSL county Senate returns 2022
+2022,SEN,0,CA,6621621,4222029,10843650,MEDSL statewide,6621621,4222029,0.0,0.0,,MEDSL county Senate returns 2022
+2022,SEN,0,CO,1397170,1031693,2500201,MEDSL statewide,1397170,1031693,0.0,0.0,,MEDSL county Senate returns 2022
+2022,SEN,0,CT,723863,535943,1259886,,,,,,,MEDSL precinct returns
+2022,SEN,0,FL,3201522,4474847,7758014,MEDSL statewide,3201522,4474847,0.0,0.0,,MEDSL county Senate returns 2022
+2022,SEN,0,GA,1946117,1908442,7871848,MEDSL statewide,1946117,1908442,0.0,0.0,,MEDSL county Senate returns 2022
+2022,SEN,0,HI,290894,106358,409148,MEDSL statewide,290894,106358,0.0,0.0,,MEDSL county Senate returns 2022
+2022,SEN,0,IA,533330,681501,1230416,MEDSL statewide,533330,681501,0.0,0.0,,MEDSL county Senate returns 2022
+2022,SEN,0,ID,169808,358539,590890,MEDSL statewide,169808,358539,0.0,0.0,,MEDSL county Senate returns 2022
+2022,SEN,0,IL,0,1701055,4098896,MEDSL statewide,0,1701055,,0.0,,MEDSL county Senate returns 2022
+2022,SEN,0,IN,704411,1090165,1859851,MEDSL statewide,704411,1090165,0.0,0.0,,MEDSL county Senate returns 2022
+2022,SEN,0,KS,372214,602976,1004956,MEDSL statewide,372214,602976,0.0,0.0,,MEDSL county Senate returns 2022
+2022,SEN,0,KY,564311,913326,1477830,MEDSL statewide,564311,913326,0.0,0.0,,MEDSL county Senate returns 2022
+2022,SEN,0,LA,481065,876843,1383290,MEDSL statewide,481065,876843,0.0,0.0,,MEDSL county Senate returns 2022
+2022,SEN,0,MD,0,682293,2002336,MEDSL statewide,0,682293,,0.0,,MEDSL county Senate returns 2022
+2022,SEN,0,MO,872346,1146224,2068008,MEDSL statewide,868875,1143636,0.4,0.23,,MEDSL precinct returns
+2022,SEN,0,NC,1784049,1905786,3773924,MEDSL statewide,1784049,1905786,0.0,0.0,,MEDSL county Senate returns 2022
+2022,SEN,0,ND,59995,135474,240140,MEDSL statewide,59995,135474,0.0,0.0,,MEDSL county Senate returns 2022
+2022,SEN,0,NH,332490,275631,620975,MEDSL statewide,332490,275631,0.0,0.0,,MEDSL county Senate returns 2022
+2022,SEN,0,NV,498316,490388,1020850,MEDSL statewide,498316,490388,0.0,0.0,,MEDSL county Senate returns 2022
+2022,SEN,0,NY,3022822,2204499,5848556,MEDSL statewide,3022822,2204499,0.0,0.0,,MEDSL county Senate returns 2022
+2022,SEN,0,OH,1939489,2192114,4133342,MEDSL statewide,1939489,2192114,0.0,0.0,,MEDSL county Senate returns 2022
+2022,SEN,0,OK,369370,739960,1150732,MEDSL statewide,369370,739960,0.0,0.0,,MEDSL county Senate returns 2022
+2022,SEN,0,OR,1076424,788991,1927949,MEDSL statewide,1076424,788991,0.0,0.0,,MEDSL county Senate returns 2022
+2022,SEN,0,PA,2751012,2487260,5368021,MEDSL statewide,2751012,2487260,0.0,0.0,,MEDSL county Senate returns 2022
+2022,SEN,0,SC,627616,1066274,1695702,MEDSL statewide,627616,1066274,0.0,0.0,,MEDSL county Senate returns 2022
+2022,SEN,0,SD,91007,242316,348020,MEDSL statewide,91007,242316,0.0,0.0,,MEDSL county Senate returns 2022
+2022,SEN,0,UT,0,571974,1076061,MEDSL statewide,0,571974,,0.0,,MEDSL county Senate returns 2022
+2022,SEN,0,VT,196582,80513,287080,MEDSL statewide,196575,80468,0.0,0.06,,MEDSL precinct returns
+2022,SEN,0,WA,1741827,1299322,3047900,MEDSL statewide,1741827,1299322,0.0,0.0,,MEDSL county Senate returns 2022
+2022,SEN,0,WI,1310467,1337185,2652477,MEDSL statewide,1310467,1337185,0.0,0.0,,MEDSL county Senate returns 2022
+2022,SEN,1,CA,6559308,4212450,10771758,MEDSL statewide,6559308,4212450,0.0,0.0,,"official state results: California Secretary of State, Statement of Vote, November 8, 2022 General Election: United States Senator (Partial/Unexpired Term) by county (xlsx); California Secretary of State, Statement of Vote, "
+2022,SEN,1,OK,405389,710643,1150481,MEDSL statewide,405389,710643,0.0,0.0,,MEDSL county Senate returns 2022
+2024,GOV,0,DE,279585,219050,498635,,,,,,,MEDSL precinct returns
+2024,GOV,0,IN,1152009,1565834,2847873,,,,,,,MEDSL precinct returns
+2024,GOV,0,MO,1146173,1750802,2960266,,,,,,,MEDSL precinct returns
+2024,GOV,0,MT,232604,354491,602283,,,,,,,MEDSL precinct returns
+2024,GOV,0,NC,3068605,2241136,5590371,,,,,,,MEDSL precinct returns
+2024,GOV,0,ND,94043,247056,361951,,,,,,,MEDSL precinct returns
+2024,GOV,0,NH,360149,436122,813497,,,,,,,MEDSL precinct returns
+2024,GOV,0,UT,420403,781114,1476997,,,,,,,MEDSL precinct returns
+2024,GOV,0,VT,79217,266439,362841,,,,,,,MEDSL precinct returns
+2024,GOV,0,WA,2140948,1705535,3854672,,,,,,,MEDSL precinct returns
+2024,GOV,0,WV,233976,459300,740928,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,AK,156245,159550,328805,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,AL,518197,1508754,2048663,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,AR,358675,764263,1144611,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,AZ,1550882,1680066,3257476,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,CA,9131723,5918309,15094482,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,CO,1667301,1306086,3073391,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,CT,1001554,688107,1701914,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,DE,287830,209606,497436,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,FL,4339733,5975436,10332905,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,GA,2434973,2702111,5147355,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,HI,330488,139844,478766,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,IA,696033,904563,1609609,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,ID,244885,581168,873704,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,IL,2829169,2517389,5379418,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,IN,1101776,1664028,2861655,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,KS,526137,749350,1305653,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,KY,511997,1392352,1905531,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,LA,650836,1248101,1905718,,,,,,,"official state results: Louisiana Secretary of State, Graphical Election Results, Nov 5 2024, U.S. Representative districts 1-6, results by parish (CSV download ByParish_<raceid>.csv; race ids 67171, 67187, 67188, 67174, 671"
+2024,HOUSE,0,MA,2386143,304460,2976163,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,MD,1863416,1017654,2935328,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,ME,441119,348199,810494,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,MI,2634231,2702662,5516884,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,MN,1579742,1550499,3146762,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,MO,1125671,1711050,2924863,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,MS,350352,812799,1163151,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,MT,237463,350273,597690,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,NC,2349209,2889741,5482174,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,ND,109231,249101,359787,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,NE,338154,591238,929392,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,NH,430218,373746,804626,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,NJ,2120310,1828792,4045144,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,NM,493674,402756,896430,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,NV,534050,692509,1426745,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,NY,4469863,3321671,7831496,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,OH,2382078,3104290,5570751,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,OK,397856,834553,1282106,,,,,,28 counties,MEDSL precinct returns
+2024,HOUSE,0,OR,1146935,907661,2147753,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,PA,3336307,3480992,6817299,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,RI,292791,180123,484598,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,SC,964448,1475329,2474904,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,SD,117818,303630,421448,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,TN,977870,1884691,2926955,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,TX,4311127,6235488,10675822,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,UT,470895,908939,1448106,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,VA,2274922,2108450,4425762,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,VT,218398,104451,350616,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,WA,2154848,1589634,3764122,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,WI,1603350,1701860,3325606,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,WV,200813,496681,723110,,,,,,,MEDSL precinct returns
+2024,HOUSE,0,WY,60778,184680,261548,,,,,,,MEDSL precinct returns
+2024,HOUSE,1,WI,181196,242003,423431,,,,,,,MEDSL precinct returns
+2024,PRES,0,AK,140026,184458,338177,MEDSL statewide,140026,184458,0.0,0.0,,MEDSL statewide presidential returns
+2024,PRES,0,AL,772412,1462616,2264972,MEDSL statewide,772412,1462616,0.0,0.0,,MEDSL county presidential returns
+2024,PRES,0,AR,396905,759241,1182676,MEDSL statewide,396905,759241,0.0,0.0,,MEDSL county presidential returns
+2024,PRES,0,AZ,1582860,1770242,3400986,MEDSL statewide,1582860,1770242,0.0,0.0,,MEDSL county presidential returns
+2024,PRES,0,CA,9276179,6081697,15862678,MEDSL statewide,9276179,6081697,0.0,0.0,,MEDSL county presidential returns
+2024,PRES,0,CO,1728159,1377441,3190873,MEDSL statewide,1728159,1377441,0.0,0.0,,MEDSL county presidential returns
+2024,PRES,0,CT,992053,736918,1759010,MEDSL statewide,992053,736918,0.0,0.0,,MEDSL county presidential returns
+2024,PRES,0,DC,294185,21076,325879,MEDSL statewide,294185,21076,0.0,0.0,,MEDSL county presidential returns
+2024,PRES,0,DE,289758,214351,511697,MEDSL statewide,289758,214351,0.0,0.0,,MEDSL county presidential returns
+2024,PRES,0,FL,4683038,6110125,10893752,MEDSL statewide,4683038,6110125,0.0,0.0,,MEDSL county presidential returns
+2024,PRES,0,GA,2548017,2663117,5250047,MEDSL statewide,2548017,2663117,0.0,0.0,,MEDSL county presidential returns
+2024,PRES,0,HI,313044,193661,516701,MEDSL statewide,313044,193661,0.0,0.0,,MEDSL county presidential returns
+2024,PRES,0,IA,707278,927019,1663506,MEDSL statewide,707278,927019,0.0,0.0,,MEDSL county presidential returns
+2024,PRES,0,ID,274972,605246,905057,MEDSL statewide,274972,605246,0.0,0.0,,MEDSL county presidential returns
+2024,PRES,0,IL,3062863,2449079,5633310,MEDSL statewide,3062863,2449079,0.0,0.0,,MEDSL county presidential returns
+2024,PRES,0,IN,1163603,1720347,2936677,MEDSL statewide,1163603,1720347,0.0,0.0,,MEDSL county presidential returns
+2024,PRES,0,KS,544853,758802,1327591,MEDSL statewide,544853,758802,0.0,0.0,,MEDSL county presidential returns
+2024,PRES,0,KY,704043,1337494,2074530,MEDSL statewide,704043,1337494,0.0,0.0,,MEDSL county presidential returns
+2024,PRES,0,LA,766870,1208505,2006975,MEDSL statewide,766870,1208505,0.0,0.0,,MEDSL county presidential returns
+2024,PRES,0,MA,2126518,1251303,3473668,MEDSL statewide,2126518,1251303,0.0,0.0,,MEDSL county presidential returns
+2024,PRES,0,MD,1902577,1035550,3038334,MEDSL statewide,1902577,1035550,0.0,0.0,,MEDSL county presidential returns
+2024,PRES,0,ME,430342,376991,824806,MEDSL statewide,435652,377977,-1.22,-0.26,,MEDSL county presidential returns
+2024,PRES,0,MI,2736533,2816636,5664186,MEDSL statewide,2736533,2816636,0.0,0.0,,MEDSL county presidential returns
+2024,PRES,0,MN,1656979,1519032,3253920,MEDSL statewide,1656979,1519032,0.0,0.0,,MEDSL county presidential returns
+2024,PRES,0,MO,1200599,1751986,2995327,MEDSL statewide,1200599,1751986,0.0,0.0,,MEDSL county presidential returns
+2024,PRES,0,MS,466668,747744,1228008,MEDSL statewide,466668,747744,0.0,0.0,,MEDSL county presidential returns
+2024,PRES,0,MT,231906,352079,602963,MEDSL statewide,231906,352079,0.0,0.0,,MEDSL county presidential returns
+2024,PRES,0,NC,2715375,2898423,5699141,MEDSL statewide,2715375,2898423,0.0,0.0,,MEDSL county presidential returns
+2024,PRES,0,ND,112327,246505,368155,MEDSL statewide,112327,246505,0.0,0.0,,MEDSL county presidential returns
+2024,PRES,0,NE,369995,564816,947159,MEDSL statewide,369995,564816,0.0,0.0,,MEDSL county presidential returns
+2024,PRES,0,NH,418488,395523,826189,MEDSL statewide,418488,395523,0.0,0.0,,MEDSL county presidential returns
+2024,PRES,0,NJ,2220713,1968215,4272725,MEDSL statewide,2220713,1968215,0.0,0.0,,MEDSL county presidential returns
+2024,PRES,0,NM,478802,423391,923362,MEDSL statewide,478802,423391,0.0,0.0,,MEDSL county presidential returns
+2024,PRES,0,NV,705197,751205,1484840,MEDSL statewide,705197,751205,0.0,0.0,,MEDSL county presidential returns
+2024,PRES,0,NY,4619195,3578899,8262495,MEDSL statewide,4619195,3578899,0.0,0.0,,MEDSL county presidential returns
+2024,PRES,0,OH,2533699,3180116,5767788,MEDSL statewide,2533699,3180116,0.0,0.0,,MEDSL county presidential returns
+2024,PRES,0,OK,499599,1036213,1566173,MEDSL statewide,499599,1036213,0.0,0.0,,MEDSL county presidential returns
+2024,PRES,0,OR,1240600,919480,2244493,MEDSL statewide,1240600,919480,0.0,0.0,,MEDSL county presidential returns
+2024,PRES,0,PA,3423042,3543308,7034206,MEDSL statewide,3423042,3543308,0.0,0.0,,MEDSL county presidential returns
+2024,PRES,0,RI,283750,214291,511816,MEDSL statewide,285156,214406,-0.49,-0.05,,MEDSL county presidential returns
+2024,PRES,0,SC,1028452,1483747,2548140,MEDSL statewide,1028452,1483747,0.0,0.0,,MEDSL county presidential returns
+2024,PRES,0,SD,146859,272081,428922,MEDSL statewide,146859,272081,0.0,0.0,,MEDSL county presidential returns
+2024,PRES,0,TN,1056265,1966865,3063942,MEDSL statewide,1056265,1966865,0.0,0.0,,MEDSL county presidential returns
+2024,PRES,0,TX,4835250,6393597,11388674,MEDSL statewide,4835250,6393597,0.0,0.0,,MEDSL county presidential returns
+2024,PRES,0,UT,562566,883818,1488494,MEDSL statewide,562566,883818,0.0,0.0,,MEDSL county presidential returns
+2024,PRES,0,VA,2335395,2075085,4482576,MEDSL statewide,2333778,2074097,0.07,0.05,,MEDSL county presidential returns
+2024,PRES,0,VT,235791,119395,369422,MEDSL statewide,235791,119395,0.0,0.0,,MEDSL county presidential returns
+2024,PRES,0,WA,2245849,1530923,3924243,MEDSL statewide,2245849,1530923,0.0,0.0,,MEDSL county presidential returns
+2024,PRES,0,WI,1668229,1697626,3422918,MEDSL statewide,1668229,1697626,0.0,0.0,,MEDSL county presidential returns
+2024,PRES,0,WV,214309,533556,762390,MEDSL statewide,214309,533556,0.0,0.0,,MEDSL county presidential returns
+2024,PRES,0,WY,69527,192633,269048,MEDSL statewide,69527,192633,0.0,0.0,,MEDSL county presidential returns
+2024,SEN,0,AZ,1676123,1594959,3353985,MEDSL statewide,1676335,1595761,-0.01,-0.05,,MEDSL precinct returns
+2024,SEN,0,CA,9029588,6302653,15332241,MEDSL statewide,9036252,6312594,-0.07,-0.16,,MEDSL precinct returns
+2024,SEN,0,CT,1000695,678256,1708259,MEDSL statewide,953646,678256,4.93,0.0,,MEDSL precinct returns
+2024,SEN,0,DE,283298,197753,500606,MEDSL statewide,283298,197753,0.0,0.0,,MEDSL precinct returns
+2024,SEN,0,FL,4603077,5977707,10767312,MEDSL statewide,4603077,5977706,0.0,0.0,,MEDSL precinct returns
+2024,SEN,0,HI,324194,160075,501763,MEDSL statewide,324194,160075,0.0,0.0,,MEDSL precinct returns
+2024,SEN,0,IN,1096794,1659448,2829945,MEDSL statewide,1097061,1659416,-0.02,0.0,,MEDSL precinct returns
+2024,SEN,0,MA,2041668,1365440,3413329,MEDSL statewide,2041668,1365440,0.0,0.0,,MEDSL precinct returns
+2024,SEN,0,MD,1650912,1294344,3021378,MEDSL statewide,1650912,1294344,0.0,0.0,,MEDSL precinct returns
+2024,SEN,0,ME,86464,283638,814638,MEDSL statewide,88875,284434,-2.71,-0.28,,MEDSL precinct returns
+2024,SEN,0,MI,2712686,2693680,5577187,MEDSL statewide,2712686,2693680,0.0,0.0,,MEDSL precinct returns
+2024,SEN,0,MN,1792441,1291712,3189323,MEDSL statewide,1792441,1291712,0.0,0.0,,MEDSL precinct returns
+2024,SEN,0,MO,1243728,1651907,2972559,MEDSL statewide,1243728,1651907,0.0,0.0,,MEDSL precinct returns
+2024,SEN,0,MS,451980,763420,1215400,MEDSL statewide,451981,763420,-0.0,0.0,,MEDSL precinct returns
+2024,SEN,0,MT,276252,319618,607142,MEDSL statewide,276305,319682,-0.02,-0.02,,MEDSL precinct returns
+2024,SEN,0,ND,121602,241569,364327,MEDSL statewide,121602,241569,0.0,0.0,,MEDSL precinct returns
+2024,SEN,0,NE,0,499124,935617,MEDSL statewide,0,499124,,0.0,,MEDSL precinct returns
+2024,SEN,0,NJ,2166713,1776828,4044352,MEDSL statewide,2161491,1773589,0.24,0.18,,MEDSL precinct returns
+2024,SEN,0,NM,497290,405970,903260,MEDSL statewide,497333,405978,-0.01,-0.0,,MEDSL precinct returns
+2024,SEN,0,NV,700976,676852,1420018,MEDSL statewide,701105,677046,-0.02,-0.03,,MEDSL precinct returns
+2024,SEN,0,NY,4710459,3244407,8007756,MEDSL statewide,4711669,3246690,-0.03,-0.07,,MEDSL precinct returns
+2024,SEN,0,OH,2650949,2857383,5703980,MEDSL statewide,2650949,2857383,0.0,0.0,,MEDSL precinct returns
+2024,SEN,0,PA,3382144,3399054,6960775,MEDSL statewide,3384180,3399295,-0.06,-0.01,,MEDSL precinct returns
+2024,SEN,0,RI,294665,196039,491948,MEDSL statewide,294665,196039,0.0,0.0,,MEDSL precinct returns
+2024,SEN,0,TN,1027461,1918743,3007608,MEDSL statewide,1027461,1918743,0.0,0.0,,MEDSL precinct returns
+2024,SEN,0,TX,5031142,5990637,11290233,MEDSL statewide,5031249,5990741,-0.0,-0.0,,MEDSL precinct returns
+2024,SEN,0,UT,464368,914298,1463132,MEDSL statewide,464515,914700,-0.03,-0.04,,MEDSL precinct returns
+2024,SEN,0,VA,2417115,2019911,4445535,MEDSL statewide,2417115,2019911,0.0,0.0,,MEDSL precinct returns
+2024,SEN,0,VT,0,116512,363253,MEDSL statewide,0,116512,,0.0,,MEDSL precinct returns
+2024,SEN,0,WA,2251055,1547135,3808809,MEDSL statewide,2252577,1549187,-0.07,-0.13,,MEDSL precinct returns
+2024,SEN,0,WI,1672777,1643996,3390787,MEDSL statewide,1672777,1643996,0.0,0.0,,MEDSL precinct returns
+2024,SEN,0,WV,207548,514079,747702,MEDSL statewide,207548,514079,0.0,0.0,,MEDSL precinct returns
+2024,SEN,0,WY,63727,198418,264162,MEDSL statewide,63727,198418,0.0,0.0,,MEDSL precinct returns
+2024,SEN,1,CA,8830621,6195020,15025641,MEDSL statewide,8837051,6204637,-0.07,-0.15,,MEDSL precinct returns
+2024,SEN,1,NE,349902,585103,935005,MEDSL statewide,349902,585103,0.0,0.0,,MEDSL precinct returns

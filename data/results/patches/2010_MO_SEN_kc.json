@@ -1,0 +1,24 @@
+{
+  "mode": "add",
+  "year": 2010,
+  "office": "SEN",
+  "special": 0,
+  "state_po": "MO",
+  "dem_cand": "Robin Carnahan",
+  "rep_cand": "Roy Blunt",
+  "top_other_cand": "Jonathan Dine",
+  "sources": [
+    {
+      "title": "Missouri Secretary of State, Official Election Returns, General Election 2010, results by county (Kansas City listed as its own jurisdiction) (pdf)",
+      "url": "https://www.sos.mo.gov/CMSImages/ElectionResultsStatistics/CountyGeneral2010.pdf",
+      "retrieved": "2026-11-09"
+    },
+    {
+      "title": "Missouri Secretary of State, Official Election Returns, General Election 2010, statewide totals (pdf)",
+      "url": "https://www.sos.mo.gov/CMSImages/ElectionResultsStatistics/AllRacesGeneralNovember2010.pdf",
+      "retrieved": "2026-11-09"
+    }
+  ],
+  "method": "Kansas City (Kansas City Board of Election Commissioners, the Jackson County part of the city) U.S. Senator votes transcribed from the official county-by-county returns PDF (text extracted with pdftotext; PDFs kept in data/raw/state/2010_MO_SEN_kc/) into one row added to Jackson County 29095; oth = Dine (LIB) 1,433, Beck (CST) 773, write-ins 0. Needed because Amlani & Algara's Missouri 2010 U.S. Senator county rows omit Kansas City (statewide shortfall equals Kansas City exactly).",
+  "validation": "Amlani statewide dem 727,288 + KC 62,448 = 789,736 vs certified Robin Carnahan 789,736: +0 (+0.00%); Amlani statewide rep 1,032,294 + KC 21,866 = 1,054,160 vs certified Roy Blunt 1,054,160: +0 (+0.00%). KC row sums to the official KC total of 86,520."
+}

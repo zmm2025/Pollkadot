@@ -1,0 +1,17 @@
+{
+  "mode": "add",
+  "year": 2018,
+  "office": "HOUSE",
+  "special": 0,
+  "state_po": "ME",
+  "dem_cand": "",
+  "rep_cand": "",
+  "top_other_cand": "",
+  "sources": [
+    {"title": "Maine Secretary of State, Election Results 2018: Representative to Congress - District 2, cast vote records (FINAL) spreadsheets #1-#8 (xlsx)", "url": "https://www.maine.gov/sos/elections-voting/election-results-data/election-results-2018", "retrieved": "2026-11-09"},
+    {"title": "Maine Secretary of State: Representative to Congress - District 2, RCV summary report, results certified to the Governor 11/26/18 (xls)", "url": "https://www.maine.gov/sos/sites/maine.gov.sos/files/content/assets/updated-summary-report-CD2.xls", "retrieved": "2026-11-09"},
+    {"title": "Maine Secretary of State: Representative to Congress - District 2, results reported by towns (xlsx; town-to-county key and cross-check only)", "url": "https://www.maine.gov/sos/sites/maine.gov.sos/files/content/assets/Rep-congress-results.xlsx", "retrieved": "2026-11-09"}
+  ],
+  "method": "pipeline/patches/2018_ME_HOUSE_d2.py takes each ME-2 ballot's round-1 vote from the official cast vote records under Maine's RCV rules (overvote or two consecutive skipped rankings exhaust; a single skip passes to the next ranking), which reproduces the certified round 1 exactly, and sums ballots to counties by precinct; each precinct's county comes from its county-specific ballot style (so a few townships that vote in a neighbouring county's town sit in the county where they lie). Golden is dem, Poliquin rep, Bond and Hoar oth (no write-ins were tallied); Kennebec holds only its ME-2 towns, and the 1,105 statewide UOCAVA and unscannable ballots, which carry no municipality, are left out.",
+  "validation": "CSV sums dem 131,194 / rep 133,982 / oth 23,346 vs certified round 1 Golden 132,013 / Poliquin 134,184 (Bond 16,552 + Hoar 6,875 = 23,427): difference -819 (-0.62%) / -202 (-0.15%) / -81, exactly the UOCAVA + unscannable ballots left out. County values are within 0.1-1.4% of the unofficial town-reported county sums (e.g. Penobscot D 28,909 vs 28,930, R 31,014 vs 31,049)."
+}

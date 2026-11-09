@@ -9,14 +9,14 @@ import pandas as pd
 
 DL = "build/downloads"
 OUT = "data/metrics"
-F_EDU = f"{DL}/metric_edu_SmashTE_County-Recommender/data/Education2023.csv"
-F_EDU_PCT = f"{DL}/metric_edu_zreller_Personal_Work/CSCI_291/homeWork8/education2023.csv"
-F_GDP = f"{DL}/metric_gdp_extract/CAGDP1__ALL_AREAS_2001_2024.csv"
-F_GDP_ZIP = f"{DL}/metric_gdp_RobPaine1_Data-Visualization-Project/Raw Data/CAGDP1.zip"
-F_GDP23 = f"{DL}/metric_gdp_mbauerw_gdp_vs_pop/dataset/CAGDP1__ALL_AREAS_2001_2023.csv"
+# official downloads (see data/metrics/README.md for URLs)
+F_EDU = f"{DL}/ers/Education2023.csv"                      # ers.usda.gov
+F_EDU_PCT = f"{DL}/ers/zreller_education2023.csv"           # optional cross-check, skipped if absent
+F_GDP_ZIP = f"{DL}/bea/CAGDP1.zip"                          # apps.bea.gov/regional/zip/CAGDP1.zip
+F_GDP = f"{DL}/bea/x/CAGDP1__ALL_AREAS_2001_2024.csv"      # extracted from the zip
 F_POP = "data/pop/county_pop.csv"
-F_SUB24 = f"{DL}/pop_nparep/data/raw/census-csv/sub-est2024_9.csv"
-F_CTFIPS = f"{DL}/pop_ctfips/ct-town-county-fips-list.csv"
+F_SUB24 = f"{DL}/census/sub-est2024_9.csv"
+F_CTFIPS = f"{DL}/census/ct-town-county-fips-list.csv"
 
 LOG = []
 
@@ -47,7 +47,7 @@ def lr_int(frac: pd.Series, target: int) -> pd.Series:
     return fl
 
 
-for p in [F_EDU, F_GDP, F_GDP_ZIP, F_GDP23, F_POP, F_SUB24, F_CTFIPS]:
+for p in [F_EDU, F_GDP, F_GDP_ZIP, F_POP, F_SUB24, F_CTFIPS]:
     log(f"sha256 {sha(p)}  {p}")
 
 # ------------------------------------------------------------------ common: target set, pop, CT towns
@@ -230,19 +230,11 @@ g3 = g[g.LineCode == "3"].copy()
 check(g3.Description.str.strip().eq("Current-dollar GDP (thousands of current dollars)").all()
       and g3.Unit.eq("Thousands of dollars").all(), "GDP: line 3 = current-dollar GDP, thousands of dollars")
 check(not g3.fips.duplicated().any(), "GDP: one line-3 row per GeoFIPS")
-YEARS = list(range(2008, 2025))
+YEARS = list(range(2001, 2025))
 vals = g3.set_index("fips")[[str(y) for y in YEARS]]
 vals.columns = YEARS
 flags = vals.isin(["(D)", "(NA)"])
 num = vals.where(~flags).apply(pd.to_numeric).astype("Int64")
-
-# independent copy (2023 vintage) — sanity on structure only: values revised 2020-23
-g23 = pd.read_csv(F_GDP23, dtype=str, skipinitialspace=True, encoding="latin-1")
-g23 = g23[g23.LineCode == "3"].copy(); g23["fips"] = g23.GeoFIPS.str.strip()
-v23 = g23.set_index("fips")[[str(y) for y in range(2008, 2020)]]
-common = v23.index.intersection(vals.index)
-same = (v23.loc[common].to_numpy() == vals.loc[common, list(range(2008, 2020))].astype(str).to_numpy())
-log(f"cross-check vs mbauerw CAGDP1 2001-2023 vintage, 2008-2019 cells: {same.mean():.4%} identical of {same.size}")
 
 US = num.loc["00000"]
 states = num[(num.index.str[2:] == "000") & (num.index != "00000") & (num.index.str[:2] < "60")]
@@ -266,6 +258,9 @@ members = [m for v in VA.values() for m in v]
 check(len(members) == len(set(members)), "combo members unique")
 check(set(members) <= set(TARGET), "combo members all in target set")
 REGS = [f"09{c}" for c in range(110, 200, 10)]
+# pre-2008 Alaska areas and the current areas they became
+AK_OLD = {"02280": ["02195", "02275"], "02232": ["02105", "02230"], "02201": ["02198"]}
+AK_NAMES = {"02280": "Wrangell-Petersburg", "02232": "Skagway-Hoonah-Angoon", "02201": "Prince of Wales-Outer Ketchikan"}
 # town-pop-share puts Hartford-area (Capitol region) GDP onto Tolland towns (x2.4 vs 2023); see README
 CT_GDP_METHOD = "prev_year_gdp_share"
 
@@ -276,9 +271,9 @@ for y in YEARS:
     fl = cflags[y]
     out, src = {}, {}
     for f in cty.index:
-        if f in VA or f in REGS or f in CT_OLD or f in ("02063", "02066", "02261", "02201", "02232", "02280"):
+        if f in VA or f in REGS or f in CT_OLD or f in ("02063", "02066", "02261") or f in AK_OLD:
             continue
-        if y == 2008 and f in ("02195", "02198", "02275"):
+        if pd.isna(col[f]) and any(f in v for v in AK_OLD.values()):
             continue
         out[f] = col[f]
         src[f] = SRC
@@ -291,22 +286,22 @@ for y in YEARS:
         check(pd.notna(col["02063"]) and pd.notna(col["02066"]), f"{y}: 02063 and 02066 present when 02261 absent", quiet=True)
         out["02261"] = col["02063"] + col["02066"]
         src["02261"] = SRC + "; 02063 Chugach + 02066 Copper River summed into 02261"
-    check(pd.isna(col["02232"]), f"{y}: obsolete AK area 02232 is (NA)", quiet=True)
-    if y == 2008:
-        # BEA 2008 still uses Wrangell-Petersburg 02280 and Prince of Wales-Outer Ketchikan 02201;
-        # 02195 / 02198 / 02275 start in 2009.
-        check(col[["02195", "02198", "02275"]].isna().all() and col[["02201", "02280"]].notna().all(),
-              "2008: AK uses 02201/02280, not 02195/02198/02275")
-        nx = cty[2009]
-        sh = nx[["02195", "02275"]].astype(float)
-        a = lr_int(sh / sh.sum() * int(col["02280"]), int(col["02280"]))
-        for m in ("02195", "02275"):
-            out[m] = a[m]
-            src[m] = SRC + "; 2008 Wrangell-Petersburg 02280 split by 2009 GDP shares of 02195/02275 (approx)"
-        out["02198"] = col["02201"]
-        src["02198"] = SRC + "; 2008 Prince of Wales-Outer Ketchikan 02201 used as 02198 Prince of Wales-Hyder (approx)"
-    else:
-        check(col[["02201", "02280"]].isna().all(), f"{y}: obsolete AK areas 02201/02280 are (NA)", quiet=True)
+    # Alaska areas BEA publishes under older geography: split onto today's areas by the GDP shares of
+    # the first later year in which all successor areas have values
+    for old, succ in AK_OLD.items():
+        if pd.isna(col[old]):
+            check(all(pd.notna(col[m]) for m in succ), f"{y}: AK {succ} present when {old} is (NA)", quiet=True)
+            continue
+        ry = next(yy for yy in YEARS if yy > y and all(pd.notna(cty[yy][m]) for m in succ))
+        if len(succ) == 1:
+            out[succ[0]] = col[old]
+            src[succ[0]] = SRC + f"; {y} {old} {AK_NAMES[old]} used as {succ[0]} (approx)"
+        else:
+            sh = cty[ry][succ].astype(float)
+            a = lr_int(sh / sh.sum() * int(col[old]), int(col[old]))
+            for m in succ:
+                out[m] = a[m]
+                src[m] = SRC + f"; {y} {old} {AK_NAMES[old]} split by {ry} GDP shares of {'/'.join(succ)} (approx)"
     # Combo areas
     for combo, mem in VA.items():
         v = col[combo]

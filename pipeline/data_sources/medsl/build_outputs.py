@@ -4,8 +4,8 @@ usage: python3 -I build_outputs.py YEAR [YEAR ...]
 import sys, re
 import numpy as np, pandas as pd
 
-W = 'data/work'
-R = 'data/results'
+W = 'build/work'
+R = 'build/work'   # merged with the other sources into data/results by pipeline/build_results.py
 years = [int(y) for y in sys.argv[1:]]
 OFF = {'PRES': 'PRES', 'SEN': 'SEN', 'HOUSE': 'HOUSE', 'GOV': 'GOV'}
 GENERIC = re.compile(r'UNNAMED|WRITE|SCATTER|ALL OTHERS|^OTHER|MISCELLANEOUS|UNQUALIFIED|PERSONAL CHOICE', re.I)
@@ -67,19 +67,19 @@ for col in ['dem', 'rep', 'oth', 'total']:
 cty['total'] = cty.dem + cty.rep + cty.oth
 cty = cty[['year', 'office', 'special', 'state_po', 'fips', 'dem', 'rep', 'oth', 'total']]
 cty = cty.sort_values(['year', 'office', 'special', 'state_po', 'fips'])
-cty.to_csv(f'{R}/county_results.csv', index=False)
+cty.to_csv(f'{R}/medsl_county_results.csv', index=False)
 
 races = pd.DataFrame(races)
 for col in ['dem_votes', 'rep_votes', 'top_other_votes', 'total', 'dem_cand_votes', 'rep_cand_votes',
             'dem2_votes', 'rep2_votes', 'oth_votes']:
     races[col] = races[col].round().astype(np.int64)
 races = races.sort_values(['year', 'office', 'special', 'state_po'])
-races.to_csv(f'{R}/races.csv', index=False)
+races.to_csv(f'{R}/medsl_races.csv', index=False)
 
 house = pd.concat(house)
 for col in ['dem', 'rep', 'oth']:
     house[col] = house[col].round().astype(np.int64)
 house['contested'] = ((house.dem > 0) & (house.rep > 0)).astype(int)
 house = house[['year', 'state_po', 'district', 'dem', 'rep', 'oth', 'contested']].sort_values(['year', 'state_po', 'district'])
-house.to_csv(f'{R}/house_districts.csv', index=False)
+house.to_csv(f'{R}/medsl_house_districts.csv', index=False)
 print('county rows', len(cty), 'races', len(races), 'house', len(house))

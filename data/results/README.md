@@ -1,51 +1,68 @@
-# County-level US election results from MEDSL precinct returns (2016-2024)
+# County-level US election results, 2000-2024
 
-County-level Democratic / Republican / other votes for **President, U.S. Senate, U.S. House and
-Governor**, built by summing the MIT Election Data + Science Lab (MEDSL) official precinct-level
-returns. Covers the 2018, 2020, 2022 and 2024 general elections, plus 2016 (from MEDSL's older
-`precinct-returns` repo).
+County-level Democratic / Republican / other votes for **President (2000-2024), U.S. Senate and Governor
+(2000-2024) and U.S. House (2016-2024)**. Everything is built from as few sources as possible, in this
+order of preference:
+
+1. **MIT Election Data + Science Lab (MEDSL)** on Harvard Dataverse: the main source.
+2. **Amlani & Algara county returns** (Harvard Dataverse): Senate and Governor before 2016, which MEDSL
+   doesn't publish by county, plus the few 2016-2020 races where MEDSL is incomplete.
+3. **Official state results** (state election offices): only for the specific races both of the above get
+   wrong or leave out. Each one is a documented patch in `patches/`.
 
 | file | content |
 |---|---|
-| `county_results.csv` | `year,office,special,state_po,fips,dem,rep,oth,total`, one row per county x race |
-| `races.csv` | statewide candidate summary for PRES / SEN / GOV (one row per state-race) |
-| `house_districts.csv` | `year,state_po,district,dem,rep,oth,contested` (regular House races only) |
-| `data_quality.csv` | every known gap / problem / manual fix, by year x office x state (machine-readable) |
+| `county_results.csv` | `year,office,special,state_po,fips,dem,rep,oth,total,source`, one row per county x race |
+| `races.csv` | candidate names per state-race (`dem_cand`, `rep_cand`, `top_other_cand`, ...) |
+| `house_districts.csv` | `year,state_po,district,dem,rep,oth,contested` (regular House races, 2016-2024) |
+| `validation.csv` | every state-race compared with an independent statewide total, plus counties with no votes |
+| `data_quality.csv` | known gaps, approximations and fixes, by year x office x state (shown under **Details** on the site) |
+| `patches/` | official-state-results patches: one CSV + JSON (sources, method, validation) per race |
 
-## 1. Sources (all from GitHub; nothing came from Dataverse)
+Build: `python -P pipeline/fetch.py` (downloads, pinned in `pipeline/sources.json`, checksums in
+`data/raw/dataverse_lock.csv`), the MEDSL precinct stages in `pipeline/data_sources/medsl/`, then
+`python -P pipeline/build_results.py` and `python -P pipeline/validate_results.py`. See DEVELOPMENT.md.
 
-| year | repo | commit used | files |
-|---|---|---|---|
-| 2016 | `MEDSL/precinct-returns` | `5965d5e572dfb9affaf8b295e6ddee94773a6cf8` (2021-03-12) | `2016-precinct-president/2016-precinct-president.zip`, `2016-precinct-senate/…senate.zip`, `2016-precinct-house/…house.zip`, `2016-precinct-state/…state.zip` (governor rows only) |
-| 2018 | `MEDSL/2018-elections-official` | HEAD `42055b11dcd5477bc125cdec5a18fbcc60fb6bed` (data files last changed in `a0507734`, 2022-11-01; README says "deprecated, see Dataverse" but the files are still in the tree) | `individual_states/2018-xx-precinct-general.zip` (51 files) |
-| 2020 | `MEDSL/2020-elections-official` | **`ad22f37e3f1e3355f078ba5a1efce6c221333ef1`** (2022-03-14, the last commit before the data were moved to Dataverse; HEAD has only a README) | `individual_states/2020-xx-precinct-general.zip` (50 files: **no Indiana file**) |
-| 2022 | `MEDSL/2022-elections-official` | HEAD `a8126c5790b8d1f438a3e63c3506cdcdc7406d9f` | `individual_states/2022-xx-local-precinct-general.zip` (51 files; these hold all offices) |
-| 2024 | `MEDSL/2024-elections-official` | HEAD `df531089c78e6d0098db1a6bfb3849a066a06995` | `individual_states/xx24.zip` (51 files); `2024-president-state.csv` and `2024-senate-state.csv` were used only for validation |
+## 1. Sources
 
-None of the files were Git LFS pointers. Codebooks were read from the repos (`codebook.md` for
-2022/2024, `codebook.md` from 2018 commit `fd8fce0^`, `field_details.md` for 2020, the 2016
-`codebook-*.md` / `coverage-notes-*.md`). Raw zips are under `build/downloads/medsl_*` and
-`build/downloads/medsl_repo_precinct-returns`. The zips were read as streams, so nothing was
-unpacked to disk.
+| what | dataset | version |
+|---|---|---|
+| President 2000-2024 | MEDSL, *County Presidential Election Returns 2000-2024*, doi:10.7910/DVN/VOQCHQ | 20.0 |
+| Senate / House / Governor 2016 | MEDSL, *U.S. Senate / U.S. House / State Precinct-Level Returns 2016*, doi:10.7910/DVN/NLTQAD, PSKDUJ, GSZG1O | 11.1, 12.0, 10.1 |
+| Senate / House / Governor 2018-2024 | MEDSL, *Precinct-Level Returns 20xx by Individual State*, doi:10.7910/DVN/NVQYMG (2018), NT66Z3 (2020), UYQIEP (2022), NYTPDU (2024) | 1.1, 8.0, 5.0, 1.0 |
+| Senate 2022 | MEDSL, *U.S. Senate county-level results 2022*, doi:10.7910/DVN/YB60EJ (state county results, used where it covers at least as many counties as the precinct data) | 3.0 |
+| Senate / Governor 2000-2014; fills | Amlani & Algara, *Replication Data for: Partisanship & Nationalization in American Elections ... 1872-2020*, doi:10.7910/DVN/DGUMFI | 1.1 |
+| Alaska Senate 2000-2014, Alaska President | MEDSL, *U.S. Senate statewide 1976-2024* (PEJ5QU) and *U.S. President 1976-2024* (42MVDX) | 8.0, 10.1 |
+| Gaps | official state results, `patches/` (see section 4) | |
 
-Validation references, which were not used to build the outputs: tonmcg county presidential files in
-`data/raw/tonmcg/{2016,2020,2024}_US_County_Level_Presidential_Results.csv`; MEDSL
-`2018-elections-unoffical/election-context-2018.csv` (`aaf8e49d…`), which has 2016 county
-pres/sen/house/gov data; MEDSL 2024 state-level files; and a list of certified statewide results.
+All Dataverse files are CC0. Several MEDSL datasets require a one-time Dataverse guestbook response;
+`fetch.py` submits it from `DATAVERSE_GUESTBOOK` / `.dataverse-guestbook.json` (git-ignored).
 
-## 2. Pipeline (`pipeline/data_sources/medsl/`, run with `python3 -I`)
+## 2. How the sources are combined (`pipeline/build_results.py`)
 
-1. `stage1_extract.py YEAR OUT ZIP…` (2018-2024) and `stage1_2016.py` (2016 schema). These keep only the
-   target offices, clean the data at precinct level (section 3.3), and then sum away the
-   precinct dimension. Output goes to `build/s1_YEAR.csv`. Shared rules are in
-   `aggrules.py`.
-2. `stage2_aggregate.py YEAR…` handles office/special/stage, meta rows, FIPS, party classes and House
-   districts. It writes `s2_{county,cands,house}_YEAR.csv` and a log `s2_log_YEAR.txt` that lists every
-   exclusion and override.
-3. `build_outputs.py YEAR…` writes the three CSVs here.
-4. `validate.py`, `check_known.py` and the coverage checks are described in section 5.
+* **President.** MEDSL county returns. A county-candidate can have one `TOTAL` row, vote-method rows, or both;
+  when both exist `TOTAL` is used (2020/2024 otherwise double-count). Non-candidate rows ("TOTAL VOTES CAST",
+  under/over votes, spoiled) are dropped. Alaska (reported by state house district) uses MEDSL's statewide
+  totals. Maine and Mississippi 2004 use Amlani & Algara, because MEDSL's county file is 4-8% off the certified
+  result there and Amlani & Algara matches it.
+* **Senate, House, Governor 2016-2024.** MEDSL precinct returns summed to counties with the rules in section 3.
+  2022 Senate uses MEDSL's county-level file wherever it covers at least as many counties (this fixes California,
+  which has no Senate rows in the precinct data, and Indiana, where most counties released no precinct data).
+* **Senate and Governor 2000-2014.** Amlani & Algara, even-year November elections. Their Senate data omits
+  Alaska (filled from MEDSL statewide) and their Governor data omits Alaska and Utah's 2010 special election
+  (both patched). They code Angus King (ME 2012) and Bernie Sanders (VT 2006, 2012) as Democrats; here they are
+  independents (`oth`), like 2016+. From 2004 their Jackson County, MO excludes Kansas City (patched). The
+  January 2010 Massachusetts special is left out (not a November election). Louisiana's 2002 and 2014 Senate
+  values are the December runoffs (the decisive round), as in their data.
+* **Amlani & Algara fills, 2016-2020.** Counties MEDSL has no votes for (NH 2016 Governor: Sullivan;
+  IN 2018 Senate: Washington) come from Amlani & Algara. Whole races come from them where MEDSL is incomplete in
+  many counties: NY 2018 Senate and Governor, IN 2020 Governor.
+* **Patches** are applied last (`replace` a state-race, `fill` listed counties, or `add` to a county).
+* `source` on every row says where it came from.
 
-## 3. Rules applied
+## 3. MEDSL precinct processing rules (`pipeline/data_sources/medsl/`)
+
+These apply to the 2016-2024 precinct returns before they are merged.
 
 ### 3.1 Offices, specials, stages
 * Office mapping (case-insensitive): `US PRESIDENT`→PRES; `US SENATE`, `US SENATE - 2 YEAR TERM`
@@ -164,60 +181,74 @@ AK-2022 Murkowski v Tshibaka, GA-2020 special, LA), `oth_votes`, `winner_cand`, 
 `top_other_*` is the largest named non-D/R candidate (generic write-in rows are used only if there is no
 named one), with MEDSL `party_detailed` as its party.
 
-## 4. Coverage (state-races present / expected)
+## 4. Patches from official state results
 
-| | PRES | SEN | GOV | HOUSE |
-|---|---|---|---|---|
-| 2016 | 51/51 | 34/34 | 12/12 | 50/50 (HI-1 and IN problems) |
-| 2018 | - | 33/33 + 2 specials | 36/36 (NY incomplete) | 50/50 (NY and ME-2 incomplete) |
-| 2020 | **50/51: no IN** | 33/33 + 2 specials | **10/11: no IN** | **49/50: no IN** |
-| 2022 | - | **33/34: no CA** + OK special (**CA special missing**) + GA runoff | **35/36: no TN** | 50/50 (IN about 40% of counties) |
-| 2024 | 51/51 (**LA missing early vote**) | 33/33 + 2 specials | 11/11 (ND missing 2 counties) | 50/50 |
+Each patch's JSON has the full source list, the method and its validation against the certified totals.
+Every `replace` patch matches the certified state or district totals (to the vote, except where noted).
 
-All gaps are listed in `data_quality.csv`.
+| patch | mode | source |
+|---|---|---|
+| `2002_AK_GOV` | replace | [Alaska Division of Elections](https://www.elections.alaska.gov/results/02GENR/data/results.pdf) |
+| `2004_MO_GOV_kc` | add | [Missouri Secretary of State](https://www.sos.mo.gov/CMSImages/ElectionResultsStatistics/CountyGeneral2004.pdf) |
+| `2004_MO_SEN_kc` | add | [Missouri Secretary of State](https://www.sos.mo.gov/CMSImages/ElectionResultsStatistics/CountyGeneral2004.pdf) |
+| `2006_AK_GOV` | replace | [Alaska Division of Elections](https://www.elections.alaska.gov/results/06GENR/data/results.pdf) |
+| `2006_MO_SEN_kc` | add | [Missouri Secretary of State](https://www.sos.mo.gov/CMSImages/ElectionResultsStatistics/CountyGeneral2006.pdf) |
+| `2008_MO_GOV_kc` | add | [Missouri Secretary of State](https://www.sos.mo.gov/CMSImages/ElectionResultsStatistics/CountyGeneral2008.pdf) |
+| `2010_AK_GOV` | replace | [Alaska Division of Elections](https://www.elections.alaska.gov/results/10GENR/data/resultsOF.pdf) |
+| `2010_MO_SEN_kc` | add | [Missouri Secretary of State](https://www.sos.mo.gov/CMSImages/ElectionResultsStatistics/CountyGeneral2010.pdf) |
+| `2010_UT_GOV_special` | replace | [Utah Lieutenant Governor](https://vote.utah.gov/wp-content/uploads/2023/09/2010Gen.xls) |
+| `2012_ME_SEN` | replace | [Maine Secretary of State](https://www.maine.gov/sos/sites/maine.gov.sos/files/inline-files/2012ussenatemuni.xls) |
+| `2012_MO_GOV_kc` | add | [Missouri Secretary of State](https://www.sos.mo.gov/CMSImages/ElectionResultsStatistics/OfficialResults11-6-12.pdf) |
+| `2012_MO_SEN_kc` | add | [Missouri Secretary of State](https://www.sos.mo.gov/CMSImages/ElectionResultsStatistics/OfficialResults11-6-12.pdf) |
+| `2014_AK_GOV` | replace | [Alaska Division of Elections](https://www.elections.alaska.gov/results/14GENR/data/results.pdf) |
+| `2016_HI_HOUSE_honolulu` | fill | [Hawaii Office of Elections](https://files.hawaii.gov/elections/files/results/2016/general/media.txt) |
+| `2016_IN_HOUSE_fix` | fill | [Indiana Election Division](https://enr.indianavoters.in.gov/archive/2016General/data/OffCatC_1753_A.json) |
+| `2018_ME_HOUSE_d2` | add | [Maine Secretary of State](https://www.maine.gov/sos/elections-voting/election-results-data/election-results-2018) |
+| `2018_NY_HOUSE` | replace | [New York State Board of Elections](https://www.elections.ny.gov/NYSBOE/elections/2018/general/2018Congress.xlsx) |
+| `2020_IN_HOUSE` | replace | [Indiana Election Division](https://enr.indianavoters.in.gov/archive/2020General/data/OffCatC_1005_A.json) |
+| `2022_AR_GOV_phillips` | fill | [Arkansas Secretary of State](https://results.tally-enr.com/results/arkansas/1844/FullDataFile.json) |
+| `2022_AR_HOUSE_phillips` | fill | [Arkansas Secretary of State](https://results.tally-enr.com/results/arkansas/1844/FullDataFile.json) |
+| `2022_CA_SEN_special` | replace | [California Secretary of State](https://elections.cdn.sos.ca.gov/sov/2022-general/sov/45-uss-pt.xlsx) |
+| `2022_ID_GOV_power` | fill | [Idaho Secretary of State canvass database](https://canvass.sos.idaho.gov/eng/contests/download/17251/show_granularity_dt_id:3/.csv) |
+| `2022_ID_HOUSE_power` | fill | [Idaho Secretary of State canvass database](https://canvass.sos.idaho.gov/eng/contests/download/17249/show_granularity_dt_id:3/.csv) |
+| `2022_IN_HOUSE` | replace | [Indiana Election Division](https://enr.indianavoters.in.gov/archive/2022General/data/OffCatC_1005_A.json) |
+| `2022_MI_GOV_wayne` | fill | [Michigan Secretary of State](https://mvic.sos.state.mi.us/VoteHistory/GetElectionResultFile?electionId=691) |
+| `2022_MI_HOUSE_midland` | fill | [Michigan Secretary of State](https://mvic.sos.state.mi.us/VoteHistory/GetElectionResultFile?electionId=691) |
+| `2022_TN_GOV` | replace | [Tennessee Secretary of State](https://sos-prod.tnsosgovfiles.com/s3fs-public/document/20221108AllbyPrecinct.xlsx) |
+| `2024_IN_GOV_monroe` | fill | [Indiana Election Division](https://enr.indianavoters.in.gov/archive/2024General/data/OffCatC_1007_A.json) |
+| `2024_IN_HOUSE_monroe` | fill | [Indiana Election Division](https://enr.indianavoters.in.gov/archive/2024General/data/OffCatC_1005_A.json) |
+| `2024_IN_SEN_monroe` | fill | [Indiana Election Division](https://enr.indianavoters.in.gov/archive/2024General/data/OffCatC_1006_A.json) |
+| `2024_LA_HOUSE` | replace | [Louisiana Secretary of State](https://voterportal.sos.la.gov/ElectionResults/ElectionResults/Data?blob=20241105/csv/ByParish_67171.csv) |
+| `2024_ND_GOV` | fill | [North Dakota Secretary of State](https://results.sos.nd.gov/ResultsSW.aspx?text=Race&type=SW&map=CTY) |
+| `2024_NJ_HOUSE_mercer` | fill | [NJ Division of Elections](https://www.nj.gov/state/elections/assets/pdf/election-results/2024/2024-official-general-results-us-house.pdf) |
+| `2024_NJ_SEN_mercer` | fill | [NJ Division of Elections](https://www.nj.gov/state/elections/assets/pdf/election-results/2024/2024-official-general-results-us-senate.pdf) |
 
-## 5. Validation
-* **PRES national** (sum of county rows): 2016 D 65,850,245 / R 62,978,715 (certified 65,853,514 /
-  62,984,828). 2020 D 80,035,956 / R 72,493,156 without Indiana; adding Indiana's certified result
-  (about 1.24M / 1.73M) gives about 81.28M / 74.22M, matching certified 81,283,501 / 74,223,975 to within
-  0.01%. 2024 D 74,588,779 / R 76,672,361 (certified 75,017,613 / 77,302,580). The gap is almost
-  entirely LA (missing early votes), plus IN, NJ and ME.
-* **PRES by state vs tonmcg 2020**: every state within 0.5% for D and R except KS and ME. For those two, tonmcg
-  itself is off and our values equal the certified results (KS 570,323 / 771,406; ME 435,072 / 360,737).
-  41 counties differ by more than 2%, almost all of them KS (a tonmcg issue).
-* **2024 PRES and SEN vs MEDSL state-level files**: D and R match within 0.5% everywhere except LA (-48%), IN
-  (PRES D -2.1% / R -0.8%; SEN D -2.4% / R -1.0%), NJ (about -1% / -0.6%), ME (PRES D -1.2%, SEN D -2.7%)
-  and CT SEN D +4.9% (expected, because the Working Families fusion line is included in our count). Total-vote differences of about 1-4% are blank or
-  over-vote lines in the MEDSL state file.
-* **2016 vs MEDSL election-context county data** (Pettigrew sen/house/gov, MEDSL pres): D and R are within 0.5%
-  in every state except these:
-  * Reference problems: MO, because the reference leaves Kansas City out of Jackson County while ours adds it, and our MO statewide values
-    equal certified (Clinton 1,071,068). AZ SEN and ND SEN/GOV, which are broken or missing in the reference.
-  * Our own issues: HI House (HI-1 merge), IN House R +1.7%, SC SEN D -6.9% and House D -2.9% (fusion-line name
-    variants), and OR House R +10.7% / UT House D -2.3% (candidate-level vs line-level fusion counting).
-  * The national 2016 PRES matches certified totals to within 0.01%.
-* **Certified statewide spot checks** (`build/known_check.csv`): 52 of 57 within 0.5%.
-  Examples: 2018 TX SEN Cruz 4,259,630 / O'Rourke 4,044,073 (certified 4,260,553 / 4,045,632, -0.03%). 2022 GA
-  SEN Warnock 1,946,117 / Walker 1,908,442 (exact). 2022 GA runoff 1,820,633 / 1,721,244 (exact). 2018 FL,
-  GA, AZ, NV, MO, WI, MN-special, MS-special. 2020 GA (both), AZ, NC, MI, ME, TX. 2022 PA, AZ, NV, OH, WI, NC, FL, NY,
-  TX, AZ, PA, OK, SC. 2024 TX, PA. 2016 PA, WI, IN SEN, NC/MO/IN GOV, NV, NH SEN. The 5 deviations: **2018 NY GOV**
-  (D -9.6%, R -15.5%, incomplete counties), **2018 IN SEN** (about -1%), **2022 MI GOV** (D -1.2%, R -0.6%),
-  **2016 NH GOV** (-3%, Sullivan County missing) and **2022 CA SEN** (missing).
-* Cross-office consistency: county totals for each office were compared with the county's largest-office total.
-  This flagged the missing counties listed in `data_quality.csv`, ME-2 2018, NY 2018, ND GOV 2024, and
-  the 2016 HI-1 and Kosciusko House doubling. It also flagged uncontested House races, where low House totals are expected.
+## 5. Validation (`pipeline/validate_results.py` → `validation.csv`)
+
+Each state-race's county sum is compared with an independent statewide total: MEDSL's statewide President and
+Senate files (compiled from state-certified totals, separately from the county data) and, for Governor 2016-2020,
+Amlani & Algara. Of 1,358 state-races, 864 have a reference; 40 differ by more than 0.5% in D or R.
+Every one of those is explained:
+
+* **Fusion and candidate-level parties** (NY, CT, SC, OR; NY President 2000-2016): votes on a nominee's minor-party
+  lines count for the nominee here; the reference counts party lines.
+* **Jungle and runoff races** (LA, MS 2018 special, MN 2002): Louisiana 2002/2014 here are the December runoffs; the
+  reference sums every Democrat and Republican in the November round.
+* **The reference is wrong**: WV 2006 and UT 2010 Senate (MEDSL statewide figures differ from the certified results,
+  which Amlani & Algara match), MS 2004 President, MO 2016 Governor (Amlani & Algara leaves out Kansas City; the
+  MEDSL value used here includes it).
+* **Small known gaps** listed in `data_quality.csv`: Maine overseas ballots (2012, 2018, 2020, 2024), NJ and IN 2018 Senate,
+  ME 2024 Senate.
+
+Counties with no votes in a race: Broomfield, CO in 2000 (created in 2001), Washington County, IN in the
+2018 House, and counties wholly in uncontested House districts (FL, LA, OK, TX don't print unopposed races).
 
 ## 6. Known caveats (also in `data_quality.csv`)
-* **Missing races:** IN 2020 (all offices), CA 2022 SEN (regular and special), TN 2022 GOV.
-* **Do not trust LA 2024 shares.** Early votes are absent from MEDSL's precinct file (about 48% of votes), which
-  skews results Republican.
-* **NY 2018** is incomplete for GOV, SEN and HOUSE. **ME 2018 House** has no ME-2. **IN 2022**: 54 of 92 counties are
-  absent. **IN 2024**: Monroe is partial. **ND 2024 GOV**: Burleigh and Divide are absent. **NJ 2024**: Mercer has no
-  early vote. **AR 2022**: Phillips is absent. **ID 2022**: Power County SEN/HOUSE are absent.
-* **2016 HI House**: the HI-1 regular and same-day special are merged by MEDSL (Honolulu House votes about double).
-  **2016 IN House**: Kosciusko is doubled and Wabash is absent. **2016 NH GOV**: Sullivan is absent.
-* Ranked choice: AK (2022, 2024) and ME (ME-2 2018 is missing; ME-2 2022 and 2024; ME SEN) use MEDSL's
-  first-round / first-choice counts. They are not final-round results.
-* Nevada "None of these candidates" is excluded from totals. Redacted `*` counts are zero, which affects
-  small precincts in CA, KS, NM and NV, and minor candidates the most.
-* Statewide-only ballots (UOCAVA and similar) are in `SS000` rows and not in any county.
+
+* No House results before 2016: no free source publishes them by county.
+* **Alaska** is a single statewide unit in every race (results aren't reported by borough).
+* Ranked-choice races (AK 2022/2024, ME) use first-round counts.
+* Independents (King, Sanders, Orman, Osborn, McMullin, Walker) are `oth`, so races they won show only the D-R share
+  of the remaining vote.
+* Nevada "None of these candidates" is excluded from totals; redacted (`*`) precinct counts are zero.
+* Statewide-only ballots (overseas/military and similar) are in `SS000` rows and not in any county.

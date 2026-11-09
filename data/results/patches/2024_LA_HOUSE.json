@@ -1,0 +1,29 @@
+{
+  "mode": "replace",
+  "year": 2024,
+  "office": "HOUSE",
+  "special": 0,
+  "state_po": "LA",
+  "dem_cand": "Mel Manuel (CD1); Troy A. Carter, Sr., Devin Davis (CD2); Priscilla Gonzalez, Sadi Summerlin (CD3); Michael Vallien, Jr. (CD5); Cleo Fields, Quentin Anthony Anderson, Wilken Jones, Jr., Peter Williams (CD6)",
+  "rep_cand": "Steve Scalise, Randall Arrington, Ross Shales (CD1); Devin Lance Graham, Christy Lynch, Shondrell Perrilloux (CD2); Clay Higgins, Xan John (CD3); Mike Johnson, Joshua Morott (CD4); Julia Letlow, M.V. Mendoza (CD5); Elbert Guillory (CD6)",
+  "top_other_cand": "",
+  "sources": [
+    {
+      "title": "Louisiana Secretary of State, Graphical Election Results, Nov 5 2024, U.S. Representative districts 1-6, results by parish (CSV download ByParish_<raceid>.csv; race ids 67171, 67187, 67188, 67174, 67175, 67189)",
+      "url": "https://voterportal.sos.la.gov/ElectionResults/ElectionResults/Data?blob=20241105/csv/ByParish_67171.csv",
+      "retrieved": "2026-11-09"
+    },
+    {
+      "title": "Louisiana Secretary of State, Nov 5 2024 multiparish race totals (Votes_Multiparish / RacesCandidates_Multiparish JSON; election flagged ResultsOfficial=1)",
+      "url": "https://voterportal.sos.la.gov/ElectionResults/ElectionResults/Data?blob=20241105/Votes_Multiparish.htm",
+      "retrieved": "2026-11-09"
+    },
+    {
+      "title": "Louisiana Secretary of State, Graphical Election Results site",
+      "url": "https://voterportal.sos.la.gov/Graphical",
+      "retrieved": "2026-11-09"
+    }
+  ],
+  "method": "pipeline/patches/2024_LA_HOUSE.py reads the SOS parish CSV for each of the 6 districts (parish totals include early, absentee and provisional votes), puts every (DEM) candidate in dem, every (REP) candidate in rep and all others (NOPTY etc.) in oth, and sums over all districts touching each parish. Parish names map to FIPS in alphabetical order (odd codes 001-127); all 64 parishes are present.",
+  "validation": "CSV statewide sums vs official SOS district totals (all 6 districts combined): dem 650,836 vs 650,836 (0.00%); rep 1,248,101 vs 1,248,101 (0.00%); oth 6,781 vs 6,781. For reference, the MIT precinct file sums to dem 330,804 / rep 622,155 (about 51% of the official totals, with early votes missing)."
+}

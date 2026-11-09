@@ -1,0 +1,29 @@
+{
+  "mode": "replace",
+  "year": 2020,
+  "office": "HOUSE",
+  "special": 0,
+  "state_po": "IN",
+  "dem_cand": "",
+  "rep_cand": "",
+  "top_other_cand": "",
+  "sources": [
+    {
+      "title": "Indiana Election Division, 2020 General Election certified results archive (US Representative, office category 1005, JSON data file)",
+      "url": "https://enr.indianavoters.in.gov/archive/2020General/data/OffCatC_1005_A.json",
+      "retrieved": "2026-11-09"
+    },
+    {
+      "title": "Indiana Election Division, 2020 General Election Results (archive site; settings.json Certified = T)",
+      "url": "https://enr.indianavoters.in.gov/archive/2020General/index.html",
+      "retrieved": "2026-11-09"
+    },
+    {
+      "title": "Indiana Election Commission, Election Results index",
+      "url": "https://www.in.gov/sos/elections/election-commission/election-results",
+      "retrieved": "2026-11-09"
+    }
+  ],
+  "method": "pipeline/patches/2020_IN_HOUSE.py reads the certified district-by-county results (county FIPS included in the file) for all 9 districts and sums every district touching a county; party D -> dem, R -> rep, Libertarian/other -> oth.",
+  "validation": "CSV statewide dem 1,194,901 / rep 1,738,745 / oth 62,798 vs sum of the 9 certified district totals (same file's StatewideSummary) dem 1,194,901 / rep 1,738,745 / oth 62,798: difference 0 / 0 (0.00%). All 53 counties present in MIT match the official values exactly."
+}

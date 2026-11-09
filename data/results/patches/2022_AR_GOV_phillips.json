@@ -1,0 +1,29 @@
+{
+  "mode": "fill",
+  "year": 2022,
+  "office": "GOV",
+  "special": 0,
+  "state_po": "AR",
+  "dem_cand": "Chris Jones",
+  "rep_cand": "Sarah Huckabee Sanders",
+  "top_other_cand": "Ricky Dale Harrington Jr.",
+  "sources": [
+    {
+      "title": "Arkansas Secretary of State, 2022 General Election and Nonpartisan Judicial Runoff results (official; FullDataFile.json, election 1844, IsOfficial = true)",
+      "url": "https://results.tally-enr.com/results/arkansas/1844/FullDataFile.json",
+      "retrieved": "2026-11-09"
+    },
+    {
+      "title": "Arkansas Secretary of State, results site for the 2022 General Election",
+      "url": "https://arkansas.tally-enr.com/#election=1844",
+      "retrieved": "2026-11-09"
+    },
+    {
+      "title": "Arkansas Secretary of State, Election Results index",
+      "url": "https://www.sos.arkansas.gov/elections/research/election-results",
+      "retrieved": "2026-11-09"
+    }
+  ],
+  "method": "pipeline/patches/2022_AR_GOV_phillips.py takes the Governor contest's PHILLIPS county record from the SOS official full data file (26 MB, so not kept in data/raw; the script downloads it). Harrington (Libertarian) -> oth.",
+  "validation": "Phillips County (05107) official: Jones 2,415, Sanders 1,892, Harrington 59. State after filling (MIT's other 74 counties + patch): dem 319,242 / rep 571,105 vs certified Jones 319,657 / Sanders 572,005: -0.13% / -0.16% (residual is in MIT's other counties)."
+}

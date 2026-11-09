@@ -1,0 +1,24 @@
+{
+  "mode": "fill",
+  "year": 2024,
+  "office": "GOV",
+  "special": 0,
+  "state_po": "IN",
+  "dem_cand": "Jennifer McCormick",
+  "rep_cand": "Mike Braun",
+  "top_other_cand": "Donald Rainwater",
+  "sources": [
+    {
+      "title": "Indiana Election Division, certified 2024 General Election results archive (ENR), office category 1007 JSON with county breakdown (settings: Certified=T)",
+      "url": "https://enr.indianavoters.in.gov/archive/2024General/data/OffCatC_1007_A.json",
+      "retrieved": "2026-11-09"
+    },
+    {
+      "title": "Indiana Election Division, 2024 General Election results archive",
+      "url": "https://enr.indianavoters.in.gov/archive/2024General/index.html",
+      "retrieved": "2026-11-09"
+    }
+  ],
+  "method": "pipeline/patches/2024_IN_GOV_monroe.py (via _in_enr.py) takes the Monroe County entry from the certified JSON. Party D is dem, R is rep, and Libertarian, independent and write-in candidates are oth.",
+  "validation": "Monroe 18105 = official county totals dem 36,675 / rep 19,961 / oth 1,945 (MIT had only dem 10,280 / rep 4,602). Certified statewide: dem 1,183,741 / rep 1,566,081. With this fill, the MIT-based state total is dem 1,238,201 (+4.6%) / rep 1,663,023 (+6.2%). The excess is outside Monroe: MIT counts Hendricks (18063) and St. Joseph (18141) twice, and Marshall (18099) and Warrick (18173) are slightly short."
+}

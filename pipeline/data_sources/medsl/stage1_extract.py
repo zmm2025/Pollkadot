@@ -25,18 +25,36 @@ PKEY = ['state_po', 'county_fips', 'jurisdiction_fips', 'precinct', 'office', 'd
 sys.path.insert(0, 'pipeline/data_sources/medsl')
 from aggrules import CKEY, drop_aggregate_rows
 
+class _Plain:
+    """A plain CSV / tab file treated like a one-member zip."""
+    def __init__(self, path): self.path = path
+    def __enter__(self): return self
+    def __exit__(self, *a): pass
+    def namelist(self): return [self.path]
+    def open(self, n): return open(n, 'rb')
+
+
+def _sep(zf, n):
+    with zf.open(n) as fh:
+        head = fh.readline().decode('utf-8', 'replace')
+    return '\t' if head.count('\t') > head.count(',') else ','
+
+
 frames = []
 for zp in zips:
-    with zipfile.ZipFile(zp) as zf:
-        names = [n for n in zf.namelist() if n.lower().endswith('.csv') and '__MACOSX' not in n]
+    if zp.endswith('-sorted.csv'):
+        print('skipping', zp, '(re-sorted duplicate of the main file)'); continue
+    with (zipfile.ZipFile(zp) if zp.lower().endswith('.zip') else _Plain(zp)) as zf:
+        names = [n for n in zf.namelist() if n.lower().endswith(('.csv', '.tab')) and '__MACOSX' not in n]
         if len(names) > 1:
             print('multiple csvs', zp, names, '-> dropping *-sorted.csv duplicates')
             names = [n for n in names if not n.endswith('-sorted.csv')]
         for n in names:
             nrows = 0
             parts = []
+            sep = _sep(zf, n)
             with zf.open(n) as fh:
-                reader = pd.read_csv(io.TextIOWrapper(fh, encoding='utf-8', errors='replace'),
+                reader = pd.read_csv(io.TextIOWrapper(fh, encoding='utf-8', errors='replace'), sep=sep,
                                      dtype=str, keep_default_na=False, chunksize=500000,
                                      low_memory=False)
                 for ch in reader:

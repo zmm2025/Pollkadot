@@ -1,0 +1,33 @@
+name: Weekly data check
+
+# Checks whether the election-results sources in pipeline/sources.json have newer versions, or whether
+# MIT has published a dataset for a newer election, and opens (or updates) an issue when they have.
+on:
+  schedule:
+    - cron: '0 14 * * 1'   # 14:00 UTC every Monday
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - id: check
+        run: mkdir -p build && python -P pipeline/fetch.py --check
+      - if: steps.check.outputs.found == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title="New election data available"
+          n=$(gh issue list --state open --search "in:title \"$title\"" --json number --jq '.[0].number')
+          if [ -z "$n" ]; then gh issue create --title "$title" --body-file build/data_updates.md; exit 0; fi
+          # comment only when the findings changed since the issue body / last comment (no weekly repeats)
+          last=$(gh issue view "$n" --json body,comments --jq '([.body] + [.comments[].body]) | last')
+          if [ "$last" != "$(cat build/data_updates.md)" ]; then gh issue comment "$n" --body-file build/data_updates.md; fi

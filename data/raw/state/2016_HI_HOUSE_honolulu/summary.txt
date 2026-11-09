@@ -1,0 +1,232 @@
+Contest ID,Contest Title,Contest Seq Nbr,Contest Type,Contest Party,Absentee Mail Blank Votes,Absentee Walk-in Blank Votes,Election Blank Votes,Absentee Mail Over Votes,Absentee Walk-in Over Votes,Election Over Votes,Registered Voters,Total Precincts,Counted Precincts,Candidate ID,Candidate Name,Candidate Seq Nbr,Candidate Party,Absentee Mail Votes,Absentee Walk-in Votes,Election Votes,Total Votes
+1,"President and Vice President",1,"OF",,4996,565,2728,220,14,204,749917,248,247,4,"(D) CLINTON, Hillary / KAINE, Tim",2,"",121181,27803,117907,266891
+1,"President and Vice President",1,"OF",,4996,565,2728,220,14,204,749917,248,247,3,"(R) TRUMP, Donald J. / PENCE, Michael R.",5,"",50539,12875,65433,128847
+1,"President and Vice President",1,"OF",,4996,565,2728,220,14,204,749917,248,247,2,"(L) JOHNSON, Gary / WELD, Bill",3,"",6670,1383,7901,15954
+1,"President and Vice President",1,"OF",,4996,565,2728,220,14,204,749917,248,247,1,"(G) STEIN, Jill / BARAKA, Ajamu",4,"",4623,1146,6968,12737
+1,"President and Vice President",1,"OF",,4996,565,2728,220,14,204,749917,248,247,5,"(C) CASTLE, Darrell L. / BRADLEY, Scott N.",1,"",1974,347,2187,4508
+2,"U.S. Senator",2,"OF",,8876,2060,9827,105,19,215,749917,247,247,8,"(D) SCHATZ, Brian",5,"",138628,30551,137425,306604
+2,"U.S. Senator",2,"OF",,8876,2060,9827,105,19,215,749917,247,247,10,"(R) CARROLL, John",2,"",37487,9567,45599,92653
+2,"U.S. Senator",2,"OF",,8876,2060,9827,105,19,215,749917,247,247,7,"(C) ALLISON, Joy J.",1,"",2438,1032,5633,9103
+2,"U.S. Senator",2,"OF",,8876,2060,9827,105,19,215,749917,247,247,9,"(L) KOKOSKI, Michael A.",4,"",2288,755,3766,6809
+2,"U.S. Senator",2,"OF",,8876,2060,9827,105,19,215,749917,247,247,6,"(A) GIUFFRE, John M. (Raghu)",3,"",381,149,863,1393
+3,"U.S. Representative, Dist I",3,"OF",,5325,867,4821,64,8,89,749917,113,113,11,"(D) HANABUSA, Colleen Wakako",2,"",69745,12258,63414,145417
+3,"U.S. Representative, Dist I",3,"OF",,5325,867,4821,64,8,89,749917,113,113,14,"(R) OSTROV, Shirlene D. (Shirl)",3,"",19988,4177,21793,45958
+3,"U.S. Representative, Dist I",3,"OF",,5325,867,4821,64,8,89,749917,113,113,12,"(L) YIM, Alan J.K.",4,"",2720,634,3247,6601
+3,"U.S. Representative, Dist I",3,"OF",,5325,867,4821,64,8,89,749917,113,113,13,"(N) GRIFFIN, Calvin (G)",1,"",1447,489,2445,4381
+4,"U.S. Representative, Dist I Vacancy",4,"OF",,7053,1159,6652,118,21,137,749917,113,113,16,"(D) HANABUSA, Colleen Wakako",3,"",63497,10586,55000,129083
+4,"U.S. Representative, Dist I Vacancy",4,"OF",,7053,1159,6652,118,21,137,749917,113,113,21,"(R) OSTROV, Shirlene DelaCruz",7,"",19075,4017,20998,44090
+4,"U.S. Representative, Dist I Vacancy",4,"OF",,7053,1159,6652,118,21,137,749917,113,113,22,"(D) KAAIHUE, Angela Aulani",4,"",2061,661,3163,5885
+4,"U.S. Representative, Dist I Vacancy",4,"OF",,7053,1159,6652,118,21,137,749917,113,113,18,"(L) YIM, Alan J.K.",10,"",2377,522,2660,5559
+4,"U.S. Representative, Dist I Vacancy",4,"OF",,7053,1159,6652,118,21,137,749917,113,113,17,"(D) KIM, Howard",5,"",1674,399,2186,4259
+4,"U.S. Representative, Dist I Vacancy",4,"OF",,7053,1159,6652,118,21,137,749917,113,113,15,"(D) CROSS, Peter",1,"",1147,405,1868,3420
+4,"U.S. Representative, Dist I Vacancy",4,"OF",,7053,1159,6652,118,21,137,749917,113,113,19,"(N) GRIFFIN, Calvin C. (G)",2,"",970,271,1583,2824
+4,"U.S. Representative, Dist I Vacancy",4,"OF",,7053,1159,6652,118,21,137,749917,113,113,23,"(D) OCASIO, Javier",6,"",834,230,829,1893
+4,"U.S. Representative, Dist I Vacancy",4,"OF",,7053,1159,6652,118,21,137,749917,113,113,20,"(N) PERRY, Yvonne",8,"",375,112,563,1050
+4,"U.S. Representative, Dist I Vacancy",4,"OF",,7053,1159,6652,118,21,137,749917,113,113,24,"(N) PLOTZENEDER, Peter H.",9,"",108,50,170,328
+5,"U.S. Representative, Dist II",5,"OF",,5953,1381,6149,49,5,80,749917,134,134,25,"(D) GABBARD, Tulsi",1,"",70557,19514,80777,170848
+5,"U.S. Representative, Dist II",5,"OF",,5953,1381,6149,49,5,80,749917,134,134,26,"(R) KAAIHUE, Angela Aulani",2,"",14355,4800,20513,39668
+6,"State Senator, Dist 1 Vacancy",6,"OF",,667,179,361,1,0,0,749917,9,9,27,"(D) KAHELE, Kaiali'i",2,"",7319,2083,5086,14488
+6,"State Senator, Dist 1 Vacancy",6,"OF",,667,179,361,1,0,0,749917,9,9,28,"(L) ARIANOFF, Kimberly",1,"",794,297,725,1816
+7,"State Senator, Dist 2 ",7,"OF",,479,124,459,1,1,2,749917,10,10,29,"(D) RUDERMAN, Russell E.",2,"",4988,1541,5135,11664
+7,"State Senator, Dist 2 ",7,"OF",,479,124,459,1,1,2,749917,10,10,30,"(L) FOGEL, Frederick F.",1,"",1020,323,1145,2488
+8,"State Senator, Dist 9",8,"OF",,564,92,494,4,1,6,749917,9,9,31,"(D) CHANG, Stanley",1,"",6731,1003,5699,13433
+8,"State Senator, Dist 9",8,"OF",,564,92,494,4,1,6,749917,9,9,32,"(R) SLOM, Sam M.",2,"",5973,863,5149,11985
+9,"State Senator, Dist 10",9,"OF",,1475,251,1498,1,0,5,749917,10,10,33,"(D) IHARA, Les, Jr.",1,"",6774,1158,5913,13845
+9,"State Senator, Dist 10",9,"OF",,1475,251,1498,1,0,5,749917,10,10,34,"(L) PHILLIPS, Arnold T., II",2,"",1144,250,1318,2712
+10,"State Senator, Dist 11",10,"OF",,1067,214,905,4,1,5,749917,11,11,35,"(D) TANIGUCHI, Brian T.",3,"",7409,1390,6144,14943
+10,"State Senator, Dist 11",10,"OF",,1067,214,905,4,1,5,749917,11,11,37,"(R) AMSTERDAM, C. Kaui Jochanan",1,"",1505,314,1597,3416
+10,"State Senator, Dist 11",10,"OF",,1067,214,905,4,1,5,749917,11,11,36,"(L) KENT, Joe",2,"",323,77,391,791
+11,"State Senator, Dist 13",11,"OF",,578,136,398,6,1,9,749917,8,8,38,"(D) RHOADS, Karl",2,"",5612,1126,4077,10815
+11,"State Senator, Dist 13",11,"OF",,578,136,398,6,1,9,749917,8,8,40,"(R) TAM, Rod",3,"",1662,393,1771,3826
+11,"State Senator, Dist 13",11,"OF",,578,136,398,6,1,9,749917,8,8,39,"(L) OZOLS, Harry",1,"",257,73,263,593
+12,"State Senator, Dist 15",12,"OF",,671,84,720,1,0,1,749917,7,7,41,"(D) WAKAI, Glenn",2,"",4316,552,4358,9226
+12,"State Senator, Dist 15",12,"OF",,671,84,720,1,0,1,749917,7,7,42,"(L) KALINOWSKI, Roman",1,"",670,159,882,1711
+13,"State Senator, Dist 19",13,"OF",,279,77,338,3,1,5,749917,6,6,43,"(D) ESPERO, Will",1,"",3305,1153,3422,7880
+13,"State Senator, Dist 19",13,"OF",,279,77,338,3,1,5,749917,6,6,44,"(R) FEVELLA, Kurt",2,"",1725,805,2382,4912
+14,"State Senator, Dist 25",14,"OF",,559,76,625,2,2,3,749917,10,10,45,"(D) THIELEN, Laura H.",2,"",6225,882,7105,14212
+14,"State Senator, Dist 25",14,"OF",,559,76,625,2,2,3,749917,10,10,46,"(R) NAGAMINE, Robert K.",1,"",2674,450,3762,6886
+15,"State Representative, Dist 1",15,"OF",,344,98,337,1,0,2,749917,9,9,47,"(D) NAKASHIMA, Mark M.",1,"",3693,933,2866,7492
+15,"State Representative, Dist 1",15,"OF",,344,98,337,1,0,2,749917,9,9,48,"(R) YOUNG, Byron",2,"",746,250,925,1921
+16,"State Representative, Dist 3",16,"OF",,332,109,338,2,0,5,749917,7,7,49,"(D) ONISHI, Richard H.K.",2,"",2965,848,2371,6184
+16,"State Representative, Dist 3",16,"OF",,332,109,338,2,0,5,749917,7,7,50,"(G) PISCIOTTA, Kealoha",3,"",507,194,632,1333
+16,"State Representative, Dist 3",16,"OF",,332,109,338,2,0,5,749917,7,7,51,"(L) ARIANOFF, Gregory",1,"",328,116,369,813
+17,"State Representative, Dist 4",17,"OF",,368,116,416,4,1,2,749917,4,4,53,"(D) SAN BUENAVENTURA, Joy A.",2,"",2613,727,2506,5846
+17,"State Representative, Dist 4",17,"OF",,368,116,416,4,1,2,749917,4,4,54,"(N) JONES, Luana",1,"",409,151,687,1247
+17,"State Representative, Dist 4",17,"OF",,368,116,416,4,1,2,749917,4,4,52,"(C) STEPHENS, Moke",3,"",268,61,319,648
+18,"State Representative, Dist 5",18,"OF",,468,156,482,0,0,0,749917,8,8,55,"(D) CREAGAN, Richard P.",1,"",2794,840,2542,6176
+18,"State Representative, Dist 5",18,"OF",,468,156,482,0,0,0,749917,8,8,56,"(L) LAST, Michael L.",2,"",675,284,807,1766
+19,"State Representative, Dist 6",19,"OF",,145,89,122,1,0,1,749917,5,5,57,"(D) LOWEN, Nicole E.",1,"",2498,1345,2170,6013
+19,"State Representative, Dist 6",19,"OF",,145,89,122,1,0,1,749917,5,5,58,"(R) PRATT, Bruce C.",2,"",1086,654,1156,2896
+20,"State Representative, Dist 7",20,"OF",,175,84,171,1,0,0,749917,5,5,59,"(D) EVANS, Cindy",2,"",2510,1111,2313,5934
+20,"State Representative, Dist 7",20,"OF",,175,84,171,1,0,0,749917,5,5,60,"(R) COAKLEY, Jeffrey (Jeff)",1,"",1332,629,1620,3581
+21,"State Representative, Dist 8",21,"OF",,356,89,235,0,0,3,749917,7,7,61,"(D) SOUKI, Joe",2,"",3254,760,2500,6514
+21,"State Representative, Dist 8",21,"OF",,356,89,235,0,0,3,749917,7,7,62,"(R) REBOLLEDO, Gilbert (Gil)",1,"",1096,293,1186,2575
+22,"State Representative, Dist 10",22,"OF",,208,49,391,4,0,0,749917,5,5,63,"(D) MCKELVEY, Angus L.K.",2,"",1648,268,2800,4716
+22,"State Representative, Dist 10",22,"OF",,208,49,391,4,0,0,749917,5,5,64,"(R) MARTEN, Chayne",1,"",496,110,1094,1700
+23,"State Representative, Dist 11",23,"OF",,177,61,256,0,0,1,749917,4,4,65,"(D) ING, Kaniela",1,"",2137,627,3071,5835
+23,"State Representative, Dist 11",23,"OF",,177,61,256,0,0,1,749917,4,4,66,"(R) PEKUS, Daniel A. (Danny)",2,"",906,260,1335,2501
+24,"State Representative, Dist 13",24,"OF",,225,52,354,1,1,2,749917,9,9,67,"(D) DECOITE, Lynn",1,"",2019,806,2999,5824
+24,"State Representative, Dist 13",24,"OF",,225,52,354,1,1,2,749917,9,9,68,"(G) NIKHILANANDA, Nick",2,"",863,282,1628,2773
+25,"State Representative, Dist 14",25,"OF",,277,117,485,3,0,12,749917,5,5,69,"(D) NAKAMURA, Nadine K.",2,"",2298,909,2850,6057
+25,"State Representative, Dist 14",25,"OF",,277,117,485,3,0,12,749917,5,5,70,"(R) COMBS, Sandra A. (Sandi)",1,"",677,367,1257,2301
+26,"State Representative, Dist 16",26,"OF",,297,103,434,1,0,3,749917,6,6,71,"(D) MORIKAWA, Dee",2,"",2543,806,2739,6088
+26,"State Representative, Dist 16",26,"OF",,297,103,434,1,0,3,749917,6,6,72,"(R) FRANKS, Victoria (Vickie)",1,"",711,221,1002,1934
+27,"State Representative, Dist 17",27,"OF",,499,49,444,2,0,4,749917,4,4,74,"(R) WARD, Gene",2,"",4006,557,3697,8260
+27,"State Representative, Dist 17",27,"OF",,499,49,444,2,0,4,749917,4,4,73,"(D) ROSS, Karlen",1,"",1407,241,1210,2858
+28,"State Representative, Dist 19",28,"OF",,700,86,650,2,1,3,749917,5,5,75,"(D) KOBAYASHI, Bertrand (Bert)",3,"",3052,475,2349,5876
+28,"State Representative, Dist 19",28,"OF",,700,86,650,2,1,3,749917,5,5,77,"(R) BISCHOFF, Stephen N.",1,"",984,145,853,1982
+28,"State Representative, Dist 19",28,"OF",,700,86,650,2,1,3,749917,5,5,76,"(L) HIGA, Anthony J.L.",2,"",563,87,523,1173
+29,"State Representative, Dist 20",29,"OF",,512,88,537,1,0,0,749917,4,4,78,"(D) SAY, Calvin K.Y.",2,"",3115,525,2826,6466
+29,"State Representative, Dist 20",29,"OF",,512,88,537,1,0,0,749917,4,4,79,"(R) ALLEN, Julia E.",1,"",1240,261,1280,2781
+30,"State Representative, Dist 22",30,"OF",,300,88,276,0,0,1,749917,3,3,80,"(D) BROWER, Tom",1,"",1973,593,1648,4214
+30,"State Representative, Dist 22",30,"OF",,300,88,276,0,0,1,749917,3,3,81,"(R) HENSKI, Kathryn",2,"",956,310,959,2225
+31,"State Representative, Dist 24",31,"OF",,557,99,519,1,0,0,749917,4,4,82,"(D) BELATTI, Della Au",1,"",2693,589,2223,5505
+31,"State Representative, Dist 24",31,"OF",,557,99,519,1,0,0,749917,4,4,84,"(R) FENTON, Larry",2,"",717,167,749,1633
+31,"State Representative, Dist 24",31,"OF",,557,99,519,1,0,0,749917,4,4,83,"(L) TIPPENS, Michelle Rose",3,"",240,71,348,659
+32,"State Representative, Dist 28",32,"OF",,84,16,103,0,0,1,749917,4,4,85,"(D) MIZUNO, John M.",2,"",1621,234,2067,3922
+32,"State Representative, Dist 28",32,"OF",,84,16,103,0,0,1,749917,4,4,86,"(R) KAAPU, Carole Kauhiwai",1,"",493,99,647,1239
+33,"State Representative, Dist 29",33,"OF",,337,54,259,0,0,2,749917,4,4,87,"(D) HOLT, Daniel",2,"",1417,236,1336,2989
+33,"State Representative, Dist 29",33,"OF",,337,54,259,0,0,2,749917,4,4,88,"(R) COAKLEY, Kaiwiola",1,"",439,91,353,883
+34,"State Representative, Dist 31",34,"OF",,180,35,221,3,1,2,749917,5,5,89,"(D) JOHANSON, Aaron Ling",2,"",1765,280,2125,4170
+34,"State Representative, Dist 31",34,"OF",,180,35,221,3,1,2,749917,5,5,90,"(R) CHING, Eric H.L.",1,"",728,126,933,1787
+35,"State Representative, Dist 34",35,"OF",,132,12,115,0,0,5,749917,3,3,91,"(D) TAKAYAMA, Gregg",2,"",3163,313,2135,5611
+35,"State Representative, Dist 34",35,"OF",,132,12,115,0,0,5,749917,3,3,92,"(R) AGUSTIN, Jaci",1,"",1690,227,2280,4197
+36,"State Representative, Dist 35",36,"OF",,161,17,166,2,0,2,749917,6,6,93,"(D) TAKUMI, Roy M.",2,"",1935,226,1982,4143
+36,"State Representative, Dist 35",36,"OF",,161,17,166,2,0,2,749917,6,6,94,"(R) CLEMENTE, Roger",1,"",734,131,1148,2013
+37,"State Representative, Dist 36",37,"OF",,133,28,106,1,0,5,749917,3,3,96,"(R) FUKUMOTO CHANG, Beth",1,"",2869,392,3531,6792
+37,"State Representative, Dist 36",37,"OF",,133,28,106,1,0,5,749917,3,3,95,"(D) LEE, Marilyn B.",2,"",1505,243,1526,3274
+38,"State Representative, Dist 37",38,"OF",,317,33,317,0,0,3,749917,4,4,97,"(D) YAMANE, Ryan I.",2,"",3711,490,3838,8039
+38,"State Representative, Dist 37",38,"OF",,317,33,317,0,0,3,749917,4,4,98,"(R) KUPUKAA, Katherine T.",1,"",907,174,1373,2454
+39,"State Representative, Dist 40",39,"OF",,158,24,258,2,1,1,749917,4,4,100,"(R) MCDERMOTT, Bob",2,"",1259,408,1861,3528
+39,"State Representative, Dist 40",39,"OF",,158,24,258,2,1,1,749917,4,4,99,"(D) MARTINEZ, Rose",1,"",869,297,1319,2485
+40,"State Representative, Dist 41",40,"OF",,305,55,282,1,1,3,749917,4,4,101,"(D) LOPRESTI, Matthew S. (Matt)",2,"",1922,771,1596,4289
+40,"State Representative, Dist 41",40,"OF",,305,55,282,1,1,3,749917,4,4,102,"(R) JEREMIAH, Bryan E.",1,"",1093,573,1239,2905
+41,"State Representative, Dist 43",41,"OF",,65,17,51,2,0,7,749917,5,5,104,"(R) TUPOLA, Andria",2,"",1277,489,2093,3859
+41,"State Representative, Dist 43",41,"OF",,65,17,51,2,0,7,749917,5,5,103,"(D) ELI, Stacelynn K.M.",1,"",708,254,970,1932
+42,"State Representative, Dist 44",42,"OF",,55,16,50,2,0,3,749917,2,2,105,"(D) GATES, Cedric Asuega",1,"",1124,342,1880,3346
+42,"State Representative, Dist 44",42,"OF",,55,16,50,2,0,3,749917,2,2,106,"(R) PA'ALUHI, Marc K.",2,"",725,179,1087,1991
+43,"State Representative, Dist 46",43,"OF",,113,20,137,3,0,3,749917,4,4,107,"(D) OSHIRO, Marcus R.",2,"",1896,202,2708,4806
+43,"State Representative, Dist 46",43,"OF",,113,20,137,3,0,3,749917,4,4,108,"(R) NOLTIE, Scott A.",1,"",429,74,774,1277
+44,"State Representative, Dist 47",44,"OF",,107,21,160,3,0,7,749917,4,4,109,"(D) QUINLAN, Sean",2,"",1121,179,2242,3542
+44,"State Representative, Dist 47",44,"OF",,107,21,160,3,0,7,749917,4,4,110,"(R) POUHA, Feki",1,"",901,130,2403,3434
+45,"Hawaii Resident Trustee",45,"OF",,49010,9788,41666,74,10,93,749917,247,247,111,"LINDSEY, Robert K. (Bob)",1,"",81496,19362,93666,194524
+45,"Hawaii Resident Trustee",45,"OF",,49010,9788,41666,74,10,93,749917,247,247,112,"TRASK, Mililani B.",2,"",59623,14973,67903,142499
+46,"At-Large Trustee",46,"OF",,55189,11319,51092,55,9,64,749917,247,247,113,"AKINA, Keli'i",1,"",64290,17253,82200,163743
+46,"At-Large Trustee",46,"OF",,55189,11319,51092,55,9,64,749917,247,247,114,"APOLIONA, Haunani",2,"",70669,15552,69972,156193
+47,"Councilmember, Dist 3, County of Hawaii",47,"OF",,357,73,168,1,0,0,749917,5,5,116,"LEE LOY, Susan (Sue)",2,"",2099,612,1688,4399
+47,"Councilmember, Dist 3, County of Hawaii",47,"OF",,357,73,168,1,0,0,749917,5,5,115,"KELII, Moana M.H.",1,"",1480,437,1092,3009
+48,"Councilmember, Dist 4, County of Hawaii",48,"OF",,313,71,218,0,0,1,749917,4,4,118,"OHARA, Eileen",2,"",1487,397,1521,3405
+48,"Councilmember, Dist 4, County of Hawaii",48,"OF",,313,71,218,0,0,1,749917,4,4,117,"GREENE, Madie",1,"",1156,354,1351,2861
+49,"Councilmember (East Maui)",49,"OF",,3193,892,4459,5,2,8,749917,34,34,119,"CARROLL, Robert (Bob)",1,"",10914,2401,11958,25273
+49,"Councilmember (East Maui)",49,"OF",,3193,892,4459,5,2,8,749917,34,34,120,"SINENCI, Shane",2,"",7217,1831,10071,19119
+50,"Councilmember (West Maui)",50,"OF",,3297,894,4202,7,0,6,749917,34,34,122,"COCHRAN, Elle",2,"",12740,3028,16202,31970
+50,"Councilmember (West Maui)",50,"OF",,3297,894,4202,7,0,6,749917,34,34,121,"BALINBIN, Ernest Z. Kanamu",1,"",5285,1204,6086,12575
+51,"Councilmember (Wailuku-Waihee-Waikapu)",51,"OF",,2567,702,3836,7,1,3,749917,34,34,123,"ATAY, Alika",1,"",8426,2281,12615,23322
+51,"Councilmember (Wailuku-Waihee-Waikapu)",51,"OF",,2567,702,3836,7,1,3,749917,34,34,124,"KANE, Dain P.",2,"",10329,2142,10042,22513
+52,"Councilmember (Kahului)",52,"OF",,3233,898,4259,7,0,3,749917,34,34,125,"GUZMAN, Don S.",1,"",12347,2807,15610,30764
+52,"Councilmember (Kahului)",52,"OF",,3233,898,4259,7,0,3,749917,34,34,126,"MEDEIROS, Vanessa A.",2,"",5742,1421,6624,13787
+53,"Councilmember (South Maui)",53,"OF",,2463,684,3558,5,4,4,749917,34,34,128,"KING, Kelly Takaya",2,"",9720,2317,11604,23641
+53,"Councilmember (South Maui)",53,"OF",,2463,684,3558,5,4,4,749917,34,34,127,"COUCH, Don",1,"",9141,2121,11330,22592
+54,"Councilmember (Makawao-Haiku-Paia)",54,"OF",,2437,704,3619,8,2,12,749917,34,34,130,"WHITE, Mike",2,"",11352,2334,12085,25771
+54,"Councilmember (Makawao-Haiku-Paia)",54,"OF",,2437,704,3619,8,2,12,749917,34,34,129,"FURTADO, Trinette K.",1,"",7532,2086,10780,20398
+55,"Councilmember (Upcountry)",55,"OF",,2527,796,4127,8,5,11,749917,34,34,132,"SUGIMURA, Yuki Lei Kashiwa",2,"",10662,2197,10405,23264
+55,"Councilmember (Upcountry)",55,"OF",,2527,796,4127,8,5,11,749917,34,34,131,"GREIG-NAKASONE, Napua",1,"",8132,2128,11953,22213
+56,"Councilmember (Lanai)",56,"OF",,3810,1110,5650,8,1,8,749917,34,34,133,"HOKAMA, Riki",1,"",10163,2103,11006,23272
+56,"Councilmember (Lanai)",56,"OF",,3810,1110,5650,8,1,8,749917,34,34,134,"JOHNSON, Gabe",2,"",7348,1912,9832,19092
+57,"Councilmember (Molokai)",57,"OF",,4531,1148,6003,4,3,3,749917,34,34,135,"CRIVELLO, Stacy Helm",1,"",9645,2228,10890,22763
+57,"Councilmember (Molokai)",57,"OF",,4531,1148,6003,4,3,3,749917,34,34,136,"RAWLINS-FERNANDEZ, Keani",2,"",7149,1747,9600,18496
+58,"Prosecuting Attorney, County of Kauai",58,"OF",,1355,491,1739,2,1,5,749917,16,16,138,"KOLLAR, Justin F.",2,"",5080,2253,5013,12346
+58,"Prosecuting Attorney, County of Kauai",58,"OF",,1355,491,1739,2,1,5,749917,16,16,137,"ARIN, Lisa R.",1,"",4043,1996,5247,11286
+59,"Councilmember",59,"OF",,22205,10219,27212,15,0,6,749917,16,16,148,"KAWAKAMI, Derek S.K.",10,"",6728,2783,6479,15990
+59,"Councilmember",59,"OF",,22205,10219,27212,15,0,6,749917,16,16,147,"KANESHIRO, Arryl",9,"",5338,2221,5220,12779
+59,"Councilmember",59,"OF",,22205,10219,27212,15,0,6,749917,16,16,150,"RAPOZO, Mel",12,"",5326,2111,5194,12631
+59,"Councilmember",59,"OF",,22205,10219,27212,15,0,6,749917,16,16,146,"KAGAWA, Ross K.",8,"",5327,2060,4796,12183
+59,"Councilmember",59,"OF",,22205,10219,27212,15,0,6,749917,16,16,151,"YUKIMURA, JoAnn A.",13,"",3806,1935,5331,11072
+59,"Councilmember",59,"OF",,22205,10219,27212,15,0,6,749917,16,16,141,"BRUN, Arthur",3,"",4430,1937,4636,11003
+59,"Councilmember",59,"OF",,22205,10219,27212,15,0,6,749917,16,16,142,"CHOCK, Mason K., Sr.",4,"",3996,1922,5029,10947
+59,"Councilmember",59,"OF",,22205,10219,27212,15,0,6,749917,16,16,149,"KUALII, KipuKai",11,"",4291,1765,4394,10450
+59,"Councilmember",59,"OF",,22205,10219,27212,15,0,6,749917,16,16,145,"HOOSER, Gary L.",7,"",3372,1775,5261,10408
+59,"Councilmember",59,"OF",,22205,10219,27212,15,0,6,749917,16,16,139,"APALLA, Juno-Ann A.",1,"",2631,1558,3700,7889
+59,"Councilmember",59,"OF",,22205,10219,27212,15,0,6,749917,16,16,143,"DOCTOR SPARKS, Norma",5,"",2619,1329,2963,6911
+59,"Councilmember",59,"OF",,22205,10219,27212,15,0,6,749917,16,16,140,"BERNABE, Matt",2,"",1456,784,2111,4351
+59,"Councilmember",59,"OF",,22205,10219,27212,15,0,6,749917,16,16,144,"FUKUSHIMA, Richard S.",6,"",1730,788,1660,4178
+60,"Mayor, City and County of Honolulu",60,"OF",,3611,726,3334,67,5,52,749917,153,153,152,"CALDWELL, Kirk",1,"",66815,13237,67889,147941
+60,"Mayor, City and County of Honolulu",60,"OF",,3611,726,3334,67,5,52,749917,153,153,153,"DJOU, Charles K.",2,"",58626,10001,67083,135710
+61,"Prosecuting Attorney, City and County of Honolulu",61,"OF",,16692,3207,17954,44,6,55,749917,153,153,154,"KANESHIRO, Keith M.",1,"",89456,15664,95854,200974
+61,"Prosecuting Attorney, City and County of Honolulu",61,"OF",,16692,3207,17954,44,6,55,749917,153,153,155,"YAQOOB, Anosh H.",2,"",22927,5092,24495,52514
+62,"Councilmember, Dist V",62,"OF",,1952,409,2056,8,2,9,749917,19,19,157,"KOBAYASHI, Ann H.",2,"",11092,1745,8893,21730
+62,"Councilmember, Dist V",62,"OF",,1952,409,2056,8,2,9,749917,19,19,156,"CASE, Kimberly S.",1,"",3914,901,3788,8603
+63,"Councilmember, Dist VII",63,"OF",,1072,196,1119,2,1,1,749917,14,14,158,"MANAHAN, Joey",1,"",5662,732,5938,12332
+63,"Councilmember, Dist VII",63,"OF",,1072,196,1119,2,1,1,749917,14,14,159,"SHIGEMASA, Chace K.M.",2,"",1902,316,2087,4305
+64,"Councilmember, Dist IX",64,"OF",,1286,246,1526,4,0,5,749917,19,19,160,"MENOR, Ron",1,"",9321,1879,11583,22783
+64,"Councilmember, Dist IX",64,"OF",,1286,246,1526,4,0,5,749917,19,19,161,"SVRCINA, Emil",2,"",1898,425,2491,4814
+65,"CON AMEND: Jury Trials in Civil Cases",65,"MS",,25003,4680,20934,97,23,143,749917,247,247,163,"YES",1,"",92050,21285,87863,201198
+65,"CON AMEND: Jury Trials in Civil Cases",65,"MS",,25003,4680,20934,97,23,143,749917,247,247,162,"NO",2,"",73053,18145,94388,185586
+66,"CON AMEND: Disposition of Excess Revenues",66,"MS",,28004,5940,27088,114,22,151,749917,247,247,165,"YES",1,"",96383,23305,99368,219056
+66,"CON AMEND: Disposition of Excess Revenues",66,"MS",,28004,5940,27088,114,22,151,749917,247,247,164,"NO",2,"",65702,14866,76721,157289
+67,"HAWAI'I: Expanding Scope of the County of Hawai?i General Plan",67,"MS",,3565,984,2496,10,0,4,749917,43,43,166,"YES",1,"",18400,6775,17978,43153
+67,"HAWAI'I: Expanding Scope of the County of Hawai?i General Plan",67,"MS",,3565,984,2496,10,0,4,749917,43,43,167,"NO",2,"",7279,2538,5992,15809
+68,"MAUI: Withdrawal of Signature from Supplemental Petition",68,"MS",,3847,872,4671,4,5,13,749917,34,34,169,"YES",1,"",13719,3401,16838,33958
+68,"MAUI: Withdrawal of Signature from Supplemental Petition",68,"MS",,3847,872,4671,4,5,13,749917,34,34,168,"NO",2,"",3759,848,4974,9581
+69,"MAUI: Review of Supplemental Petition",69,"MS",,3583,835,4421,3,1,6,749917,34,34,171,"YES",1,"",10961,2817,14085,27863
+69,"MAUI: Review of Supplemental Petition",69,"MS",,3583,835,4421,3,1,6,749917,34,34,170,"NO",2,"",6782,1473,7984,16239
+70,"MAUI: Emergency Management Agency",70,"MS",,3206,722,4074,10,1,12,749917,34,34,173,"YES",1,"",10913,2937,13766,27616
+70,"MAUI: Emergency Management Agency",70,"MS",,3206,722,4074,10,1,12,749917,34,34,172,"NO",2,"",7200,1466,8644,17310
+71,"MAUI: Approval of and Qualifications for Various Directors",71,"MS",,2907,703,3996,8,1,11,749917,34,34,175,"YES",1,"",13738,3380,17473,34591
+71,"MAUI: Approval of and Qualifications for Various Directors",71,"MS",,2907,703,3996,8,1,11,749917,34,34,174,"NO",2,"",4676,1042,5016,10734
+72,"MAUI: Office of Council Services' Attorneys",72,"MS",,3947,895,5049,1,3,7,749917,34,34,177,"YES",1,"",10657,2801,13513,26971
+72,"MAUI: Office of Council Services' Attorneys",72,"MS",,3947,895,5049,1,3,7,749917,34,34,176,"NO",2,"",6724,1427,7927,16078
+73,"KAUAI: Correct Gender Neutrality, Grammatical, Spelling and Formatting Errors",73,"MS",,1684,565,1740,3,0,4,749917,16,16,178,"YES",1,"",5987,3023,6358,15368
+73,"KAUAI: Correct Gender Neutrality, Grammatical, Spelling and Formatting Errors",73,"MS",,1684,565,1740,3,0,4,749917,16,16,179,"NO",2,"",2806,1153,3902,7861
+74,"KAUAI: Fire Chief Duties",74,"MS",,1686,591,1767,8,0,6,749917,16,16,180,"YES",1,"",6295,3108,6779,16182
+74,"KAUAI: Fire Chief Duties",74,"MS",,1686,591,1767,8,0,6,749917,16,16,181,"NO",2,"",2491,1042,3452,6985
+75,"KAUAI: Establish Zoning Board",75,"MS",,2114,743,2230,3,0,10,749917,16,16,182,"YES",1,"",5750,2948,6499,15197
+75,"KAUAI: Establish Zoning Board",75,"MS",,2114,743,2230,3,0,10,749917,16,16,183,"NO",2,"",2613,1050,3265,6928
+76,"KAUAI: Rename and Clarify Organization of Civil Defense Agency",76,"MS",,1757,636,1974,3,0,8,749917,16,16,184,"YES",1,"",6290,3081,6287,15658
+76,"KAUAI: Rename and Clarify Organization of Civil Defense Agency",76,"MS",,1757,636,1974,3,0,8,749917,16,16,185,"NO",2,"",2430,1024,3735,7189
+77,"KAUAI: Initiative, Referendum, & Charter Amendment Petitions Signatures",77,"MS",,2052,770,2232,2,0,11,749917,16,16,186,"YES",1,"",3851,1936,4482,10269
+77,"KAUAI: Initiative, Referendum, & Charter Amendment Petitions Signatures",77,"MS",,2052,770,2232,2,0,11,749917,16,16,187,"NO",2,"",4575,2035,5279,11889
+78,"KAUAI: Enable County Clerk to Determine what is a Valid Charter Amendment",78,"MS",,2279,870,2573,4,1,6,749917,16,16,188,"YES",1,"",3508,1852,3968,9328
+78,"KAUAI: Enable County Clerk to Determine what is a Valid Charter Amendment",78,"MS",,2279,870,2573,4,1,6,749917,16,16,189,"NO",2,"",4689,2018,5457,12164
+79,"KAUAI: Establish Permanent Charter Review Commission",79,"MS",,2271,841,2508,4,2,7,749917,16,16,190,"YES",1,"",4026,2178,4909,11113
+79,"KAUAI: Establish Permanent Charter Review Commission",79,"MS",,2271,841,2508,4,2,7,749917,16,16,191,"NO",2,"",4179,1720,4580,10479
+80,"HONOLULU: Police Commission Authority; Investigative Powers",80,"MS",,6427,1056,5737,80,19,102,749917,153,153,193,"YES",1,"",101842,18546,105454,225842
+80,"HONOLULU: Police Commission Authority; Investigative Powers",80,"MS",,6427,1056,5737,80,19,102,749917,153,153,192,"NO",2,"",18533,4346,26202,49081
+81,"HONOLULU: Ethics Commission Staff Salaries",81,"MS",,9626,1560,9151,104,14,126,749917,153,153,195,"YES",1,"",74405,14377,79512,168294
+81,"HONOLULU: Ethics Commission Staff Salaries",81,"MS",,9626,1560,9151,104,14,126,749917,153,153,194,"NO",2,"",42747,8016,48706,99469
+82,"HONOLULU: Prosecuting Attorney Budgetary Control",82,"MS",,10212,1721,10013,118,17,157,749917,153,153,197,"YES",1,"",85964,15650,87806,189420
+82,"HONOLULU: Prosecuting Attorney Budgetary Control",82,"MS",,10212,1721,10013,118,17,157,749917,153,153,196,"NO",2,"",30588,6579,39519,76686
+83,"HONOLULU: Multi-Modal Transportation System; Fares, Operations, Responsibilities",83,"MS",,13993,2110,14112,52,11,101,749917,153,153,199,"YES",1,"",79227,15091,81072,175390
+83,"HONOLULU: Multi-Modal Transportation System; Fares, Operations, Responsibilities",83,"MS",,13993,2110,14112,52,11,101,749917,153,153,198,"NO",2,"",33610,6755,42210,82575
+84,"HONOLULU: Affordable Housing Fund",84,"MS",,10596,1490,9270,91,16,141,749917,153,153,201,"YES",1,"",81590,16024,89086,186700
+84,"HONOLULU: Affordable Housing Fund",84,"MS",,10596,1490,9270,91,16,141,749917,153,153,200,"NO",2,"",34605,6437,38998,80040
+85,"HONOLULU: City Infrastructure Long Term Plans",85,"MS",,9475,1515,9400,67,15,112,749917,153,153,203,"YES",1,"",103896,19466,108410,231772
+85,"HONOLULU: City Infrastructure Long Term Plans",85,"MS",,9475,1515,9400,67,15,112,749917,153,153,202,"NO",2,"",13444,2971,19573,35988
+86,"HONOLULU: Office of Climate Change, Sustainability and Resiliency",86,"MS",,10272,1522,9721,88,11,126,749917,153,153,205,"YES",1,"",64099,13906,79210,157215
+86,"HONOLULU: Office of Climate Change, Sustainability and Resiliency",86,"MS",,10272,1522,9721,88,11,126,749917,153,153,204,"NO",2,"",52423,8528,48438,109389
+87,"HONOLULU: Department of Land Management",87,"MS",,11726,1833,11494,152,18,140,749917,153,153,207,"YES",1,"",57051,12078,65979,135108
+87,"HONOLULU: Department of Land Management",87,"MS",,11726,1833,11494,152,18,140,749917,153,153,206,"NO",2,"",57953,10038,59882,127873
+88,"HONOLULU: Honolulu Zoo Fund",88,"MS",,8609,1372,8434,101,12,130,749917,153,153,209,"YES",1,"",69213,12848,72031,154092
+88,"HONOLULU: Honolulu Zoo Fund",88,"MS",,8609,1372,8434,101,12,130,749917,153,153,208,"NO",2,"",48959,9735,56900,115594
+89,"HONOLULU: Mayoral/Legislative Power Exceptions",89,"MS",,15131,2460,14774,55,11,103,749917,153,153,211,"YES",1,"",51898,10190,53634,115722
+89,"HONOLULU: Mayoral/Legislative Power Exceptions",89,"MS",,15131,2460,14774,55,11,103,749917,153,153,210,"NO",2,"",59798,11306,68984,140088
+90,"HONOLULU: Approval of Clean Water Natural Lands Projects",90,"MS",,12593,1967,12098,64,12,118,749917,153,153,213,"YES",1,"",70903,14273,81079,166255
+90,"HONOLULU: Approval of Clean Water Natural Lands Projects",90,"MS",,12593,1967,12098,64,12,118,749917,153,153,212,"NO",2,"",43322,7715,44200,95237
+91,"HONOLULU: Review of Boards and Commissions",91,"MS",,9906,1718,10234,97,20,133,749917,153,153,215,"YES",1,"",99222,18458,102144,219824
+91,"HONOLULU: Review of Boards and Commissions",91,"MS",,9906,1718,10234,97,20,133,749917,153,153,214,"NO",2,"",17657,3771,24984,46412
+92,"HONOLULU: Grants-In-Aid for Non-Profits",92,"MS",,15630,2569,15381,87,17,150,749917,153,153,217,"YES",1,"",61375,11065,61015,133455
+92,"HONOLULU: Grants-In-Aid for Non-Profits",92,"MS",,15630,2569,15381,87,17,150,749917,153,153,216,"NO",2,"",49790,10316,60949,121055
+93,"HONOLULU: Special Election Time Extension",93,"MS",,10913,1874,11093,135,21,163,749917,153,153,219,"YES",1,"",66120,12405,68054,146579
+93,"HONOLULU: Special Election Time Extension",93,"MS",,10913,1874,11093,135,21,163,749917,153,153,218,"NO",2,"",49714,9667,58185,117566
+94,"HONOLULU: Term Limits for City Offices",94,"MS",,9221,1666,10125,141,25,236,749917,153,153,221,"YES",1,"",40116,8751,49204,98071
+94,"HONOLULU: Term Limits for City Offices",94,"MS",,9221,1666,10125,141,25,236,749917,153,153,220,"NO",2,"",77404,13525,77930,168859
+95,"HONOLULU: Departmental Design and Construction Projects",95,"MS",,13736,2270,13576,53,12,102,749917,153,153,223,"YES",1,"",80215,15269,85383,180867
+95,"HONOLULU: Departmental Design and Construction Projects",95,"MS",,13736,2270,13576,53,12,102,749917,153,153,222,"NO",2,"",32878,6416,38434,77728
+96,"HONOLULU: Signing Delegation by Mayor",96,"MS",,10205,1721,10294,78,28,163,749917,153,153,225,"YES",1,"",53170,10440,53054,116664
+96,"HONOLULU: Signing Delegation by Mayor",96,"MS",,10205,1721,10294,78,28,163,749917,153,153,224,"NO",2,"",63429,11778,73984,149191
+97,"HONOLULU: Fire Commission Membership; Fire Chief Duties",97,"MS",,10083,1739,10045,79,9,114,749917,153,153,227,"YES",1,"",79251,15152,86440,180843
+97,"HONOLULU: Fire Commission Membership; Fire Chief Duties",97,"MS",,10083,1739,10045,79,9,114,749917,153,153,226,"NO",2,"",37469,7067,40896,85432
+98,"HONOLULU: Nonpartisan Reapportionment Commission",98,"MS",,15440,2316,19160,252,52,445,749917,153,153,229,"YES",1,"",36522,7834,44392,88748
+98,"HONOLULU: Nonpartisan Reapportionment Commission",98,"MS",,15440,2316,19160,252,52,445,749917,153,153,228,"NO",2,"",74668,13765,73498,161931
+99,"HONOLULU: Housekeeping; Records; Charter Deadline; Contracts; Purchasing",99,"MS",,16877,2592,20803,56,12,105,749917,153,153,231,"YES",1,"",95003,17787,94935,207725
+99,"HONOLULU: Housekeeping; Records; Charter Deadline; Contracts; Purchasing",99,"MS",,16877,2592,20803,56,12,105,749917,153,153,230,"NO",2,"",14946,3576,21652,40174

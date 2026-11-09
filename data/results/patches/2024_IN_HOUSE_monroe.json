@@ -1,0 +1,24 @@
+{
+  "mode": "fill",
+  "year": 2024,
+  "office": "HOUSE",
+  "special": 0,
+  "state_po": "IN",
+  "dem_cand": "Timothy Peck (IN-9)",
+  "rep_cand": "Erin Houchin (IN-9)",
+  "top_other_cand": "",
+  "sources": [
+    {
+      "title": "Indiana Election Division, certified 2024 General Election results archive (ENR), office category 1005 JSON with county breakdown (settings: Certified=T)",
+      "url": "https://enr.indianavoters.in.gov/archive/2024General/data/OffCatC_1005_A.json",
+      "retrieved": "2026-11-09"
+    },
+    {
+      "title": "Indiana Election Division, 2024 General Election results archive",
+      "url": "https://enr.indianavoters.in.gov/archive/2024General/index.html",
+      "retrieved": "2026-11-09"
+    }
+  ],
+  "method": "pipeline/patches/2024_IN_HOUSE_monroe.py (via _in_enr.py) takes the Monroe County entry of every U.S. House district race that includes Monroe (only the 9th District) from the certified JSON. Party D is dem, R is rep, and Libertarian, independent and write-in candidates are oth.",
+  "validation": "Monroe 18105 = official county totals dem 35,174 / rep 21,640 / oth 1,477 (MIT had only dem 9,811 / rep 4,994). Certified statewide (all 9 districts): dem 1,103,484 / rep 1,668,618. With this fill, the MIT-based state total is dem 1,181,006 (+7.0%) / rep 1,767,087 (+5.9%). The excess is outside Monroe: MIT counts Hendricks (18063) and St. Joseph (18141) twice, and Marshall (18099) and Warrick (18173) are slightly short."
+}

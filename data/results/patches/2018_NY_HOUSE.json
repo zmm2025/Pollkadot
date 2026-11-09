@@ -1,0 +1,16 @@
+{
+  "mode": "replace",
+  "year": 2018,
+  "office": "HOUSE",
+  "special": 0,
+  "state_po": "NY",
+  "dem_cand": "",
+  "rep_cand": "",
+  "top_other_cand": "",
+  "sources": [
+    {"title": "New York State Board of Elections: 2018 General Election Results, Representative in Congress by county within district (xlsx), certified December 14, 2018 (retrieved via the Internet Archive copy of 2018ElectionResults.html, as the live site blocks scripted downloads)", "url": "https://www.elections.ny.gov/NYSBOE/elections/2018/general/2018Congress.xlsx", "retrieved": "2026-11-09"},
+    {"title": "New York State Board of Elections: 2018 Election Results page", "url": "https://web.archive.org/web/20200218172620/https://www.elections.ny.gov/2018ElectionResults.html", "retrieved": "2026-11-09"}
+  ],
+  "method": "pipeline/patches/2018_NY_HOUSE.py reads the 27 district sheets of the certified NYSBOE workbook (one column per county or part-county), assigns every party line to its candidate (a candidate with a DEM line is dem, with a REP line rep, anyone else oth, e.g. Crowley's WOR/WEP lines in NY-14), counts Scattering as oth, drops Blank and Void, and sums each county over all districts touching it. The same-day NY-25 special election (unexpired term) is a separate file and is not included.",
+  "validation": "Every candidate's county sum equals the certified 'Total Votes by Candidate' in each of the 27 districts (0.00% difference), e.g. NY-18 D 139,564 / R 112,035, NY-20 D 176,811 / R 89,058, NY-21 D 99,791 / R 131,981, NY-25 D 159,244 / R 110,736. Statewide dem 3,990,483 / rep 1,859,074 / oth 99,116 across all 62 counties. Counties that MIT had complete (e.g. Kings, Queens, Erie, Monroe R) match MIT exactly."
+}

@@ -1,0 +1,24 @@
+{
+  "mode": "fill",
+  "year": 2022,
+  "office": "GOV",
+  "special": 0,
+  "state_po": "ID",
+  "dem_cand": "Stephen Heidt",
+  "rep_cand": "Brad Little",
+  "top_other_cand": "Ammon Bundy",
+  "sources": [
+    {
+      "title": "Idaho Secretary of State canvass database, 2022 Nov 8 General Election, Governor, results by county (CSV)",
+      "url": "https://canvass.sos.idaho.gov/eng/contests/download/17251/show_granularity_dt_id:3/.csv",
+      "retrieved": "2026-11-09"
+    },
+    {
+      "title": "Idaho Secretary of State canvass database, Governor contest page",
+      "url": "https://canvass.sos.idaho.gov/contests/view/17251",
+      "retrieved": "2026-11-09"
+    }
+  ],
+  "method": "pipeline/patches/2022_ID_GOV_power.py reads the Power row of the official county CSV; Little (Republican) -> rep, Heidt (Democratic) -> dem, Bundy, Sand, Davison and the write-in -> oth.",
+  "validation": "Power County (16077) official: Heidt 297, Little 1,411, others 264 (Bundy 210, Sand 24, Davison 30, write-in 0). State after filling: dem 120,160 / rep 358,598 / oth 113,866 vs certified 120,160 / 358,598 / 113,866: 0.00% / 0.00%."
+}

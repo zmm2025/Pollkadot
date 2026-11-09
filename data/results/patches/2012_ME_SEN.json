@@ -1,0 +1,17 @@
+{
+  "mode": "replace",
+  "year": 2012,
+  "office": "SEN",
+  "special": 0,
+  "state_po": "ME",
+  "dem_cand": "Cynthia Ann Dill",
+  "rep_cand": "Charles E. Summers, Jr.",
+  "top_other_cand": "Angus King",
+  "sources": [
+    {"title": "Maine Secretary of State, Bureau of Corporations, Elections and Commissions: November 6, 2012 General Election, United States Senate by municipality (xls)", "url": "https://www.maine.gov/sos/sites/maine.gov.sos/files/inline-files/2012ussenatemuni.xls", "retrieved": "2026-11-09"},
+    {"title": "Maine Secretary of State: November 6, 2012 General Election, United States Senate by county (xls)", "url": "https://www.maine.gov/sos/sites/maine.gov.sos/files/inline-files/2012ussenatecnty.xls", "retrieved": "2026-11-09"},
+    {"title": "Maine Secretary of State, Previous Election Results", "url": "https://www.maine.gov/sos/elections-voting/election-results-data/previous-election-results", "retrieved": "2026-11-09"}
+  ],
+  "method": "pipeline/patches/2012_ME_SEN.py sums the municipal rows of the official xls within each county block (checked against each block's County Totals row and the separate county file); Dill (Democrat) is dem, Summers (Republican) is rep, and King, Dalton, Dodge and Woods are oth; BLANK votes are excluded. The statewide-only STATE UOCAVA line (Dill 702, Summers 587, others 1,622; 3,029 ballots incl. 118 blank) belongs to no county and is left out.",
+  "validation": "CSV statewide dem 92,198 / rep 214,812 / oth 390,678 vs certified totals Dill 92,900 / Summers 215,399 (King 370,580): difference -702 (-0.76%) / -587 (-0.27%), exactly the STATE UOCAVA votes left out."
+}

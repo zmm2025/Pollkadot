@@ -1,0 +1,24 @@
+{
+  "mode": "fill",
+  "year": 2024,
+  "office": "SEN",
+  "special": 0,
+  "state_po": "IN",
+  "dem_cand": "Valerie McCray",
+  "rep_cand": "Jim Banks",
+  "top_other_cand": "Andrew Horning",
+  "sources": [
+    {
+      "title": "Indiana Election Division, certified 2024 General Election results archive (ENR), office category 1006 JSON with county breakdown (settings: Certified=T)",
+      "url": "https://enr.indianavoters.in.gov/archive/2024General/data/OffCatC_1006_A.json",
+      "retrieved": "2026-11-09"
+    },
+    {
+      "title": "Indiana Election Division, 2024 General Election results archive",
+      "url": "https://enr.indianavoters.in.gov/archive/2024General/index.html",
+      "retrieved": "2026-11-09"
+    }
+  ],
+  "method": "pipeline/patches/2024_IN_SEN_monroe.py (via _in_enr.py) takes the Monroe County entry from the certified JSON. Party D is dem, R is rep, and Libertarian, independent and write-in candidates are oth.",
+  "validation": "Monroe 18105 = official county totals dem 35,960 / rep 21,187 / oth 1,521 (MIT had only dem 9,991 / rep 4,915). Certified statewide: dem 1,097,061 / rep 1,659,416. With this fill, the MIT-based state total is dem 1,178,828 (+7.5%) / rep 1,762,753 (+6.2%). The excess is outside Monroe: MIT counts Hendricks (18063) and St. Joseph (18141) twice, and Marshall (18099) and Warrick (18173) are slightly short."
+}

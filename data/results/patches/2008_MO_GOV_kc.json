@@ -1,0 +1,24 @@
+{
+  "mode": "add",
+  "year": 2008,
+  "office": "GOV",
+  "special": 0,
+  "state_po": "MO",
+  "dem_cand": "Jeremiah W. (Jay) Nixon",
+  "rep_cand": "Kenny Hulshof",
+  "top_other_cand": "Andrew W. Finkenstadt",
+  "sources": [
+    {
+      "title": "Missouri Secretary of State, Official Election Returns, General Election 2008, results by county (Kansas City listed as its own jurisdiction) (pdf)",
+      "url": "https://www.sos.mo.gov/CMSImages/ElectionResultsStatistics/CountyGeneral2008.pdf",
+      "retrieved": "2026-11-09"
+    },
+    {
+      "title": "Missouri Secretary of State, Official Election Returns, General Election 2008, statewide totals (pdf)",
+      "url": "https://www.sos.mo.gov/CMSImages/ElectionResultsStatistics/AllRacesGeneralNovember2008.pdf",
+      "retrieved": "2026-11-09"
+    }
+  ],
+  "method": "Kansas City (Kansas City Board of Election Commissioners, the Jackson County part of the city) Governor votes transcribed from the official county-by-county returns PDF (text extracted with pdftotext; PDFs kept in data/raw/state/2008_MO_GOV_kc/) into one row added to Jackson County 29095; oth = Finkenstadt (LIB) 1,736, Thompson (CST) 1,162, write-ins 2. Needed because Amlani & Algara's Missouri 2008 Governor county rows omit Kansas City (statewide shortfall equals Kansas City exactly).",
+  "validation": "Amlani statewide dem 1,560,588 + KC 120,023 = 1,680,611 vs certified Jeremiah W. (Jay) Nixon 1,680,611: +0 (+0.00%); Amlani statewide rep 1,110,048 + KC 26,316 = 1,136,364 vs certified Kenny Hulshof 1,136,364: +0 (+0.00%). KC row sums to the official KC total of 149,239."
+}

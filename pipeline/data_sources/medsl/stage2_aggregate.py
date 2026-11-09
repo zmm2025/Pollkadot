@@ -1,7 +1,7 @@
-"""Stage 2: from stage-1 extracts build county / race / house-district tables (2018-2024).
+"""Stage 2: from stage-1 extracts build county / race / house-district tables (2016-2024).
 
-usage: python3 -I stage2_aggregate.py YEAR [YEAR ...]
-writes data/work/s2_{county,cands,house}_{YEAR}.csv and diagnostics
+usage: python -P stage2_aggregate.py YEAR [YEAR ...]
+writes build/work/s2_{county,cands,house}_{YEAR}.csv and diagnostics
 """
 import sys, re
 import numpy as np
@@ -9,7 +9,7 @@ import pandas as pd
 sys.path.insert(0, 'pipeline/data_sources/medsl')
 from common import load_s1
 
-W = 'data/work'
+W = 'build/work'
 
 META_RE = re.compile(
     r'^(UNDER ?/ ?OVER|REGISTERED|PUBLIC COUNTER|ABSENTEE ?/ ?MILITARY$|.*BALLOTS( CAST)?$|BALLOTS|ELIGIBLE|BLANKS?( BALLOTS| VOTES|/VOID)?$|UNDER ?VOTE|OVER ?VOTE|^OVER$|'
@@ -41,8 +41,8 @@ _fu = None
 def fips_universe():
     global _fu
     if _fu is None:
-        r = pd.read_csv('data/raw/tonmcg/2020_US_County_Level_Presidential_Results.csv', dtype={'county_fips': str})
-        _fu = set(r.county_fips.str.zfill(5)) | {'46102', '02000'}
+        import pickle   # the site's 3,142 county units
+        _fu = set(pickle.load(open('data/geometry/topo_s.pkl', 'rb'))['ids']) | {'46102', '02000'}
     return _fu
 
 
@@ -83,6 +83,7 @@ OVERRIDE = {
     (2016, 'KY', 'JAMES R COMER'): 'R', (2016, 'KY', 'SAMUEL L GASKINS'): 'D',
     (2016, 'VT', 'HILLARY CLINTON'): 'D', (2016, 'VT', 'DONALD TRUMP'): 'R',
     (2016, 'NE', 'BRAD ASHFORD'): 'D',
+    (2016, 'ND', 'DOUG BURGUM & BRENT SANFORD'): 'R', (2016, 'ND', 'MARVIN E NELSON & JOAN HECKAMAN'): 'D',
     (2024, 'NE', 'DAN OSBORN'): 'O',  # independent; MEDSL labels him DEMOCRAT (Democrats endorsed, no D nominee)
 }
 LABEL_OVERRIDE = {(2024, 'NE', 'DAN OSBORN'): 'INDEPENDENT'}
@@ -144,7 +145,7 @@ def norm_cand(s):
 
 
 def norm_district(off, dist):
-    x = dist.str.upper().str.strip()
+    x = dist.str.upper().str.strip().str.replace(r'^(\d+)\.0$', r'\1', regex=True)   # 2016 Dataverse file stores 1.0
     x = x.where(~x.isin(['AT-LARGE', 'AT LARGE', '0', '00', '000', 'AL']), '000')
     x = x.where(~x.isin(['STATEWIDE', 'NA', 'N/A']), '')
     x = x.where(~x.str.fullmatch(r'\d+'), x.str.zfill(3))

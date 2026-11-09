@@ -1,0 +1,17 @@
+{
+  "mode": "fill",
+  "year": 2016,
+  "office": "HOUSE",
+  "special": 0,
+  "state_po": "HI",
+  "dem_cand": "",
+  "rep_cand": "",
+  "top_other_cand": "",
+  "sources": [
+    {"title": "Hawaii Office of Elections: 2016 General Election final results by precinct (media.txt)", "url": "https://files.hawaii.gov/elections/files/results/2016/general/media.txt", "retrieved": "2026-11-09"},
+    {"title": "Hawaii Office of Elections: 2016 General Election final statewide summary (summary.txt)", "url": "https://files.hawaii.gov/elections/files/results/2016/general/summary.txt", "retrieved": "2026-11-09"},
+    {"title": "Hawaii Office of Elections: 2016 General Election final summary report, City and County of Honolulu (cch.pdf)", "url": "https://files.hawaii.gov/elections/files/results/2016/general/cch.pdf", "retrieved": "2026-11-09"}
+  ],
+  "method": "pipeline/patches/2016_HI_HOUSE_honolulu.py sums absentee mail, absentee walk-in and election-day votes over the Oahu precincts (State House districts 17-51) for the regular U.S. Representative Dist I race (contest 3, wholly in Honolulu) and Dist II race (contest 5), leaving out the same-day Dist I Vacancy special election (contest 4). (D) candidates are dem, (R) rep, and Yim (L) and Griffin (N) oth; blank and over votes are excluded.",
+  "validation": "HI-1 regular D 145,417 / R 45,958 / oth 10,982 equals the certified statewide summary and the Honolulu summary report exactly (0.00%); the Honolulu part of HI-2, D 57,922 / R 15,205, equals the Honolulu summary report exactly; precinct sums for both contests equal the statewide summary for every candidate. Honolulu total dem 203,339 / rep 61,163 / oth 10,982 (MIT had 347,846 / 105,253 / 20,389 with the special merged in). The non-Oahu precinct sums for HI-2 (Hawaii 62,500, Maui incl. Kalawao 49,759, Kauai 25,130 two-party votes) match MIT's existing county values exactly."
+}

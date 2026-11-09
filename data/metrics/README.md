@@ -1,24 +1,29 @@
 # County metrics: educational attainment and GDP
 
-Build script: `pipeline/data_sources/metrics/build_metrics.py`, run with `python3 -I`. Check log: `pipeline/data_sources/metrics/build_log.txt`.
+Build script: `pipeline/data_sources/metrics/build_metrics.py`, run with `python -P`. Check log: `pipeline/data_sources/metrics/build_log.txt`.
 The build is deterministic: two runs in a row gave the same sha256 for both outputs.
 - `education.csv`: `13c8d3c59ab2a839424bfee83527e7c7e684ad33e327608872b2bb4254a6da08`
 - `gdp.csv`: `f4c842debe97d23987b97f861a734c49be1a10173b76dd66eaf274472fb8be2b`
 
 The county set is the one in `data/pop/county_pop.csv`, except that Alaska uses **02261 Valdez-Cordova** (02063 Chugach + 02066 Copper River combined). Connecticut is the 8 old counties (09001–09015) and Virginia's independent cities are separate. That makes **3,142 FIPS**: 50 states + DC, no Puerto Rico, no state or national rows.
 
-## Input files (public GitHub clones; usda.gov and bea.gov cannot be reached from this sandbox)
+## Input files (downloaded from the publishing agencies)
 
-| File | Repo (commit) and path | sha256 |
+| File | URL | sha256 |
 |---|---|---|
-| USDA ERS `Education2023.csv` (long format: FIPS Code, State, Area name, Attribute, Value) | https://github.com/SmashTE/County-Recommender (`de9deeff823ea7cef1f90690ad35375d20d65539`), `data/Education2023.csv` | `3a84f356…08f5` |
-| BEA `CAGDP1.zip` → `CAGDP1__ALL_AREAS_2001_2024.csv` ("Last updated: February 5, 2026-- new statistics for 2024; revised statistics for 2020-2023") | https://github.com/RobPaine1/Data-Visualization-Project (`c6ce63ebbe2ebcf33e2a9966a99b4681a7fe7de7`), `Raw Data/CAGDP1.zip` | zip `95b49283…6fe1`, csv `444b10c6…0f14` |
-| Cross-check only: BEA `CAGDP1__ALL_AREAS_2001_2023.csv` (earlier vintage) | https://github.com/mbauerw/gdp_vs_pop (`92818c882232e81a8c08db065095c6966ea4868d`), `dataset/CAGDP1__ALL_AREAS_2001_2023.csv` | `ace43c56…8c8c` |
-| Cross-check only: ERS-derived 2019-23 "Bachelors Percent" by county | https://github.com/zreller/Personal_Work (`6b2609a43a0b03ad7b9c45cb4b225a5c9a892a83`), `CSCI_291/homeWork8/education2023.csv` | — |
-| CT town population (for CT allocation in education) and CT town→old-county crosswalk | the same files as the pop build (see `data/pop/README.md`): `sub-est2024_9.csv` (notpac93/usa-representative-map-2 `281aeafa…`) and `ct-town-county-fips-list.csv` (CT-Data-Collaborative `6a0f6b3e…`) | `e5bd2cb1…83df`, `8489a213…5b3b` |
-| Population (for splitting the BEA combo areas) | `data/pop/county_pop.csv` | `4851798d…7427` |
+| USDA ERS `Education2023.csv` (long format: FIPS Code, State, Area name, Attribute, Value) | https://ers.usda.gov/sites/default/files/_laserfiche/DataFiles/48747/Education2023.csv | `4348b20e…8dae2b7b` |
+| BEA `CAGDP1.zip` → `CAGDP1__ALL_AREAS_2001_2024.csv` ("Last updated: February 5, 2026-- new statistics for 2024; revised statistics for 2020-2023") | https://apps.bea.gov/regional/zip/CAGDP1.zip | zip `95b49283…3b166fe1`, csv `444b10c6…28750f14` |
+| CT town population and CT town→old-county crosswalk | the same files as the population build (see `data/pop/README.md`) | |
+| Population (for splitting the BEA combo areas) | `data/pop/county_pop.csv` | |
 
-Full hashes are in `build_log.txt`.
+Save them as `build/downloads/ers/Education2023.csv`, `build/downloads/bea/CAGDP1.zip` and
+`build/downloads/bea/x/CAGDP1__ALL_AREAS_2001_2024.csv` (extracted). The BEA zip is byte-identical to the GitHub
+copy an earlier version of this build used. The ERS file is not byte-identical to that earlier copy, but
+`education.csv` built from it is (same sha256 as before).
+
+Outputs: `education.csv` sha256 `13c8d3c59ab2a839424bfee83527e7c7e684ad33e327608872b2bb4254a6da08`,
+`gdp.csv` sha256 `9758fedef55ca9bc43aed8bd5f5f39a69a7c74f2a21c9684b5fa55aeebf40014`.
+
 
 ## education.csv
 
@@ -54,9 +59,9 @@ Approximations (each is flagged "(approx)" in `source`):
 
 Columns: `fips, year, gdp_thousands_current_dollars, source`. The values are BEA CAGDP1 LineCode 3, "Current-dollar GDP (thousands of current dollars)". This equals CAGDP2 line 1 "All industry total". It is the February 5, 2026 release.
 
-- **Years:** 2008–2024 (17 years), 3,142 rows per year, 53,414 rows in all.
-- **Suppression:** there are no "(D)" or "(NA)" values in this line for any output county-year, so there are 0 blanks. The only "(NA)" cells in the source are structural ones that are handled below: retired Alaska areas, CT old counties in 2024, and CT planning regions before 2024.
-- **Cross-check:** the 2008–2019 values are 100% identical (38,136 cells) to the earlier 2001–2023 vintage. Later years differ only because BEA revised 2020–2023.
+- **Years:** 2001–2024 (24 years), 3,142 rows per year, 75,408 rows in all. County GDP starts in 2001; elections in 2000 use 2001.
+- **Suppression:** there are no "(D)" values in this line for any output county-year. The one blank is 08014 Broomfield in 2001 ("(NA)": the county was created in November 2001; its area's GDP is in its parent counties). The only "(NA)" cells in the source are structural ones that are handled below: retired Alaska areas, CT old counties in 2024, and CT planning regions before 2024.
+- **Cross-check:** the 2008–2024 values are identical to the previous build of this file.
 - **Consistency:** every state's output county sum is within 9k (rel. <2e-7) of the BEA state row, which is rounding.
 - **Not in any county:** the US total exceeds the sum of the states by $91–160 B a year (BEA's overseas federal military and civilian activity, which no county gets).
 
@@ -76,7 +81,8 @@ Exact transformations:
 Approximations (each is flagged "(approx)" in `source`):
 1. **Virginia combo areas** (23 BEA areas, 51901–51958, covering 53 county/city FIPS) and **Hawaii 15901 Maui + Kalawao.** Each combo's GDP is split across its members by that year's population from `county_pop.csv`. Integers are assigned by largest remainder, so the combo totals are exact. This assumes GDP per person is the same within each combo, which is not true for city/county pairs such as Charlottesville and Albemarle. Every year has 53 such rows.
 2. **Connecticut 2024.** BEA publishes only the 9 planning regions for 2024. The CT total (the sum of the regions) was allocated to the 8 old counties by their **2023 BEA GDP shares**. **This is not the method in the brief**, which was population share within each planning region. I computed that method as well, and it is still in the script (`CT_GDP_METHOD = "town_pop_share"`). Spreading each region's GDP over its towns by population moves Hartford-area (Capitol region) output onto the Tolland County towns. That would give Tolland $17.2 B in 2024, against $6.9 B published for 2023. Compared with the 2023-share allocation, it is 2.39× for Tolland, 1.20× for Litchfield and 1.14× for Middlesex, and 0.92× for Hartford and Fairfield. The 2023-share method keeps the 2023→2024 change uniform at 4.38% for every old county instead. Both allocations are in `build_log.txt`.
-3. **Alaska 2008.** BEA still uses 02280 Wrangell-Petersburg and 02201 Prince of Wales-Outer Ketchikan in 2008.
-   - 02280 → 02195 + 02275, split by their 2009 GDP shares.
-   - 02201 is used as 02198.
-   - 02232 is already split into 02105 and 02230 in 2008.
+3. **Alaska 2001–2008.** BEA still uses older borough geography in these years. Each retired area is moved onto today's
+   areas by the GDP shares of the first later year in which all of them are published:
+   - 02280 Wrangell-Petersburg (through 2008) → 02195 + 02275, split by their 2009 GDP shares.
+   - 02232 Skagway-Hoonah-Angoon (through 2007) → 02105 + 02230, split by their 2008 GDP shares.
+   - 02201 Prince of Wales-Outer Ketchikan (through 2008) is used as 02198.

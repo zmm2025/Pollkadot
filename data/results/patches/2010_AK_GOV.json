@@ -1,0 +1,19 @@
+{
+  "mode": "replace",
+  "year": 2010,
+  "office": "GOV",
+  "special": 0,
+  "state_po": "AK",
+  "dem_cand": "Ethan Berkowitz",
+  "rep_cand": "Sean Parnell",
+  "top_other_cand": "Donald R. Wright",
+  "sources": [
+    {
+      "title": "Alaska Division of Elections, 2010 General Election November 2, 2010, Official Results without US Senate Race (statewide summary, pdf)",
+      "url": "https://www.elections.alaska.gov/results/10GENR/data/resultsOF.pdf",
+      "retrieved": "2026-11-09"
+    }
+  ],
+  "method": "Statewide Governor/Lt. Governor totals transcribed from the official results PDF (kept as data/raw/state/2010_AK_GOV/10GENR_resultsOF.pdf) into one Alaska row 02000; oth = Toien/Brown (LIB) 2,682, Wright (AI) 4,775, write-ins 898.",
+  "validation": "CSV dem 96,519 / rep 151,318 / oth 8,355 (sum 256,192) vs certified Democratic Ethan Berkowitz 96,519 / Republican Sean Parnell 151,318, total votes 256,192: difference 0 / 0 (0.00%)."
+}

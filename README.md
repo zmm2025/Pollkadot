@@ -11,7 +11,7 @@ A normal election map makes the country look mostly red because big, empty count
 ## What you can explore
 
 - **Races:** President, Senate, House and Governor, plus special elections. Tap the **year** or the **race** in the title at the top to switch.
-- **Years:** presidential elections from 2008 to 2024, and Senate, House and Governor races from 2016 to 2024.
+- **Years:** President, Senate and Governor from 2000 to 2024, and the House from 2016 to 2024.
 - **Counties or states:** look at every county, or merge them into states.
 
 ## The controls
@@ -57,10 +57,10 @@ Pollkadot uses only red and blue. A county split 50/50 is purple, and the colors
 
 All numbers come from public sources and are processed the same way every time.
 
-- **Election results:** MIT Election Data and Science Lab (county and precinct returns), and Tony McGovern's county-level presidential results for 2020 and 2024.
+- **Election results:** MIT Election Data and Science Lab (county presidential returns and precinct returns), and Amlani & Algara's county returns for Senate and Governor races before 2016. Where those sources are missing a race or some counties, the gap is filled from the state's own official results, and **Details** says so.
 - **Population:** US Census Bureau county estimates.
-- **College graduates:** USDA Economic Research Service education data.
-- **GDP:** US Bureau of Economic Analysis county GDP.
+- **College graduates:** USDA Economic Research Service education data (Census 2000 and American Community Survey).
+- **GDP:** US Bureau of Economic Analysis county GDP (from 2001; the 2000 maps use 2001).
 - **County shapes:** US Census Bureau county boundaries.
 
 ## Things to know
@@ -68,7 +68,7 @@ All numbers come from public sources and are processed the same way every time.
 - **Alaska** doesn't report results by borough, so it's shown as one statewide result.
 - **Connecticut** uses its 8 historical counties.
 - **House** results are added up by county across districts, so a county can include more than one race.
-- Uncontested races and missing reports leave some counties blank. **Details** lists them.
+- Uncontested House races leave some counties blank, and a few older races have small gaps. **Details** lists them.
 - A map with sizes this distorted can't be perfect. The contiguous shapes come within a few percent of the target sizes, and small counties may look a bit off.
 
 ---

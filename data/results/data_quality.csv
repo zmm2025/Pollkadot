@@ -1,51 +1,80 @@
 year,office,special,state_po,severity,issue
-2016,ALL,,ALL,info,"2016 source is MEDSL/precinct-returns (older schema, party labels free text); national PRES D/R within 0.01% of certified"
-2016,GOV,0,ND,info,"MEDSL office label 'Governor and Lt. Governor' (included)"
-2016,GOV,0,OR,info,"2016 Oregon governor race was a special election; kept special=0 (only governor race that year)"
-2016,GOV,0,NH,major,"Sullivan County (33019) absent from MEDSL governor data; statewide D/R -3.0% vs certified"
-2016,GOV,0,IN,fixed,"Jackson County (18071) governor rows were filed under US Senate in MEDSL; moved back to GOV"
-2016,HOUSE,0,HI,major,"HI-1 regular and same-day special election are merged in MEDSL (both special=FALSE); Honolulu (15003) House votes ~double; house_districts HI 001 inflated"
-2016,HOUSE,0,IN,major,"Kosciusko (18085) House votes doubled (county-wide votes reported in both IN-2 and IN-3); Wabash (18169) House absent; Grant (18053) partial"
-2016,HOUSE,0,TX,info,"TX-8 (Brady, unopposed) not in MEDSL data -> 7 counties without House rows"
-2016,HOUSE,0,OK,info,"OK-1 had no general election (unopposed) -> 3 counties without House rows"
-2016,SEN,0,SC,minor,"Some votes for the Democratic nominee cast on minor-party fusion lines under different name variants counted as oth (D about -7% vs Pettigrew county data)"
-2016,HOUSE,0,OR;UT;SC,minor,"Fusion/cross-nominations: candidate-level party assignment differs from line-level references by 2-10% of one party"
-2018,GOV,0,NY,major,"MEDSL 2018 NY incomplete: 5 counties absent (36003,36037,36071,36097,36103) and others partial; D -9.6% / R -15.5% vs certified (Cuomo 3,635,340 / Molinaro 2,207,602)"
-2018,SEN,0,NY,major,"3 counties absent (36045,36063,36111) plus partial counties (~3.7% of votes)"
-2018,HOUSE,0,NY,major,"15 counties absent; NY-18, NY-20, NY-21 absent; Morelle (D) absent from NY-25 regular and special"
-2018,HOUSE,0,ME,major,"ME-2 (Golden v Poliquin, RCV) absent from MEDSL 2018 data -> 10 counties without House rows"
-2018,SEN,0,IN,minor,"State total ~1% below certified (Donnelly -1.5%, Braun -0.5%); Washington County (18175) absent for SEN and HOUSE"
-2018,HOUSE,0,IN,minor,"34,413 House votes with blank district in multi-district counties -> kept in county totals, excluded from house_districts (district UNK)"
-2018,ALL,,WI,info,"MEDSL 2018 WI file uses legacy schema without FIPS; county FIPS derived from county names (WI 2020 lookup)"
-2018,SEN,1,MS,info,"Nov-6 jungle special (Hyde-Smith/Espy/McDaniel); Nov-27 runoff not in data"
-2018,HOUSE,1,MI;NY,info,"Same-day House specials (MI-13, NY-25) kept as special=1"
-2020,ALL,,IN,missing,"MEDSL 2020 precinct data has no Indiana file -> no IN rows for PRES, GOV, HOUSE"
-2020,SEN,0;1,GA,info,"Jan-5-2021 runoffs are not in the MEDSL 2020 data; only Nov-3 general (regular) and jungle special"
-2020,HOUSE,0,MD,fixed,"MD-7 Nov-2020 race flagged special in MEDSL; treated as regular (special=0)"
-2020,ALL,,NC,fixed,"zip contains two CSVs (one a re-sorted duplicate); only 2020-nc-precinct-general.csv used"
-2020,PRES,0,KS;ME,info,"tonmcg reference differs by 1-2% but our totals equal the certified results"
-2022,SEN,0;1,CA,missing,"MEDSL 2022 CA file contains no US Senate rows (neither regular nor partial-term special)"
-2022,GOV,0,TN,missing,"MEDSL 2022 TN file contains no governor rows"
-2022,ALL,,IN,major,"MEDSL README: numerous Indiana counties did not report precinct data; 54 of 92 counties absent"
-2022,ALL,,AR,minor,"Phillips County (05107) absent (MEDSL README)"
-2022,SEN;HOUSE,0,ID,minor,"Power County (16077) absent for SEN and HOUSE (MEDSL README)"
-2022,SEN,0,NY,minor,"Chemung (36015) absent for SEN; Putnam (36079) partial; NY 2022 uses mixed TOTAL/UNSPECIFIED/mode reporting (see README)"
-2022,GOV,0,MI,minor,"Statewide ~0.8% below certified (Whitmer -1.2%, Dixon -0.6%); Wayne County governor rows ~3% below its House total"
-2022,HOUSE,0,MI,minor,"Midland (26111) House votes partial"
-2022,SEN,2,GA,info,"Dec-6 runoff present in data; output as office SEN special=2"
-2022,GOV,0,NM,fixed,"Lujan Grisham/Ronchetti have blank party labels in MEDSL; set to D/R"
-2022,HOUSE,0,WA,minor,"27,677 House votes with blank district -> county totals only (district UNK)"
-2022,HOUSE,0,LA,info,"LA-4 (Johnson, unopposed) not on ballot -> 15 parishes without House rows"
-2024,ALL,,LA,major,"MEDSL README: Louisiana early votes are reported only at parish level and are NOT in the precinct data -> all LA 2024 county totals are ~48% low and skew Republican; do not use LA 2024 shares"
-2024,PRES;SEN;GOV;HOUSE,0,IN,major,"Duplicated precinct set in St. Joseph (18141) and county-total row in Hendricks (18063) removed; Monroe (18105) only ~28% reported; PRES D -2.1% / R -0.8%, SEN D -2.4% / R -1.0% vs certified; MEDSL warns SEN/GOV straight-party folding in some counties"
-2024,ALL,,NJ,minor,"Municipal sub-total rows and a Gloucester (34015) county-total row removed; Mercer (34021) early vote absent (~25% low); PRES D -0.96% / R -0.55%"
-2024,GOV,0,ND,major,"Burleigh (38015) and Divide (38023) absent from MEDSL governor data (~14.5% of votes)"
-2024,PRES;SEN,0,ME,minor,"Some towns unassigned/absent: PRES D -1.2%, SEN D -2.7% vs certified"
-2024,HOUSE,0,TX,fixed,"TX-18 regular race (Turner v Centonze) mislabelled special in MEDSL -> special=0; concurrent special (Erica Lee Carter) absent"
-2024,SEN,0,NE,fixed,"Dan Osborn labelled DEMOCRAT in MEDSL; reclassified as independent (oth)"
-2024,SEN,0,CT,info,"Murphy total includes Working Families line (candidate-level party assignment); MEDSL party-line D total is 4.9% lower"
-2024,HOUSE,0,OK,info,"OK-3 (Lucas, unopposed) not on ballot -> 28 counties without House rows"
-2024,ALL,,AK,info,"MEDSL 2024 AK assigns only ~half the votes to boroughs; AK output as one statewide row 02000 (as in all years)"
-ALL,ALL,,AK,info,"Alaska is a single row fips 02000 (precincts are state-house districts); 2022/2024 values are first-choice (RCV round 1) counts"
+ALL,ALL,,AK,info,Alaska is a single row fips 02000 (precincts are state-house districts); 2022/2024 values are first-choice (RCV round 1) counts
+ALL,ALL,,ALL,info,"Sources: MEDSL county presidential returns (President 2000-2024), MEDSL precinct returns (Senate/House/Governor 2016-2024), Amlani & Algara county returns (Senate/Governor 2000-2014), official state results for the patched races below. See data/results/README.md."
 ALL,ALL,,ME;RI;GA,info,"Statewide UOCAVA/federal/'state floating' ballots without a county are in fips SS000 rows (23000, 44000, 13000)"
-ALL,HOUSE,0,FL,info,"Florida does not print unopposed House races; those districts/counties have no House rows"
+ALL,HOUSE,0,FL,info,Florida does not print unopposed House races; those districts/counties have no House rows
+2000,PRES,0,CO,missing,"Broomfield County (08014) did not exist until November 2001; its voters are counted in Adams, Boulder, Jefferson and Weld counties"
+2002,GOV,0,AK,fixed,"Patched from official state results (whole race; patches/2002_AK_GOV): Alaska Division of Elections, General Election November 5, 2002, Official Results (statewide summary, pdf)"
+2002;2014,SEN,0,LA,info,"Louisiana values are the December runoffs (the decisive round), as published by Amlani & Algara"
+2004,GOV,0,MO,fixed,"Patched from official state results (votes added; patches/2004_MO_GOV_kc): Missouri Secretary of State, Official Election Returns, General Election 2004, results by county (Kansas City listed as its own jurisdiction) (pdf); Missouri Secretary of State, Official Election Returns, General Election 2004, statewide totals (pdf)"
+2004,PRES,0,AK,fixed,MEDSL county file Alaska district rows sum to ~1.6x the certified total; Alaska uses MEDSL statewide totals in every year
+2004,PRES,0,ME,fixed,MEDSL county presidential file 8% below certified; Amlani & Algara used (matches certified exactly)
+2004,PRES,0,MS,fixed,MEDSL county presidential file 4% below certified; Amlani & Algara used (matches certified)
+2004,SEN,0,MO,fixed,"Patched from official state results (votes added; patches/2004_MO_SEN_kc): Missouri Secretary of State, Official Election Returns, General Election 2004, results by county (Kansas City listed as its own jurisdiction) (pdf); Missouri Secretary of State, Official Election Returns, General Election 2004, statewide totals (pdf)"
+2006,GOV,0,AK,fixed,"Patched from official state results (whole race; patches/2006_AK_GOV): Alaska Division of Elections, 2006 General Election November 7, 2006, Official Results (statewide summary, pdf)"
+2006,SEN,0,MO,fixed,"Patched from official state results (votes added; patches/2006_MO_SEN_kc): Missouri Secretary of State, Official Election Returns, General Election 2006, results by county (Kansas City listed as its own jurisdiction) (pdf); Missouri Secretary of State, Official Election Returns, General Election 2006, statewide totals (pdf)"
+2006;2012,SEN,0,VT,info,"Bernie Sanders is counted as an independent (oth), as in 2018-2024; there was no Democratic nominee"
+2008,GOV,0,MO,fixed,"Patched from official state results (votes added; patches/2008_MO_GOV_kc): Missouri Secretary of State, Official Election Returns, General Election 2008, results by county (Kansas City listed as its own jurisdiction) (pdf); Missouri Secretary of State, Official Election Returns, General Election 2008, statewide totals (pdf)"
+2010,GOV,0,AK,fixed,"Patched from official state results (whole race; patches/2010_AK_GOV): Alaska Division of Elections, 2010 General Election November 2, 2010, Official Results without US Senate Race (statewide summary, pdf)"
+2010,GOV,1,UT,fixed,"Patched from official state results (whole race; patches/2010_UT_GOV_special): Utah Lieutenant Governor, Office of Elections: 2010 General Election canvass by county (xls, sheet Governor); Utah Office of Elections, Historical Election Results"
+2010,SEN,1,MA,info,January 2010 special election not included (not a November election)
+2010,SEN,0,MO,fixed,"Patched from official state results (votes added; patches/2010_MO_SEN_kc): Missouri Secretary of State, Official Election Returns, General Election 2010, results by county (Kansas City listed as its own jurisdiction) (pdf); Missouri Secretary of State, Official Election Returns, General Election 2010, statewide totals (pdf)"
+2012,GOV,0,MO,fixed,"Patched from official state results (votes added; patches/2012_MO_GOV_kc): Missouri Secretary of State, Official Election Returns, General Election 2012, results by county (Kansas City listed as its own jurisdiction) (pdf); Missouri Secretary of State, Official Election Returns, General Election 2012, statewide totals (pdf)"
+2012,SEN,0,ME,info,Angus King is counted as an independent (oth)
+2012,SEN,0,ME,fixed,"Patched from official state results (whole race; patches/2012_ME_SEN): Maine Secretary of State, Bureau of Corporations, Elections and Commissions: November 6, 2012 General Election, United States Senate by municipality (xls); Maine Secretary of State: November 6, 2012 General Election, United States Senate by county (xls); Maine Secretary of State, Previous Election Results"
+2012,SEN,0,MO,fixed,"Patched from official state results (votes added; patches/2012_MO_SEN_kc): Missouri Secretary of State, Official Election Returns, General Election 2012, results by county (Kansas City listed as its own jurisdiction) (pdf); Missouri Secretary of State, Official Election Returns, General Election 2012, statewide totals (pdf)"
+2014,GOV,0,AK,fixed,"Patched from official state results (whole race; patches/2014_AK_GOV): Alaska Division of Elections, 2014 General Election November 4, 2014, Official Results (statewide summary, pdf)"
+2016,GOV,0,IN,fixed,Jackson County (18071) governor rows were filed under US Senate in MEDSL; moved back to GOV
+2016,GOV,0,ND,fixed,MEDSL has no party labels for Burgum (R) and Nelson (D); set from the official nominees
+2016,GOV,0,ND,info,MEDSL office label 'Governor and Lt. Governor' (included)
+2016,GOV,0,NH,fixed,Sullivan County (33019) absent from MEDSL; filled from Amlani & Algara
+2016,GOV,0,OR,info,2016 Oregon governor race was a special election; kept special=0 (only governor race that year)
+2016;2020;2022;2024,HOUSE,0,FL;LA;OK;TX,info,"Unopposed House candidates are not on the ballot in these states, so counties wholly in such districts have no House votes"
+2016,HOUSE,0,HI,fixed,"Patched from official state results (listed counties; patches/2016_HI_HOUSE_honolulu): Hawaii Office of Elections: 2016 General Election final results by precinct (media.txt); Hawaii Office of Elections: 2016 General Election final statewide summary (summary.txt); Hawaii Office of Elections: 2016 General Election final summary report, City and County of Honolulu (cch.pdf)"
+2016,HOUSE,0,IN,minor,"Grant, Kosciusko and Wabash from the Indiana Election Division results archive, whose district totals are 0.05-0.17% below the certified totals"
+2016,HOUSE,0,IN,fixed,"Patched from official state results (listed counties; patches/2016_IN_HOUSE_fix): Indiana Election Division, election results archive: November 8, 2016 General Election, US Representative by district and county (data file OffCatC_1753_A.json); Indiana Election Division, Election Results (links to the 2016 general election archive)"
+2016,HOUSE,0,OK,info,OK-1 had no general election (unopposed) -> 3 counties without House rows
+2016,HOUSE,0,TX,info,"TX-8 (Brady, unopposed) not in MEDSL data -> 7 counties without House rows"
+2018,ALL,,WI,info,MEDSL 2018 WI file uses legacy schema without FIPS; county FIPS derived from county names (WI 2020 lookup)
+2018,GOV;SEN,0,NY,fixed,MEDSL 2018 NY precinct data incomplete (counties absent or partial); whole races from Amlani & Algara
+2018,HOUSE,0,IN,missing,Washington County (18175) House votes absent from MEDSL
+2018,HOUSE,0,ME,fixed,"Patched from official state results (votes added; patches/2018_ME_HOUSE_d2): Maine Secretary of State, Election Results 2018: Representative to Congress - District 2, cast vote records (FINAL) spreadsheets #1-#8 (xlsx); Maine Secretary of State: Representative to Congress - District 2, RCV summary report, results certified to the Governor 11/26/18 (xls); Maine Secretary of State: Representative to"
+2018,HOUSE,1,MI;NY,info,"Same-day House specials (MI-13, NY-25) kept as special=1"
+2018,HOUSE,0,NY,fixed,"Patched from official state results (whole race; patches/2018_NY_HOUSE): New York State Board of Elections: 2018 General Election Results, Representative in Congress by county within district (xlsx), certified December 14, 2018 (retrieved via the Internet Archive copy of 2018ElectionResults.html, as the live site blocks scripted downloads); New York State Board of Elections: 2018 Election Results "
+2018,SEN,0,IN,fixed,Washington County (18175) absent from MEDSL; filled from Amlani & Algara
+2018,SEN,0,IN,minor,MEDSL statewide D -1.2% vs certified
+2018,SEN,1,MS,info,Nov-6 jungle special (Hyde-Smith/Espy/McDaniel); Nov-27 runoff not in data
+2018,SEN,0,NJ,minor,"MEDSL statewide D -1.6%, R -1.2% vs certified"
+2020,ALL,,NC,fixed,zip contains two CSVs (one a re-sorted duplicate); only 2020-nc-precinct-general.csv used
+2020,GOV,0,IN,fixed,MEDSL 2020 has precinct data for only 56 Indiana counties; whole race from Amlani & Algara
+2020,HOUSE,0,IN,fixed,"Patched from official state results (whole race; patches/2020_IN_HOUSE): Indiana Election Division, 2020 General Election certified results archive (US Representative, office category 1005, JSON data file); Indiana Election Division, 2020 General Election Results (archive site; settings.json Certified = T); Indiana Election Commission, Election Results index"
+2020,HOUSE,0,MD,fixed,MD-7 Nov-2020 race flagged special in MEDSL; treated as regular (special=0)
+2020;2024,PRES,0,ME,minor,Statewide-only (overseas/military) ballots are not in any county: D about -1%
+2020,SEN,0;1,GA,info,Jan-5-2021 runoffs are not in the MEDSL 2020 data; only Nov-3 general (regular) and jungle special
+2022,GOV,0,AR,fixed,"Patched from official state results (listed counties; patches/2022_AR_GOV_phillips): Arkansas Secretary of State, 2022 General Election and Nonpartisan Judicial Runoff results (official; FullDataFile.json, election 1844, IsOfficial = true); Arkansas Secretary of State, results site for the 2022 General Election; Arkansas Secretary of State, Election Results index"
+2022,GOV,0,ID,fixed,"Patched from official state results (listed counties; patches/2022_ID_GOV_power): Idaho Secretary of State canvass database, 2022 Nov 8 General Election, Governor, results by county (CSV); Idaho Secretary of State canvass database, Governor contest page"
+2022,GOV,0,MI,fixed,"Patched from official state results (listed counties; patches/2022_MI_GOV_wayne): Michigan Secretary of State, 11/8/2022 State General official results by county, Election Data file (2022STATE_GENERAL_MI_CENR_BY_COUNTY.txt); Michigan Secretary of State, 2022 Michigan Election Results (County Results, OFFICIAL)"
+2022,GOV,0,NM,fixed,Lujan Grisham/Ronchetti have blank party labels in MEDSL; set to D/R
+2022,GOV,0,TN,fixed,"Patched from official state results (whole race; patches/2022_TN_GOV): Tennessee Secretary of State, November 8, 2022 State General, all offices by precinct (xlsx); Tennessee Secretary of State, November 8, 2022 State General, Governor totals by office (pdf); Tennessee Secretary of State, Election Results index"
+2022,HOUSE,0,AR,fixed,"Patched from official state results (listed counties; patches/2022_AR_HOUSE_phillips): Arkansas Secretary of State, 2022 General Election and Nonpartisan Judicial Runoff results (official; FullDataFile.json, election 1844, IsOfficial = true); Arkansas Secretary of State, results site for the 2022 General Election; Arkansas Secretary of State, Election Results index"
+2022,HOUSE,0,ID,fixed,"Patched from official state results (listed counties; patches/2022_ID_HOUSE_power): Idaho Secretary of State canvass database, 2022 Nov 8 General Election, U.S. Representative District 2, results by county (CSV); Idaho Secretary of State canvass database, U.S. Representative District 1 contest (checked: no Power County row)"
+2022,HOUSE,0,IN,fixed,"Patched from official state results (whole race; patches/2022_IN_HOUSE): Indiana Election Division, 2022 General Election certified results archive (US Representative, office category 1005, JSON data file); Indiana Election Division, 2022 General Election Results (archive site; settings.json Certified = T)"
+2022,HOUSE,0,LA,info,"LA-4 (Johnson, unopposed) not on ballot -> 15 parishes without House rows"
+2022,HOUSE,0,MI,fixed,"Patched from official state results (listed counties; patches/2022_MI_HOUSE_midland): Michigan Secretary of State, 11/8/2022 State General official results by county, Election Data file (2022STATE_GENERAL_MI_CENR_BY_COUNTY.txt); Michigan Secretary of State, 2022 Michigan Election Results (County Results, OFFICIAL)"
+2022,SEN,1,CA,fixed,"Patched from official state results (whole race; patches/2022_CA_SEN_special): California Secretary of State, Statement of Vote, November 8, 2022 General Election: United States Senator (Partial/Unexpired Term) by county (xlsx); California Secretary of State, Statement of Vote, November 8, 2022 General Election (index)"
+2022,SEN,0,CA;IN;AR;ID;NY,fixed,2022 Senate from MEDSL county-level Senate returns (precinct data lacks CA entirely and most IN counties)
+2022,SEN,2,GA,info,Dec-6 runoff present in data; output as office SEN special=2
+2024,ALL,,AK,info,MEDSL 2024 AK assigns only ~half the votes to boroughs; AK output as one statewide row 02000 (as in all years)
+2024,GOV,0,IN,fixed,"Patched from official state results (listed counties; patches/2024_IN_GOV_monroe): Indiana Election Division, certified 2024 General Election results archive (ENR), office category 1007 JSON with county breakdown (settings: Certified=T); Indiana Election Division, 2024 General Election results archive"
+2024,GOV,0,ND,fixed,"Patched from official state results (listed counties; patches/2024_ND_GOV): North Dakota Secretary of State, 2024 Official General Election Results, Governor and Lt. Governor, county export (Statewide County Results.xlsx)"
+2024,HOUSE,0,IN,fixed,"Patched from official state results (listed counties; patches/2024_IN_HOUSE_monroe): Indiana Election Division, certified 2024 General Election results archive (ENR), office category 1005 JSON with county breakdown (settings: Certified=T); Indiana Election Division, 2024 General Election results archive"
+2024,HOUSE,0,LA,fixed,"Patched from official state results (whole race; patches/2024_LA_HOUSE): Louisiana Secretary of State, Graphical Election Results, Nov 5 2024, U.S. Representative districts 1-6, results by parish (CSV download ByParish_<raceid>.csv; race ids 67171, 67187, 67188, 67174, 67175, 67189); Louisiana Secretary of State, Nov 5 2024 multiparish race totals (Votes_Multiparish / RacesCandidates_Multiparish J"
+2024,HOUSE,0,NJ,fixed,"Patched from official state results (listed counties; patches/2024_NJ_HOUSE_mercer): NJ Division of Elections, 2024 Official General Election Results, U.S. House of Representatives (official list by district and county, 12/05/2024)"
+2024,HOUSE,0,OK,info,"OK-3 (Lucas, unopposed) not on ballot -> 28 counties without House rows"
+2024,HOUSE,0,TX,fixed,TX-18 regular race (Turner v Centonze) mislabelled special in MEDSL -> special=0; concurrent special (Erica Lee Carter) absent
+2024,SEN,0,CT,info,Murphy total includes Working Families line (candidate-level party assignment); MEDSL party-line D total is 4.9% lower
+2024,SEN,0,IN,fixed,"Patched from official state results (listed counties; patches/2024_IN_SEN_monroe): Indiana Election Division, certified 2024 General Election results archive (ENR), office category 1006 JSON with county breakdown (settings: Certified=T); Indiana Election Division, 2024 General Election results archive"
+2024,SEN,0,ME,minor,Some towns unassigned in MEDSL: D -2.7% vs certified
+2024,SEN,0,NE,fixed,Dan Osborn labelled DEMOCRAT in MEDSL; reclassified as independent (oth)
+2024,SEN,0,NJ,fixed,"Patched from official state results (listed counties; patches/2024_NJ_SEN_mercer): NJ Division of Elections, 2024 Official General Election Results, U.S. Senate (official list by county, 12/05/2024); NJ Division of Elections, 2024 Official General Election Results, U.S. Senate, Mercer County by municipality"
+2024,SEN;HOUSE,0,NJ,minor,"Union and Atlantic counties slightly below certified in MEDSL (Union about 4,100 D / 2,000 R)"

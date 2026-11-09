@@ -52,7 +52,7 @@ pipeline/
   tests/                   ← Playwright UI checks (sweep.js, pantest.js, exptest.js)
 data/
   pop/ results/ metrics/   ← cleaned county tables (each has its own README with provenance + hashes)
-  raw/                     ← the few raw inputs needed to rebuild results (tonmcg, MEDSL countypres)
+  raw/                     ← dataverse_lock.csv (exact inputs + checksums), state/ (official files behind the patches)
   geometry/topo_s.pkl      ← simplified shared-arc county topology (Albers USA, 3,142 units)
   weights/                 ← population by year, metric weights, electoral vote tables
   circles/                 ← circle centers/radii per metric × year + circle_meta.json
@@ -62,35 +62,54 @@ build/                     ← scratch output, git-ignored
 
 ## Rebuilding the data
 
-Run every command from the **repository root**. The scripts use repo-relative paths and should be run with `python3 -I`. Requirements: Python 3.10+, `numpy`, `scipy`, `pandas`, `Pillow` (`render.py` only). `geo.py` reads the shapefile with its own pure-Python reader.
+Run every command from the **repository root** with `python -P` (Python 3.10+; `numpy`, `scipy`, `pandas`, `Pillow`, `pyreadr`). The scripts use repo-relative paths.
 
-Typical change (results or metrics only, shapes unchanged):
+**Results** (`data/results/`). The sources are pinned in `pipeline/sources.json`; see `data/results/README.md` for what each one covers.
 
 ```bash
-python3 -I pipeline/build_data.py      # → build/payload.b64
-python3 -I pipeline/build_data2.py     # → site/data/core.bin, v/*.bin, c/*.bin
+python -P pipeline/fetch.py                     # ~12 GB of MIT / Amlani & Algara files -> build/downloads/dataverse/
+python -P pipeline/data_sources/medsl/stage1_2016.py build/work/s1_2016.csv     build/downloads/dataverse/prec2016_senate/2016-precinct-senate.csv     build/downloads/dataverse/prec2016_house/2016-precinct-house.tab     build/downloads/dataverse/prec2016_state/2016-precinct-state.csv
+for y in 2018 2020 2022 2024; do
+  python -P pipeline/data_sources/medsl/stage1_extract.py $y build/work/s1_$y.csv build/downloads/dataverse/prec$y/*.{csv,tab,zip}
+done
+python -P pipeline/data_sources/medsl/stage2_aggregate.py 2016 2018 2020 2022 2024   # uses the 2018/2020 stage-1 files as a town->county map
+python -P pipeline/data_sources/medsl/build_outputs.py 2016 2018 2020 2022 2024
+python -P pipeline/build_results.py             # merges MIT + Amlani & Algara + data/results/patches -> data/results/
+python -P pipeline/validate_results.py          # data/results/validation.csv; prints anything >0.5% off a statewide total
 ```
 
-These two steps were checked from a clean copy of the repo. They rebuild `site/data` matching the committed files, apart from tiny float32 rounding differences.
+Some MIT datasets require a one-time Dataverse "guestbook" response (name, email, institution, position). `fetch.py` reads it from the `DATAVERSE_GUESTBOOK` environment variable (JSON) or a git-ignored `.dataverse-guestbook.json` at the repo root.
 
-Full rebuild, in dependency order:
+**Patches** (`data/results/patches/`) are official state results for races the main sources miss. Each has a CSV, a JSON with its sources, method and validation, the raw official file under `data/raw/state/<name>/` when small, and (for machine-readable sources) `pipeline/patches/<name>.py`, which regenerates the CSV. See `data/results/patches/README.md` for the format.
 
-1. **Sources** → `data/pop`, `data/results`, `data/metrics`. These scripts download into `build/downloads/` (git clones of public mirrors, see each `data/*/README.md`). Their paths were rewritten from the original workspace and **have not been re-run in this repo layout**, so expect a few fixes.
-   - `pipeline/data_sources/population/build_county_pop.py`
-   - `pipeline/data_sources/medsl/stage1_extract.py`, `stage1_2016.py`, `stage2_aggregate.py`, `build_outputs.py`, `validate.py`, `check_known.py`
-   - `pipeline/data_sources/metrics/build_metrics.py`
-2. **Geometry**: `geo.py <shp> <dbf> <out.pkl>`, then `simplify.py <in> <out> <tol>` → `data/geometry/topo_s.pkl` (Census `cb_2019_us_county_500k`).
-3. **Weights**: `pipeline/cartogram/weights.py` → `data/weights/`.
-4. **Cartograms**: `carto2.py data/geometry/topo_s.pkl <weights.csv> data/cartograms/contig_<metric>_<year>.npz [--init <npz>] [--grid 1024] [--iters 24]`. Population runs state-first then county (warm start with `--init`). Each run takes minutes. Output keeps the RMS area error in `err`/`hist`.
-5. **Circles**: `build_circles.py` (uses `dorling.py`) → `data/circles/`.
-6. **Site data**: `build_data.py` then `build_data2.py` as above.
+**Population and metrics** (`data/pop/`, `data/metrics/`): download the Census, BEA and USDA files listed in their READMEs into `build/downloads/{census,bea,ers}/`, then run `pipeline/data_sources/population/build_county_pop.py` and `pipeline/data_sources/metrics/build_metrics.py`.
+
+**Site data** (results or metrics changed, shapes unchanged):
+
+```bash
+python -P pipeline/build_data.py        # contests payload -> build/payload.b64
+python -P pipeline/cartogram/weights.py # area weights (needs build/payload.b64 for votes_*)
+python -P pipeline/build_data2.py       # -> site/data/core.bin, v/*.bin, c/*.bin
+```
+
+**New years or new weights** also need cartograms and circles (minutes per cartogram):
+
+1. **Geometry** (rarely): `geo.py <shp> <dbf> <out.pkl>`, then `simplify.py <in> <out> <tol>` → `data/geometry/topo_s.pkl` (Census `cb_2019_us_county_500k`).
+2. **Cartograms**: `carto2.py data/geometry/topo_s.pkl <weights.csv> data/cartograms/contig_<metric>_<year>.npz --mode free --init <start.npz> --iters 6 --keep-best`. Each new map starts from the nearest well-converged map of the same metric where one exists (population 2000–2006 from population 2008, Senate 2000–2014 from Senate 2016, GDP 2001–2006 from GDP 2008, education 2000 from education 2008–12, `--iters 12` for GDP and education); votes cast and electoral votes start from that year's population map (votes `--iters 12`). Free flow at the finest scale improves for a few iterations and then slowly drifts, so `--keep-best` saves the most accurate iterate. Each output keeps its error history in `hist`. The 2008–2026 population and 2016–2026 Senate maps were made with `--mode anchored --iters 16` (a state-level stage, then a county stage inside closed state borders), but the current `carto2.py` no longer reproduces that county stage (its first county iteration lands at ~0.56 weighted error instead of the recorded ~0.20), so use warm starts until that is tracked down.
+3. **Circles**: `build_circles.py` (uses `dorling.py`) adds layouts for any new keys → `data/circles/`. Existing scales in `circle_meta.json` are kept so earlier layouts stay valid.
+4. **Site data** as above.
+
+### Weekly data check
+
+`.github/workflows/data-check.yml` runs `python -P pipeline/fetch.py --check` every Monday. It opens (or comments on) a "New election data available" issue when a pinned dataset has a newer version or MIT has published a dataset for a newer election (for example its 2026 precinct returns). Updating is then: bump `pipeline/sources.json`, rebuild as above, and review `validation.csv`.
+
 
 ### Data conventions
 
 - 3,142 county units: 50 states + DC. Connecticut uses its 8 old counties, Virginia's independent cities are separate, Alaska is one statewide unit (results aren't reported by borough), Kansas City is folded into Jackson County MO, and DC wards map to 11001.
-- Presidential: MEDSL `countypres` for 2008–2016, tonmcg for 2020 and 2024. KS and ME 2020 come from MEDSL.
-- Senate, House and Governor: MEDSL precinct returns 2016–2024, aggregated to county. House is summed across every district that touches a county.
-- Population: Census intercensal, V2019 and V2025 estimates. GDP: BEA CAGDP1 (thousands of dollars; `build_data2.py` multiplies its circle scale by 1000). Education: USDA ERS.
+- President 2000–2024: MEDSL county presidential returns (Alaska from MEDSL statewide totals).
+- Senate, House and Governor 2016–2024: MEDSL precinct returns aggregated to county; House is summed across every district that touches a county. Senate and Governor 2000–2014: Amlani & Algara county returns. Gaps: official state results (`data/results/patches/`).
+- Population: Census intercensal (2000–2009), V2019 and V2025 estimates. GDP: BEA CAGDP1, 2001–2024 (thousands of dollars; `build_data2.py` multiplies its circle scale by 1000). Education: USDA ERS (Census 2000, ACS 2008–12, ACS 2019–23).
 - Everything is deterministic: no randomness and no live fetching.
 
 ## How the app works (`site/index.html`)
@@ -136,8 +155,8 @@ One-time setup:
 
 ## Known issues / TODO
 
-- **2026 results**: there are no 2026 contests yet. The site only shows results built into `site/data`, so 2026 races appear once their results are added to the pipeline (`build_data.py` → `build_data2.py`). The 2026 population and Senate weights, cartograms and circle layouts are already built.
-- `data_sources/*` scripts haven't been re-run since moving to this layout (see above).
+- **2026 results**: there are no 2026 contests yet. The site only shows results built into `site/data`, so 2026 races appear once their results are added to the pipeline. Once states certify (December 2026), they can be added the same way as the patches (official state results, `data/results/patches/`), then replaced by MIT's 2026 precinct data when the weekly check reports it. The 2026 population and Senate weights, cartograms and circle layouts are already built.
+- **House before 2016**: no free source has House results by county for earlier years.
 - The contiguous cartogram plus state outlines at full-map zoom is the slowest frame (about 45–55 ms in headless Chromium). Possible fixes: decimate outlines further while interacting, or use OffscreenCanvas/WebGL.
 - `index.html` is about 600 very long lines (~78 KB of minified-style code). Splitting it into modules (with or without a bundler) would make collaboration easier but isn't required.
 - Mobile: touch pan/zoom works through pointer events. Phones (≤640px) use the same layout with a two-line header, full-width legend and full-width chip menus over a dimmed map.
