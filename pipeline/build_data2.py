@@ -75,8 +75,8 @@ def wmap(c):
     y = c['year']; w = {'pop': str(y), 'land': 'all'}
     if c['office'] == 'PRES': w['votes'] = str(y); w['ev'] = str(y)
     if c['office'] == 'SEN': w['senate'] = str(y)
-    w['edu'] = '2008-12' if y <= 2014 else '2019-23'
-    w['gdp'] = str(min(y, 2024))
+    w['edu'] = '2000' if y <= 2004 else '2008-12' if y <= 2014 else '2019-23'
+    w['gdp'] = '2001' if y < 2002 else str(min(y, 2024))   # BEA county GDP starts in 2001
     return w
 contests = []
 for c in old['contests']:
@@ -95,9 +95,9 @@ metrics = [
  dict(key='senate', label='Senate seats', unit='Senate weight', short='Its share of its state’s 2 senators', fmt='{} senators', dp=4,
       desc='Every state has 2 senators, so every state gets the same total area, split among its counties by population. This shows how Senate representation is distributed. Senate races only.'),
  dict(key='edu', label='College grads', unit='graduates', short='Adults 25+ with a bachelor’s degree', fmt='{} graduates',
-      desc='Area is proportional to the number of adults 25 and older holding a bachelor’s degree or higher (Census ACS 5-year estimates via USDA ERS: 2008–12 for elections through 2014, 2019–23 after). It’s a count of people, so it adds up correctly across counties. Connecticut 2019–23 is split from planning regions to its old counties by population.'),
+      desc='Area is proportional to the number of adults 25 and older holding a bachelor’s degree or higher (USDA ERS: Census 2000 for elections through 2004, ACS 2008–12 5-year estimates through 2014, ACS 2019–23 after). It’s a count of people, so it adds up correctly across counties. Connecticut 2019–23 is split from planning regions to its old counties by population.'),
  dict(key='gdp', label='GDP', unit='GDP', short='Economic output, current dollars', fmt='${} million', dp=1,
-      desc='Area is proportional to county GDP in current dollars (BEA, February 2026 release; 2026 uses 2024). Virginia’s independent cities and Maui/Kalawao are published combined with neighbors and are split by population; Connecticut 2024 is split by 2023 shares.'),
+      desc='Area is proportional to county GDP in current dollars (BEA, February 2026 release; county GDP starts in 2001, so 2000 uses 2001, and 2026 uses 2024). Virginia’s independent cities and Maui/Kalawao are published combined with neighbors and are split by population; Connecticut 2024 is split by 2023 shares.'),
 ]
 methods = [
  dict(key='circ', label='Packed circles', short='Circles nudged apart so none overlap',
@@ -108,11 +108,12 @@ methods = [
       desc='Flow-based density-equalizing cartogram (Gastner, Seguy & More, 2018), first fitted at the state level and then refined county by county. Every county is one uniform block and borders stay connected, so shapes stretch to make room. Areas match values to within the error shown.'),
 ]
 sources = [
- 'Presidential results 2008–2016: MIT Election Data + Science Lab, county presidential returns 2000–2016.',
- 'Presidential results 2020–2024: county returns compiled by Tony McGovern (github.com/tonmcg); Connecticut 2024, Kansas and Maine 2020 and Alaska from MEDSL precinct data.',
- 'Senate, House, Governor 2016–2024: MEDSL official precinct returns, summed to counties.',
+ 'President 2000–2024: MIT Election Data + Science Lab (MEDSL), County Presidential Election Returns 2000–2024.',
+ 'Senate, House, Governor 2016–2024: MEDSL official precinct returns summed to counties; Senate 2022 from MEDSL county returns.',
+ 'Senate and Governor 2000–2014: Amlani & Algara county returns (Electoral Studies, 2021); Alaska Senate from MEDSL statewide returns.',
+ 'Gaps in those sources: official state results (each one is listed under Details for its race).',
  'Population: U.S. Census Bureau county estimates (intercensal 2000–10, Vintage 2019, Vintage 2025).',
- 'Education: USDA ERS county educational attainment (Census ACS 5-year).',
+ 'Education: USDA ERS county educational attainment (Census 2000, ACS 5-year).',
  'GDP: U.S. Bureau of Economic Analysis CAGDP1, current dollars.',
  'Boundaries: Census 2019 cartographic boundary file (1:500k).',
 ]

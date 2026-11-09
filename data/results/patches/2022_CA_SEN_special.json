@@ -1,0 +1,16 @@
+{
+  "mode": "replace",
+  "year": 2022,
+  "office": "SEN",
+  "special": 1,
+  "state_po": "CA",
+  "dem_cand": "Alex Padilla",
+  "rep_cand": "Mark P. Meuser",
+  "top_other_cand": "",
+  "sources": [
+    {"title": "California Secretary of State, Statement of Vote, November 8, 2022 General Election: United States Senator (Partial/Unexpired Term) by county (xlsx)", "url": "https://elections.cdn.sos.ca.gov/sov/2022-general/sov/45-uss-pt.xlsx", "retrieved": "2026-11-09"},
+    {"title": "California Secretary of State, Statement of Vote, November 8, 2022 General Election (index)", "url": "https://www.sos.ca.gov/elections/prior-elections/statewide-election-results/general-election-nov-8-2022/statement-vote", "retrieved": "2026-11-09"}
+  ],
+  "method": "pipeline/patches/2022_CA_SEN_special.py reads the county rows of the Statement of Vote partial-term Senate table (xlsx, PDF copy kept alongside) and maps county names to FIPS; only Padilla (DEM) and Meuser (REP) were on this contest, with no write-in candidates listed, so oth is 0.",
+  "validation": "CSV statewide dem 6,559,308 / rep 4,212,450 / oth 0 vs certified Statement of Vote State Totals Padilla 6,559,308 / Meuser 4,212,450: difference 0 / 0 (0.00%)."
+}

@@ -1,0 +1,19 @@
+{
+  "mode": "replace",
+  "year": 2006,
+  "office": "GOV",
+  "special": 0,
+  "state_po": "AK",
+  "dem_cand": "Tony Knowles",
+  "rep_cand": "Sarah Palin",
+  "top_other_cand": "Andrew Halcro",
+  "sources": [
+    {
+      "title": "Alaska Division of Elections, 2006 General Election November 7, 2006, Official Results (statewide summary, pdf)",
+      "url": "https://www.elections.alaska.gov/results/06GENR/data/results.pdf",
+      "retrieved": "2026-11-09"
+    }
+  ],
+  "method": "Statewide Governor/Lt. Governor totals transcribed from the official results PDF (kept as data/raw/state/2006_AK_GOV/06GENR_results.pdf) into one Alaska row 02000; oth = Halcro/von Gemmingen (IND) 22,443, Massie (GRN) 593, Toien/Mirabal (LIB) 682, Wright/Welton (AI) 1,285, write-ins 384.",
+  "validation": "CSV dem 97,238 / rep 114,697 / oth 25,387 (sum 237,322) vs certified Democratic Tony Knowles 97,238 / Republican Sarah Palin 114,697, total votes 237,322: difference 0 / 0 (0.00%)."
+}

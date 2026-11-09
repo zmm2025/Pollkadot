@@ -1,0 +1,16 @@
+{
+  "mode": "fill",
+  "year": 2016,
+  "office": "HOUSE",
+  "special": 0,
+  "state_po": "IN",
+  "dem_cand": "",
+  "rep_cand": "",
+  "top_other_cand": "",
+  "sources": [
+    {"title": "Indiana Election Division, election results archive: November 8, 2016 General Election, US Representative by district and county (data file OffCatC_1753_A.json)", "url": "https://enr.indianavoters.in.gov/archive/2016General/data/OffCatC_1753_A.json", "retrieved": "2026-11-09"},
+    {"title": "Indiana Election Division, Election Results (links to the 2016 general election archive)", "url": "https://www.in.gov/sos/elections/election-commission/election-results/", "retrieved": "2026-11-09"}
+  ],
+  "method": "pipeline/patches/2016_IN_HOUSE_fix.py reads the Election Division's archived county-by-district results for US Representative and sums each of Grant (IN-5 only), Kosciusko (IN-2 + IN-3) and Wabash (IN-2 only) over its district records; Democrats are dem, Republicans rep, Libertarians and write-ins oth. Kosciusko: IN-2 D 2,140 / R 8,871 / L 503 plus IN-3 D 3,460 / R 15,725 / L 1,232.",
+  "validation": "In the source file every district's county records sum exactly to its district total (IN-2 D 102,332 / R 164,276; IN-3 D 65,908 / R 201,216; IN-5 D 123,791 / R 221,786). Those archive totals are slightly below the certified district totals as commonly reported (IN-2 D 102,401 / R 164,355: -0.07% / -0.05%; IN-3 D 66,023 / R 201,396: -0.17% / -0.09%; IN-5 D 123,849 / R 221,957: -0.05% / -0.08%), so a few late county adjustments may be missing; no state-published certified county breakdown was found. MIT's doubled Kosciusko values (D 11,200 / R 49,210) are 2x these figures within 0.04%, and MIT's partial Grant R 17,046 vs 17,047 here."
+}

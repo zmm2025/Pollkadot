@@ -1,0 +1,29 @@
+{
+  "mode": "fill",
+  "year": 2022,
+  "office": "HOUSE",
+  "special": 0,
+  "state_po": "AR",
+  "dem_cand": "",
+  "rep_cand": "",
+  "top_other_cand": "",
+  "sources": [
+    {
+      "title": "Arkansas Secretary of State, 2022 General Election and Nonpartisan Judicial Runoff results (official; FullDataFile.json, election 1844, IsOfficial = true)",
+      "url": "https://results.tally-enr.com/results/arkansas/1844/FullDataFile.json",
+      "retrieved": "2026-11-09"
+    },
+    {
+      "title": "Arkansas Secretary of State, results site for the 2022 General Election",
+      "url": "https://arkansas.tally-enr.com/#election=1844",
+      "retrieved": "2026-11-09"
+    },
+    {
+      "title": "Arkansas Secretary of State, Election Results index",
+      "url": "https://www.sos.arkansas.gov/elections/research/election-results",
+      "retrieved": "2026-11-09"
+    }
+  ],
+  "method": "pipeline/patches/2022_AR_HOUSE_phillips.py takes the 'U.S. Congress District 01' PHILLIPS county record from the SOS official full data file; Phillips appears only in District 1 (Crawford R vs Hodges D, no other candidates).",
+  "validation": "Phillips County (05107) official: Hodges (D) 2,224, Crawford (R) 1,929. State after filling: dem 271,771 / rep 598,000 vs sum of certified district totals dem 272,119 / rep 598,919: -0.13% / -0.15% (residual is in MIT's other counties)."
+}

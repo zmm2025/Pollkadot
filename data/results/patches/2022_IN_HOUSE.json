@@ -1,0 +1,24 @@
+{
+  "mode": "replace",
+  "year": 2022,
+  "office": "HOUSE",
+  "special": 0,
+  "state_po": "IN",
+  "dem_cand": "",
+  "rep_cand": "",
+  "top_other_cand": "",
+  "sources": [
+    {
+      "title": "Indiana Election Division, 2022 General Election certified results archive (US Representative, office category 1005, JSON data file)",
+      "url": "https://enr.indianavoters.in.gov/archive/2022General/data/OffCatC_1005_A.json",
+      "retrieved": "2026-11-09"
+    },
+    {
+      "title": "Indiana Election Division, 2022 General Election Results (archive site; settings.json Certified = T)",
+      "url": "https://enr.indianavoters.in.gov/archive/2022General/index.html",
+      "retrieved": "2026-11-09"
+    }
+  ],
+  "method": "pipeline/patches/2022_IN_HOUSE.py reads the certified district-by-county results for the 9 regular districts (the same-day 2nd District special election, office 2936, is excluded) and sums every district touching a county; party D -> dem, R -> rep, all others including write-ins -> oth.",
+  "validation": "CSV statewide dem 716,348 / rep 1,108,351 / oth 31,850 vs sum of the 9 certified regular district totals dem 716,348 / rep 1,108,351 / oth 31,850: difference 0 / 0 (0.00%). Of the 38 counties in MIT, 34 match exactly; 3 are zero in MIT and Kosciusko (18085, split CD2/CD3) differs slightly (MIT 4,058 D / 17,981 R vs official 3,994 / 17,757)."
+}

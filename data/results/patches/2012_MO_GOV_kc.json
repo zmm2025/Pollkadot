@@ -1,0 +1,24 @@
+{
+  "mode": "add",
+  "year": 2012,
+  "office": "GOV",
+  "special": 0,
+  "state_po": "MO",
+  "dem_cand": "Jeremiah W. (Jay) Nixon",
+  "rep_cand": "David (Dave) Spence",
+  "top_other_cand": "Jim Higgins",
+  "sources": [
+    {
+      "title": "Missouri Secretary of State, Official Election Returns, General Election 2012, results by county (Kansas City listed as its own jurisdiction) (pdf)",
+      "url": "https://www.sos.mo.gov/CMSImages/ElectionResultsStatistics/OfficialResults11-6-12.pdf",
+      "retrieved": "2026-11-09"
+    },
+    {
+      "title": "Missouri Secretary of State, Official Election Returns, General Election 2012, statewide totals (pdf)",
+      "url": "https://www.sos.mo.gov/CMSImages/ElectionResultsStatistics/2012GeneralElection.pdf",
+      "retrieved": "2026-11-09"
+    }
+  ],
+  "method": "Kansas City (Kansas City Board of Election Commissioners, the Jackson County part of the city) Governor votes transcribed from the official county-by-county returns PDF (text extracted with pdftotext; PDFs kept in data/raw/state/2012_MO_SEN_kc/) into one row added to Jackson County 29095; oth = Higgins (Libertarian) 3,056, write-ins 0. Needed because Amlani & Algara's Missouri 2012 Governor county rows omit Kansas City (statewide shortfall equals Kansas City exactly).",
+  "validation": "Amlani statewide dem 1,386,582 + KC 107,474 = 1,494,056 vs certified Jeremiah W. (Jay) Nixon 1,494,056: +0 (+0.00%); Amlani statewide rep 1,136,459 + KC 23,806 = 1,160,265 vs certified David (Dave) Spence 1,160,265: +0 (+0.00%). KC row sums to the official KC total of 134,336."
+}

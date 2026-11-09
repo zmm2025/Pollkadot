@@ -1,0 +1,122 @@
+{
+  "_doc": "Every external input to the results pipeline. Dataverse datasets are pinned to a version; run `python -I pipeline/fetch.py --check` to see whether newer versions exist, then bump `version` here and rebuild. Files are saved to build/downloads/dataverse/<key>/ under their original names.",
+  "dataverse": [
+    {
+      "key": "countypres",
+      "doi": "doi:10.7910/DVN/VOQCHQ",
+      "version": "20.0",
+      "title": "MIT Election Data + Science Lab, County Presidential Election Returns 2000-2024",
+      "files": [
+        "countypres_2000-2024.tab",
+        "County Presidential Returns 2000-2024.md"
+      ]
+    },
+    {
+      "key": "amlani_algara",
+      "doi": "doi:10.7910/DVN/DGUMFI",
+      "version": "1.1",
+      "title": "Amlani & Algara, county-level presidential, Senate and gubernatorial returns (Electoral Studies 2021)",
+      "files": [
+        "dataverse_shareable_presidential_county_returns_1868_2020.Rdata",
+        "dataverse_shareable_us_senate_county_returns_1908_2020.Rdata",
+        "dataverse_shareable_gubernatorial_county_returns_1865_2020.Rdata",
+        "County_Level_Dataset_Manual_READ_ME.pdf"
+      ]
+    },
+    {
+      "key": "senate_county_2022",
+      "doi": "doi:10.7910/DVN/YB60EJ",
+      "version": "3.0",
+      "title": "MIT Election Data + Science Lab, U.S. Senate county-level results 2022",
+      "files": "*"
+    },
+    {
+      "key": "pres_statewide",
+      "doi": "doi:10.7910/DVN/42MVDX",
+      "version": "10.1",
+      "title": "MIT Election Data + Science Lab, U.S. President 1976-2024 statewide (validation reference)",
+      "files": [
+        "1976-2024-president.csv"
+      ]
+    },
+    {
+      "key": "senate_statewide",
+      "doi": "doi:10.7910/DVN/PEJ5QU",
+      "version": "8.0",
+      "title": "MIT Election Data + Science Lab, U.S. Senate statewide 1976-2024 (validation reference)",
+      "files": [
+        "1976-2024-senate-state.tab"
+      ]
+    },
+    {
+      "key": "house_districts",
+      "doi": "doi:10.7910/DVN/IG0UN2",
+      "version": "15.0",
+      "title": "MIT Election Data + Science Lab, U.S. House 1976-2024 by district (validation reference, from the House Clerk's official statistics)",
+      "files": [
+        "1976-2024-house.tab"
+      ]
+    },
+    {
+      "key": "prec2016_senate",
+      "doi": "doi:10.7910/DVN/NLTQAD",
+      "version": "11.1",
+      "title": "MIT Election Data + Science Lab, U.S. Senate Precinct-Level Returns 2016",
+      "files": [
+        "2016-precinct-senate.tab",
+        "codebook-2016-precinct-senate.md",
+        "coverage-notes-2016-precinct-senate.md"
+      ]
+    },
+    {
+      "key": "prec2016_house",
+      "doi": "doi:10.7910/DVN/PSKDUJ",
+      "version": "12.0",
+      "title": "MIT Election Data + Science Lab, U.S. House Precinct-Level Returns 2016",
+      "files": [
+        "2016-precinct-house.tab",
+        "codebook-2016-precinct-house.md",
+        "coverage-notes-2016-precinct-house.md"
+      ]
+    },
+    {
+      "key": "prec2016_state",
+      "doi": "doi:10.7910/DVN/GSZG1O",
+      "version": "10.1",
+      "title": "MIT Election Data + Science Lab, State Precinct-Level Returns 2016 (governor rows)",
+      "files": [
+        "2016-precinct-state.tab",
+        "codebook-2016-precinct-state.md",
+        "coverage-notes-2016-precinct-state.md"
+      ]
+    },
+    {
+      "key": "prec2018",
+      "doi": "doi:10.7910/DVN/NVQYMG",
+      "version": "1.1",
+      "title": "MIT Election Data + Science Lab, Precinct-Level Returns 2018 by Individual State",
+      "files": "*"
+    },
+    {
+      "key": "prec2020",
+      "doi": "doi:10.7910/DVN/NT66Z3",
+      "version": "8.0",
+      "title": "MIT Election Data + Science Lab, Precinct-Level Returns 2020 by Individual State",
+      "files": "*"
+    },
+    {
+      "key": "prec2022",
+      "doi": "doi:10.7910/DVN/UYQIEP",
+      "version": "5.0",
+      "title": "MIT Election Data + Science Lab, Precinct-Level Returns 2022 by Individual State",
+      "files": "*"
+    },
+    {
+      "key": "prec2024",
+      "doi": "doi:10.7910/DVN/NYTPDU",
+      "version": "1.0",
+      "title": "MIT Election Data + Science Lab, Precinct-Level Returns 2024 by Individual State",
+      "files": "*"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "mode": "fill",
+  "year": 2022,
+  "office": "HOUSE",
+  "special": 0,
+  "state_po": "MI",
+  "dem_cand": "",
+  "rep_cand": "",
+  "top_other_cand": "",
+  "sources": [
+    {
+      "title": "Michigan Secretary of State, 11/8/2022 State General official results by county, Election Data file (2022STATE_GENERAL_MI_CENR_BY_COUNTY.txt)",
+      "url": "https://mvic.sos.state.mi.us/VoteHistory/GetElectionResultFile?electionId=691",
+      "retrieved": "2026-11-09"
+    },
+    {
+      "title": "Michigan Secretary of State, 2022 Michigan Election Results (County Results, OFFICIAL)",
+      "url": "https://mvic.sos.state.mi.us/votehistory/Index?type=C&electionDate=11-8-2022",
+      "retrieved": "2026-11-09"
+    }
+  ],
+  "method": "pipeline/patches/2022_MI_HOUSE_midland.py sums the Representative in Congress (office code 6) rows for MIDLAND across both districts touching the county (2nd and 8th). MIT had only the 2nd District part (1,211 D / 2,993 R, which matches the official 2nd District figure exactly).",
+  "validation": "Midland County (26111) official: CD2 Hilliard (D) 1,211, Moolenaar (R) 2,993, Hewer (L) 82; CD8 Kildee (D) 16,621, Junge (R) 18,305, Canny (L) 588, Goodwin (WC) 881; total dem 17,832 / rep 21,298 / oth 1,551. State after filling: dem 2,184,702 / rep 2,083,400 vs official statewide 2,184,504 / 2,083,361: +0.01% / +0.00%."
+}

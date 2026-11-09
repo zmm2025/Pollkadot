@@ -12,7 +12,7 @@ def _party16(p):
 
 
 def load_s1_2016():
-    d = pd.read_csv('data/work/s1_2016.csv', dtype=str, keep_default_na=False)
+    d = pd.read_csv('build/work/s1_2016.csv', dtype=str, keep_default_na=False)
     d = d.rename(columns={'state_postal': 'state_po', 'jurisdiction': 'jurisdiction_name'})
     d['county_fips'] = d.county_fips.where(~d.county_fips.isin(['NA']), '')
     d['jurisdiction_fips'] = ''
@@ -28,7 +28,7 @@ def load_s1(y):
     if y == 2016:
         d = load_s1_2016()
     else:
-        d = pd.read_csv(f'data/work/s1_{y}.csv', dtype=str, keep_default_na=False)
+        d = pd.read_csv(f'build/work/s1_{y}.csv', dtype=str, keep_default_na=False)
     d['votes'] = d.votes.astype(float)
     d['nprec'] = d.nprec.astype(int)
     d['nstar'] = pd.to_numeric(d.get('nstar', 0), errors='coerce').fillna(0).astype(int)

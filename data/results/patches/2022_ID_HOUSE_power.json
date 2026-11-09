@@ -1,0 +1,24 @@
+{
+  "mode": "fill",
+  "year": 2022,
+  "office": "HOUSE",
+  "special": 0,
+  "state_po": "ID",
+  "dem_cand": "",
+  "rep_cand": "",
+  "top_other_cand": "",
+  "sources": [
+    {
+      "title": "Idaho Secretary of State canvass database, 2022 Nov 8 General Election, U.S. Representative District 2, results by county (CSV)",
+      "url": "https://canvass.sos.idaho.gov/eng/contests/download/17249/show_granularity_dt_id:3/.csv",
+      "retrieved": "2026-11-09"
+    },
+    {
+      "title": "Idaho Secretary of State canvass database, U.S. Representative District 1 contest (checked: no Power County row)",
+      "url": "https://canvass.sos.idaho.gov/contests/view/17250",
+      "retrieved": "2026-11-09"
+    }
+  ],
+  "method": "pipeline/patches/2022_ID_HOUSE_power.py reads the Power row of the official District 2 county CSV (Power is entirely in ID-2; the District 1 file has no Power row).",
+  "validation": "Power County (16077) official: Norman (D) 455, Simpson (R) 1,477. State after filling: dem 180,997 / rep 395,351 / oth 7,280 vs sum of certified district totals 180,997 / 395,351 / 7,280: 0.00% / 0.00%."
+}

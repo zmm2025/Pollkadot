@@ -1,0 +1,24 @@
+{
+  "mode": "fill",
+  "year": 2024,
+  "office": "SEN",
+  "special": 0,
+  "state_po": "NJ",
+  "dem_cand": "Andy Kim",
+  "rep_cand": "Curtis Bashaw",
+  "top_other_cand": "Christina Khalil",
+  "sources": [
+    {
+      "title": "NJ Division of Elections, 2024 Official General Election Results, U.S. Senate (official list by county, 12/05/2024)",
+      "url": "https://www.nj.gov/state/elections/assets/pdf/election-results/2024/2024-official-general-results-us-senate.pdf",
+      "retrieved": "2026-11-09"
+    },
+    {
+      "title": "NJ Division of Elections, 2024 Official General Election Results, U.S. Senate, Mercer County by municipality",
+      "url": "https://www.nj.gov/state/elections/assets/pdf/election-results/2024/2024-official-general-results-us-senate-mercer.pdf",
+      "retrieved": "2026-11-09"
+    }
+  ],
+  "method": "Mercer County lines were read from the certified state official list (PDF, kept in data/raw/state/2024_NJ_SEN_mercer/; text extracted with pdftotext -raw). Kim (Democratic) is dem, Bashaw (Republican) is rep, and Khalil (Green), Kaplan (Libertarian), Mooneyham (Vote Better) and Kuniansky (Socialist Workers) are oth. The certified NJ list does not report write-ins, so none are included.",
+  "validation": "Mercer 34021 = official county totals dem 105,685 / rep 46,932 / oth 3,907 (1,620+550+773+964); the municipal-level Mercer PDF totals agree. MIT had dem 80,007 / rep 33,332 (no early-voting rows). Certified statewide: Kim 2,161,491 / Bashaw 1,773,589. With this fill, MIT's other counties plus Mercer give about dem 2,156,960 (-0.21%) / rep 1,771,360 (-0.13%). The remaining gap is outside Mercer: mostly Union 34039 (about 4,100 D / 2,000 R short in MIT) and Atlantic 34001 (about 370 D / 170 R short)."
+}

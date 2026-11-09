@@ -1,0 +1,16 @@
+{
+  "mode": "replace",
+  "year": 2010,
+  "office": "GOV",
+  "special": 1,
+  "state_po": "UT",
+  "dem_cand": "Peter Corroon",
+  "rep_cand": "Gary R. Herbert",
+  "top_other_cand": "Farley Anderson",
+  "sources": [
+    {"title": "Utah Lieutenant Governor, Office of Elections: 2010 General Election canvass by county (xls, sheet Governor)", "url": "https://vote.utah.gov/wp-content/uploads/2023/09/2010Gen.xls", "retrieved": "2026-11-09"},
+    {"title": "Utah Office of Elections, Historical Election Results", "url": "https://vote.utah.gov/historical-election-results/", "retrieved": "2026-11-09"}
+  ],
+  "method": "pipeline/patches/2010_UT_GOV_special.py reads the Governor sheet of the state canvass workbook (county rows) with a standard-library .xls reader; the \"D\" ticket goes to dem, \"R\" to rep, and the Utah Justice (Anderson), Libertarian (McCullough) and write-in (Heath) columns to oth.",
+  "validation": "CSV statewide dem 205,246 / rep 412,151 / oth 25,910 vs certified canvass Total row Corroon 205,246 / Herbert 412,151: difference 0 / 0 (0.00%). oth is 1 above the Total row because the Total row leaves the 1 county-reported Heath write-in vote out."
+}

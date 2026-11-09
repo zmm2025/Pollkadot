@@ -30,10 +30,17 @@ def party_cls(p):
 
 
 frames = []
+def _open(spec):
+    """ZIP:CSVNAME (MEDSL precinct-returns repo) or a plain CSV path (Dataverse original files)."""
+    if ':' in spec and spec.split(':', 1)[0].lower().endswith('.zip'):
+        zp, n = spec.split(':', 1)
+        zf = zipfile.ZipFile(zp); return zf.open(n)
+    return open(spec, 'rb')
+
+
 for spec in specs:
-    zp, n = spec.split(':')
     parts, sparts = [], []
-    with zipfile.ZipFile(zp) as zf, zf.open(n) as fh:
+    with _open(spec) as fh:
         rd = pd.read_csv(io.TextIOWrapper(fh, encoding='latin-1'), dtype=str, keep_default_na=False,
                          usecols=COLS, chunksize=1000000)
         for ch in rd:

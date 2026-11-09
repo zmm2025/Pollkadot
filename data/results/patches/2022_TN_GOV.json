@@ -1,0 +1,17 @@
+{
+  "mode": "replace",
+  "year": 2022,
+  "office": "GOV",
+  "special": 0,
+  "state_po": "TN",
+  "dem_cand": "Jason Brantley Martin",
+  "rep_cand": "Bill Lee",
+  "top_other_cand": "John Gentry",
+  "sources": [
+    {"title": "Tennessee Secretary of State, November 8, 2022 State General, all offices by precinct (xlsx)", "url": "https://sos-prod.tnsosgovfiles.com/s3fs-public/document/20221108AllbyPrecinct.xlsx", "retrieved": "2026-11-09"},
+    {"title": "Tennessee Secretary of State, November 8, 2022 State General, Governor totals by office (pdf)", "url": "https://sos-prod.tnsosgovfiles.com/s3fs-public/document/20221108GovbyOffice.pdf", "retrieved": "2026-11-09"},
+    {"title": "Tennessee Secretary of State, Election Results index", "url": "https://sos.tn.gov/elections/results", "retrieved": "2026-11-09"}
+  ],
+  "method": "pipeline/patches/2022_TN_GOV.py sums the Governor rows of the official precinct-level xlsx by county; candidates with party Democratic go to dem, Republican to rep, and all independents and write-ins to oth. County names are matched to FIPS via data/geometry/topo_s.pkl.",
+  "validation": "CSV statewide dem 572,818 / rep 1,129,390 / oth 37,674 vs certified (GovbyOffice.pdf) Martin 572,818 / Lee 1,129,390, total votes 1,739,882: difference 0 / 0 (0.00%)."
+}

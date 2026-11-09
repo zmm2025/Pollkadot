@@ -1,0 +1,19 @@
+{
+  "mode": "fill",
+  "year": 2024,
+  "office": "HOUSE",
+  "special": 0,
+  "state_po": "NJ",
+  "dem_cand": "Herb Conaway (NJ-3); Bonnie Watson Coleman (NJ-12)",
+  "rep_cand": "Rajesh Mohan (NJ-3); Darius Mayfield (NJ-12)",
+  "top_other_cand": "",
+  "sources": [
+    {
+      "title": "NJ Division of Elections, 2024 Official General Election Results, U.S. House of Representatives (official list by district and county, 12/05/2024)",
+      "url": "https://www.nj.gov/state/elections/assets/pdf/election-results/2024/2024-official-general-results-us-house.pdf",
+      "retrieved": "2026-11-09"
+    }
+  ],
+  "method": "Mercer County lines for the two districts covering Mercer (3rd and 12th) were read from the certified state official list (PDF, kept in data/raw/state/2024_NJ_HOUSE_mercer/; text extracted with pdftotext -raw) and summed. Democratic nominees are dem, Republican nominees are rep, and the Green, Libertarian, Why Not Wynn and Join the Revolution candidates are oth. The certified NJ list does not report write-ins, so none are included.",
+  "validation": "Mercer 34021 = sum of the official county figures: NJ-3 Conaway 46,562 / Mohan 32,715 / oth 2,142 (902+449+445+346); NJ-12 Watson Coleman 55,545 / Mayfield 17,147 / oth 972 (679+293); total dem 102,107 / rep 49,862 / oth 3,114. MIT had dem 77,258 / rep 35,663 (no early-voting rows). Certified statewide House totals: dem 2,115,843 / rep 1,828,853. Mercer now matches the certified county figures; other counties come from MIT (Union and Atlantic are slightly short there, as in the Senate race)."
+}

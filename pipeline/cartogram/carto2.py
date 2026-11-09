@@ -15,7 +15,7 @@ Options
   --init file.npz  start from another cartogram's vertex positions (warm start)
 usage: carto2.py topo.pkl weights.csv out.npz --mode free|anchored [--init X.npz] [--iters N] [--grid G]
 """
-import pickle, sys, time, csv, argparse
+import pickle, sys, time, csv, argparse, os
 import numpy as np
 from scipy.fft import dctn, idctn
 from scipy.ndimage import map_coordinates, gaussian_filter, distance_transform_edt
@@ -29,7 +29,7 @@ ap = argparse.ArgumentParser()
 ap.add_argument('topo'); ap.add_argument('weights'); ap.add_argument('out')
 ap.add_argument('--mode', default='free'); ap.add_argument('--init'); ap.add_argument('--iters', type=int, default=24)
 ap.add_argument('--grid', type=int, default=1024); ap.add_argument('--s1iters', type=int, default=14)
-ap.add_argument('--s3iters', type=int, default=4); ap.add_argument('--taper', type=float, default=3.0)
+ap.add_argument('--keep-best', dest='keep_best', action='store_true'); ap.add_argument('--s3iters', type=int, default=4); ap.add_argument('--taper', type=float, default=3.0)
 A_ = ap.parse_args(); TAPER = A_.taper
 
 T = pickle.load(open(A_.topo, 'rb'))
@@ -234,9 +234,13 @@ if A_.mode == 'anchored' and not A_.init:
 else:
     D, A, _ = rasterize(g, P_true)
     start_sigma = 1.0 if A_.init else 4.0
+    best = (np.inf, g)
     for it in range(A_.iters):
         sg = sigma_for(it, start_sigma); g, st = flow_free(gaussian_filter(D, sg), g)
         g = redensify(g, 0.5); D, A, _ = rasterize(g, P_true); log('F', it+1, P_true, A, sg, st)
+        if A_.keep_best and hist[-1][0] < best[0]: best = (hist[-1][0], g.copy(), FLAG.copy(), [x.copy() for x in arcs])
+    if A_.keep_best:   # free flow at the finest scale can slowly drift; keep the most accurate iterate
+        _, g, FLAG, _a = best; set_arcs(_a); print(f'keeping best iterate: weighted|err| {best[0]:.4f}')
 
 XY = from_grid(g); Af = county_areas(XY); e, wm, med = errors(Af, P_true)
 keep = FLAG == 1

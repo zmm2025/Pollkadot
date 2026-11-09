@@ -1,0 +1,19 @@
+{
+  "mode": "replace",
+  "year": 2014,
+  "office": "GOV",
+  "special": 0,
+  "state_po": "AK",
+  "dem_cand": "",
+  "rep_cand": "Sean Parnell",
+  "top_other_cand": "Bill Walker",
+  "sources": [
+    {
+      "title": "Alaska Division of Elections, 2014 General Election November 4, 2014, Official Results (statewide summary, pdf)",
+      "url": "https://www.elections.alaska.gov/results/14GENR/data/results.pdf",
+      "retrieved": "2026-11-09"
+    }
+  ],
+  "method": "Statewide Governor/Lt. Governor totals transcribed from the official results PDF (kept as data/raw/state/2014_AK_GOV/14GENR_results.pdf) into one Alaska row 02000; oth = Walker/Mallott (nonpartisan unity ticket, no Democratic nominee) 134,658, Clift/Lee (LIB) 8,985, Myers/Rensel (CON) 6,987, write-ins 893.",
+  "validation": "CSV dem 0 / rep 128,435 / oth 151,523 (sum 279,958) vs certified no Democratic nominee (dem 0) / Republican Sean Parnell 128,435, total votes 279,958: difference 0 / 0 (0.00%)."
+}

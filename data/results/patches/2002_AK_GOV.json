@@ -1,0 +1,19 @@
+{
+  "mode": "replace",
+  "year": 2002,
+  "office": "GOV",
+  "special": 0,
+  "state_po": "AK",
+  "dem_cand": "Fran Ulmer",
+  "rep_cand": "Frank H. Murkowski",
+  "top_other_cand": "Diane E. Benson",
+  "sources": [
+    {
+      "title": "Alaska Division of Elections, General Election November 5, 2002, Official Results (statewide summary, pdf)",
+      "url": "https://www.elections.alaska.gov/results/02GENR/data/results.pdf",
+      "retrieved": "2026-11-09"
+    }
+  ],
+  "method": "Statewide Governor/Lt. Governor totals transcribed from the official results PDF (kept as data/raw/state/2002_AK_GOV/02GENR_results.pdf) into one Alaska row 02000; oth = Wright/DeNardo (AI) 2,185, Benson/Coburn (GRN) 2,926, Toien/Anders (LIB) 1,109, Vinzant/Mendias (MOD) 1,506, write-ins 263.",
+  "validation": "CSV dem 94,216 / rep 129,279 / oth 7,989 (sum 231,484) vs certified Democratic Fran Ulmer 94,216 / Republican Frank H. Murkowski 129,279, total votes 231,484: difference 0 / 0 (0.00%)."
+}

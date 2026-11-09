@@ -1,4 +1,6 @@
-"""Write alternative area weights: work/w/<metric>_<key>.csv  (fips,pop)
+"""Write area weights: data/weights/pop/pop_<year>.csv and data/weights/w/<metric>_<key>.csv  (fips,pop)
+  pop_<year>    : Census July-1 county population (data/pop/county_pop.csv) on the map's 3,142 units
+                  (Chugach 02063 + Copper River 02066 = the map's single Valdez-Cordova 02261)
   votes_<year>  : total presidential ballots counted in the county (D+R+all others).
                   Alaska reports by state-house district, so its statewide total is split
                   across boroughs by population.
@@ -8,6 +10,31 @@
 import csv, json, gzip, base64, collections, os, pickle
 W = 'build'; os.makedirs('data/weights/w', exist_ok=True)
 T = pickle.load(open('data/geometry/topo_s.pkl', 'rb')); ids = T['ids']
+# population on the map's units
+_cp = collections.defaultdict(dict)
+for r in csv.DictReader(open('data/pop/county_pop.csv')):
+    f = '02261' if r['fips'] in ('02063', '02066') else r['fips']
+    _cp[int(r['year'])][f] = _cp[int(r['year'])].get(f, 0) + int(r['pop'])
+os.makedirs('data/weights/pop', exist_ok=True)
+for y, d in _cp.items():
+    assert sorted(d) == sorted(ids), (y, set(d) ^ set(ids))
+    with open(f'data/weights/pop/pop_{y}.csv', 'w', newline='') as f:
+        f.write('fips,pop\n'); [f.write(f'{k},{d[k]}\n') for k in sorted(ids)]
+# GDP (BEA, $ thousands) and college graduates (USDA ERS) from data/metrics; a county missing from a
+# year (Broomfield CO before it existed) gets 0
+_g = collections.defaultdict(dict)
+for r in csv.DictReader(open('data/metrics/gdp.csv')):
+    _g[r['year']][r['fips']] = float(r['gdp_thousands_current_dollars'] or 0)
+for y, d in _g.items():
+    if int(y) % 2 and int(y) != 2001: continue   # even (election) years; 2001 stands in for 2000
+    with open(f'data/weights/w/gdp_{y}.csv', 'w', newline='') as f:
+        f.write('fips,pop\n'); [f.write(f'{k},{d.get(k, 0.0)}\n') for k in sorted(ids)]
+_e = collections.defaultdict(dict)
+for r in csv.DictReader(open('data/metrics/education.csv')):
+    _e[r['period']][r['fips']] = float(r['bachelors_plus'])
+for p, d in _e.items():
+    with open(f'data/weights/w/edu_{p}.csv', 'w', newline='') as f:
+        f.write('fips,pop\n'); [f.write(f'{k},{d.get(k, 0.0)}\n') for k in sorted(ids)]
 def pop(y): return {r['fips']: int(r['pop']) for r in csv.DictReader(open(f'data/weights/pop/pop_{y}.csv'))}
 def write(name, d):
     with open(f'data/weights/w/{name}.csv', 'w') as f:
@@ -28,11 +55,16 @@ CH2010 = {'TX': 4, 'FL': 2, 'AZ': 1, 'GA': 1, 'NV': 1, 'SC': 1, 'UT': 1, 'WA': 1
           'NY': -2, 'OH': -2, 'IL': -1, 'IA': -1, 'LA': -1, 'MA': -1, 'MI': -1, 'MO': -1, 'NJ': -1, 'PA': -1}
 S2000 = {k: v - CH2010.get(k, 0) for k, v in S2010.items()}
 assert sum(S2000.values()) == 435
+# 1990-census seats (used for 2000): undo the 2000 reapportionment changes
+CH2000 = {'AZ': 2, 'FL': 2, 'GA': 2, 'TX': 2, 'CA': 1, 'CO': 1, 'NV': 1, 'NC': 1,
+          'NY': -2, 'PA': -2, 'CT': -1, 'IL': -1, 'IN': -1, 'MI': -1, 'MS': -1, 'OH': -1, 'OK': -1, 'WI': -1}
+S1990 = {k: v - CH2000.get(k, 0) for k, v in S2000.items()}
+assert sum(S1990.values()) == 435
 CH2020 = {k: S2020[k]-S2010[k] for k in ST if k != 'DC' and S2020[k] != S2010[k]}
 print('2020 apportionment changes', CH2020)
 def ev(seatmap):
     e = {ST[k]: v + 2 for k, v in seatmap.items()}; e['11'] = 3; assert sum(e.values()) == 538; return e
-EV = {2008: ev(S2000), 2012: ev(S2010), 2016: ev(S2010), 2020: ev(S2010), 2024: ev(S2020)}
+EV = {2000: ev(S1990), 2004: ev(S2000), 2008: ev(S2000), 2012: ev(S2010), 2016: ev(S2010), 2020: ev(S2010), 2024: ev(S2020)}
 json.dump({str(k): v for k, v in EV.items()}, open(f'data/weights/w/ev_tables.json', 'w'))
 
 def share_weights(y, per_state):
@@ -40,7 +72,7 @@ def share_weights(y, per_state):
     for f, v in p.items(): tot[f[:2]] += v
     return {f: per_state[f[:2]]*v/tot[f[:2]] for f, v in p.items()}
 for y, e in EV.items(): write(f'ev_{y}', share_weights(y, e))
-for y in (2016, 2018, 2020, 2022, 2024, 2026): write(f'senate_{y}', share_weights(y, {s: 2 for s in set(f[:2] for f in ids)}))
+for y in range(2000, 2027, 2): write(f'senate_{y}', share_weights(y, {s: 2 for s in set(f[:2] for f in ids)}))
 
 # presidential votes cast, from the built page payload (already de-duplicated, AK statewide)
 d = json.loads(gzip.decompress(base64.b64decode(open('build/payload.b64').read())))

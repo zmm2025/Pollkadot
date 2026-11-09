@@ -1,0 +1,24 @@
+{
+  "mode": "add",
+  "year": 2006,
+  "office": "SEN",
+  "special": 0,
+  "state_po": "MO",
+  "dem_cand": "Claire McCaskill",
+  "rep_cand": "Jim Talent",
+  "top_other_cand": "Frank Gilmour",
+  "sources": [
+    {
+      "title": "Missouri Secretary of State, Official Election Returns, General Election 2006, results by county (Kansas City listed as its own jurisdiction) (pdf)",
+      "url": "https://www.sos.mo.gov/CMSImages/ElectionResultsStatistics/CountyGeneral2006.pdf",
+      "retrieved": "2026-11-09"
+    },
+    {
+      "title": "Missouri Secretary of State, Official Election Returns, General Election 2006, statewide totals (pdf)",
+      "url": "https://www.sos.mo.gov/CMSImages/ElectionResultsStatistics/AllRacesGeneralNovember2006.pdf",
+      "retrieved": "2026-11-09"
+    }
+  ],
+  "method": "Kansas City (Kansas City Board of Election Commissioners, the Jackson County part of the city) U.S. Senator votes transcribed from the official county-by-county returns PDF (text extracted with pdftotext; PDFs kept in data/raw/state/2006_MO_SEN_kc/) into one row added to Jackson County 29095; oth = Gilmour (LIB) 1,363, Lewis (PRG) 548, write-ins 0. Needed because Amlani & Algara's Missouri 2006 U.S. Senator county rows omit Kansas City (statewide shortfall equals Kansas City exactly).",
+  "validation": "Amlani statewide dem 981,699 + KC 73,556 = 1,055,255 vs certified Claire McCaskill 1,055,255: +0 (+0.00%); Amlani statewide rep 985,429 + KC 21,512 = 1,006,941 vs certified Jim Talent 1,006,941: +0 (+0.00%). KC row sums to the official KC total of 96,979."
+}

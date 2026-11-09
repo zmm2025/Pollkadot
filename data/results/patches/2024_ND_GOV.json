@@ -1,0 +1,19 @@
+{
+  "mode": "fill",
+  "year": 2024,
+  "office": "GOV",
+  "special": 0,
+  "state_po": "ND",
+  "dem_cand": "Merrill Piepkorn",
+  "rep_cand": "Kelly Armstrong",
+  "top_other_cand": "Michael Coachman",
+  "sources": [
+    {
+      "title": "North Dakota Secretary of State, 2024 Official General Election Results, Governor and Lt. Governor, county export (Statewide County Results.xlsx)",
+      "url": "https://results.sos.nd.gov/ResultsSW.aspx?text=Race&type=SW&map=CTY",
+      "retrieved": "2026-11-09"
+    }
+  ],
+  "method": "pipeline/patches/2024_ND_GOV.py reads the official county export of the Governor contest and keeps Burleigh and Divide. Armstrong/Strinden (Republican) is rep, Piepkorn/Hart (Democratic-NPL) is dem, and Coachman/Gessele (independent nomination) plus write-ins are oth.",
+  "validation": "Filled counties equal the official county totals: Burleigh 38015 dem 11,343 / rep 36,496 / oth 3,592 (3,492 Coachman + 100 write-in); Divide 38023 dem 226 / rep 894 / oth 67. With the 51 MIT counties (dem 82,474 / rep 209,666 / oth 17,193), the state total becomes dem 94,043 / rep 247,056 / oth 20,852, exactly the certified statewide totals (0.00% difference)."
+}

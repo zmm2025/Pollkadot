@@ -1,7 +1,8 @@
-"""Build data/pop/county_pop.csv (fips, year, pop, source) for 2008-2026.
+"""Build data/pop/county_pop.csv (fips, year, pop, source) for 2000-2026.
 
-All inputs are Census Bureau files cloned from public GitHub repos under build/downloads.
-Run with: python3 -I pipeline/data_sources/population/build_county_pop.py
+Inputs are Census Bureau files downloaded from www2.census.gov into build/downloads/census
+(see data/pop/README.md for URLs and hashes), plus the CT-Data-Collaborative town->county list.
+Run with: python -P pipeline/data_sources/population/build_county_pop.py
 """
 import glob
 import os
@@ -11,15 +12,11 @@ import numpy as np
 import pandas as pd
 
 DL = "build/downloads"
-F_INT = f"{DL}/pop_i_waddell_CP255/04-pandas/data/co-est00int-tot.csv"
-F_19 = f"{DL}/pop_s_programminghistorian_jekyll/assets/choropleth-maps-python-folium/co-est2019-alldata.csv"
-F_25 = f"{DL}/pop_k_anirbanmukherjee2709_pybenford/examples/data/co-est2025-alldata.csv"
-F_25B = f"{DL}/pop_k_palism1_stroke-burden-index/data/scai_data/hospitals/co-est2025-alldata.csv"
-D_25C = f"{DL}/pop_aodj/tutorial-data/census-estimates"
-F_FIX25 = f"{DL}/pop_eig/tests/fixtures/census/co-est2025-alldata.csv"
-F_SUB24 = f"{DL}/pop_nparep/data/raw/census-csv/sub-est2024_9.csv"
-F_SUB24_ALL = f"{DL}/pop_nparep/data/raw/census-csv/sub-est2024.csv"
-F_CTFIPS = f"{DL}/pop_ctfips/ct-town-county-fips-list.csv"
+F_INT = f"{DL}/census/co-est00int-tot.csv"
+F_19 = f"{DL}/census/co-est2019-alldata.csv"
+F_25 = f"{DL}/census/co-est2025-alldata.csv"
+F_SUB24 = f"{DL}/census/sub-est2024_9.csv"
+F_CTFIPS = f"{DL}/census/ct-town-county-fips-list.csv"
 OUT = "data/pop/county_pop.csv"
 
 S_INT = "co-est00int-tot.csv"
@@ -52,11 +49,12 @@ it["SUMLEV"] = it["SUMLEV"].str.zfill(3)
 it["fips"] = it["STATE"].str.zfill(2) + it["COUNTY"].str.zfill(3)
 it_st = it[it.SUMLEV == "040"]
 it = it[it.SUMLEV == "050"].copy()
-for c in ["POPESTIMATE2008", "POPESTIMATE2009", "CENSUS2010POP"]:
+Y_INT = list(range(2000, 2010))
+for c in [f"POPESTIMATE{y}" for y in Y_INT] + ["CENSUS2010POP"]:
     it[c] = it[c].astype(np.int64)
     it_st[c] = it_st[c].astype(np.int64)
 check(len(it) == 3143 and it.fips.is_unique, f"intercensal: 3143 unique county rows (got {len(it)})")
-for c in ["POPESTIMATE2008", "POPESTIMATE2009"]:
+for c in [f"POPESTIMATE{y}" for y in Y_INT]:
     check(it[c].sum() == it_st[c].sum(), f"intercensal {c}: county sum == sum of state rows ({it[c].sum():,})")
 us08, us09 = it.POPESTIMATE2008.sum(), it.POPESTIMATE2009.sum()
 
@@ -111,13 +109,6 @@ def popcols(d, lvl="050"):
 
 
 mine = v25.set_index("fips")[cols25].sort_index()
-b = rd(F_25B)
-check(popcols(b).equals(mine) and popcols(b, "040").equals(v25_st.set_index("fips")[cols25].sort_index()),
-      "co-est2025: county+state POPESTIMATE2020-2025 identical in second copy (stroke-burden-index)")
-c3 = pd.concat([rd(p) for p in sorted(glob.glob(f"{D_25C}/*.csv"))], ignore_index=True)
-c3 = popcols(c3)
-check(c3.loc[c3.index.str[:2].isin(STATES51)].equals(mine),
-      "co-est2025: county POPESTIMATE2020-2025 identical in third copy (art-of-data-journalism per-state split)")
 check(len(v25) == 3144 and v25.fips.is_unique, f"co-est2025: 3144 unique county rows in 50+DC (got {len(v25)})")
 check(v25_st.STATE.nunique() == 51 and len(v25_st) == 51, "co-est2025: 51 state rows")
 for y in Y25:
@@ -126,19 +117,8 @@ for y in Y25:
 la = v25.set_index("fips").POPESTIMATE2020["06037"]
 check(9_900_000 < la < 10_100_000, f"co-est2025 LA County 2020 ~10.0M (got {la:,})")
 check(v25.set_index("fips").POPESTIMATE2025["48301"] < 200, "co-est2025 Loving TX 2025 < 200")
-# cross-check against the independently committed 5-state fixture (recorded from census.gov 2026-09-30)
-fix = rd(F_FIX25)
-fix["fips"] = fix["STATE"] + fix["COUNTY"]
-cols = [f"POPESTIMATE{y}" for y in Y25]
-a = fix.set_index("fips")[cols].astype(np.int64).sort_index()
-b = v25.set_index("fips").loc[a.index, cols]
-check(a.equals(b), f"co-est2025: {len(a)} counties x 6 years identical to Electro-Industrial-Geos fixture")
-
 # ---------------------------------------------------------------- CT towns (vintage 2024 sub-county)
 sub = rd(F_SUB24)
-sub_all = rd(F_SUB24_ALL)
-sub_all_ct = sub_all[sub_all.STATE == "09"].reset_index(drop=True)
-check(sub.reset_index(drop=True).equals(sub_all_ct), "sub-est2024_9.csv identical to CT rows of national sub-est2024.csv")
 Y24 = list(range(2020, 2025))
 for c in [f"POPESTIMATE{y}" for y in Y24]:
     sub[c] = sub[c].astype(np.int64)
@@ -248,7 +228,7 @@ target = sorted([f for f in v25.fips if not f.startswith("09")] + CT_OLD)
 check(len(target) == 3143, f"target county set = 3143 (3144 V2025 - 9 CT regions + 8 CT counties)")
 
 ct_report = []
-for year in range(2008, 2026):
+for year in range(2000, 2026):
     if year <= 2009:
         ser = dict(zip(it.fips, it[f"POPESTIMATE{year}"]))
         src = S_INT

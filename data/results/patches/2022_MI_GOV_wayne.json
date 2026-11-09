@@ -1,0 +1,24 @@
+{
+  "mode": "fill",
+  "year": 2022,
+  "office": "GOV",
+  "special": 0,
+  "state_po": "MI",
+  "dem_cand": "Gretchen Whitmer",
+  "rep_cand": "Tudor M. Dixon",
+  "top_other_cand": "Mary Buzuma",
+  "sources": [
+    {
+      "title": "Michigan Secretary of State, 11/8/2022 State General official results by county, Election Data file (2022STATE_GENERAL_MI_CENR_BY_COUNTY.txt)",
+      "url": "https://mvic.sos.state.mi.us/VoteHistory/GetElectionResultFile?electionId=691",
+      "retrieved": "2026-11-09"
+    },
+    {
+      "title": "Michigan Secretary of State, 2022 Michigan Election Results (County Results, OFFICIAL)",
+      "url": "https://mvic.sos.state.mi.us/votehistory/Index?type=C&electionDate=11-8-2022",
+      "retrieved": "2026-11-09"
+    }
+  ],
+  "method": "pipeline/patches/2022_MI_GOV_wayne.py sums the Governor (office code 2) rows for WAYNE from the official county file; Democratic -> dem, Republican -> rep, Libertarian, US Taxpayers, Green, Natural Law and write-ins -> oth.",
+  "validation": "Wayne County (26163) official: Whitmer 457,601, Dixon 180,487, others 7,651 (total 645,739) vs MIT 426,657 / 168,044 (total 606,273): MIT was -6.76% D / -6.89% R. State after filling: dem 2,432,125 / rep 1,960,829 vs official statewide 2,430,505 / 1,960,635: +0.07% / +0.01%."
+}
