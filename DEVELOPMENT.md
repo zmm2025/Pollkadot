@@ -4,11 +4,24 @@ Everything technical lives here. The user guide is [README.md](README.md).
 
 ## Quick start
 
+The site must be served over HTTP, because `file://` can't fetch the data files.
+
 ```bash
-# Serve the site locally. It must be served over HTTP; file:// can't fetch the data files.
-cd site && python3 -m http.server 8000
-# open http://localhost:8000/
+python scripts/preview.py      # or python3; standard library only
 ```
+
+This serves `site/` from the checkout or worktree it runs in on `http://127.0.0.1:8765/` (or the next free port) and opens it in your default browser. **Closing the tab is the whole cleanup:** the server exits about 3 seconds after the last tab closes, so there's nothing to stop. Running it again while a preview of the same `site/` is already up just opens another tab on that server. Ctrl+C stops it immediately. Flags: `--port N`, `--no-browser`.
+
+How it notices the tab closing: the dev server injects a one-line `EventSource` snippet into the HTML it serves (never into `site/index.html` on disk, so the deployed site is unchanged). A tab keeps that stream open while it's alive, and reloads reconnect within the 3-second grace period. Every open tab counts, in any browser, so the server runs until the **last** one closes. A tab that a browser's memory saver discards counts as closed. A tab left open after its server stopped (say after Ctrl+C) doesn't reconnect to the next preview, so reload it.
+
+**T3 Code:** the project's **Preview site** action opens the site in T3's built-in browser instead. It's configured in T3's project settings, not in this repo:
+
+- Command: `python scripts/preview.py --no-browser; if ($LASTEXITCODE -eq 0) { exit }`. The `exit` closes the terminal once the server is done. The script exits non-zero only when something went wrong (for example, no tab connected within 2 minutes), so the terminal stays open to show why.
+- Preview URL `http://127.0.0.1:8765/`, with "open preview automatically" on.
+
+T3 keeps a preview tab loaded even while its panel is hidden or you're in another thread, so the server keeps running until you close that preview tab. If T3 ever shows "Connection refused", it loaded the page before the server was ready; reload the tab.
+
+The plain alternative still works if you want a server you control yourself: `cd site && python3 -m http.server 8000`.
 
 The site is static: one `index.html` (markup, CSS and JS in one file) plus gzipped binary data under `site/data/`. It has no build step, framework or dependencies. You only need to run the Python pipeline if you change the **data**.
 
@@ -21,6 +34,7 @@ site/                      ← deployed as-is to GitHub Pages
   data/v/*.bin             ← gzip Int16 delta-encoded vertex arrays, one per shape variant
   data/c/*.bin             ← gzip circle layouts (packed/Dorling), per metric × year
   CNAME, .nojekyll
+scripts/preview.py         ← local dev server: opens the browser, exits when the tab closes
 pipeline/
   build_data.py            ← results + metrics → build/payload.b64 (the contests payload)
   build_data2.py           ← payload + geometry + cartograms + circles → site/data/*
