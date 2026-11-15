@@ -33,9 +33,12 @@ function labToRgb(L, a, b) {
     l2s(-0.0041960695 * l - 0.7034186147 * m + 1.707614701 * s),
   ];
 }
+// Party colours share one OKLCH lightness (0.570) and chroma (0.190) so neither side reads as brighter or more
+// saturated; only the hue differs (Democratic ~264°, Republican ~27°). The straight OKLab ramp between them then keeps
+// that lightness throughout. Keep --dem/--rep in styles.css and the favicon (ramp at t = 0, 1/3, 2/3, 1) in step.
 export const dark = matchMedia('(prefers-color-scheme: dark)').matches;
-const DEM = hexToLab('#2f6fd8'),
-  REP = hexToLab('#d63b3b'),
+const DEM = hexToLab('#3a6ee5'),
+  REP = hexToLab('#d03734'),
   NONE = hexToLab(dark ? '#3a3a40' : '#d9d7d2');
 export const LUTN = 1024,
   LUT = new Uint8ClampedArray(3 * (LUTN + 1));
