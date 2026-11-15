@@ -23,7 +23,7 @@ export const st = {
   shade: 'share',
   cmp: 'none',
   gran: 'county',
-  borders: false,
+  borders: true,
   region: null, // FIPS code of the one state the view is limited to, or null for the whole country
   contest: null,
 };

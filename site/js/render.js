@@ -429,8 +429,8 @@ function paintScene(k, part) {
     vs = visibleStates(),
     z = k / app.baseK; // zoom relative to the whole-country view
   if (LN && bA > 0.01) {
-    ctx.strokeStyle = dark ? 'rgba(255,255,255,.28)' : 'rgba(0,0,0,.22)';
-    ctx.lineWidth = 0.9 / k;
+    ctx.strokeStyle = dark ? 'rgba(255,255,255,.55)' : 'rgba(0,0,0,.5)';
+    ctx.lineWidth = (1.3 * Math.min(1.6, Math.sqrt(z))) / k;
     ctx.lineJoin = 'round';
     strokeLines('geoB', shared.geo, D.stateArcs, stArcs, bA, true, vs);
     ctx.globalAlpha = 1;
@@ -497,8 +497,8 @@ function paintScene(k, part) {
       ctx.lineWidth = 0.5 / k;
       strokeLines('allL', scene.lineShared, D.allArcs, stAllArcs, scene.lineAlpha, still, vs);
     }
-    ctx.strokeStyle = dark ? 'rgba(20,20,22,.9)' : 'rgba(255,255,255,.85)';
-    ctx.lineWidth = (0.8 * Math.min(2, Math.sqrt(z))) / k;
+    ctx.strokeStyle = dark ? 'rgba(20,20,22,.95)' : 'rgba(255,255,255,.95)';
+    ctx.lineWidth = (1.3 * Math.min(2, Math.sqrt(z))) / k;
     strokeLines('stL', scene.lineShared, D.stateArcs, stArcs, scene.lineAlpha, still, vs);
     ctx.globalAlpha = 1;
   }
