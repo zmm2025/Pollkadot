@@ -1,6 +1,6 @@
 # Developing Pollkadot
 
-Everything technical lives here. The user guide is [README.md](README.md).
+Everything technical lives here. The user guide is [README.md](README.md). How to open a PR, and the evidence it needs, is in [CONTRIBUTING.md](CONTRIBUTING.md); coding agents also follow [AGENTS.md](AGENTS.md).
 
 ## Quick start
 
@@ -39,6 +39,10 @@ site/                      ← deployed as-is to GitHub Pages
   CNAME, .nojekyll
 scripts/preview.py         ← local dev server: opens the browser, exits when the tab closes
 scripts/check-import-cycles.mjs ← fails if site/js modules import each other in a loop
+scripts/capture.mjs        ← before/after screenshots of a ref and the working tree (npm run capture)
+scripts/pr-evidence.mjs    ← uploads or fetches this branch's PR evidence (npm run pr-evidence)
+scripts/kept-evidence.mjs  ← where images kept for chat live (see "Screenshots and PR evidence")
+.github/scripts/pr-evidence.mjs ← fills a PR's Preview section; run by .github/workflows/pr-evidence.yml
 pipeline/
   build_data.py            ← results + metrics → build/payload.b64 (the contests payload)
   build_data2.py           ← payload + geometry + cartograms + circles → site/data/*
@@ -61,7 +65,7 @@ data/
   weights/                 ← population by year, metric weights, electoral vote tables
   circles/                 ← circle centers/radii per metric × year + circle_meta.json
   cartograms/              ← base.npz (geographic vertices + arc offsets) + contig_<metric>_<year>.npz (float32 xy)
-build/                     ← scratch output, git-ignored
+build/                     ← scratch output, git-ignored; the main checkout's build/evidence/ is the exception
 ```
 
 ## Rebuilding the data
@@ -178,6 +182,24 @@ npm run test:export   # exptest.js: PNG export and download
 ```
 
 `sweep.js` fails on any console error, any blank or misaligned render, or any broken control state.
+
+## Screenshots and PR evidence
+
+| Command | What it does |
+| --- | --- |
+| `npm run capture -- <options>` | Screenshots `main` (or `--before <ref>`) and this checkout's `site/` with the same contest, settings and color scheme. Images go to `build/capture/`, or with `--keep` to the kept evidence folder. Options are at the top of `scripts/capture.mjs`. |
+| `npm run pr-evidence` | Uploads `build/pr-evidence/` as the branch's PR evidence (see [CONTRIBUTING.md](CONTRIBUTING.md#pr-evidence)). |
+| `npm run pr-evidence:fetch` | Downloads the branch's current evidence into an empty `build/pr-evidence/`. |
+
+`capture` needs no server or extra checkout: it reads the ref's `site/` with `git archive`, keeps it in memory, and serves both sides on free local ports until it finishes. It waits for the map the way the tests do (`pollkadot.disp && !pollkadot.animating`).
+
+**Kept evidence.** Images shown in a chat (T3 Code reads them from disk every time it shows the message) are kept in the main checkout's `build/evidence/<worktree folder>/`, or `build/evidence/main/` for the main checkout itself. The folder outlives the worktree, and nothing cleans it up: never delete it, or clear `build/` in the main checkout wholesale, since old chats would show broken images. `capture --keep` adds `-2`, `-3` and so on to a name rather than replacing a file.
+
+**Evidence refs.** Each branch's evidence is a commit at `refs/pr-evidence/branches/<branch>`, outside every branch. The [PR evidence workflow](.github/workflows/pr-evidence.yml) pins it as `refs/pr-evidence/pulls/<number>` and fills the PR's Preview section between `<!-- pr-evidence:start sha=... -->` and `<!-- pr-evidence:end -->` markers. When the PR merges, the workflow deletes the branch's ref, since the pinned copy stays. To check what it would write without changing anything:
+
+```bash
+GITHUB_TOKEN=$(gh auth token) GITHUB_REPOSITORY=zmm2025/Pollkadot PR_NUMBER=8 DRY_RUN=1 node .github/scripts/pr-evidence.mjs
+```
 
 ## Deployment
 
