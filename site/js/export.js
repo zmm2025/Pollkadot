@@ -1,5 +1,6 @@
 // PNG export of the full map.
-import { D, NC, shared } from './data.js';
+import { countyRing, D, NC, ringStart, SIDS, shared, stArcs } from './data.js';
+import { POSTAL } from './format.js';
 import { app, scene, st } from './state.js';
 import { bcv, extTimer, renderBase, resizeMap } from './render.js';
 
@@ -25,9 +26,11 @@ function contentBBox() {
     if (x > x1) x1 = x;
     if (y > y1) y1 = y;
   };
+  const hidden = i => scene.vis && scene.vis[i] < 0.5; // outside the chosen state
   if (scene.disp.type === 'circ') {
     const c = scene.disp.c;
     for (let i = 0; i < NC; i++) {
+      if (hidden(i)) continue;
       let r = c[2 * NC + i];
       if (scene.ringC && scene.ringC[i] > r) r = scene.ringC[i];
       if (!(r > 0)) continue;
@@ -36,11 +39,15 @@ function contentBBox() {
     }
   } else {
     const p = scene.disp.pos;
-    for (let k = 0; k < p.length; k += 2) add(p[k], p[k + 1]);
+    for (let i = 0; i < NC; i++) {
+      if (hidden(i)) continue;
+      for (const r of countyRing[i]) for (let k = ringStart[r]; k < ringStart[r + 1]; k++) add(p[2 * k], p[2 * k + 1]);
+    }
   }
   if (st.borders && scene.disp.type === 'circ') {
-    const g = shared.geo;
-    for (const a of D.stateArcs) for (let i = D.arcOff[a]; i < D.arcOff[a + 1]; i++) add(g[2 * i], g[2 * i + 1]);
+    const g = shared.geo,
+      arcs = st.region == null ? D.stateArcs : stArcs[SIDS.indexOf(st.region)];
+    for (const a of arcs) for (let i = D.arcOff[a]; i < D.arcOff[a + 1]; i++) add(g[2 * i], g[2 * i + 1]);
   }
   return [x0, y0, x1, y1];
 }
@@ -54,6 +61,7 @@ export function renderExport(outW = 1800, scale = 2) {
     hl: app.hl,
     sel: app.sel,
     interacting: app.interacting,
+    baseK: app.baseK,
     bw: bcv.width,
     bh: bcv.height,
   };
@@ -66,6 +74,8 @@ export function renderExport(outW = 1800, scale = 2) {
   app.DPR = scale;
   const k = app.W / (bw + 2 * pad);
   app.fit = { k, x: -(x0 - pad) * k, y: -(y0 - pad) * k };
+  // line widths follow the zoom relative to the whole country, as on screen
+  app.baseK = st.region == null ? k : app.W / (1.06 * (D.bbox[2] - D.bbox[0]));
   app.view = { k: 1, x: 0, y: 0 };
   app.hl = null;
   app.sel = -1;
@@ -90,6 +100,7 @@ export function renderExport(outW = 1800, scale = 2) {
     hl: app.hl,
     sel: app.sel,
     interacting: app.interacting,
+    baseK: app.baseK,
   } = saved);
   bcv.width = saved.bw;
   bcv.height = saved.bh;
@@ -102,6 +113,7 @@ function exportName() {
   const c = st.contest;
   const parts = [
     c.label.replace(/\s+/g, '-'),
+    ...(st.region == null ? [] : [POSTAL[st.region]]),
     { PRES: 'president', SEN: 'senate', HOUSE: 'house', GOV: 'governor' }[c.office],
     'by-' + st.metric,
     { circ: 'packed-circles', place: 'circles-in-place', contig: 'contiguous' }[st.method],

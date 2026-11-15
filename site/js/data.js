@@ -12,7 +12,7 @@ async function getBin(path) {
 export let D, NC, NP, E, ringPt, ringStart, countyRing, circParam;
 export const shared = {},
   cache = {};
-export let NS, SIDS, stOf, stMembers, stRep, stCent, stArcs; // state structures
+export let NS, SIDS, stOf, stMembers, stRep, stCent, stArcs, stAllArcs; // state structures
 export const KM2 = 35.4527;
 function decodeShared(buf) {
   const d = new Int16Array(buf);
@@ -271,6 +271,9 @@ function buildGeometry() {
   for (let i = 0; i < NC; i++) for (const r of D.polys[i]) for (const a of r) use[a >= 0 ? a : ~a].add(stOf[i]);
   stArcs = SIDS.map(() => []);
   for (const a of D.stateArcs) for (const s of use[a]) stArcs[s].push(a);
+  // every arc of each state's counties, for county lines when the view is limited to some states
+  stAllArcs = SIDS.map(() => []);
+  for (let a = 0; a < use.length; a++) for (const s of use[a]) stAllArcs[s].push(a);
 }
 // Loads core.bin and the geographic shapes, then builds the shared geometry.
 export async function loadCoreData() {

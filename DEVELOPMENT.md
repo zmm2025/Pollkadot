@@ -144,8 +144,8 @@ The code is a set of ES modules. `index.html` loads only `main.js`, which import
 A lower module never calls up. When something low-level needs to trigger something higher up, the higher module does the coordinating. For example, `render.js` only resizes the map, and `main.js` resizes the map, the chip row's edge fades and the curve. Likewise, `go()` lives in `ui.js` because it refreshes the controls before starting the animation.
 
 **Where state lives**:
-- **`st`** (`state.js`): what the user picked, i.e. contest, size, shape, rings, color, granularity and borders.
-- **`app`** (`state.js`): state several modules change, i.e. canvas size, `view`/`fit`, `sel`, `hl`, the curve selection (`selBand`, `preview`, `xr`), `interacting` and `colorVer`. Code reads and writes it as `app.view`, `app.sel` and so on.
+- **`st`** (`state.js`): what the user picked, i.e. contest, size, shape, rings, color, granularity, borders and `region` (one state's FIPS code, or null).
+- **`app`** (`state.js`): state several modules change, i.e. canvas size, `view`/`fit` (and `box`, the map-space extent `fit` frames, and `baseK`, the whole-country `fit.k`), `sel`, `hl`, the curve selection (`selBand`, `preview`, `xr`), `interacting` and `colorVer`. Code reads and writes it as `app.view`, `app.sel` and so on.
 - **`scene`** (`state.js`): what's on screen (`disp`, `colT`, `ringC`…). Only `transition.js` changes it; `render.js` draws it.
 - **Everything else** belongs to the one module that changes it, and others import it read-only. For example, `data.js` owns the loaded data (`D`, `NC`…).
 - **Adding something new.** If one module changes it, keep it there and export it. If several do, add it to `app`. Put it as low as it can go: in the lowest layer that everything using it can import from.
@@ -165,8 +165,9 @@ Code is formatted with Prettier (`npm run format`, settings in `.prettierrc.json
 - **Transitions**: `transitionTo()` picks a strategy (radii-only, stay, morph or fade) based on what changed. Rings/outlines come from `computeCompare`, `ringExpanded` and `outlineExpanded`.
 - **Color**: OKLab interpolation between fixed red and blue endpoints through a LUT.
 - **Legend curve**: weighted KDE (`computeCurve`/`drawLegend`), range selection with snapping (`snap`, `setBand`), wheel zoom and right/middle-drag pan. `auxDrag` suppresses the context menu after aux-button drags, even when the button is released outside the element.
+- **One state** (`st.region`): the map stays the national layout. `visFor()` gives each county an opacity (`scene.vis`, folded into `hf(i)`), so other states fade out, and `regionBox()` gives the extent the camera frames (`app.box`, through `fitBox()`). `transitionTo()` moves the camera along a zoom-out-and-in path (`camPath`) and resets the user's zoom when the state changes. `unitSkip()` and `inRegion()` limit the vote bar, the curve, the tooltips' shares and the rings to the state's counties. Lines are drawn per visible state (`stArcs`, `stAllArcs`), and line detail follows the zoom relative to the whole country (`app.baseK`). States granularity is unavailable while a state is picked.
 - **Export**: `renderExport()` re-renders the full map off-screen and ignores zoom, hover and selection. `exportName()` builds the file name and `downloadBlob` saves it through an `<a download>` link.
-- **URL hash**: `#<year>-<race>` (for example `#2024-pres`) picks the contest.
+- **URL hash**: `#<year>-<race>` (for example `#2024-pres`) picks the contest; `#2024-pres/pa` also limits the view to one state (`readHash`/`writeHash` in `ui.js`).
 
 ## Tests
 
@@ -176,7 +177,7 @@ The tests use Playwright (Chromium) against a local server, by default `http://l
 npm install && npx playwright install chromium
 npm run serve &
 npm run check:imports # no import loops between modules
-npm test              # sweep.js: every contest × metric × shape × rings × color × granularity; screenshots → build/sweep/
+npm test              # sweep.js: every contest × metric × shape × rings × color × granularity, single states; screenshots → build/sweep/
 npm run test:pan      # pantest.js: pan/zoom frame times, cursor, context-menu suppression
 npm run test:export   # exptest.js: PNG export and download
 ```

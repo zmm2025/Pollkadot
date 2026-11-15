@@ -2,7 +2,7 @@
 import { countyRing, D, KM2, NC, ringStart, SIDS, stMembers, stRep, weightsFor } from './data.js';
 import { fmt, OFF, pct } from './format.js';
 import { beginAuxDrag } from './aux-drag.js';
-import { app, ease, metricInfo, scene, st, unitOf, unitVotes, unitWeights, wkeyFor } from './state.js';
+import { app, ease, inRegion, metricInfo, scene, st, unitOf, unitVotes, unitWeights, wkeyFor } from './state.js';
 import { cv, draw, drawOverlay, hf, markInteracting, requestDraw } from './render.js';
 
 // ================= tooltip / interaction =================
@@ -22,7 +22,7 @@ function hit(px, py) {
     const tol = 4 / (app.fit.k * app.view.k);
     for (let i = 0; i < NC; i++) {
       const r = c[2 * NC + i];
-      if (r <= 0 || (app.hl && hf(i) < 0.5)) continue;
+      if (r <= 0 || hf(i) < 0.5) continue;
       const d = Math.hypot(x - c[i], y - c[NC + i]);
       if (d <= Math.max(r, tol) && r < br) {
         br = r;
@@ -33,6 +33,7 @@ function hit(px, py) {
   }
   const p = scene.disp.pos;
   for (let i = NC - 1; i >= 0; i--) {
+    if (scene.vis && scene.vis[i] < 0.5) continue;
     let inside = false;
     for (const r of countyRing[i]) {
       const s = ringStart[r],
@@ -74,7 +75,7 @@ function shareOf(m, key, u) {
   const w = unitWeights(m, key);
   if (!w) return null;
   let s = 0;
-  for (const v of w) s += v;
+  for (let v = 0; v < w.length; v++) if (st.gran !== 'county' || inRegion(v)) s += w[v]; // share of the chosen state's total
   return w[u] / s;
 }
 export function updateTip() {

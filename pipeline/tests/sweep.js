@@ -44,6 +44,7 @@ async function setState(p, s) {
     if (s.contest) { const c = pollkadot.D.contests.find(x => x.key === s.contest); pollkadot.st.contest = c; }
     for (const k of ['metric', 'method', 'cmp', 'gran', 'shade']) if (s[k] !== undefined) pollkadot.st[k] = s[k];
     if (s.borders !== undefined) pollkadot.st.borders = s.borders;
+    if (s.region !== undefined) pollkadot.st.region = s.region;
     pollkadot.selBand = null; pollkadot.preview = null; pollkadot.hl = null; pollkadot.xr = [0, 1]; pollkadot.sel = -1;
     await pollkadot.go();
   }, s);
@@ -117,10 +118,30 @@ async function setState(p, s) {
     if (r.empty.length) throw new Error('contests without results: ' + r.empty.join(', ')); if (r.file) throw new Error('file input present');
     for (const o of ['Senate', 'House', 'Governor']) { await p.click('#ddRace'); await p.locator('#menu button', { hasText: o }).click(); await settle(p); await p.click('#ddYear'); const ys = await p.locator('#menu button').allTextContents(); await p.keyboard.press('Escape'); if (ys.some(y => /2026/.test(y))) throw new Error(o + ' year menu lists 2026') }
     await p.click('#infobtn'); const t = await p.evaluate(() => sheetbox.textContent); await p.keyboard.press('Escape'); if (/load results|\bcsv\b/i.test(t)) throw new Error('details sheet offers loading') });
+  // ---- Pass F: the view limited to one state ----
+  log('\nPASS F: one state × shape × rings, then the state menu');
+  for (const region of ['06', '44', '02', '11', '48']) for (const race of region === '11' ? ['2024-pres'] : ['2024-pres', '2024-house']) for (const method of meta.methods) for (const cmp of ['none', 'land']) {
+    const where = `${race} state=${region} ${method} rings=${cmp}`;
+    try { await setState(p, { contest: race, metric: 'pop', method, cmp, gran: 'county', shade: 'share', region }); const r = await p.evaluate(CHECK); r.problems.forEach(x => issue(where, x));
+      const v = await p.evaluate(() => { const s = pollkadot.st.region, out = []; for (let i = 0; i < pollkadot.NC; i++) if ((pollkadot.D.st[i] === s) !== (pollkadot.vis[i] === 1)) { out.push(i); break } return { out, box: !!pollkadot.box, bar: document.getElementById('pvcap').title } });
+      if (v.out.length) issue(where, 'counties shown outside the state'); if (!v.box) issue(where, 'no framing box'); if (!/ballots/.test(v.bar)) issue(where, 'vote bar caption: ' + v.bar); checked++;
+      if (race === '2024-pres' && cmp === 'none') await p.locator('#stage').screenshot({ path: `${OUT}/F_${region}_${method}.png` }) }
+    catch (e) { issue(where, 'exception: ' + e.message.split('\n')[0]) }
+    flushErr(where);
+  }
+  await setState(p, { contest: '2024-pres', method: 'circ', cmp: 'none', region: null });
+  await ui('state menu: pick a state, hash, States disabled, back to all', async () => {
+    await p.click('#cRegion'); await p.click('#menu button[data-v="42"]'); await settle(p);
+    if (await p.evaluate(() => location.hash) !== '#2024-pres/pa') throw new Error('hash ' + await p.evaluate(() => location.hash));
+    await p.click('#cShow'); await p.waitForSelector('#menu.show'); if (!await p.locator('#menu button[data-v="state"]').isDisabled()) throw new Error('States option enabled'); await p.keyboard.press('Escape');
+    await p.click('#cRegion'); await p.click('#menu button[data-v="all"]'); await settle(p);
+    const r = await p.evaluate(() => [pollkadot.st.region, pollkadot.vis, pollkadot.box, location.hash, Math.abs(pollkadot.fit.k - pollkadot.baseK) < 1e-9]);
+    if (r[0] !== null || r[1] !== null || r[2] !== null || r[3] !== '#2024-pres' || !r[4]) throw new Error('not back to the whole country: ' + JSON.stringify(r)) });
+  await ui('state from the URL hash', async () => { await p.goto('about:blank'); await p.goto(BASE + '/#2020-pres/tx'); await settle(p); const r = await p.evaluate(() => [pollkadot.st.region, pollkadot.st.contest.key]); if (r.join() !== '48,2020-pres') throw new Error(r.join()); await p.goto(BASE + '/#2024-pres'); await settle(p) });
   // ---- Pass D: rapid switching while animating (race conditions) ----
   log('\nPASS D: rapid switching mid-animation');
-  await ui('rapid changes', async () => { for (let i = 0; i < 25; i++) { await p.evaluate(i => { const ms = ['circ', 'place', 'contig'], gs = ['county', 'state'], cs = ['none', 'land', 'gdp']; pollkadot.st.method = ms[i % 3]; pollkadot.st.gran = gs[(i >> 1) % 2]; pollkadot.st.cmp = cs[i % 3]; pollkadot.st.contest = pollkadot.D.contests[(i * 7) % 20]; pollkadot.go() }, i); await p.waitForTimeout(90 + (i % 4) * 60) }
-    await settle(p); const r = await p.evaluate(CHECK); r.problems.forEach(x => issue('after rapid changes', x)) });
+  await ui('rapid changes', async () => { for (let i = 0; i < 25; i++) { await p.evaluate(i => { const ms = ['circ', 'place', 'contig'], gs = ['county', 'state'], cs = ['none', 'land', 'gdp']; pollkadot.st.method = ms[i % 3]; pollkadot.st.gran = gs[(i >> 1) % 2]; pollkadot.st.cmp = cs[i % 3]; pollkadot.st.contest = pollkadot.D.contests[(i * 7) % 20]; pollkadot.st.region = [null, '36', null, '12'][i % 4]; pollkadot.go() }, i); await p.waitForTimeout(90 + (i % 4) * 60) }
+    await settle(p); const r = await p.evaluate(CHECK); r.problems.forEach(x => issue('after rapid changes', x)); await p.evaluate(() => { pollkadot.st.region = null; return pollkadot.go() }); await settle(p) });
   // ---- Pass E: phone width + dark mode ----
   log('\nPASS E: phone width, dark mode');
   for (const [w, h, scheme] of [[390, 844, 'light'], [390, 844, 'dark'], [1280, 900, 'dark']]) {

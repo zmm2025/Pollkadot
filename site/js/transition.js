@@ -1,10 +1,55 @@
 // Animates the map from what's on screen to the current settings.
-import { expandCircles, layoutFor, NC } from './data.js';
-import { app, computeCompare, contestArrays, ease, lerpArr, ringExpanded, scene, st, wkeyFor } from './state.js';
-import { draw } from './render.js';
+import { D, expandCircles, layoutFor, NC } from './data.js';
+import {
+  app,
+  computeCompare,
+  contestArrays,
+  ease,
+  lerpArr,
+  regionBox,
+  ringExpanded,
+  scene,
+  st,
+  visFor,
+  wkeyFor,
+} from './state.js';
+import { draw, fitBox } from './render.js';
 import { computeCurve } from './legend.js';
 import { updateTip } from './interaction.js';
 
+// ================= camera =================
+// The screen transform of a fit with a view on top of it.
+const camOf = (fit, view) => ({ k: fit.k * view.k, x: fit.x * view.k + view.x, y: fit.y * view.k + view.y });
+// A smooth camera path from a to b (van Wijk & Nuij): it zooms out, pans and zooms back in, so a move between two
+// zoomed-in states passes over the map instead of sweeping across it close up. Returns e (0..1) -> camera.
+function camPath(a, b) {
+  const { W, H } = app,
+    view = c => [(W / 2 - c.x) / c.k, (H / 2 - c.y) / c.k, W / c.k], // map-space centre and width on screen
+    cam = ([ux, uy, w]) => ({ k: W / w, x: W / 2 - (ux * W) / w, y: H / 2 - (uy * W) / w });
+  const [ux0, uy0, w0] = view(a),
+    [ux1, uy1, w1] = view(b),
+    dx = ux1 - ux0,
+    dy = uy1 - uy0,
+    d2 = dx * dx + dy * dy,
+    rho = Math.SQRT2;
+  if (d2 < 1e-12) {
+    const S = Math.log(w1 / w0);
+    return e => cam([ux0, uy0, w0 * Math.exp(e * S)]);
+  }
+  const d1 = Math.sqrt(d2),
+    b0 = (w1 * w1 - w0 * w0 + 4 * d2) / (4 * w0 * d1),
+    b1 = (w1 * w1 - w0 * w0 - 4 * d2) / (4 * w1 * d1),
+    r0 = Math.log(Math.sqrt(b0 * b0 + 1) - b0),
+    r1 = Math.log(Math.sqrt(b1 * b1 + 1) - b1),
+    S = (r1 - r0) / rho;
+  return e => {
+    if (e >= 1) return { ...b };
+    const s = e * S,
+      u = (w0 / (2 * d1)) * (Math.cosh(r0) * Math.tanh(rho * s + r0) - Math.sinh(r0));
+    return cam([ux0 + u * dx, uy0 + u * dy, (w0 * Math.cosh(r0)) / Math.cosh(rho * s + r0)]);
+  };
+}
+const sameBox = (a, b) => a === b || (a && b && a.every((v, i) => Math.abs(v - b[i]) < 1e-6));
 // ================= transition =================
 let animId = 0; // bumped by each transition, so an older one still in flight stops
 export async function transitionTo() {
@@ -25,8 +70,17 @@ export async function transitionTo() {
   const A = contestArrays(c),
     wTo = st.shade === 'winner' ? 1 : 0,
     toLine = L.type === 'shape' ? 1 : 0,
-    cmp = computeCompare(L);
+    cmp = computeCompare(L),
+    V = visFor(),
+    box = regionBox(L, cmp),
+    regionChanged = scene.region !== st.region;
   computeCurve();
+  // Picking a state (or going back to the whole country) frames its extent and resets the user's zoom.
+  const moveCam = regionChanged || !sameBox(app.box, box),
+    viewTo = regionChanged ? { k: 1, x: 0, y: 0 } : { ...app.view },
+    camFrom = camOf(app.fit, app.view);
+  app.box = box;
+  const cam = moveCam ? camPath(camFrom, camOf(fitBox(box || D.bbox), viewTo)) : null;
   const finish = () => {
     scene.disp =
       L.type === 'circ'
@@ -39,6 +93,12 @@ export async function transitionTo() {
     scene.ringAlpha = cmp ? 1 : 0;
     scene.ringE = null;
     scene.animating = false;
+    scene.vis = V;
+    scene.region = st.region;
+    if (moveCam) {
+      app.fit = fitBox(app.box || D.bbox);
+      app.view = viewTo;
+    }
     app.colorVer++;
   };
   if (!scene.disp) {
@@ -60,7 +120,10 @@ export async function transitionTo() {
     fLine = scene.lineAlpha,
     fRingA = scene.ringAlpha,
     fRing = scene.ringC,
-    fOutl = scene.outl;
+    fOutl = scene.outl,
+    fVis = scene.vis ? scene.vis.slice() : new Float32Array(NC).fill(1),
+    tVis = V || new Float32Array(NC).fill(1),
+    fades = !!(scene.vis || V);
   let mode, fromC, toC, fromP, toP, fromOv, toOv;
   if (scene.disp.type === 'circ' && L.type === 'circ') {
     mode = 'circ';
@@ -105,8 +168,9 @@ export async function transitionTo() {
   let lp = null,
     rr = null;
   const t0 = performance.now(),
-    dur = sameLayout ? 450 : 950;
+    dur = sameLayout ? (moveCam ? 800 : 450) : 950;
   scene.animating = true;
+  if (fades) scene.vis = fVis.slice();
   if (rmode === 'morph') {
     scene.ringC = null;
     scene.outl = null;
@@ -125,6 +189,11 @@ export async function transitionTo() {
       scene.disp.overlap = fromOv + (toOv - fromOv) * e;
     } else lerpArr(fromP, toP, e, scene.disp.pos);
     scene.lineAlpha = fLine + (toLine - fLine) * e;
+    if (fades) lerpArr(fVis, tVis, e, scene.vis);
+    if (moveCam) {
+      app.fit = cam(e);
+      app.view = { k: 1, x: 0, y: 0 };
+    }
     if (lineFrom && lineTo && lineFrom !== lineTo) {
       if (!lp) lp = new Float32Array(lineTo.length);
       lerpArr(lineFrom, lineTo, e, lp);
