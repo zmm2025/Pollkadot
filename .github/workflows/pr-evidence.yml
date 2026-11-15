@@ -1,0 +1,39 @@
+name: PR evidence
+
+# Fills each PR's Preview section from the evidence its branch uploaded with npm run pr-evidence. See CONTRIBUTING.md.
+# When a PR merges, it also deletes the branch's evidence ref, since the PR keeps its own pinned copy.
+#
+# pull_request_target runs this file as it is on main, with a token that can edit PRs from forks too. It checks out
+# main, never the PR, and only reads the PR's evidence files, so none of the PR's code runs here.
+on:
+  pull_request_target:
+    types: [opened, reopened, synchronize, ready_for_review, closed]
+  workflow_dispatch:
+    inputs:
+      pr:
+        description: PR number
+        required: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: pr-evidence-${{ github.event.pull_request.number || inputs.pr }}
+
+jobs:
+  preview:
+    if: github.event.action != 'closed' || github.event.pull_request.merged
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          sparse-checkout: .github/scripts
+
+      - name: Fill the Preview section
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number || inputs.pr }}
+        run: node .github/scripts/pr-evidence.mjs

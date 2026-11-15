@@ -4,12 +4,15 @@
   "description": "US election results, county by county, sized by people.",
   "scripts": {
     "serve": "python3 -m http.server 8000 --directory site",
-    "format": "prettier --write site scripts",
-    "format:check": "prettier --check site scripts",
+    "format": "prettier --write site scripts .github/scripts",
+    "format:check": "prettier --check site scripts .github/scripts",
     "check:imports": "node scripts/check-import-cycles.mjs",
     "test": "node pipeline/tests/sweep.js",
     "test:pan": "node pipeline/tests/pantest.js",
-    "test:export": "node pipeline/tests/exptest.js"
+    "test:export": "node pipeline/tests/exptest.js",
+    "capture": "node scripts/capture.mjs",
+    "pr-evidence": "node scripts/pr-evidence.mjs",
+    "pr-evidence:fetch": "node scripts/pr-evidence.mjs --fetch"
   },
   "devDependencies": {
     "playwright": "^1.65.0",
