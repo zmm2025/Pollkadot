@@ -1,8 +1,10 @@
 // Controls: icons, the chip row and its menus, header, popular-vote bar and details sheet.
 import { D, NC, stateSum, weightsFor } from './data.js';
-import { fmt, OFF, pct } from './format.js';
+import { fmt, OFF, pct, POSTAL } from './format.js';
 import {
   app,
+  hasRace,
+  inRegion,
   metricAvailable,
   metricInfo,
   normalizeSettings,
@@ -40,6 +42,9 @@ const ICP = {
   county:
     '<rect x="2.5" y="2.5" width="11" height="11" rx="1.5"/><path d="M2.5 6.2h11M2.5 9.8h11M6.2 2.5v11M9.8 2.5v11"/>',
   state: '<rect x="2.5" y="2.5" width="11" height="11" rx="1.5"/><path d="M8 2.5v11M2.5 8h11"/>',
+  country:
+    '<circle cx="8" cy="8" r="5.8"/><path d="M2.2 8h11.6M8 2.2c-2.2 2.6-2.2 9 0 11.6M8 2.2c2.2 2.6 2.2 9 0 11.6"/>',
+  pin: '<path d="M8 14s-4.5-4.1-4.5-7.6a4.5 4.5 0 0 1 9 0C12.5 9.9 8 14 8 14z"/><circle cx="8" cy="6.4" r="1.6"/>',
 };
 const icon = k =>
   `<svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${ICP[k] || ''}</svg>`;
@@ -276,12 +281,40 @@ function setChip(id, ic, label, title) {
   }, 200);
 }
 const ABBR = { Democrats: 'Dem.', Republicans: 'Rep.', Democratic: 'Dem.', Republican: 'Rep.' };
+const stateName = f => (D.states[f] || {}).name || f;
+// Whether the vote bar covers a single race: the presidency, or a Senate or governor race in the chosen state.
+const singleRace = c => c.office === 'PRES' || (st.region != null && c.office !== 'HOUSE');
 function candNames(c) {
-  if (c.office === 'PRES') {
-    const cd = c.cand['*'] || {};
-    return [cd.d || 'Democratic', cd.r || 'Republican'];
+  if (singleRace(c)) {
+    const cd = (c.cand && (c.cand[c.office === 'PRES' ? '*' : st.region] || c.cand['*'])) || {};
+    if (cd.d && cd.r && cd.d !== 'None' && cd.r !== 'None') return [cd.d, cd.r];
+    if (c.office === 'PRES') return ['Democratic', 'Republican'];
   }
   return ['Democrats', 'Republicans'];
+}
+// Popular vote totals for the whole country or the chosen state.
+function voteTotals(c) {
+  let d = 0,
+    r = 0,
+    o = 0;
+  for (let i = 0; i < NC; i++) {
+    if (c.dedupe[i] || !inRegion(i)) continue;
+    d += c.dem[i];
+    r += c.rep[i];
+    o += c.oth[i];
+  }
+  return { d, r, o };
+}
+// The URL hash: `#<contest>` or `#<contest>/<state postal code>`, e.g. `#2024-pres/pa`.
+function writeHash() {
+  try {
+    history.replaceState(null, '', '#' + st.contest.key + (st.region ? '/' + POSTAL[st.region].toLowerCase() : ''));
+  } catch (e) {}
+}
+export function readHash(h) {
+  const [key, pc] = h.split('/');
+  const f = pc && Object.keys(POSTAL).find(k => POSTAL[k] === pc.toUpperCase());
+  return { contest: D.contests.find(x => x.key === key), region: f && D.states[f] ? f : null };
 }
 const SHORT = {
   land: 'land area',
@@ -305,6 +338,12 @@ function renderUI() {
   document.getElementById('ddRace').textContent = OFF[c.office];
   const contig = st.method === 'contig',
     meth = D.methods.find(x => x.key === st.method);
+  setChip(
+    'cRegion',
+    st.region == null ? 'country' : 'pin',
+    st.region == null ? 'All states' : stateName(st.region),
+    st.region == null ? 'Show one state' : 'Showing only ' + stateName(st.region),
+  );
   setChip('cMethod', st.method, meth.label, meth.short);
   setChip('ddMetric', st.metric, metricInfo(st.metric).label, 'Size: ' + short(st.metric, wkeyFor(c, st.metric)));
   setChip(
@@ -322,15 +361,7 @@ function renderUI() {
     contig || st.borders ? 'State borders' : 'No borders',
     contig ? 'State borders always show in the contiguous shape' : '',
   );
-  let d = 0,
-    r = 0,
-    o = 0;
-  for (let i = 0; i < NC; i++) {
-    if (c.dedupe[i]) continue;
-    d += c.dem[i];
-    r += c.rep[i];
-    o += c.oth[i];
-  }
+  const { d, r, o } = voteTotals(c);
   const tot = d + r + o || 1;
   const [dn, rn] = candNames(c);
   const nm = n => {
@@ -343,7 +374,19 @@ function renderUI() {
     `<div data-p="d" style="width:${(100 * d) / tot}%;background:var(--dem)"></div><div data-p="o" style="width:${(100 * o) / tot}%;background:var(--oth)"></div><div data-p="r" style="width:${(100 * r) / tot}%;background:var(--rep)"></div>`;
   const pc = document.getElementById('pvcap');
   pc.textContent = `${fmt(d + r + o)} ballots`;
-  pc.title = `${c.office === 'PRES' ? 'National popular vote' : 'All ' + OFF[c.office] + ' races combined'} · ${fmt(d + r + o)} ballots`;
+  pc.title = `${
+    st.region != null
+      ? stateName(st.region) + (singleRace(c) ? '' : ', all ' + OFF[c.office] + ' races combined')
+      : c.office === 'PRES'
+        ? 'National popular vote'
+        : 'All ' + OFF[c.office] + ' races combined'
+  } · ${fmt(d + r + o)} ballots`;
+  if (d + r + o === 0) {
+    // the chosen state had no race for this office this year
+    document.getElementById('pvnames').innerHTML =
+      `<span class="sub none">No ${OFF[c.office]} race in ${stateName(st.region)} in ${c.year}</span>`;
+    pc.textContent = '';
+  }
   document.getElementById('infobtn').classList.toggle('warn', !!(c.gaps && c.gaps.length));
   chipFades();
 }
@@ -352,7 +395,12 @@ document.getElementById('ddYear').onclick = e => {
   const list = D.contests.filter(x => x.office === c.office);
   openMenu(
     e.currentTarget,
-    `<div class="grid">${list.map(x => `<button data-v="${x.key}" class="${x === c ? 'on' : ''}">${x.label}</button>`).join('')}</div>`,
+    `<div class="grid">${list
+      .map(x => {
+        const none = !hasRace(x);
+        return `<button data-v="${x.key}" class="${x === c ? 'on' : ''}${none ? ' dim' : ''}"${none ? ` title="No race in ${stateName(st.region)}"` : ''}>${x.label}</button>`;
+      })
+      .join('')}</div>`,
     k => pick(D.contests.find(x => x.key === k)),
   );
 };
@@ -365,15 +413,10 @@ document.getElementById('ddRace').onclick = e => {
       .join(''),
     o => {
       if (o === c.office) return;
-      const list = D.contests.filter(x => x.office === o);
-      let best = list[0];
-      for (const x of list)
-        if (
-          Math.abs(x.year - c.year) < Math.abs(best.year - c.year) ||
-          (x.year === best.year && !x.special && best.special)
-        )
-          best = x;
-      pick(best);
+      // the nearest year, preferring regular races and, with one state shown, years with a race there
+      const list = D.contests.filter(x => x.office === o),
+        cost = x => Math.abs(x.year - c.year) * 2 + (x.special ? 1 : 0) + (hasRace(x) ? 0 : 1000);
+      pick(list.reduce((a, x) => (cost(x) < cost(a) ? x : a)));
     },
   );
 };
@@ -447,16 +490,16 @@ document.getElementById('cShow').onclick = e =>
   openMenu(
     e.currentTarget,
     item('county', 'Counties', { on: st.gran === 'county', ic: 'county', desc: 'One shape per county' }) +
-      item('state', 'States', { on: st.gran === 'state', ic: 'state', desc: 'Counties summed to each state' }),
+      item('state', 'States', {
+        on: st.gran === 'state',
+        ic: 'state',
+        dis: st.region != null,
+        desc: st.region != null ? 'Pick “All states” to compare states' : 'Counties summed to each state',
+      }),
     k => {
       if (k === st.gran) return;
       st.gran = k;
-      app.sel = -1;
-      app.selBand = null;
-      app.preview = null;
-      app.hl = null;
-      app.xr = [0, 1];
-      updateTip();
+      clearPicks();
       go();
     },
     'Show',
@@ -471,20 +514,58 @@ document.getElementById('cBorders').onclick = e => {
       const v = k === 'on';
       if (v === st.borders) return;
       st.borders = v;
-      renderUI();
-      requestDraw();
+      if (st.region != null)
+        go(); // the borders change the state's extent, so reframe it
+      else {
+        renderUI();
+        requestDraw();
+      }
     },
     'State borders',
   );
 };
-export function pick(c) {
+// Clears the hovered unit and the curve selection and zoom, which don't carry over to a different set of units.
+function clearPicks() {
+  app.sel = -1;
+  app.selBand = null;
+  app.preview = null;
+  app.hl = null;
+  app.xr = [0, 1];
+  updateTip();
+}
+const statesByName = () => Object.keys(D.states).sort((a, b) => stateName(a).localeCompare(stateName(b)));
+document.getElementById('cRegion').onclick = e => {
+  const c = st.contest;
+  openMenu(
+    e.currentTarget,
+    item('all', 'All states', { on: st.region == null, ic: 'country', desc: 'The whole country' }) +
+      `<div class="grid states">${statesByName()
+        .map(f => {
+          const none = !hasRace(c, f);
+          return `<button data-v="${f}" class="${f === st.region ? 'on' : ''}${none ? ' dim' : ''}"${none ? ` title="No ${OFF[c.office]} race in ${c.year}"` : ''}>${stateName(f)}</button>`;
+        })
+        .join('')}</div>`,
+    k => {
+      const f = k === 'all' ? null : k;
+      if (f === st.region) return;
+      st.region = f;
+      clearPicks();
+      go();
+      writeHash();
+    },
+    'Show',
+  );
+};
+export function pick(c, region = st.region) {
   st.contest = c;
+  if (region !== st.region) {
+    st.region = region;
+    clearPicks();
+  }
   app.sel = -1;
   updateTip();
   go();
-  try {
-    history.replaceState(null, '', '#' + c.key);
-  } catch (e) {}
+  writeHash();
 }
 // popular-vote bar hover
 const pvtip = document.getElementById('pvtip');
@@ -495,19 +576,11 @@ function pvInfo(p, ev) {
   const U = unitVotes(c),
     n = NU(),
     pu = st.gran === 'state' ? stateSum(pop) : pop;
-  let d = 0,
-    r = 0,
-    o = 0,
-    wonD = 0,
+  const { d, r, o } = voteTotals(c);
+  let wonD = 0,
     wonR = 0,
     popD = 0,
     popR = 0;
-  for (let i = 0; i < NC; i++) {
-    if (c.dedupe[i]) continue;
-    d += c.dem[i];
-    r += c.rep[i];
-    o += c.oth[i];
-  }
   for (let u = 0; u < n; u++) {
     if (unitSkip(c, u)) continue;
     if (U.d[u] > U.r[u]) {
@@ -529,7 +602,7 @@ function pvInfo(p, ev) {
       won = isD ? wonD : wonR,
       pp = isD ? popD : popR;
     const lead = isD ? d - r : r - d;
-    h = `<b>${isD ? dn : rn}</b><div class="sub">${isD ? 'Democratic' : 'Republican'}${c.office === 'PRES' ? '' : ' candidates, all races'}</div><table><tr><td>Votes</td><td>${fmt(v)}</td></tr><tr><td>Share of all votes</td><td>${pct(v / tot)}</td></tr><tr><td>Two-party share</td><td>${pct(v / (d + r))}</td></tr><tr><td>${lead >= 0 ? 'Lead' : 'Trails'} by</td><td>${fmt(Math.abs(lead))}</td></tr><tr><td>${un.many[0].toUpperCase() + un.many.slice(1)} carried</td><td>${fmt(won)}</td></tr><tr><td>People in those ${un.many}</td><td>${pct(pp / (popD + popR || 1))}</td></tr></table>`;
+    h = `<b>${isD ? dn : rn}</b><div class="sub">${isD ? 'Democratic' : 'Republican'}${singleRace(c) ? '' : ' candidates, all races'}${st.region != null ? ' · ' + stateName(st.region) : ''}</div><table><tr><td>Votes</td><td>${fmt(v)}</td></tr><tr><td>Share of all votes</td><td>${pct(v / tot)}</td></tr><tr><td>Two-party share</td><td>${pct(v / (d + r))}</td></tr><tr><td>${lead >= 0 ? 'Lead' : 'Trails'} by</td><td>${fmt(Math.abs(lead))}</td></tr><tr><td>${un.many[0].toUpperCase() + un.many.slice(1)} carried</td><td>${fmt(won)}</td></tr><tr><td>People in those ${un.many}</td><td>${pct(pp / (popD + popR || 1))}</td></tr></table>`;
   }
   pvtip.innerHTML = h;
   pvtip.style.display = 'block';
@@ -566,6 +639,8 @@ document.getElementById('infobtn').onclick = () => {
     m = metricInfo(st.metric),
     meth = D.methods.find(x => x.key === st.method);
   let h = `<button class="x" data-action="close" aria-label="Close">×</button><h3>What you're seeing</h3><p><b>Size: ${m.label}.</b> ${m.desc}</p><p><b>Shape: ${meth.label}.</b> ${meth.desc}</p>`;
+  if (st.region != null)
+    h += `<p><b>Only ${stateName(st.region)}.</b> The map shows this state's part of the national map, at the national scale. The vote bar, the curve and the ${st.method === 'contig' ? 'outlines' : 'rings'} count only its counties.</p>`;
   if (st.gran === 'state')
     h += `<p><b>States.</b> Results, sizes and colors are summed to each state. ${st.method === 'contig' ? 'Counties keep their cartogram shapes but take their state’s color.' : 'Each state is one circle with area proportional to its total.'}</p>`;
   if (st.method === 'contig' && st.metric !== 'land') {

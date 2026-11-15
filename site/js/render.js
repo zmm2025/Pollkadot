@@ -1,5 +1,5 @@
 // Canvas rendering: fills, borders, rings, path caches and the pan/zoom bitmap.
-import { countyRing, D, NC, NS, ringStart, shared, stArcs, stCent, stMembers, stRep } from './data.js';
+import { countyRing, D, NC, NS, ringStart, shared, stAllArcs, stArcs, stCent, stMembers, stRep } from './data.js';
 import { colorOf, dark, LUT, LUTN, NONERGB } from './color.js';
 import { app, scene, st, unitOf } from './state.js';
 
@@ -17,10 +17,16 @@ export function resizeMap() {
   app.H = r.height;
   cv.width = bcv.width = Math.round(app.W * app.DPR);
   cv.height = bcv.height = Math.round(app.H * app.DPR);
-  // Fit the map into the stage without touching the overlays: the chip row on top, the legend (bottom right) and zoom buttons (bottom left,
-  // hidden on phones, where the legend is full width). Try the ways the map's box can clear both bottom overlays and keep the largest fit.
-  const b = D.bbox,
-    bw = b[2] - b[0],
+  app.baseK = fitBox(D.bbox).k;
+  app.fit = fitBox(app.box || D.bbox);
+  draw();
+}
+// The transform that fits map-space box b ([x0, y0, x1, y1]) into the stage.
+export function fitBox(b) {
+  const r = cv.getBoundingClientRect();
+  // Fit the box into the stage without touching the overlays: the chip row on top, the legend (bottom right) and zoom buttons (bottom left,
+  // hidden on phones, where the legend is full width). Try the ways the box can clear both bottom overlays and keep the largest fit.
+  const bw = b[2] - b[0],
     bh = b[3] - b[1],
     pad = 8,
     g = 6,
@@ -47,8 +53,7 @@ export function resizeMap() {
     const k = Math.max(1e-6, Math.min((W - 2 * pad) / bw, (H - 2 * pad) / bh));
     best = { k, x: (W - bw * k) / 2 - b[0] * k, y: (H - bh * k) / 2 - b[1] * k };
   }
-  app.fit = best;
-  draw();
+  return best;
 }
 const T = () => {
   const k = app.fit.k * app.view.k;
@@ -58,7 +63,8 @@ function dispT(i) {
   const t = scene.colT[i];
   return scene.winnerness > 0 ? t + ((t > 0.5 ? 1 : t < 0.5 ? 0 : 0.5) - t) * scene.winnerness : t;
 }
-export const hf = i => (app.hl ? app.hl[unitOf(i)] : 1);
+// Opacity of county i: dimmed outside the curve selection, hidden outside the chosen state.
+export const hf = i => (app.hl ? app.hl[unitOf(i)] : 1) * (scene.vis ? scene.vis[i] : 1);
 let img = null,
   accR = null,
   accV = null,
@@ -93,8 +99,9 @@ function drawCirclesBlended(c) {
     const y0 = Math.max(0, Math.floor(cy - r - 1)),
       y1 = Math.min(h - 1, Math.ceil(cy + r + 1));
     if (y0 > y1 || cx + r < 0 || cx - r > w) continue;
-    const hh = hf(i),
-      dens = scene.colV[i] / (Math.PI * r * r),
+    const hh = hf(i);
+    if (hh <= 0.001) continue;
+    const dens = scene.colV[i] / (Math.PI * r * r),
       rd = dens * dispT(i),
       nn = scene.colN[i];
     for (let y = y0; y <= y1; y++) {
@@ -150,7 +157,7 @@ function drawCirclesFlat(c) {
   const { k } = T();
   for (let i = 0; i < NC; i++) {
     const r = c[2 * NC + i];
-    if (r * k < 0.05) continue;
+    if (r * k < 0.05 || hf(i) <= 0.001) continue;
     ctx.globalAlpha = hf(i);
     ctx.beginPath();
     ctx.arc(c[i], c[NC + i], r, 0, 2 * Math.PI);
@@ -233,7 +240,7 @@ function decimatedPath(E2, skip) {
 }
 function outlinePath(o) {
   // cached per outline object (static shapes)
-  if (o.path && o.pathHl === app.hl) return o.path;
+  if (o.path && o.pathHl === app.hl && o.pathVis === scene.vis) return o.path;
   let P;
   if (o.gran === 'state') {
     P = new Path2D();
@@ -267,9 +274,10 @@ function outlinePath(o) {
         }
       }
     }
-  } else P = decimatedPath(o.E, i => app.hl && app.hl[i] < 0.5);
+  } else P = decimatedPath(o.E, i => hf(i) < 0.5);
   o.path = P;
   o.pathHl = app.hl;
+  o.pathVis = scene.vis;
   return P;
 }
 // ---- static path caches (map coordinates; reused across pan/zoom frames) ----
@@ -286,8 +294,9 @@ function groupPaths(kind) {
       if (!(r > 0)) continue;
       P0 = null;
     }
+    const a = hf(i);
+    if (a <= 0.001) continue;
     const col = colorOf(dispT(i), scene.colN[i]),
-      a = hf(i),
       gk = col + '|' + a;
     let g = m.get(gk);
     if (!g) {
@@ -341,7 +350,7 @@ export function markInteracting() {
 const EXT = { canvas: null, key: null, S: 1, x0: 0, y0: 0 };
 export let extTimer = null;
 function extKey() {
-  return [scene.disp, app.colorVer, st.gran, dark]
+  return [scene.disp, app.colorVer, st.gran, dark, app.box]
     .map(v => (typeof v === 'object' && v ? v.__id || (v.__id = Math.random()) : v))
     .join('|');
 }
@@ -349,7 +358,7 @@ function buildExtent() {
   if (!scene.disp || scene.disp.type !== 'shape' || scene.animating) return;
   const key = extKey();
   if (EXT.key === key) return;
-  const b = D.bbox,
+  const b = app.box || D.bbox,
     maxDim = Math.min(4096, innerWidth < 700 ? 2600 : 4096),
     bw = b[2] - b[0],
     bh = b[3] - b[1];
@@ -394,17 +403,36 @@ export function renderBase() {
   paintScene(k, 'all');
   if (scene.disp.type === 'shape' && !scene.animating && !app.interacting) scheduleExtent();
 }
+// States whose counties are showing, each with its opacity, or null when the whole country shows.
+function visibleStates() {
+  if (!scene.vis) return null;
+  const out = [];
+  for (let s = 0; s < NS; s++) {
+    const a = scene.vis[stMembers[s][0]];
+    if (a > 0.01) out.push([s, a]);
+  }
+  return out;
+}
+// Strokes the arcs in `all`, or with the view limited to some states (vs), each visible state's own arcs at its opacity.
+function strokeLines(name, pos, all, perState, alpha, still, vs) {
+  for (const [list, a, key] of vs ? vs.map(([s, a]) => [perState[s], a, name + s]) : [[all, 1, name]]) {
+    ctx.globalAlpha = alpha * a;
+    if (still) ctx.stroke(cachedArcs(key, pos, list));
+    else strokeArcs(pos, list);
+  }
+}
 function paintScene(k, part) {
   const F = part !== 'lines',
     LN = part !== 'fills';
   // optional geographic state borders under circles
-  const bA = st.borders ? 1 - scene.lineAlpha : 0;
+  const bA = st.borders ? 1 - scene.lineAlpha : 0,
+    vs = visibleStates(),
+    z = k / app.baseK; // zoom relative to the whole-country view
   if (LN && bA > 0.01) {
-    ctx.globalAlpha = bA;
     ctx.strokeStyle = dark ? 'rgba(255,255,255,.28)' : 'rgba(0,0,0,.22)';
     ctx.lineWidth = 0.9 / k;
     ctx.lineJoin = 'round';
-    ctx.stroke(cachedArcs('geoB', shared.geo, D.stateArcs));
+    strokeLines('geoB', shared.geo, D.stateArcs, stArcs, bA, true, vs);
     ctx.globalAlpha = 1;
   }
   if (!F) {
@@ -449,6 +477,7 @@ function paintScene(k, part) {
       }
     } else
       for (let i = 0; i < NC; i++) {
+        if (hf(i) <= 0.001) continue;
         ctx.globalAlpha = hf(i);
         const s = colorOf(dispT(i), scene.colN[i]);
         ctx.fillStyle = s;
@@ -461,19 +490,16 @@ function paintScene(k, part) {
     ctx.globalAlpha = 1;
   }
   if (LN && scene.lineShared && scene.lineAlpha > 0.01) {
-    ctx.globalAlpha = scene.lineAlpha;
     ctx.lineJoin = 'round';
     const still = !scene.animating;
-    if (app.view.k > 2.5 && st.gran === 'county') {
+    if (z > 2.5 && st.gran === 'county') {
       ctx.strokeStyle = dark ? 'rgba(0,0,0,.35)' : 'rgba(255,255,255,.45)';
       ctx.lineWidth = 0.5 / k;
-      if (still) ctx.stroke(cachedArcs('allL', scene.lineShared, D.allArcs));
-      else strokeArcs(scene.lineShared, D.allArcs);
+      strokeLines('allL', scene.lineShared, D.allArcs, stAllArcs, scene.lineAlpha, still, vs);
     }
     ctx.strokeStyle = dark ? 'rgba(20,20,22,.9)' : 'rgba(255,255,255,.85)';
-    ctx.lineWidth = (0.8 * Math.min(2, Math.sqrt(app.view.k))) / k;
-    if (still) ctx.stroke(cachedArcs('stL', scene.lineShared, D.stateArcs));
-    else strokeArcs(scene.lineShared, D.stateArcs);
+    ctx.lineWidth = (0.8 * Math.min(2, Math.sqrt(z))) / k;
+    strokeLines('stL', scene.lineShared, D.stateArcs, stArcs, scene.lineAlpha, still, vs);
     ctx.globalAlpha = 1;
   }
   // comparison lines (white)
@@ -481,13 +507,13 @@ function paintScene(k, part) {
     ctx.globalAlpha = scene.ringAlpha;
     if (scene.ringE) {
       whiteLine(k, 0.9);
-      ctx.stroke(expandedPath(scene.ringE, i => app.hl && hf(i) < 0.5));
+      ctx.stroke(expandedPath(scene.ringE, i => hf(i) < 0.5));
     } else if (scene.outl && scene.disp.type === 'shape' && scene.dispL && scene.dispL.type === 'shape') {
       whiteLine(k, scene.outl.gran === 'state' ? 1.3 : 0.8);
       ctx.stroke(
         scene.animating
           ? scene.outl.gran === 'county'
-            ? expandedPath(scene.outl.E)
+            ? expandedPath(scene.outl.E, i => hf(i) < 0.5)
             : outlinePath(scene.outl)
           : outlinePath(scene.outl),
       );

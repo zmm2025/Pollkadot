@@ -9,6 +9,8 @@ import {
   NS,
   ringStart,
   shared,
+  SIDS,
+  stArcs,
   stateSum,
   stOf,
   weightsFor,
@@ -22,6 +24,7 @@ export const st = {
   cmp: 'none',
   gran: 'county',
   borders: false,
+  region: null, // FIPS code of the one state the view is limited to, or null for the whole country
   contest: null,
 };
 // Runtime state that more than one module changes. Everything else lives in the module that owns it.
@@ -38,6 +41,8 @@ export const app = {
   selBand: null, // selected vote-share range [lo, hi] on the curve
   preview: null, // range previewed while hovering the curve
   xr: [0, 1], // visible vote-share range of the curve (zoom)
+  box: null, // map-space box that `fit` frames: the chosen state's extent, or null for the whole map (D.bbox)
+  baseK: 1, // `fit.k` for the whole map, so line widths and detail follow the zoom relative to the national view
 };
 
 // What's currently on screen. Only transition.js changes these; render.js draws them.
@@ -55,10 +60,14 @@ export const scene = {
   outl: null, // comparison outlines (contiguous layout)
   ringE: null, // expanded outline positions while morphing between circles and contiguous
   animating: false, // true while a transition is running
+  vis: null, // per-county opacity when the view is limited to one state (fades during transitions), or null
+  region: null, // the `st.region` on screen
 };
 // Fixes setting combinations the current contest can't show (e.g. Senate seats on a governor race).
 export function normalizeSettings() {
   const c = st.contest;
+  if (st.region != null && !D.states[st.region]) st.region = null;
+  if (st.region != null) st.gran = 'county'; // a single state shows its counties
   if (!metricAvailable(c, st.metric)) st.metric = 'pop';
   if (st.cmp !== 'none' && (!metricAvailable(c, st.cmp) || st.cmp === st.metric)) st.cmp = 'none';
 }
@@ -101,8 +110,56 @@ export function unitWeights(m, key) {
   const w = weightsFor(m, key);
   return st.gran === 'state' ? stateSum(w) : w;
 }
+// Whether county i is in the view: every county, or only those of the chosen state.
+export const inRegion = i => st.region == null || SIDS[stOf[i]] === st.region;
+// Units left out of totals, the curve and the vote bar: duplicated counties and counties outside the chosen state.
 export function unitSkip(c, u) {
-  return st.gran === 'county' && c.dedupe[u];
+  return st.gran === 'county' && (c.dedupe[u] || !inRegion(u));
+}
+// Whether contest c has any votes in the chosen state (always true for the whole country).
+export function hasRace(c, region = st.region) {
+  if (region == null) return true;
+  for (let i = 0; i < NC; i++) if (SIDS[stOf[i]] === region && c.dem[i] + c.rep[i] + c.oth[i] > 0) return true;
+  return false;
+}
+// Per-county opacity for the chosen state: 1 inside, 0 outside, or null for the whole country.
+export function visFor() {
+  if (st.region == null) return null;
+  const v = new Float32Array(NC);
+  for (let i = 0; i < NC; i++) v[i] = inRegion(i) ? 1 : 0;
+  return v;
+}
+// Map-space extent of the chosen state in layout L (with comparison rings and geographic borders), or null.
+export function regionBox(L, cmp) {
+  if (st.region == null) return null;
+  let x0 = 1e9,
+    y0 = 1e9,
+    x1 = -1e9,
+    y1 = -1e9;
+  const add = (x, y) => {
+    if (x < x0) x0 = x;
+    if (y < y0) y0 = y;
+    if (x > x1) x1 = x;
+    if (y > y1) y1 = y;
+  };
+  for (let i = 0; i < NC; i++) {
+    if (!inRegion(i)) continue;
+    if (L.type === 'circ') {
+      let r = L.c[2 * NC + i];
+      if (cmp && cmp.kind === 'ring' && cmp.r[i] > r) r = cmp.r[i];
+      if (!(r > 0)) continue;
+      add(L.c[i] - r, L.c[NC + i] - r);
+      add(L.c[i] + r, L.c[NC + i] + r);
+    } else
+      for (const r of countyRing[i])
+        for (let k = ringStart[r]; k < ringStart[r + 1]; k++) add(L.pos[2 * k], L.pos[2 * k + 1]);
+  }
+  if (st.borders && L.type === 'circ') {
+    const g = shared.geo;
+    for (const a of stArcs[SIDS.indexOf(st.region)])
+      for (let k = D.arcOff[a]; k < D.arcOff[a + 1]; k++) add(g[2 * k], g[2 * k + 1]);
+  }
+  return x1 > x0 && y1 > y0 ? [x0, y0, x1, y1] : null;
 }
 export function contestArrays(c) {
   const t = new Float32Array(NC),
@@ -141,6 +198,7 @@ function compareShares() {
   let sw = 0,
     sb = 0;
   for (let u = 0; u < w.length; u++) {
+    if (st.gran === 'county' && !inRegion(u)) continue; // rings compare shares of the chosen state's totals
     sw += w[u];
     sb += b[u];
   }
@@ -170,7 +228,7 @@ function outlineExpanded(L, share) {
   const cent = L.cent;
   if (!geoE) geoE = expandShared(shared.geo);
   let Atot = 0;
-  for (let i = 0; i < NC; i++) Atot += cent.county[3 * i + 2];
+  for (let i = 0; i < NC; i++) if (inRegion(i)) Atot += cent.county[3 * i + 2];
   const out = new Float32Array(2 * E);
   for (let i = 0; i < NC; i++) {
     let f = Math.sqrt((share[i] * Atot) / D.area[i]);

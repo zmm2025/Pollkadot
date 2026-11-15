@@ -13,6 +13,7 @@ A normal election map makes the country look mostly red because big, empty count
 - **Races:** President, Senate, House and Governor, plus special elections. Tap the **year** or the **race** in the title at the top to switch.
 - **Years:** President, Senate and Governor from 2000 to 2024, and the House from 2016 to 2024.
 - **Counties or states:** look at every county, or merge them into states.
+- **One state:** zoom in on a single state's counties, with its own vote totals.
 
 ## The controls
 
@@ -20,13 +21,14 @@ The settings are a row of dropdowns along the top of the map. When they don't al
 
 | Control | What it does |
 | --- | --- |
+| **State** | **All states**, or one state. Picking a state zooms to it and hides the rest; the vote bar, the curve and the rings then count only that state. States with no race that year are grayed out, and so are those years in the year menu. The link in the address bar keeps the state (for example `#2024-pres/pa`). |
 | **Size** | What each county's size represents: land area (a normal map), population, votes cast, electoral votes, Senate seats, college graduates or GDP. |
 | **Rings** | Outlines that show what each county *would* look like under a second measure. For example, size by votes cast with rings for population shows where turnout is high or low. Pick **None** to hide them. |
 | **Color** | **Share** shades each county by how much it leaned one way, from deep blue through purple to deep red. **Winner** colors each county by who won it. |
 | **Show** | **Counties** or **States**. |
 | **Borders** | **State borders** draws state outlines on top of circle maps. The contiguous shape always shows them. |
 
-The first dropdown sets the map's **shape**:
+The second dropdown sets the map's **shape**:
 
 - **Packed circles** (the default): each county becomes a circle sized by your measure, nudged apart so they don't overlap.
 - **Circles in place:** circles stay right where the county is, so they overlap in crowded areas. Where they overlap, the colors blend based on how many votes each one has.
@@ -37,7 +39,7 @@ Other things you can do:
 - **Hover** over a county or state for its numbers. On a phone, tap.
 - **Click** a county to zoom in on it.
 - **Zoom** with the scroll wheel or the **+ / −** buttons (bottom left), or pinch on a phone. **Drag** to move around.
-- **Save** (the download button, top right) downloads a PNG of the whole map with your current settings. Zoom, hover and selections are left out.
+- **Save** (the download button, top right) downloads a PNG of the whole map (or the chosen state) with your current settings. Zoom, hover and selections are left out.
 - **Details** (top right) lists data sources and any gaps for the race you're looking at. It turns amber when something is missing.
 
 ### The curve in the corner

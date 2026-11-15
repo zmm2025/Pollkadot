@@ -156,6 +156,14 @@ header {
 #pvnames b {
   font-weight: 650;
 }
+#pvnames > span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#pvnames .none {
+  color: var(--muted);
+}
 #pvnames .ab {
   display: none;
 }
@@ -728,6 +736,33 @@ body.mopen #chips {
 }
 #menu .grid button {
   justify-content: center;
+}
+#menu button.dim {
+  opacity: 0.45;
+}
+/* the state picker: names in three columns (two on phones), in a wider menu */
+#menuin:has(.states) {
+  max-width: min(480px, calc(100vw - 20px));
+}
+#menu .grid.states {
+  gap: 1px 2px;
+  margin-top: 4px;
+  padding-top: 4px;
+  border-top: 1px solid var(--line);
+}
+#menu .grid.states button {
+  justify-content: flex-start;
+  padding: 6px 9px;
+  font-size: 13px;
+  white-space: nowrap;
+}
+#menu .grid.states button.on {
+  font-weight: 600;
+}
+@media (max-width: 640px) {
+  #menu .grid.states {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 #scrim {
   position: fixed;

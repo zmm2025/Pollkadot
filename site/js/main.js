@@ -14,7 +14,7 @@ import { app, scene, st } from './state.js';
 import { D, loadCoreData } from './data.js';
 import { resizeMap } from './render.js';
 import { drawLegend } from './legend.js';
-import { chipFades, pick } from './ui.js';
+import { chipFades, pick, readHash } from './ui.js';
 
 // Debug handle for the browser console and the Playwright tests. Reading `pollkadot.<name>` returns live state
 // (`app`, then `scene`) or any exported value, e.g. `pollkadot.disp` or `pollkadot.go()`. Only `app` and `scene`
@@ -56,10 +56,14 @@ try {
     const only = { votes: 'Presidential races only', ev: 'Presidential races only', senate: 'Senate races only' };
     D.metrics.forEach(m => (m.only = only[m.key] || 'Not available for this race'));
     st.method = D.defaultMethod;
-    const h = location.hash.slice(1);
-    const c = D.contests.find(x => x.key === h) || D.contests.find(x => x.key === D.defaultKey);
+    const { contest, region } = readHash(location.hash.slice(1));
     resize();
-    pick(c);
+    pick(contest || D.contests.find(x => x.key === D.defaultKey), region);
+    // a link edited or pasted into the address bar of an open page
+    window.addEventListener('hashchange', () => {
+      const h = readHash(location.hash.slice(1));
+      if (h.contest && (h.contest !== st.contest || h.region !== st.region)) pick(h.contest, h.region);
+    });
   } catch (err) {
     document.getElementById('pvcap').textContent = 'Could not load map data: ' + err;
     console.error(err);
