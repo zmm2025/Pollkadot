@@ -2,6 +2,7 @@
 
 export const fmt = n => Math.round(n).toLocaleString('en-US');
 export const pct = x => (100 * x).toFixed(1) + '%';
+export const esc = s => s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
 export const OFF = { PRES: 'President', SEN: 'Senate', HOUSE: 'House', GOV: 'Governor' };
 // Postal codes by state FIPS code, for the URL hash and export file names.
 export const POSTAL = {

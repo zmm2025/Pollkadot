@@ -36,6 +36,7 @@ site/                      ← deployed as-is to GitHub Pages
   data/core.bin            ← gzip JSON: contests, results, metrics, topology, scales
   data/v/*.bin             ← gzip Int16 delta-encoded vertex arrays, one per shape variant
   data/c/*.bin             ← gzip circle layouts (packed/Dorling), per metric × year
+  data/places.bin          ← gzip JSON: largest cities per county and state, for the tooltip
   CNAME, .nojekyll
 scripts/preview.py         ← local dev server: opens the browser, exits when the tab closes
 scripts/check-import-cycles.mjs ← fails if site/js modules import each other in a loop
@@ -57,9 +58,10 @@ pipeline/
     population/            ← Census county population estimates → data/pop/
     medsl/                 ← MEDSL precinct/county returns → data/results/
     metrics/               ← USDA ERS education, BEA GDP → data/metrics/
+    places/                ← Census ACS largest cities per county and state → data/places/
   tests/                   ← Playwright UI checks (sweep.js, pantest.js, exptest.js)
 data/
-  pop/ results/ metrics/   ← cleaned county tables (each has its own README with provenance + hashes)
+  pop/ results/ metrics/ places/ ← cleaned county tables (each has its own README with provenance + hashes)
   raw/                     ← dataverse_lock.csv (exact inputs + checksums), state/ (official files behind the patches)
   geometry/topo_s.pkl      ← simplified shared-arc county topology (Albers USA, 3,142 units)
   weights/                 ← population by year, metric weights, electoral vote tables
@@ -92,12 +94,14 @@ Some MIT datasets require a one-time Dataverse "guestbook" response (name, email
 
 **Population and metrics** (`data/pop/`, `data/metrics/`): download the Census, BEA and USDA files listed in their READMEs into `build/downloads/{census,bea,ers}/`, then run `pipeline/data_sources/population/build_county_pop.py` and `pipeline/data_sources/metrics/build_metrics.py`.
 
+**Largest cities** (`data/places/`): download the ACS files listed in `data/places/README.md` into `build/downloads/census/`, then run `pipeline/data_sources/places/build_places.py` and the site data step below.
+
 **Site data** (results or metrics changed, shapes unchanged):
 
 ```bash
 python -P pipeline/build_data.py        # contests payload -> build/payload.b64
 python -P pipeline/cartogram/weights.py # area weights (needs build/payload.b64 for votes_*)
-python -P pipeline/build_data2.py       # -> site/data/core.bin, v/*.bin, c/*.bin
+python -P pipeline/build_data2.py       # -> site/data/core.bin, places.bin, v/*.bin, c/*.bin
 ```
 
 **New years or new weights** also need cartograms and circles (minutes per cartogram):
@@ -117,7 +121,7 @@ python -P pipeline/build_data2.py       # -> site/data/core.bin, v/*.bin, c/*.bi
 - 3,142 county units: 50 states + DC. Connecticut uses its 8 old counties, Virginia's independent cities are separate, Alaska is one statewide unit (results aren't reported by borough), Kansas City is folded into Jackson County MO, and DC wards map to 11001.
 - President 2000–2024: MEDSL county presidential returns (Alaska from MEDSL statewide totals).
 - Senate, House and Governor 2016–2024: MEDSL precinct returns aggregated to county; House is summed across every district that touches a county. Senate and Governor 2000–2014: Amlani & Algara county returns. Gaps: official state results (`data/results/patches/`).
-- Population: Census intercensal (2000–2009), V2019 and V2025 estimates. GDP: BEA CAGDP1, 2001–2024 (thousands of dollars; `build_data2.py` multiplies its circle scale by 1000). Education: USDA ERS (Census 2000, ACS 2008–12, ACS 2019–23).
+- Population: Census intercensal (2000–2009), V2019 and V2025 estimates. GDP: BEA CAGDP1, 2001–2024 (thousands of dollars; `build_data2.py` multiplies its circle scale by 1000). Education: USDA ERS (Census 2000, ACS 2008–12, ACS 2019–23). Largest cities: ACS 2020–24 5-year, one snapshot used for every year.
 - Everything is deterministic: no randomness and no live fetching.
 
 ## How the app works (`site/js/`)
@@ -154,7 +158,7 @@ A lower module never calls up. When something low-level needs to trigger somethi
 
 Code is formatted with Prettier (`npm run format`, settings in `.prettierrc.json`).
 
-- **Loading**: `getBin(path)` fetches a `.bin` and gunzips it with `DecompressionStream`. `core.bin` loads first, then shape variants and circle layouts load lazily when needed.
+- **Loading**: `getBin(path)` fetches a `.bin` and gunzips it with `DecompressionStream`. `core.bin` loads first, then shape variants and circle layouts load lazily when needed. `places.bin` (the tooltip's city list) loads after the first map is drawn; until it arrives, or if it fails, the tooltip just has no city list.
 - **Geometry**: one shared-arc topology. Each variant (geographic or a contiguous cartogram) is just a vertex array on the same arcs, so morphing is a per-vertex lerp. Simplification is the union of DP masks across all variants, so every variant uses the same point set.
 - **Projection**: Census Albers USA (d3-style composite), precomputed in the pipeline.
 - **Rendering**: Canvas2D.

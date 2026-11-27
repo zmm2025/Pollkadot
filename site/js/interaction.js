@@ -1,6 +1,6 @@
 // Map interaction: tooltips, hit testing, pan, pinch and wheel zoom.
-import { countyRing, D, KM2, NC, ringStart, SIDS, stMembers, stRep, weightsFor } from './data.js';
-import { fmt, OFF, pct } from './format.js';
+import { countyRing, D, KM2, NC, PLACES, ringStart, SIDS, stMembers, stRep, weightsFor } from './data.js';
+import { esc, fmt, OFF, pct } from './format.js';
 import { beginAuxDrag } from './aux-drag.js';
 import { app, ease, inRegion, metricInfo, scene, st, unitOf, unitVotes, unitWeights, wkeyFor } from './state.js';
 import { cv, draw, drawOverlay, hf, markInteracting, requestDraw } from './render.js';
@@ -78,6 +78,16 @@ function shareOf(m, key, u) {
   for (let v = 0; v < w.length; v++) if (st.gran !== 'county' || inRegion(v)) s += w[v]; // share of the chosen state's total
   return w[u] / s;
 }
+// The unit's largest cities with their population inside it. "(part)" marks a city that spills into other counties.
+function citiesHtml(u) {
+  if (!PLACES) return '';
+  const list = (st.gran === 'state' ? PLACES.state[SIDS[u]] : PLACES.county[u]) || [];
+  if (!list.length) return '';
+  const rows = list.map(
+    ([n, p, part]) => `<tr><td>${esc(n)}${part ? ' <span class="sub">(part)</span>' : ''}</td><td>${fmt(p)}</td></tr>`,
+  );
+  return `<div class="cities"><div class="sub">Largest ${list.length > 1 ? 'cities' : 'city'}</div><table>${rows.join('')}</table></div>`;
+}
 export function updateTip() {
   if (app.sel < 0) {
     tip.style.display = 'none';
@@ -135,7 +145,7 @@ export function updateTip() {
       h += `<br><b>${q >= 10 || q < 0.1 ? q.toPrecision(2) : q.toFixed(2)}×</b> its share of ${metricInfo(bm).label.toLowerCase()}`;
     }
   }
-  h += '</div>';
+  h += '</div>' + citiesHtml(u);
   tip.innerHTML = h;
   tip.style.display = 'block';
   const tw = tip.offsetWidth,

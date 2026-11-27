@@ -116,11 +116,18 @@ sources = [
  'Education: USDA ERS county educational attainment (Census 2000, ACS 5-year).',
  'GDP: U.S. Bureau of Economic Analysis CAGDP1, current dollars.',
  'Boundaries: Census 2019 cartographic boundary file (1:500k).',
+ 'Largest cities: Census Bureau American Community Survey 2020–2024 5-year population estimates (cities and unincorporated communities; towns and townships in New England, New York, New Jersey and Pennsylvania).',
 ]
 core = dict(frame=dict(x0=float(x0), y0=float(y0), q=Q), bbox=[float(x0), float(y0), float(x1), float(y1)], nPts=NP,
             arcOff=new_offs.tolist(), polys=T['polys'], names=T['names'], st=T['state'], ids=ids, states=old['states'],
             stateArcs=old['stateArcs'], variants=V, weights=weights, contests=contests, metrics=metrics, methods=methods,
             sources=sources, defaultKey='2024-pres', defaultMethod='circ', cent=cm['cent'], area=cm['area'], scales=cm['scales'])
 put(f'{OUT}/data/core.bin', json.dumps(core, separators=(',', ':')).encode())
+# ---------- largest cities per county (index order) and per state (FIPS), for tooltips; loaded lazily ----------
+places = {}
+for r in csv.DictReader(open('data/places/places.csv', encoding='utf-8')):
+    places.setdefault(r['fips'], []).append([r['name'], int(r['pop'])] + ([1] if r['part'] == '1' else []))
+put(f'{OUT}/data/places.bin', json.dumps(dict(county=[places.get(f, []) for f in ids],
+    state={s: v for s, v in places.items() if len(s) == 2}), separators=(',', ':'), ensure_ascii=False).encode())
 tot = sum(os.path.getsize(p) for p in glob.glob(f'{OUT}/**/*', recursive=True) if os.path.isfile(p))
 print('variants', len(V), 'core KB', os.path.getsize(f'{OUT}/data/core.bin')//1024, 'total MB', round(tot/1e6, 1))

@@ -11,10 +11,11 @@ import * as exporter from './export.js';
 import * as interaction from './interaction.js';
 import * as ui from './ui.js';
 import { app, scene, st } from './state.js';
-import { D, loadCoreData } from './data.js';
+import { D, loadCoreData, loadPlaces } from './data.js';
 import { resizeMap } from './render.js';
 import { drawLegend } from './legend.js';
 import { chipFades, pick, readHash } from './ui.js';
+import { updateTip } from './interaction.js';
 
 // Debug handle for the browser console and the Playwright tests. Reading `pollkadot.<name>` returns live state
 // (`app`, then `scene`) or any exported value, e.g. `pollkadot.disp` or `pollkadot.go()`. Only `app` and `scene`
@@ -64,6 +65,11 @@ try {
       const h = readHash(location.hash.slice(1));
       if (h.contest && (h.contest !== st.contest || h.region !== st.region)) pick(h.contest, h.region);
     });
+    // Cities are extra detail for the tooltip, so a failed load only leaves them out.
+    loadPlaces().then(
+      () => app.sel >= 0 && updateTip(),
+      err => console.warn('Could not load city data:', err),
+    );
   } catch (err) {
     document.getElementById('pvcap').textContent = 'Could not load map data: ' + err;
     console.error(err);

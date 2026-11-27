@@ -275,6 +275,11 @@ function buildGeometry() {
   stAllArcs = SIDS.map(() => []);
   for (let a = 0; a < use.length; a++) for (const s of use[a]) stAllArcs[s].push(a);
 }
+// Largest cities per county and state (places.bin), loaded after the map so it never delays it.
+export let PLACES = null;
+export async function loadPlaces() {
+  PLACES = JSON.parse(new TextDecoder().decode(await getBin('data/places.bin')));
+}
 // Loads core.bin and the geographic shapes, then builds the shared geometry.
 export async function loadCoreData() {
   D = JSON.parse(new TextDecoder().decode(await getBin('data/core.bin')));

@@ -448,6 +448,12 @@ body.mopen #chips {
   border-top: 1px solid var(--line);
   font-size: 12px;
 }
+.cities {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+}
 .mapbtn {
   border: 1px solid var(--line);
   background: var(--panel);
