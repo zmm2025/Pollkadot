@@ -26,7 +26,7 @@ The settings are a row of dropdowns along the top of the map. When they don't al
 | **Rings** | Outlines that show what each county *would* look like under a second measure. For example, size by votes cast with rings for population shows where turnout is high or low. Pick **None** to hide them. |
 | **Color** | **Share** shades each county by how much it leaned one way, from deep blue through purple to deep red. **Winner** colors each county by who won it. |
 | **Show** | **Counties** or **States**. |
-| **Borders** | **State borders** draws state outlines on top of circle maps. The contiguous shape always shows them. |
+| **Borders** | **State borders** (on by default) draws state outlines behind circle maps. The contiguous shape always shows them. |
 
 The second dropdown sets the map's **shape**:
 
