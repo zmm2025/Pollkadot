@@ -36,7 +36,7 @@ The second dropdown sets the map's **shape**:
 
 Other things you can do:
 
-- **Hover** over a county or state for its numbers. On a phone, tap.
+- **Hover** over a county or state for its numbers and its largest cities. On a phone, tap.
 - **Click** a county to zoom in on it.
 - **Zoom** with the scroll wheel or the **+ / −** buttons (bottom left), or pinch on a phone. **Drag** to move around.
 - **Save** (the download button, top right) downloads a PNG of the whole map (or the chosen state) with your current settings. Zoom, hover and selections are left out.
@@ -63,6 +63,7 @@ All numbers come from public sources and are processed the same way every time.
 - **Population:** US Census Bureau county estimates.
 - **College graduates:** USDA Economic Research Service education data (Census 2000 and American Community Survey).
 - **GDP:** US Bureau of Economic Analysis county GDP (from 2001; the 2000 maps use 2001).
+- **Largest cities:** US Census Bureau American Community Survey (2020–2024). They include unincorporated communities like Honolulu and Metairie. In New England, New York, New Jersey and Pennsylvania they're towns and townships, since that's how those states are divided up. A city that crosses county lines is marked **(part)** and shows only the people in that county.
 - **County shapes:** US Census Bureau county boundaries.
 
 ## Things to know
